@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="robots" content="noindex">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>MEETeUX</title>
+
+        <style id="jsbin-css">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                width: 95%;
+                margin: 50px auto;
+                font-family: "Helvetica Neue", Helvetica, sans-serif;
+            }
+
+            p {
+                margin-top: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 id="headline">Your are here:</h2>
+        <h3 id="location">hier</h3>
+
+        <script>
+
+            var lookuptable = { 'exhibits' : [{
+                'ID' : 'CFra',
+                'type' : 'onExhibit',
+                'major' : 10,
+                'minor' : 100,
+                'name' : 'Kerstin on'
+              },{
+                'ID' : 'eGQg',
+                'type' : 'atExhibit',
+                'major' : 10,
+                'minor' : 101,
+                'name' : 'Kerstin at'
+              },{
+                'ID' : 'IfGo',
+                'type' : 'atExhibit',
+                'major' : 10,
+                'minor' : 1002,
+                'name' : 'Stud Assi at'
+              },{
+                'ID' : 'FT45',
+                'type' : 'atExhibit',
+                'major' : 10,
+                'minor' : 1000,
+                'name' : 'Flo at'
+              },{
+                'ID' : 'D7Oj',
+                'type' : 'atExhibit',
+                'major' : 10,
+                'minor' : 1001,
+                'name' : 'Drucker at'
+              },{
+                'ID' : '7N9p',
+                'type' : 'atExhibit',
+                'major' : 10,
+                'minor' : 10,
+                'name' : 'Door office 1'
+              }]
+            };
+
+            localStorage.setItem('lookuptable', JSON.stringify(lookuptable));
+
+
+            var headline = $("#headline");
+            var locationHeading =$("#location");
+
+            // be aware of upper and lower case --> case insensitive: only lower case is allowed for functionnames
+
+            // testfunction for calling native
+            // only parameter is possible for communicating between native and web
+            function set_headline(text){
+                headline.text(text);
+            }
+
+            // testfunction for calling native
+            function call_native(){
+                set_headline("asked for "); window.webkit.messageHandlers.observe.postMessage("hello");
+            }
+
+            // handles new location
+            // gets major and minor of beacon
+            // sets new location
+            function update_location(beacon){
+                //locationHeading.text(beacon['major'] + " " + beacon['minor']);
+
+                var lookuptable =  JSON.parse(localStorage.getItem('lookuptable'));
+
+                var myexhibit;
+                for(var i=0 ; i < lookuptable.exhibits.length ; i++){
+                    if (lookuptable.exhibits[i]['minor'] == beacon['minor']){
+                        myexhibit = lookuptable.exhibits[i];
+                    }
+                }
+
+                locationHeading.text(myexhibit.name);
+            }
+
+            setTimeout(call_native, 1000);
+            </script>
+    </body>
+</html>
