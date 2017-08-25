@@ -1,19 +1,20 @@
-// Check if web browser or native web view
+/****************
+*
+* set up socket connection
+*
+*****************/
+// TODO: check url
+var socket = io('http://91.219.68.225/');
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
 
-var userAgent = window.navigator.userAgent.toLowerCase(),
-    safari = /safari/.test( userAgent ),
-    //ios = /iphone|ipod|ipad/.test( userAgent ),
-    chrome = /chrome/.test( userAgent );
-
-var web = false;
-
-//TODO: check for android native view
-if(safari || chrome){
-  console.log("you are in web browser");
-  web = true;
-}
-
-// TODO: dynamic load of lookuptable, when registered
+/****************
+*
+* TODO: dynamic load of lookuptable, when registered
+*
+*****************/
 var lookuptable = { 'exhibits' :
   [{
     'ID' : 'CFra',
@@ -81,6 +82,18 @@ function update_location(beacon){
 *
 *****************/
 
+// Check if web browser or native web view
+var userAgent = window.navigator.userAgent.toLowerCase(),
+    safari = /safari/.test( userAgent ),
+    //ios = /iphone|ipod|ipad/.test( userAgent ),
+    chrome = /chrome/.test( userAgent );
+var web = false;
+
+//TODO: check for android native view
+if(safari || chrome){
+  console.log("you are in web browser");
+  web = true;
+}
 var webdevtools = $("#webdevtools");
 
 if(web){
