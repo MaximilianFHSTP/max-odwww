@@ -4,57 +4,25 @@
 *
 *****************/
 // TODO: check url
-var socket = io('http://91.219.68.225/');
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
+var socket = io('http://god.meeteux.fhstp.ac.at/');
 
-/****************
-*
-* TODO: dynamic load of lookuptable, when registered
-*
-*****************/
-var lookuptable = { 'exhibits' :
-  [{
-    'ID' : 'CFra',
-    'type' : 'onExhibit',
-    'major' : 10,
-    'minor' : 100,
-    'name' : 'Kerstin on'
-  },{
-    'ID' : 'eGQg',
-    'type' : 'atExhibit',
-    'major' : 10,
-    'minor' : 101,
-    'name' : 'Kerstin at'
-  },{
-    'ID' : 'IfGo',
-    'type' : 'atExhibit',
-    'major' : 10,
-    'minor' : 1002,
-    'name' : 'Stud Assi at'
-  },{
-    'ID' : 'FT45',
-    'type' : 'atExhibit',
-    'major' : 10,
-    'minor' : 1000,
-    'name' : 'Flo at'
-  },{
-    'ID' : 'D7Oj',
-    'type' : 'atExhibit',
-    'major' : 10,
-    'minor' : 1001,
-    'name' : 'Drucker at'
-  },{
-    'ID' : '7N9p',
-    'type' : 'atExhibit',
-    'major' : 10,
-    'minor' : 10,
-    'name' : 'Door office 1'
-  }]
-};
-localStorage.setItem('lookuptable', JSON.stringify(lookuptable));
+socket.on('registerODResult', function (data) {
+    console.log('registerODResult');
+    console.log(data);
+
+    // get lookuptable back and store as exhibits in local storage
+    var lookuptable = {'exhibits' : data};
+    localStorage.setItem('lookuptable', JSON.stringify(lookuptable));
+});
+
+socket.on('registerLocationResult', function (data) {
+    console.log('registerLocationResult');
+    console.log(data);
+
+    // TODO: save currentlocaction in localStorage - only possible at this point, if I know the exhibit ID
+    /*localStorage.setItem('currentExhibit', JSON.stringify(myexhibit));
+    locationHeading.text(myexhibit.description);*/
+});
 
 // UI elements
 var headline = $("#headline");
@@ -64,16 +32,31 @@ var locationHeading =$("#location");
 // gets major and minor of beacon in an array
 // sets new location
 function update_location(beacon){
-  var lookuptable =  JSON.parse(localStorage.getItem('lookuptable'));
+  var myexhibit = get_exhibit_by_id(beacon['minor']);
 
-  var myexhibit;
+  socket.emit('registerLocation', {user: 1, location: myexhibit.id});
+
+  // TODO set in god response
+  localStorage.setItem('currentExhibit', JSON.stringify(myexhibit));
+  locationHeading.text(myexhibit.description);
+}
+
+// handles new location
+// gets major and minor of beacon in an array
+// sets new location
+function register_od(deviceinfo){
+  // deviceinfo['']
+  socket.emit('registerOD', 'Niklas');
+}
+
+function get_exhibit_by_id(exhibitId){
+  var lookuptable =  JSON.parse(localStorage.getItem('lookuptable'));
   for(var i=0 ; i < lookuptable.exhibits.length ; i++){
-      if (lookuptable.exhibits[i]['minor'] == beacon['minor']){
+      if (lookuptable.exhibits[i]['id'] == exhibitId){
           myexhibit = lookuptable.exhibits[i];
       }
   }
-
-  locationHeading.text(myexhibit.name);
+  return myexhibit;
 }
 
 /****************
@@ -95,16 +78,23 @@ if(safari || chrome){
   web = true;
 }
 var webdevtools = $("#webdevtools");
+var registerODButton = $("#registerOD");
+var sendBeaconInfoButton = $("#sendBeaconInfo");
 
 if(web){
   webdevtools.show();
 }
 
 var testbeacon = {'major' : 10, 'minor' : 1002};
+var testdevice = {'id' : 1, 'device' : 'iPhone', 'os' : 'OS10'}
 
-webdevtools.click(function() {
+sendBeaconInfoButton.click(function() {
   update_location(testbeacon);
 });
+
+registerODButton.click(function(){
+  register_od(testdevice);
+})
 
 
 /****************
@@ -127,3 +117,21 @@ function call_native(){
 }
 
 setTimeout(call_native, 1000);
+
+
+/*
+var socket = io.connect('http://god.meeteux.fhstp.ac.at');
+    socket.on('news', function (data) {
+        console.log(data);
+        socket.emit('registerOD', 'Niklas');
+        socket.emit('registerLocation', {user: 1, location: 1, type: 1});
+
+        socket.on('registerODResult', function (data) {
+            console.log(data);
+        });
+
+        socket.on('registerLocationResult', function (data) {
+            console.log(data);
+        });
+    });
+    */
