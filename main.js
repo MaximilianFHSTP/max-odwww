@@ -27,6 +27,14 @@ socket.on('registerLocationResult', function (data) {
 // UI elements
 var headline = $("#headline");
 var locationHeading =$("#location");
+var registerOdNative = $("#registerODnative");
+
+//
+
+// Click-Events
+registerOdNative.click(function(){
+  register_od(true);
+});
 
 // handles new location
 // gets major and minor of beacon in an array
@@ -94,7 +102,7 @@ sendBeaconInfoButton.click(function() {
 
 registerODButton.click(function(){
   register_od(testdevice);
-})
+});
 
 
 /****************
