@@ -10,6 +10,9 @@ socket.on('registerODResult', function (data) {
     console.log('registerODResult');
     console.log(data);
 
+    registrationSuccess.show();
+    window.webkit.messageHandlers.registerOD.postMessage("success");
+
     // get lookuptable back and store as exhibits in local storage
     var lookuptable = {'exhibits' : data};
     localStorage.setItem('lookuptable', JSON.stringify(lookuptable));
@@ -27,7 +30,18 @@ socket.on('registerLocationResult', function (data) {
 // UI elements
 var headline = $("#headline");
 var locationHeading =$("#location");
+var registerOdNative = $("#registerODnative");
+var userNameInput = $("#username");
+var registrationSuccess = $("#registrationSuccess");
 
+//
+
+// Click-Events
+registerOdNative.click(function(){
+  window.webkit.messageHandlers.getDeviceInfos.postMessage("get");
+});
+
+// call from native
 // handles new location
 // gets major and minor of beacon in an array
 // sets new location
@@ -41,12 +55,27 @@ function update_location(beacon){
   locationHeading.text(myexhibit.description);
 }
 
-// handles new location
-// gets major and minor of beacon in an array
-// sets new location
-function register_od(deviceinfo){
-  // deviceinfo['']
-  socket.emit('registerOD', 'Niklas');
+// call from native
+// gets deviceInfos, calls registerOD
+function send_device_infos(deviceinfos){
+  console.log(deviceinfos);
+  register_od(deviceinfos);
+}
+
+// registers new OD
+// gets deviceinfos
+// sends registerOD to GoD
+function register_od(deviceinfos){
+  var devicetoregister = {
+    'name' : userNameInput.val(),
+    'deviceaddress' : deviceinfos['deviceaddress'],
+    'systemname' : deviceinfos['systemname'],
+    'systemversion' : deviceinfos['deviceaddress'],
+    'model' :  deviceinfos['model'],
+    'tagid' : 0
+  };
+
+  socket.emit('registerOD', devicetoregister['name']);
 }
 
 function get_exhibit_by_id(exhibitId){
@@ -86,7 +115,13 @@ if(web){
 }
 
 var testbeacon = {'major' : 10, 'minor' : 1002};
-var testdevice = {'id' : 1, 'device' : 'iPhone', 'os' : 'OS10'}
+var testdevice = {
+  'deviceaddress' : 'xxx',
+  'systemname' : 'iOS',
+  'systemversion' : '11.0',
+  'model' : 'iPad',
+  'tagid' : 1
+};
 
 sendBeaconInfoButton.click(function() {
   update_location(testbeacon);
@@ -94,7 +129,7 @@ sendBeaconInfoButton.click(function() {
 
 registerODButton.click(function(){
   register_od(testdevice);
-})
+});
 
 
 /****************
@@ -116,7 +151,11 @@ function call_native(){
   window.webkit.messageHandlers.observe.postMessage("hello");
 }
 
-setTimeout(call_native, 1000);
+
+if(!safari && !chrome){
+  setTimeout(call_native, 1000);
+}
+
 
 
 /*
