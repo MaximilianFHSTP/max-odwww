@@ -10,8 +10,10 @@ socket.on('registerODResult', function (data) {
     console.log('registerODResult');
     console.log(data);
 
+    // TODO getSuccess back and write current user into localStorage
     registrationSuccess.show();
     window.webkit.messageHandlers.registerOD.postMessage("success");
+    outputRegistration.append(JSON.stringify(data));
 
     // get lookuptable back and store as exhibits in local storage
     var lookuptable = {'exhibits' : data};
@@ -21,6 +23,8 @@ socket.on('registerODResult', function (data) {
 socket.on('registerLocationResult', function (data) {
     console.log('registerLocationResult');
     console.log(data);
+
+    outputLocation.append(JSON.stringify(data));
 
     // TODO: save currentlocaction in localStorage - only possible at this point, if I know the exhibit ID
     /*localStorage.setItem('currentExhibit', JSON.stringify(myexhibit));
@@ -33,6 +37,8 @@ var locationHeading =$("#location");
 var registerOdNative = $("#registerODnative");
 var userNameInput = $("#username");
 var registrationSuccess = $("#registrationSuccess");
+var outputRegistration = $("#outputRegistration");
+var outputLocation = $("#outputLocation");
 
 //
 
