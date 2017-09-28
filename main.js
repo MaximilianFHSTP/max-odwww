@@ -3,7 +3,6 @@
 * set up socket connection
 *
 *****************/
-// TODO: check url
 var socket = io('http://god.meeteux.fhstp.ac.at/');
 
 socket.on('registerODResult', function (data) {
@@ -77,16 +76,19 @@ function send_device_infos(deviceinfos){
 // gets deviceinfos
 // sends registerOD to GoD
 function register_od(deviceinfos){
+  console.log(deviceinfos);
   var devicetoregister = {
-    'name' : userNameInput.val(),
-    'deviceaddress' : deviceinfos['deviceaddress'],
-    'systemname' : deviceinfos['systemname'],
-    'systemversion' : deviceinfos['deviceaddress'],
-    'model' :  deviceinfos['model'],
-    'tagid' : 0
+    'identifier' : userNameInput.val(),
+    'deviceAddress' : deviceinfos['deviceAddress'],
+    'deviceOS' : deviceinfos['deviceOS'],
+    'deviceVersion' : deviceinfos['deviceVersion'],
+    'deviceModel' :  deviceinfos['deviceModel'],
+    'name' : userNameInput.val()
   };
 
-  socket.emit('registerOD', devicetoregister['name']);
+  console.log(devicetoregister);
+
+  socket.emit('registerOD', devicetoregister);
 }
 
 function get_exhibit_by_id(exhibitId){
@@ -127,11 +129,11 @@ if(web){
 
 var testbeacon = {'major' : 10, 'minor' : 1002};
 var testdevice = {
-  'deviceaddress' : 'xxx',
-  'systemname' : 'iOS',
-  'systemversion' : '11.0',
-  'model' : 'iPad',
-  'tagid' : 1
+  'deviceAddress' : 'xxx',
+  'deviceOS' : 'iOS',
+  'deviceVersion' : '11.0',
+  'deviceModel' : 'iPad',
+  'identifier' : 1
 };
 
 sendBeaconInfoButton.click(function() {
