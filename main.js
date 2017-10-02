@@ -29,7 +29,7 @@ socket.on('registerLocationResult', function (data) {
     console.log('registerLocationResult');
     console.log(data);
 
-    outputLocation.append(JSON.stringify(data));
+    outputLocation.append(" "+JSON.stringify(data));
 
     // save currentlocaction in localStorage
     localStorage.setItem('currentLocation', JSON.stringify(data));
@@ -61,8 +61,9 @@ registerOdNative.click(function(){
 function update_location(beacon){
   var myexhibit = get_exhibit_by_id(beacon['minor']);
   var currentOD =  JSON.parse(localStorage.getItem('currentOD'));
-
-  socket.emit('registerLocation', {user: currentOD.id, location: myexhibit.id});
+  if(myexhibit.id){
+    socket.emit('registerLocation', {user: currentOD.id, location: myexhibit.id});
+  }
 }
 
 // call from native
@@ -93,6 +94,7 @@ function register_od(deviceinfos){
 
 function get_exhibit_by_id(exhibitId){
   var lookuptable =  JSON.parse(localStorage.getItem('lookuptable'));
+  var myexhibit;
   for(var i=0 ; i < lookuptable.locations.length ; i++){
       if (lookuptable.locations[i]['id'] == exhibitId){
           myexhibit = lookuptable.locations[i];
