@@ -41,7 +41,7 @@ socket.on('registerODResult', function (data) {
 
     if(!web){
       if(android){
-          MEETeUXAndroidAppRoot.registerOD("success");
+          MEETeUXAndroidAppRoot.registerOD();
       }else{
           window.webkit.messageHandlers.registerOD.postMessage("success");
       }
