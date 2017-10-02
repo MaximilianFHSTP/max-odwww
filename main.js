@@ -29,7 +29,7 @@ socket.on('registerLocationResult', function (data) {
     console.log('registerLocationResult');
     console.log(data);
 
-    outputLocation.append(JSON.stringify(data));
+    outputLocation.append(" "+JSON.stringify(data));
 
     // save currentlocaction in localStorage
     localStorage.setItem('currentLocation', JSON.stringify(data));
@@ -61,8 +61,9 @@ registerOdNative.click(function(){
 function update_location(beacon){
   var myexhibit = get_exhibit_by_id(beacon['minor']);
   var currentOD =  JSON.parse(localStorage.getItem('currentOD'));
-
-  socket.emit('registerLocation', {user: currentOD.id, location: myexhibit.id});
+  if(myexhibit.id){
+    socket.emit('registerLocation', {user: currentOD.id, location: myexhibit.id});
+  }
 }
 
 // call from native
@@ -93,6 +94,7 @@ function register_od(deviceinfos){
 
 function get_exhibit_by_id(exhibitId){
   var lookuptable =  JSON.parse(localStorage.getItem('lookuptable'));
+  var myexhibit;
   for(var i=0 ; i < lookuptable.locations.length ; i++){
       if (lookuptable.locations[i]['id'] == exhibitId){
           myexhibit = lookuptable.locations[i];
@@ -111,13 +113,19 @@ function get_exhibit_by_id(exhibitId){
 var userAgent = window.navigator.userAgent.toLowerCase(),
     safari = /safari/.test( userAgent ),
     //ios = /iphone|ipod|ipad/.test( userAgent ),
-    chrome = /chrome/.test( userAgent );
+    chrome = /chrome/.test( userAgent ),
+    android = /android/.test( userAgent );
+
+console.log(userAgent);
+
 var web = false;
 
 //TODO: check for android native view
 if(safari || chrome){
-  console.log("you are in web browser");
-  web = true;
+  if(!android){
+    console.log("you are in web browser");
+    web = true;
+  }
 }
 var webdevtools = $("#webdevtools");
 var registerODButton = $("#registerOD");
