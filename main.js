@@ -113,13 +113,19 @@ function get_exhibit_by_id(exhibitId){
 var userAgent = window.navigator.userAgent.toLowerCase(),
     safari = /safari/.test( userAgent ),
     //ios = /iphone|ipod|ipad/.test( userAgent ),
-    chrome = /chrome/.test( userAgent );
+    chrome = /chrome/.test( userAgent ),
+    android = /android/.test( userAgent );
+
+console.log(userAgent);
+
 var web = false;
 
 //TODO: check for android native view
 if(safari || chrome){
-  console.log("you are in web browser");
-  web = true;
+  if(!android){
+    console.log("you are in web browser");
+    web = true;
+  }
 }
 var webdevtools = $("#webdevtools");
 var registerODButton = $("#registerOD");
