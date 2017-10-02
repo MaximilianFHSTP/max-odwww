@@ -1,3 +1,22 @@
+// Check if web browser or native web view
+var userAgent = window.navigator.userAgent.toLowerCase(),
+    safari = /safari/.test( userAgent ),
+    //ios = /iphone|ipod|ipad/.test( userAgent ),
+    chrome = /chrome/.test( userAgent ),
+    android = /android/.test( userAgent );
+
+console.log(userAgent);
+
+var web = false;
+
+//TODO: check for android native view
+if(safari || chrome){
+  if(!android){
+    console.log("you are in web browser");
+    web = true;
+  }
+}
+
 /****************
 *
 * set up socket connection
@@ -21,7 +40,11 @@ socket.on('registerODResult', function (data) {
     localStorage.setItem('currentOD', JSON.stringify(data.user));
 
     if(!web){
-      window.webkit.messageHandlers.registerOD.postMessage("success");
+      if(android){
+          MEETeUXAndroidAppRoot.registerOD("success");
+      }else{
+          window.webkit.messageHandlers.registerOD.postMessage("success");
+      }
     }
 });
 
@@ -51,7 +74,11 @@ var outputLocation = $("#outputLocation");
 
 // Click-Events
 registerOdNative.click(function(){
-  window.webkit.messageHandlers.getDeviceInfos.postMessage("get");
+  if(android){
+      MEETeUXAndroidAppRoot.getDeviceInfos();
+  }else{
+      window.webkit.messageHandlers.getDeviceInfos.postMessage("get");
+  }
 });
 
 // call from native
@@ -109,24 +136,7 @@ function get_exhibit_by_id(exhibitId){
 *
 *****************/
 
-// Check if web browser or native web view
-var userAgent = window.navigator.userAgent.toLowerCase(),
-    safari = /safari/.test( userAgent ),
-    //ios = /iphone|ipod|ipad/.test( userAgent ),
-    chrome = /chrome/.test( userAgent ),
-    android = /android/.test( userAgent );
 
-console.log(userAgent);
-
-var web = false;
-
-//TODO: check for android native view
-if(safari || chrome){
-  if(!android){
-    console.log("you are in web browser");
-    web = true;
-  }
-}
 var webdevtools = $("#webdevtools");
 var registerODButton = $("#registerOD");
 var sendBeaconInfoButton = $("#sendBeaconInfo");
