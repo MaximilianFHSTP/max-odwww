@@ -1,0 +1,16 @@
+<mat-toolbar id="header" color="primary">
+  <span>MEETeUX</span>
+
+  <span class="example-fill-remaining-space"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
