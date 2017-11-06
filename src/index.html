@@ -13,7 +13,6 @@
 <body>
   <app-root></app-root>
   <script type="text/javascript">
-
     // needed for preventing angular to do history things
      var _iOSHistory = [];
      window.history.replaceState = function (data, title, url) {
@@ -31,18 +30,46 @@
 
 
 
+
+     // call from native
+     // handles new location
+     // gets major and minor of beacon in an array
+     // sets new location
+     window.update_location = function(beacon){
+       console.log("call from native: update_location" + beacon);
+       window.angularComponentRef.componentFn("update_location",beacon);
+       /*var myexhibit = get_exhibit_by_id(beacon['minor']);
+       var currentOD =  JSON.parse(localStorage.getItem('currentOD'));
+       if(myexhibit.id){
+         socket.emit('registerLocation', {user: currentOD.id, location: myexhibit.id});
+       }*/
+     };
+
+
+     // call from native
+     // gets deviceInfos, calls registerOD
+     window.send_device_infos = function(deviceinfos){
+       console.log("call from native: send_device_infos" + deviceinfos);
+       window.angularComponentRef.componentFn("send_device_infos",deviceinfos);
+       /*console.log(deviceinfos);
+       register_od(deviceinfos);*/
+     };
+
     window.callfromnative = function(theParameter){
       $scope.$apply(function(){
         // Do whatever you want to do with data passed
         console.log("coming from native");
       });
-    }
+    };
 
     // testfunction for calling native
     // only parameter is possible for communicating between native and web
     window.set_headline = function(text){
       console.log(text);
-    }
+      window.angularComponentRef.componentFn("test",text);
+    };
+
+
 
     // testfunction for calling native
     function call_native(){

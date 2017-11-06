@@ -3,10 +3,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class BeaconService {
 
-  constructor() { }
+  constructor() {
+      //window.getNativeCall = this.getNativeCall()
+  }
 
 
   getNativeCall(): void {
+
     console.log("get call");
   }
 /*
