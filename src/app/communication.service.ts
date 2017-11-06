@@ -1,17 +1,33 @@
 import { Injectable } from '@angular/core';
+import { GodService } from './god.service';
+import { Router } from '@angular/router';
 
 @Injectable()
-export class BeaconService {
+export class CommunicationService {
+  public registerName: string;
 
-  constructor() {
-      //window.getNativeCall = this.getNativeCall()
+  constructor(
+    private godService: GodService,
+    private router: Router
+  ) {}
+
+  public transmitODRegister(result: any): void
+  {
+    console.log(result);
+    const deviceAddress: string = result.deviceAddress;
+    const deviceOS: string = result.deviceOS;
+    const deviceVersion: string = result.deviceVersion;
+    const deviceModel: string = result.deviceModel;
+
+    const data = {identifier: this.registerName, deviceAddress, deviceOS, deviceVersion, deviceModel};
+    this.godService.registerOD(data);
+
+    this.router.navigate(['/mainview']);
+
   }
 
 
-  getNativeCall(): void {
 
-    console.log("get call");
-  }
 /*
 
   // Check if web browser or native web view

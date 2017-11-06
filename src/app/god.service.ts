@@ -18,9 +18,10 @@ export class GodService {
 
     this.socket.on('registerODResult', result =>
     {
-      console.log(result.user);
-      console.log(result.locations);
-      //localStorage.setItem('user', result.user);
+      //console.log(result.user);
+      //console.log(result.locations);
+      localStorage.setItem('user', result.user);
+      localStorage.setItem('lookuptable', result.locations);
     });
   }
 }

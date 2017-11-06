@@ -9,13 +9,14 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
-import {BeaconService} from './beacon.service';
+import {CommunicationService} from './communication.service';
 import {GodService} from './god.service';
 import { WindowRef } from './WindowRef';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
+import { MainViewComponent } from './main-view/main-view.component';
 
 
 const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000', options: {} };
@@ -24,7 +25,8 @@ const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    RegisterComponent
+    RegisterComponent,
+    MainViewComponent
   ],
   imports: [
     BrowserModule,
@@ -41,14 +43,14 @@ const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000
     AppRoutingModule,
     FormsModule
   ],
-  providers: [BeaconService, WindowRef, GodService],
+  providers: [CommunicationService, WindowRef, GodService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(
     private winRef: WindowRef,
-    private zone:NgZone,
-    private registerComp: RegisterComponent
+    private zone: NgZone,
+    private communicationService: CommunicationService
   ) {
 
     //console.log('Window object', winRef.nativeWindow);
@@ -72,7 +74,7 @@ export class AppModule {
        }
        case "send_device_infos": {
           //statements;
-          this.registerComp.transmitODRegister(value);
+          this.communicationService.transmitODRegister(value);
           break;
        }
        default: {

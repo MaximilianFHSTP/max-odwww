@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { WindowRef } from '../WindowRef';
 import { GodService } from '../god.service';
+import { CommunicationService } from '../communication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,22 +15,14 @@ export class RegisterComponent implements OnInit
 
   constructor(
     private winRef: WindowRef,
-    private godService: GodService
+    private godService: GodService,
+    private communicationService: CommunicationService,
+    private router: Router
   ) { }
-
-  public transmitODRegister(result)
-  {
-    const deviceAddress: string = result.deviceAddress;
-    const deviceOS: string = result.deviceOS;
-    const deviceVersion: string = result.deviceVersion;
-    const deviceModel: string = result.deviceModel;
-
-    const data = {identifier: this.name, deviceAddress, deviceOS, deviceVersion, deviceModel};
-    this.godService.registerOD(data);
-  }
 
   public requestDeviceInfos()
   {
+    this.communicationService.registerName = this.name;
     // TODO detect if iOS or Android and differ between them
     this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
   }
