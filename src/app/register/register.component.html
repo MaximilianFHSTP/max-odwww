@@ -3,9 +3,9 @@
     <h1>Registration</h1>
     <h2>Please enter a username</h2>
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Username">
+      <input matInput placeholder="Username" [(ngModel)]="name">
     </mat-form-field>
     <br />
-    <button mat-raised-button color="primary" (click)="register()">Register</button>
+    <button mat-raised-button color="primary" (click)="transmitUserRegister()">Register</button>
   </mat-card>
 </div>

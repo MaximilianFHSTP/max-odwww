@@ -3,13 +3,14 @@ import { NgModule, NgZone } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
   MatFormFieldModule, MatInputModule} from '@angular/material';
-import { RouterModule, Routes } from '@angular/router';
 
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 import {BeaconService} from './beacon.service';
+import {GodService} from './god.service';
 import { WindowRef } from './WindowRef';
 
 import { AppComponent } from './app.component';
@@ -37,9 +38,10 @@ const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000
     MatFormFieldModule,
     MatInputModule,
     SocketIoModule.forRoot(socketConfig),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [BeaconService, WindowRef],
+  providers: [BeaconService, WindowRef, GodService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
