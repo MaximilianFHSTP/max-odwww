@@ -45,7 +45,11 @@ const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private winRef: WindowRef, private zone:NgZone) {
+  constructor(
+    private winRef: WindowRef,
+    private zone:NgZone,
+    private registerComp: RegisterComponent
+  ) {
 
     //console.log('Window object', winRef.nativeWindow);
 
@@ -68,6 +72,7 @@ export class AppModule {
        }
        case "send_device_infos": {
           //statements;
+          this.registerComp.transmitODRegister(value);
           break;
        }
        default: {

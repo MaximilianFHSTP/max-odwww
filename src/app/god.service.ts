@@ -12,7 +12,7 @@ export class GodService {
     });
   }
 
-  public registerUser(data: any): any
+  public registerOD(data: any): any
   {
     this.socket.emit('registerOD', data);
 

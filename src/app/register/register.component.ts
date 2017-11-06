@@ -16,11 +16,19 @@ export class RegisterComponent implements OnInit
     private godService: GodService
   ) { }
 
-  public transmitUserRegister()
+  public transmitODRegister(result)
   {
-    console.log(this.name);
-    const data = {identifier: this.name, deviceAddress: '-', deviceOS: 'iOS', deviceVersion: '11.1', deviceModel: 'IPhone X'};
-    // this.godService.registerUser(data);
+    const deviceAddress: string = result.deviceAddress;
+    const deviceOS: string = result.deviceOS;
+    const deviceVersion: string = result.deviceVersion;
+    const deviceModel: string = result.deviceModel;
+
+    const data = {identifier: this.name, deviceAddress, deviceOS, deviceVersion, deviceModel};
+    this.godService.registerOD(data);
+  }
+
+  public requestDeviceInfos()
+  {
     // TODO detect if iOS or Android and differ between them
     this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
   }
