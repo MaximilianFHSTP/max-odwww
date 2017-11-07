@@ -27,12 +27,10 @@ export class CommunicationService {
     const minor: number = result.minor;
 
     const location = this.locationService.findLocation(minor);
-
     if (!location)
     {
       return;
     }
-
     this.godService.registerLocation(location.id);
   }
 

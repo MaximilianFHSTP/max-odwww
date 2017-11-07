@@ -44,20 +44,20 @@ export class GodService {
   public registerLocation(id: number): any
   {
     const user = JSON.parse(localStorage.getItem('user'));
-
     this.socket.emit('registerLocation', {location: id, user: user.id});
 
     this.socket.on('registerLocationResult', registeredLocation =>
     {
-      console.log(registeredLocation);
+      // console.log(registeredLocation);
       if (registeredLocation === 'FAILED')
       {
+        console.log('RegisterLocation: FAILED');
         return;
       }
 
       this.locationService.updateCurrentLocation(registeredLocation);
-      console.log(this.locationService.currentLocation.contentURL);
-      //this.router.navigate([this.locationService.currentLocation.contentURL]);
+      // console.log(this.locationService.currentLocation.contentURL);
+      this.router.navigate([this.locationService.currentLocation.contentURL]);
     });
   }
 
@@ -65,10 +65,10 @@ export class GodService {
   {
     this.socket.emit('checkLocationStatus', data);
 
-    this.socket.on('checkLocationStatusResult', result =>
+    return this.socket.on('checkLocationStatusResult', result =>
     {
       console.log(result);
-      // TODO: update locationStatus in LocationService
+      // this.locationService.status(result);
     });
   }
 }
