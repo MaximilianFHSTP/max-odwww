@@ -20,8 +20,8 @@ export class GodService {
     {
       //console.log(result.user);
       //console.log(result.locations);
-      localStorage.setItem('user', result.user);
-      localStorage.setItem('lookuptable', result.locations);
+      localStorage.setItem('user', JSON.stringify(result.user));
+      localStorage.setItem('lookuptable', JSON.stringify(result.locations));
     });
   }
 }

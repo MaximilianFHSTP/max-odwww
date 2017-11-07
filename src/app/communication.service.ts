@@ -13,7 +13,6 @@ export class CommunicationService {
 
   public transmitODRegister(result: any): void
   {
-    console.log(result);
     const deviceAddress: string = result.deviceAddress;
     const deviceOS: string = result.deviceOS;
     const deviceVersion: string = result.deviceVersion;
@@ -23,7 +22,6 @@ export class CommunicationService {
     this.godService.registerOD(data);
 
     this.router.navigate(['/mainview']);
-
   }
 
 

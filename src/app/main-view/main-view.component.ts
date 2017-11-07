@@ -11,7 +11,7 @@ export class MainViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.user = localStorage.getItem('user');
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
 }
