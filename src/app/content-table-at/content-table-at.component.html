@@ -1,3 +1,9 @@
-<p>
-  content-table-at works!
-</p>
+<h1>
+  Willkommen bei {{locationName}}
+</h1>
+<p>Table status wird abgerufen</p>
+
+<div *ngIf="locationStatusFree">
+  <p>Table ist frei</p>
+  <p>Bitte lege Dein Handy auf ein Beacon am Table</p>
+</div>

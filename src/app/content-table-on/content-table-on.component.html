@@ -1,3 +1,11 @@
-<p>
-  content-table-on works!
-</p>
+<div *ngIf="connectionSuccess">
+  <p>
+    Verbindung zum Table erfolgreich aufgebaut
+  </p>
+</div>
+<div *ngIf="show; else elseBlock">Text to show</div>
+<ng-template #elseBlock>
+  <p>
+    Keine Verbindung zum Table
+  </p>
+</ng-template>
