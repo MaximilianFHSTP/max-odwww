@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { Router } from '@angular/router';
+import { WindowRef } from './WindowRef';
 
 @Injectable()
 export class GodService {
 
-  constructor(private socket: Socket)
+  constructor(
+    private socket: Socket,
+    private router: Router,
+    private winRef: WindowRef
+  )
   {
     this.socket.on('news', msg =>
     {
@@ -22,6 +28,13 @@ export class GodService {
       //console.log(result.locations);
       localStorage.setItem('user', JSON.stringify(result.user));
       localStorage.setItem('lookuptable', JSON.stringify(result.locations));
+
+      this.router.navigate(['/mainview']);
+
+
+      // send success to native & start beacon scan
+      // TODO: switch für iOS & Android
+      this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage("success");
     });
   }
 }

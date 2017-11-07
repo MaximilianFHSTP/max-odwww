@@ -20,8 +20,6 @@ export class CommunicationService {
 
     const data = {identifier: this.registerName, deviceAddress, deviceOS, deviceVersion, deviceModel};
     this.godService.registerOD(data);
-
-    this.router.navigate(['/mainview']);
   }
 
 

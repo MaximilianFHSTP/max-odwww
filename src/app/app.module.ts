@@ -65,11 +65,12 @@ export class AppModule {
 
   callFromOutside(message, value) {
     // this.zone.run(() => {
-      console.log('calledFromOutside ' + message + value);
+      console.log('calledFromOutside ' + message);
     // });
     switch(message) {
        case "update_location": {
           //statements;
+          console.log(value);
           break;
        }
        case "send_device_infos": {
