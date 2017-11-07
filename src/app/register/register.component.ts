@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WindowRef } from '../WindowRef';
-import { GodService } from '../god.service';
-import { CommunicationService } from '../communication.service';
 import { Router } from '@angular/router';
+import { CommunicationService } from '../communication.service';
 
 @Component({
   selector: 'app-register',
@@ -14,10 +12,8 @@ export class RegisterComponent implements OnInit
   public name: string;
 
   constructor(
-    private winRef: WindowRef,
-    private godService: GodService,
+    private router: Router,
     private communicationService: CommunicationService,
-    private router: Router
   ) { }
 
   public requestDeviceInfos()
@@ -25,16 +21,20 @@ export class RegisterComponent implements OnInit
     this.communicationService.registerName = this.name;
 
     // TODO detect if iOS or Android and differ between them
-    this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
+    // this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
 
     // INFO Workaround for trying the application in the browser
-    // const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
-    // this.communicationService.transmitODRegister(data);
+    const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
+    this.communicationService.transmitODRegister(data);
   }
 
   ngOnInit()
   {
     this.name = '';
+    if (localStorage.getItem('user') && localStorage.getItem('lookuptable'))
+    {
+      this.router.navigate(['/mainview']);
+    }
   }
 
 }

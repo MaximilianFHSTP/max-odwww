@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { MainViewComponent } from './main-view/main-view.component';
+import {LocationService} from './location.service';
 
 
 const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000', options: {} };
@@ -43,7 +44,7 @@ const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000
     AppRoutingModule,
     FormsModule
   ],
-  providers: [CommunicationService, WindowRef, GodService],
+  providers: [CommunicationService, WindowRef, GodService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

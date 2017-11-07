@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GodService } from './god.service';
-import { Router } from '@angular/router';
+import {LocationService} from './location.service';
 
 @Injectable()
 export class CommunicationService {
@@ -8,7 +8,7 @@ export class CommunicationService {
 
   constructor(
     private godService: GodService,
-    private router: Router
+    private locationService: LocationService,
   ) {}
 
   public transmitODRegister(result: any): void
@@ -22,7 +22,19 @@ export class CommunicationService {
     this.godService.registerOD(data);
   }
 
+  public transmitLocationRegister(result: any)
+  {
+    const minor: number = result.minor;
 
+    const location = this.locationService.findLocation(minor);
+
+    if (!location)
+    {
+      return;
+    }
+
+    this.godService.registerLocation(location.id);
+  }
 
 /*
 

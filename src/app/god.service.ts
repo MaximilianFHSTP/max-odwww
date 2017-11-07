@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Router } from '@angular/router';
 import { WindowRef } from './WindowRef';
+import {LocationService} from './location.service';
 
 @Injectable()
 export class GodService {
@@ -9,7 +10,8 @@ export class GodService {
   constructor(
     private socket: Socket,
     private router: Router,
-    private winRef: WindowRef
+    private winRef: WindowRef,
+    private locationService: LocationService
   )
   {
     this.socket.on('news', msg =>
@@ -24,17 +26,38 @@ export class GodService {
 
     this.socket.on('registerODResult', result =>
     {
-      //console.log(result.user);
-      //console.log(result.locations);
+      // console.log(result.user);
+      console.log(result);
       localStorage.setItem('user', JSON.stringify(result.user));
       localStorage.setItem('lookuptable', JSON.stringify(result.locations));
+      this.locationService.lookuptable = result.locations;
 
-      this.router.navigate(['/mainview']);
+      this.router.navigate(['/mainview']).then( () =>
+      {
+        // send success to native & start beacon scan
+        // TODO: switch für iOS & Android
+        this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
+      });
+    });
+  }
 
+  public registerLocation(id: number): any
+  {
+    const user = JSON.parse(localStorage.getItem('user'));
 
-      // send success to native & start beacon scan
-      // TODO: switch für iOS & Android
-      this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage("success");
+    this.socket.emit('registerLocation', {location: id, user: user.id});
+
+    this.socket.on('registerLocationResult', registeredLocation =>
+    {
+      console.log(registeredLocation);
+      if (registeredLocation === 'FAILED')
+      {
+        return;
+      }
+
+      this.locationService.updateCurrentLocation(registeredLocation);
+      console.log(this.locationService.currentLocation.contentURL);
+      //this.router.navigate([this.locationService.currentLocation.contentURL]);
     });
   }
 }
