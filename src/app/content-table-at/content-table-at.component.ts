@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GodService } from '../god.service';
+import {LocationService} from '../location.service';
 //import {Observable} from 'rxjs/Rx';
 
 @Component({
@@ -16,17 +17,19 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   constructor(
     private godService: GodService,
+    private locationService: LocationService
   ) { }
 
   ngOnInit() {
     // TODO: get current Location from LocationService
-    // this.location = this.locationService;
-    this.locationName = "testLocation";
-    this.locationId = 1000;
-    this.locationStatusFree = true;
+    this.location = this.locationService.currentLocation;
+    this.locationName = this.location.description;
+    this.locationId = this.location.id;
+    this.locationStatusFree = false;
 
 
-    this.checkLocationStatus(this.locationId)
+    this.godService.checkLocationStatus(this.locationId);
+
     /*// Timer starts after 1sec, repeats every 5sec
     this.checkStatusTimer = Rx.Observable.timer(1000, 5000);
     this.checkStatusTimer.subscribe(

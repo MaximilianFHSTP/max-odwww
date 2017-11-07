@@ -5,6 +5,7 @@ export class LocationService
 {
   private _lookuptable: any;
   private _currentLocation: any;
+  private _status: any;
 
   constructor() { }
 
@@ -52,5 +53,15 @@ export class LocationService
   set currentLocation(location: any)
   {
     this._currentLocation = location;
+  }
+
+  get status(): any
+  {
+    return this._status;
+  }
+
+  set status(status: any)
+  {
+    this._status = status;
   }
 }
