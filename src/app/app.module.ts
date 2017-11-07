@@ -17,6 +17,9 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
 import { MainViewComponent } from './main-view/main-view.component';
+import { ContentTableAtComponent } from './content-table-at/content-table-at.component';
+import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
+import { ContentPassiveComponent } from './content-passive/content-passive.component';
 import {LocationService} from './location.service';
 
 
@@ -27,7 +30,10 @@ const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000
     AppComponent,
     PageNotFoundComponent,
     RegisterComponent,
-    MainViewComponent
+    MainViewComponent,
+    ContentTableAtComponent,
+    ContentTableOnComponent,
+    ContentPassiveComponent
   ],
   imports: [
     BrowserModule,

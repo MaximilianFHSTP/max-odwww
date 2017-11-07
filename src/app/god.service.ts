@@ -60,4 +60,15 @@ export class GodService {
       //this.router.navigate([this.locationService.currentLocation.contentURL]);
     });
   }
+
+  public checkLocationStatus(data: any): any
+  {
+    this.socket.emit('checkLocationStatus', data);
+
+    this.socket.on('checkLocationStatusResult', result =>
+    {
+      console.log(result);
+      // TODO: update locationStatus in LocationService
+    });
+  }
 }
