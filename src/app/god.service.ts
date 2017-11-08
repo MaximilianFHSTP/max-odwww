@@ -48,7 +48,7 @@ export class GodService {
 
     this.socket.on('registerLocationResult', registeredLocation =>
     {
-      // console.log(registeredLocation);
+      //console.log(registeredLocation);
       if (registeredLocation === 'FAILED')
       {
         console.log('RegisterLocation: FAILED');

@@ -1,7 +1,8 @@
 <h1>
   Willkommen bei {{locationName}}
 </h1>
-<p>Table status wird abgerufen</p>
+<button (click)="requestLocationStatus()">check Location Status</button>
+
 
 <div *ngIf="locationStatusFree">
   <p>Table ist frei</p>
