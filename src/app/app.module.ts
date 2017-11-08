@@ -60,7 +60,7 @@ export class AppModule {
     private communicationService: CommunicationService
   ) {
 
-    //console.log('Window object', winRef.nativeWindow);
+    // console.log('Window object', winRef.nativeWindow);
 
     winRef.nativeWindow.angularComponentRef = {
       zone: this.zone,
@@ -74,19 +74,19 @@ export class AppModule {
     // this.zone.run(() => {
       console.log('calledFromOutside ' + message);
     // });
-    switch(message) {
-       case "update_location": {
-          //statements;
+    switch (message) {
+       case 'update_location': {
+          // statements;
           console.log(value);
           break;
        }
-       case "send_device_infos": {
-          //statements;
+       case 'send_device_infos': {
+          // statements;
           this.communicationService.transmitODRegister(value);
           break;
        }
        default: {
-          //statements;
+          // statements;
           break;
        }
     }
