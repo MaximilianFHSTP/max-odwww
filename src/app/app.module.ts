@@ -77,7 +77,9 @@ export class AppModule {
     switch(message) {
        case "update_location": {
           //statements;
-          console.log(value);
+          //console.log(value);
+          //this.communicationService.transmitLocationRegister({minor: 100, major: 10});
+          this.communicationService.transmitLocationRegister(value);
           break;
        }
        case "send_device_infos": {

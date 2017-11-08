@@ -1,11 +1,13 @@
-<div *ngIf="connectionSuccess">
+<h1>
+  Willkommen bei {{locationName}}
+</h1>
+<div *ngIf="connectionSuccess; else elseBlock">
   <p>
-    Verbindung zum Table erfolgreich aufgebaut
+  Verbindung zum Table erfolgreich aufgebaut.
   </p>
 </div>
-<div *ngIf="show; else elseBlock">Text to show</div>
 <ng-template #elseBlock>
   <p>
-    Keine Verbindung zum Table
-  </p>
+    Verbindung zum Table wird aufgebaut.
+  <p>
 </ng-template>

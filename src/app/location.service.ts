@@ -35,6 +35,18 @@ export class LocationService
     this._currentLocation = location;
   }
 
+  public sameAsCurrentLocation(id: number): boolean
+  {
+    var isSame = false;
+    if(this._currentLocation){
+      if(id == this._currentLocation.id){
+        isSame = true;
+      }
+    }
+
+    return isSame;
+  }
+
   get lookuptable(): any
   {
     return this._lookuptable;

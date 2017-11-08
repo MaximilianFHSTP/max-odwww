@@ -36,7 +36,7 @@
      // gets major and minor of beacon in an array
      // sets new location
      window.update_location = function(beacon){
-       console.log("call from native: update_location" + beacon);
+       //console.log("call from native: update_location" + beacon);
        window.angularComponentRef.componentFn("update_location",beacon);
        /*var myexhibit = get_exhibit_by_id(beacon['minor']);
        var currentOD =  JSON.parse(localStorage.getItem('currentOD'));
@@ -49,7 +49,7 @@
      // call from native
      // gets deviceInfos, calls registerOD
      window.send_device_infos = function(deviceinfos){
-       console.log("call from native: send_device_infos" + deviceinfos);
+       //console.log("call from native: send_device_infos" + deviceinfos);
        window.angularComponentRef.componentFn("send_device_infos",deviceinfos);
        /*console.log(deviceinfos);
        register_od(deviceinfos);*/

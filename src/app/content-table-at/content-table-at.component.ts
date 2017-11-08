@@ -46,4 +46,11 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   checkLocationStatus(data: any){
     this.godService.checkLocationStatus(data);
   }
+
+  requestLocationStatus(){
+    this.checkLocationStatus(this.locationId);
+    if(this.locationService.status == "FREE"){
+      this.locationStatusFree = true;
+    }
+  }
 }

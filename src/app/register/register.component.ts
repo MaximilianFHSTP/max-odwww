@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommunicationService } from '../communication.service';
+import { WindowRef } from '../WindowRef';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +15,7 @@ export class RegisterComponent implements OnInit
   constructor(
     private router: Router,
     private communicationService: CommunicationService,
+    private winRef: WindowRef,
   ) { }
 
   public requestDeviceInfos()
@@ -31,10 +33,16 @@ export class RegisterComponent implements OnInit
   ngOnInit()
   {
     this.name = '';
-    if (localStorage.getItem('user') && localStorage.getItem('lookuptable'))
+  /*  if (localStorage.getItem('user') && localStorage.getItem('lookuptable'))
     {
-      this.router.navigate(['/mainview']);
-    }
+      this.router.navigate(['/mainview']).then( () =>
+      {
+        // send success to native & start beacon scan
+        // TODO: switch für iOS & Android
+        this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
+      });
+
+    }*/
   }
 
 }
