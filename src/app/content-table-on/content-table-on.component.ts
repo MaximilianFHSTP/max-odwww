@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GodService } from '../god.service';
 import {LocationService} from '../location.service';
+import {ExhibitService} from '../exhibit.service';
 
 @Component({
   selector: 'app-content-table-on',
@@ -14,6 +15,7 @@ export class ContentTableOnComponent implements OnInit {
 
   constructor(
     private godService: GodService,
+    private exhibitService: ExhibitService,
     private locationService: LocationService
   ) { }
 
@@ -27,9 +29,11 @@ export class ContentTableOnComponent implements OnInit {
     // if success set connectionSuccess true
     this.connectionSuccess = false;
 
+    this.exhibitService.connectOD();
+
   }
 
   ngOnDestroy() {
-    // TODO socket-Verbindung schließen disconnectOD
+    this.exhibitService.disconnect();
   }
 }

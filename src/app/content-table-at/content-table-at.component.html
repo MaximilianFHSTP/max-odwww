@@ -7,4 +7,9 @@
 <div *ngIf="locationStatusFree">
   <p>Table ist frei</p>
   <p>Bitte lege Dein Handy auf ein Beacon am Table</p>
+  <button mat-raised-button color="primary" (click)="redirectToOnTable()">Register Location TableOn</button>
+</div>
+
+<div *ngIf="locationStatusOccupied">
+  <h3>Der Table ist gerade nicht frei, probieren Sie es später erneut!</h3>
 </div>

@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GodService } from '../god.service';
 import {LocationService} from '../location.service';
-//import {Observable} from 'rxjs/Rx';
+import { Router } from '@angular/router';
+import {CommunicationService} from '../communication.service';
+// import {Observable} from 'rxjs/Rx';
 
 @Component({
   selector: 'app-content-table-at',
@@ -13,11 +15,14 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   private locationName: string;
   private locationId: any;
   private locationStatusFree: boolean;
+  private locationStatusOccupied: boolean;
   private checkStatusTimer: any;
 
   constructor(
     private godService: GodService,
-    private locationService: LocationService
+    private router: Router,
+    private locationService: LocationService,
+    private communicationService: CommunicationService
   ) { }
 
   ngOnInit() {
@@ -26,6 +31,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.locationName = this.location.description;
     this.locationId = this.location.id;
     this.locationStatusFree = false;
+    this.locationStatusOccupied = false;
 
 
     this.godService.checkLocationStatus(this.locationId);
@@ -40,17 +46,27 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // Stop the timer
-    //this.checkStatusTimer.unsubscribe();
+    // this.checkStatusTimer.unsubscribe();
   }
 
   checkLocationStatus(data: any){
     this.godService.checkLocationStatus(data);
   }
 
+  redirectToOnTable()
+  {
+    this.communicationService.transmitLocationRegister({minor: 1000, major: 100});
+  }
+
   requestLocationStatus(){
     this.checkLocationStatus(this.locationId);
-    if(this.locationService.status == "FREE"){
+    if (this.locationService.status === 'FREE'){
       this.locationStatusFree = true;
+      this.locationStatusOccupied = false;
+    }
+    if (this.locationService.status === 'OCCUPIED'){
+      this.locationStatusFree = false;
+      this.locationStatusOccupied = true;
     }
   }
 }

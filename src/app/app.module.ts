@@ -4,13 +4,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
   MatFormFieldModule, MatInputModule} from '@angular/material';
 
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { SocketIoModule} from 'ngx-socket-io';
+import {GodSocketService} from './god-socket.service';
+import {ExhibitSocketService} from './exhibit-socket.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
 import {CommunicationService} from './communication.service';
 import {GodService} from './god.service';
+import {ExhibitService} from './exhibit.service';
 import { WindowRef } from './WindowRef';
 
 import { AppComponent } from './app.component';
@@ -21,9 +24,6 @@ import { ContentTableAtComponent } from './content-table-at/content-table-at.com
 import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
 import { ContentPassiveComponent } from './content-passive/content-passive.component';
 import {LocationService} from './location.service';
-
-
-const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000
   ],
   imports: [
     BrowserModule,
+    SocketIoModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -46,11 +47,10 @@ const socketConfig: SocketIoConfig = { url: 'http://god.meeteux.fhstp.ac.at:3000
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    SocketIoModule.forRoot(socketConfig),
     AppRoutingModule,
     FormsModule
   ],
-  providers: [CommunicationService, WindowRef, GodService, LocationService],
+  providers: [GodSocketService, ExhibitSocketService, CommunicationService, WindowRef, GodService, ExhibitService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
 import { Router } from '@angular/router';
 import { WindowRef } from './WindowRef';
 import {LocationService} from './location.service';
+import {GodSocketService} from './god-socket.service';
 
 @Injectable()
 export class GodService {
 
   constructor(
-    private socket: Socket,
     private router: Router,
     private winRef: WindowRef,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private socket: GodSocketService
   )
   {
     this.socket.on('news', msg =>
@@ -48,7 +48,7 @@ export class GodService {
 
     this.socket.on('registerLocationResult', registeredLocation =>
     {
-      //console.log(registeredLocation);
+      // console.log(registeredLocation);
       if (registeredLocation === 'FAILED')
       {
         console.log('RegisterLocation: FAILED');
