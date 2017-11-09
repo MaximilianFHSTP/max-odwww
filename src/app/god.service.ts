@@ -71,4 +71,14 @@ export class GodService {
       console.log(this.locationService.status);
     });
   }
+
+  public disconnectedFromExhibit(location): void
+  {
+    this.socket.emit('disconnectedFromExhibit', location);
+
+    return this.socket.on('disconnectedFromExhibitResult', result =>
+    {
+      console.log(result);
+    });
+  }
 }

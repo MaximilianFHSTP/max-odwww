@@ -33,7 +33,12 @@ export class ContentTableOnComponent implements OnInit {
 
   }
 
-  ngOnDestroy() {
+  public disconnectFromExhibit()
+  {
     this.exhibitService.disconnect();
+  }
+
+  ngOnDestroy() {
+    this.disconnectFromExhibit();
   }
 }
