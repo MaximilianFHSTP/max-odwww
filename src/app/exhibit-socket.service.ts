@@ -5,6 +5,6 @@ import {Socket, SocketIoModule} from 'ngx-socket-io';
 export class ExhibitSocketService extends Socket {
 
   constructor() {
-    super({ url: 'http://localhost:8100', options: {} });
+    super({ url: 'http://192.168.8.253:3000', options: {} });
   }
 }
