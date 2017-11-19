@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CommunicationService} from '../communication.service';
+import {NativeCommunicationService} from '../native-communication.service';
 import {LocationService} from '../location.service';
 
 @Component({
@@ -12,13 +12,13 @@ export class MainViewComponent implements OnInit {
   private lookuptable: any;
 
   constructor(
-    private communicationService: CommunicationService,
+    private nativeCommunicationService: NativeCommunicationService,
     private locationService: LocationService
   ) { }
 
   public requestRegisterLocation()
   {
-    this.communicationService.transmitLocationRegister({minor: 100, major: 10});
+    this.nativeCommunicationService.transmitLocationRegister({minor: 100, major: 10});
   }
 
   ngOnInit() {

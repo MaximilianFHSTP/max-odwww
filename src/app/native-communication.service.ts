@@ -3,7 +3,7 @@ import { GodService } from './god.service';
 import {LocationService} from './location.service';
 
 @Injectable()
-export class CommunicationService {
+export class NativeCommunicationService {
   public registerName: string;
 
   constructor(

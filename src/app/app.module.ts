@@ -11,7 +11,7 @@ import {ExhibitSocketService} from './exhibit-socket.service';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
-import {CommunicationService} from './communication.service';
+import {NativeCommunicationService} from './native-communication.service';
 import {GodService} from './god.service';
 import {ExhibitService} from './exhibit.service';
 import { WindowRef } from './WindowRef';
@@ -50,14 +50,14 @@ import {LocationService} from './location.service';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [GodSocketService, ExhibitSocketService, CommunicationService, WindowRef, GodService, ExhibitService, LocationService],
+  providers: [GodSocketService, ExhibitSocketService, NativeCommunicationService, WindowRef, GodService, ExhibitService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(
     private winRef: WindowRef,
     private zone: NgZone,
-    private communicationService: CommunicationService
+    private nativeCommunicationService: NativeCommunicationService
   ) {
 
     // console.log('Window object', winRef.nativeWindow);
@@ -79,12 +79,12 @@ export class AppModule {
           // statements;
           // console.log(value);
           // this.communicationService.transmitLocationRegister({minor: 100, major: 10});
-          this.communicationService.transmitLocationRegister(value);
+          this.nativeCommunicationService.transmitLocationRegister(value);
           break;
        }
        case 'send_device_infos': {
           // statements;
-          this.communicationService.transmitODRegister(value);
+          this.nativeCommunicationService.transmitODRegister(value);
           break;
        }
        default: {

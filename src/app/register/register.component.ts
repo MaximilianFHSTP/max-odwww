@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommunicationService } from '../communication.service';
+import { NativeCommunicationService } from '../native-communication.service';
 import { WindowRef } from '../WindowRef';
 
 @Component({
@@ -14,13 +14,13 @@ export class RegisterComponent implements OnInit
 
   constructor(
     private router: Router,
-    private communicationService: CommunicationService,
+    private nativeCommunicationService: NativeCommunicationService,
     private winRef: WindowRef,
   ) { }
 
   public requestDeviceInfos()
   {
-    this.communicationService.registerName = this.name;
+    this.nativeCommunicationService.registerName = this.name;
 
     // TODO detect if iOS or Android and differ between them
     this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');

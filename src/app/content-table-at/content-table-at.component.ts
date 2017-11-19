@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GodService } from '../god.service';
 import {LocationService} from '../location.service';
 import { Router } from '@angular/router';
-import {CommunicationService} from '../communication.service';
+import {NativeCommunicationService} from '../native-communication.service';
 // import {Observable} from 'rxjs/Rx';
 
 @Component({
@@ -22,7 +22,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private godService: GodService,
     private router: Router,
     private locationService: LocationService,
-    private communicationService: CommunicationService
+    private nativeCommunicationService: NativeCommunicationService
   ) { }
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   redirectToOnTable()
   {
-    this.communicationService.transmitLocationRegister({minor: 1000, major: 100});
+    this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
   }
 
   requestLocationStatus(){
