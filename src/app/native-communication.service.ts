@@ -5,6 +5,9 @@ import {LocationService} from './location.service';
 @Injectable()
 export class NativeCommunicationService {
   public registerName: string;
+  public isIOS: boolean = true;
+  public isAndroid: boolean = false;
+  public isWeb: boolean = false;
 
   constructor(
     private godService: GodService,
@@ -38,6 +41,35 @@ export class NativeCommunicationService {
         console.log(location);
         this.godService.registerLocation(location.id);
     }
+  }
+
+  public checkPlatform(){
+    let userAgent: any = window.navigator.userAgent;
+    let safariCheck: boolean = false;
+    let chromeCheck: boolean = false;
+    let androidCheck: boolean = false;
+
+    if(userAgent.indexOf('Safari')!=(-1)){
+      safariCheck = true;
+    } else if(userAgent.indexOf('Chrome')!=(-1)){
+      chromeCheck = true;
+    } else if(userAgent.indexOf('Android')!=(-1)){
+      androidCheck = true;
+    }
+
+    if(androidCheck){
+      this.isAndroid = true;
+      this.isIOS = false;
+      return "Android";
+    }else if(safariCheck || chromeCheck){
+      if(!androidCheck){
+        this.isWeb = true;
+        this.isIOS = false;
+        return "Web";
+      }
+    }
+    return "IOS";
+
   }
 
 /*

@@ -1,4 +1,5 @@
 import { Component, NgZone } from '@angular/core';
+import {NativeCommunicationService} from './native-communication.service';
 
 
 @Component({
@@ -8,4 +9,19 @@ import { Component, NgZone } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  public platform: String;
+
+  constructor(
+    private nativeCommunicationService: NativeCommunicationService
+  ) { }
+
+  ngOnInit() {
+    this.requestCheckedPlatform();
+  }
+
+  public requestCheckedPlatform(){
+    this.platform = this.nativeCommunicationService.checkPlatform();
+    console.log("Detected Platform " + this.platform);
+  }
 }
