@@ -36,7 +36,8 @@ export class NativeCommunicationService {
       return;
     }
 
-    if(!this.locationService.sameAsCurrentLocation(location.id))
+    // location is not the same as before && not on (type=2)
+    if(!this.locationService.sameAsCurrentLocation(location.id) && location.locationTypeId != 2)
     {
         console.log(location);
         this.godService.registerLocation(location.id);
