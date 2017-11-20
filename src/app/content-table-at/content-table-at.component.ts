@@ -17,6 +17,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   private locationStatusFree: boolean;
   private locationStatusOccupied: boolean;
   private checkStatusTimer: any;
+  public isWeb: boolean;
 
   constructor(
     private godService: GodService,
@@ -32,6 +33,8 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.locationId = this.location.id;
     this.locationStatusFree = false;
     this.locationStatusOccupied = false;
+    
+    this.isWeb = this.nativeCommunicationService.isWeb;
 
 
     this.godService.checkLocationStatus(this.locationId);

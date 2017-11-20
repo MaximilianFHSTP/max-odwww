@@ -10,6 +10,7 @@ import {LocationService} from '../location.service';
 export class MainViewComponent implements OnInit {
   private user: any;
   private lookuptable: any;
+  public isWeb: boolean;
 
   constructor(
     private nativeCommunicationService: NativeCommunicationService,
@@ -24,6 +25,8 @@ export class MainViewComponent implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.locationService.lookuptable = JSON.parse(localStorage.getItem('lookuptable'));
+
+    this.isWeb = this.nativeCommunicationService.isWeb;
   }
 
 }
