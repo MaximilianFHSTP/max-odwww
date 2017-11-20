@@ -23,11 +23,18 @@ export class RegisterComponent implements OnInit
     this.nativeCommunicationService.registerName = this.name;
 
     // TODO detect if iOS or Android and differ between them
-    // this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
+    if(this.nativeCommunicationService.isIOS){
+      this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
+    }else if(this.nativeCommunicationService.isAndroid){
+      this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getDeviceInfos();
+    }else{
+      // INFO Workaround for trying the application in the browser
+      const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
+      this.nativeCommunicationService.transmitODRegister(data);
+    }
+    
 
-    // INFO Workaround for trying the application in the browser
-    const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
-    this.nativeCommunicationService.transmitODRegister(data);
+    
   }
 
   ngOnInit()
