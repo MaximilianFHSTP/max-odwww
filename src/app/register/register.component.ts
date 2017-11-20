@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit
 
     // INFO Workaround for trying the application in the browser
     const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
-    this.communicationService.transmitODRegister(data);
+    this.nativeCommunicationService.transmitODRegister(data);
   }
 
   ngOnInit()
