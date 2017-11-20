@@ -72,4 +72,9 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
       this.locationStatusOccupied = true;
     }
   }
+
+  // saves ID of current exhibit in localstorage
+  startOnTableSearch(){
+    localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
+  }
 }

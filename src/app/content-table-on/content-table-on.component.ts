@@ -31,11 +31,14 @@ export class ContentTableOnComponent implements OnInit {
 
     this.exhibitService.connectOD();
 
+    localStorage.setItem('onExhibit', JSON.stringify(true));
   }
 
   public disconnectFromExhibit()
   {
     this.exhibitService.disconnect();
+    localStorage.setItem('atExhibitParent', JSON.stringify(0));
+    localStorage.setItem('onExhibit', JSON.stringify(false));
   }
 
   ngOnDestroy() {

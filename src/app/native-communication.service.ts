@@ -36,11 +36,17 @@ export class NativeCommunicationService {
       return;
     }
 
-    // location is not the same as before && not on (type=2)
-    if(!this.locationService.sameAsCurrentLocation(location.id) && location.locationTypeId != 2)
+    // location is not the same as before
+    if(!this.locationService.sameAsCurrentLocation(location.id))
     {
+      const exhibitParent = JSON.parse(localStorage.getItem('atExhibitParent'));
+      const onExhibit = JSON.parse(localStorage.getItem('onExhibit'));
+
+      // locationtype is not onExhibit (type=2) and onExhibit is not on || locationtype is onExhibit and exhibitParent is set with my own parentId
+      if((location.locationTypeId != 2 && !onExhibit) || (location.locationTypeId == 2 && exhibitParent == location.parentId)){
         console.log(location);
         this.godService.registerLocation(location.id);
+      }
     }
   }
 

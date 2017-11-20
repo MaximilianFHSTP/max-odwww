@@ -6,7 +6,9 @@
 
 <div *ngIf="locationStatusFree">
   <p>Table ist frei</p>
+  <button mat-raised-button color="primary" (click)="startOnTableSearch()">Mitspielen</button>
   <p>Bitte lege Dein Handy auf ein Beacon am Table</p>
+
   <div class="webdevtools" *ngIf="isWeb">
     <button mat-raised-button color="primary" (click)="redirectToOnTable()">Register Location TableOn</button>
   </div>
