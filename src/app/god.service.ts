@@ -11,7 +11,7 @@ export class GodService {
     private router: Router,
     private winRef: WindowRef,
     private locationService: LocationService,
-    private socket: GodSocketService
+    private socket: GodSocketService,
   )
   {
     this.socket.on('news', msg =>
@@ -20,7 +20,7 @@ export class GodService {
     });
   }
 
-  public registerOD(data: any): any
+  public registerOD(data: any, isIOS: boolean, isAndroid: boolean, isWeb: boolean): any
   {
     this.socket.emit('registerOD', data);
 
@@ -36,7 +36,11 @@ export class GodService {
       {
         // send success to native & start beacon scan
         // TODO: switch für iOS & Android
+      if(isIOS){
         this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
+      }else if(isAndroid){
+        this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
+      }
       });
     });
   }

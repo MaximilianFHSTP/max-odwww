@@ -22,7 +22,7 @@ export class NativeCommunicationService {
     const deviceModel: string = result.deviceModel;
 
     const data = {identifier: this.registerName, deviceAddress, deviceOS, deviceVersion, deviceModel};
-    this.godService.registerOD(data);
+    this.godService.registerOD(data, this.isIOS, this.isAndroid, this.isWeb);
   }
 
   public transmitLocationRegister(result: any)
