@@ -58,9 +58,11 @@ export class NativeCommunicationService {
 
     if(userAgent.indexOf('Safari')!=(-1)){
       safariCheck = true;
-    } else if(userAgent.indexOf('Chrome')!=(-1)){
+    }
+    if(userAgent.indexOf('Chrome')!=(-1)){
       chromeCheck = true;
-    } else if(userAgent.indexOf('Android')!=(-1)){
+    }
+    if(userAgent.indexOf('Android')!=(-1)){
       androidCheck = true;
     }
 
