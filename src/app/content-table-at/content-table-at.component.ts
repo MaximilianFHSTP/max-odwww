@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GodService } from '../god.service';
-import {LocationService} from '../location.service';
+import { GodService } from '../services/god.service';
+import {LocationService} from '../services/location.service';
 import { Router } from '@angular/router';
-import {NativeCommunicationService} from '../native-communication.service';
+import {NativeCommunicationService} from '../services/native-communication.service';
 // import {Observable} from 'rxjs/Rx';
 
 @Component({
@@ -33,7 +33,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.locationId = this.location.id;
     this.locationStatusFree = false;
     this.locationStatusOccupied = false;
-    
+
     this.isWeb = this.nativeCommunicationService.isWeb;
 
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NativeCommunicationService } from '../native-communication.service';
+import { NativeCommunicationService } from '../services/native-communication.service';
 import { WindowRef } from '../WindowRef';
 
 @Component({
@@ -32,9 +32,9 @@ export class RegisterComponent implements OnInit
       const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
       this.nativeCommunicationService.transmitODRegister(data);
     }
-    
 
-    
+
+
   }
 
   ngOnInit()

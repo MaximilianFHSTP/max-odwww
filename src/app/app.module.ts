@@ -5,15 +5,15 @@ import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, Mat
   MatFormFieldModule, MatInputModule} from '@angular/material';
 
 import { SocketIoModule} from 'ngx-socket-io';
-import {GodSocketService} from './god-socket.service';
-import {ExhibitSocketService} from './exhibit-socket.service';
+import {GodSocketService} from './services/god-socket.service';
+import {ExhibitSocketService} from './services/exhibit-socket.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
-import {NativeCommunicationService} from './native-communication.service';
-import {GodService} from './god.service';
-import {ExhibitService} from './exhibit.service';
+import {NativeCommunicationService} from './services/native-communication.service';
+import {GodService} from './services/god.service';
+import {ExhibitService} from './services/exhibit.service';
 import { WindowRef } from './WindowRef';
 
 import { AppComponent } from './app.component';
@@ -23,7 +23,7 @@ import { MainViewComponent } from './main-view/main-view.component';
 import { ContentTableAtComponent } from './content-table-at/content-table-at.component';
 import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
 import { ContentPassiveComponent } from './content-passive/content-passive.component';
-import {LocationService} from './location.service';
+import {LocationService} from './services/location.service';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { GodService } from '../god.service';
-import {LocationService} from '../location.service';
-import {ExhibitService} from '../exhibit.service';
+import { GodService } from '../services/god.service';
+import {LocationService} from '../services/location.service';
+import {ExhibitService} from '../services/exhibit.service';
 
 @Component({
   selector: 'app-content-table-on',

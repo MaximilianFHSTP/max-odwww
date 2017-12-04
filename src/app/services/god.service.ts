@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { WindowRef } from './WindowRef';
+import { WindowRef } from '../WindowRef';
 import {LocationService} from './location.service';
 import {GodSocketService} from './god-socket.service';
 

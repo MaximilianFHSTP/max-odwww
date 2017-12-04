@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NativeCommunicationService} from '../native-communication.service';
-import {LocationService} from '../location.service';
+import {NativeCommunicationService} from '../services/native-communication.service';
+import {LocationService} from '../services/location.service';
 
 @Component({
   selector: 'app-main-view',

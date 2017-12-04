@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import {NativeCommunicationService} from './native-communication.service';
+import {NativeCommunicationService} from './services/native-communication.service';
 
 
 @Component({
