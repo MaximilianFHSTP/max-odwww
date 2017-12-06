@@ -17,6 +17,8 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
+    localStorage.setItem('atExhibitParent', JSON.stringify(0));
+    localStorage.setItem('onExhibit', JSON.stringify(false));
     this.requestCheckedPlatform();
   }
 
