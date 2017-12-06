@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GodService } from '../services/god.service';
 import {LocationService} from '../services/location.service';
 import {ExhibitService} from '../services/exhibit.service';
+import {NativeCommunicationService} from '../services/native-communication.service';
 
 @Component({
   selector: 'app-content-table-on',
@@ -16,7 +17,8 @@ export class ContentTableOnComponent implements OnInit {
   constructor(
     private godService: GodService,
     private exhibitService: ExhibitService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private nativeCommunicationService: NativeCommunicationService
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,12 @@ export class ContentTableOnComponent implements OnInit {
     // TODO open SocketConnection connectOD(user)
     // if success set connectionSuccess true
     this.connectionSuccess = false;
+
+    this.nativeCommunicationService.locationTableOnChange.subscribe(value =>{
+      this.location = value;
+      this.locationName = this.location.description;
+      const ip = this.location.ipAddress;
+    });
 
     this.exhibitService.connectOD();
 
