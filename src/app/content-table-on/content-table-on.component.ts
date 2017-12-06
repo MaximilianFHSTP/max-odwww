@@ -22,12 +22,17 @@ export class ContentTableOnComponent implements OnInit {
   ngOnInit() {
     this.location = this.locationService.currentLocation;
     this.locationName = this.location.description;
+
+    const parentLocation = this.locationService.findLocation(this.location.parentId);
+
     // TODO get IP address from LocationService
-    const ip = this.location.ipAddress;
+    const url = 'http://' + parentLocation.ipAddress + ':8100';
 
     // TODO open SocketConnection connectOD(user)
     // if success set connectionSuccess true
     this.connectionSuccess = false;
+
+    this.exhibitService.establishExhibitConnection(url);
 
     this.exhibitService.connectOD();
 

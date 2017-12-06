@@ -17,6 +17,11 @@ export class ExhibitService {
   )
   {}
 
+  public establishExhibitConnection(url: string ): void
+  {
+    this.socket.openNewExhibitConnection(url);
+  }
+
   public connectOD(): any
   {
     const user = localStorage.getItem('user');
@@ -25,9 +30,9 @@ export class ExhibitService {
       return;
     }
 
-    this.socket.emit('connectOD', user);
+    this.socket.connection.emit('connectOD', user);
 
-    this.socket.on('connectODResult', result =>
+    this.socket.connection.on('connectODResult', result =>
     {
       console.log(result);
     });
@@ -36,14 +41,14 @@ export class ExhibitService {
   public disconnect()
   {
     const user = JSON.parse(localStorage.getItem('user'));
-    this.socket.emit('closeConnection', user);
+    this.socket.connection.emit('closeConnection', user);
 
-    this.socket.on('closeConnectionResult', result =>
+    this.socket.connection.on('closeConnectionResult', result =>
     {
       console.log(result);
       if (result === 'SUCCESS')
       {
-        this.socket.disconnect();
+        this.socket.connection.disconnect();
 
         this.socketGod.disconnectedFromExhibit(this.locationService.currentLocation.parentId);
       }

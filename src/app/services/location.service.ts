@@ -37,7 +37,8 @@ export class LocationService
 
   public sameAsCurrentLocation(id: number): boolean
   {
-    var isSame = false;
+    let isSame = false;
+
     if(this._currentLocation){
       if(id == this._currentLocation.id){
         isSame = true;

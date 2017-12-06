@@ -1,10 +1,23 @@
 import { Injectable } from '@angular/core';
-import {Socket, SocketIoModule} from 'ngx-socket-io';
+import {ExhibitSocketHelper} from '../helper/exhibit-socket-helper';
 
 @Injectable()
-export class ExhibitSocketService extends Socket {
+export class ExhibitSocketService
+{
 
-  constructor() {
-    super({ url: 'http://192.168.8.253:8100', options: {} });
+  private _connection: ExhibitSocketHelper;
+
+  public openNewExhibitConnection(url: string): void
+  {
+    if (this._connection)
+    {
+      this._connection.disconnect();
+    }
+    this._connection = new ExhibitSocketHelper(url);
+  }
+
+  get connection(): ExhibitSocketHelper
+  {
+    return this._connection;
   }
 }
