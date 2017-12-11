@@ -5,6 +5,7 @@ import {Socket, SocketIoModule} from 'ngx-socket-io';
 export class GodSocketService extends Socket {
 
   constructor() {
+    // super({ url: 'http://god.meeteux.fhstp.ac.at:3000', options: {} });
     super({ url: 'http://god.meeteux.fhstp.ac.at:3000', options: {} });
   }
 

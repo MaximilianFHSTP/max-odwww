@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import { Router } from '@angular/router';
 import { WindowRef } from '../WindowRef';
 import {LocationService} from './location.service';
 import {GodSocketService} from './god-socket.service';
+import {LocationActions} from '../actions/LocationActions';
 
 @Injectable()
 export class GodService {
@@ -12,6 +13,8 @@ export class GodService {
     private winRef: WindowRef,
     private locationService: LocationService,
     private socket: GodSocketService,
+    @Inject('AppStore') private appStore,
+    private locationActions: LocationActions
   )
   {
     this.socket.on('news', msg =>
@@ -36,12 +39,14 @@ export class GodService {
       {
         // send success to native & start beacon scan
         // TODO: switch für iOS & Android
-      if(isIOS){
+      if (isIOS){
         this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
-      }else if(isAndroid){
+      }else if (isAndroid){
         this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
       }
       });
+
+      this.socket.removeAllListeners('registerODResult');
     });
   }
 
@@ -60,29 +65,49 @@ export class GodService {
       }
 
       this.locationService.updateCurrentLocation(registeredLocation);
-      // console.log(this.locationService.currentLocation.contentURL);
+      console.log(this.locationService.currentLocation);
       this.router.navigate([this.locationService.currentLocation.contentURL]);
+
+      this.socket.removeAllListeners('registerLocationResult');
     });
   }
 
-  public checkLocationStatus(data: any): any
+  public checkLocationStatus(data: any, callback: any = null): void
   {
     this.socket.emit('checkLocationStatus', data);
 
-    return this.socket.on('checkLocationStatusResult', result =>
+    this.socket.on('checkLocationStatusResult', result =>
     {
-      this.locationService.status = result;
-      console.log(this.locationService.status);
+      if (result === 'FAILED')
+      {
+        return;
+      }
+      const location = this.locationService.findLocation(data);
+
+      if (location.locationTypeId !== 2) {
+        this.appStore.dispatch(this.locationActions.changeLocationStatus(result));
+      }
+
+      if (callback != null)
+      {
+        callback(result);
+      }
+
+      this.socket.removeAllListeners('checkLocationStatusResult');
     });
   }
 
-  public disconnectedFromExhibit(location): void
+  public disconnectedFromExhibit(parentLocation, location): void
   {
-    this.socket.emit('disconnectedFromExhibit', location);
+    this.socket.emit('disconnectedFromExhibit', {parentLocation, location});
 
-    return this.socket.on('disconnectedFromExhibitResult', result =>
+    this.socket.on('disconnectedFromExhibitResult', result =>
     {
-      console.log(result);
+      console.log('Disconnected from Exhibit-' + parentLocation + ': ' + result);
+
+      this.registerLocation(parentLocation);
+
+      this.socket.removeAllListeners('disconnectedFromExhibitResult');
     });
   }
 }

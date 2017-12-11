@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
-  MatFormFieldModule, MatInputModule} from '@angular/material';
+  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule} from '@angular/material';
 
 import { SocketIoModule} from 'ngx-socket-io';
 import {GodSocketService} from './services/god-socket.service';
@@ -24,6 +24,17 @@ import { ContentTableAtComponent } from './content-table-at/content-table-at.com
 import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
 import { ContentPassiveComponent } from './content-passive/content-passive.component';
 import {LocationService} from './services/location.service';
+
+import { applyMiddleware, createStore } from 'redux';
+import { rootReducer } from './reducers/rootReducer';
+import { LocationActions } from './actions/LocationActions';
+import logger from 'redux-logger';
+
+
+export const appStore = createStore(
+  rootReducer,
+  applyMiddleware(logger)
+);
 
 @NgModule({
   declarations: [
@@ -47,10 +58,21 @@ import {LocationService} from './services/location.service';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [GodSocketService, ExhibitSocketService, NativeCommunicationService, WindowRef, GodService, ExhibitService, LocationService],
+  providers: [
+    GodSocketService,
+    ExhibitSocketService,
+    NativeCommunicationService,
+    WindowRef,
+    GodService,
+    ExhibitService,
+    LocationService,
+    { provide: 'AppStore', useValue: appStore },
+    LocationActions
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
