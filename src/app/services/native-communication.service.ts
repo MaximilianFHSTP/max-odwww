@@ -1,20 +1,23 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import { GodService } from './god.service';
 import {LocationService} from './location.service';
 import { Subject } from 'rxjs/Subject';
+import {LocationActions} from '../actions/LocationActions';
 
 @Injectable()
 export class NativeCommunicationService {
   public registerName: string;
-  public isIOS: boolean = true;
-  public isAndroid: boolean = false;
-  public isWeb: boolean = false;
+  public isIOS = true;
+  public isAndroid = false;
+  public isWeb = false;
 
   public locationTableOnChange: Subject<any> = new Subject<any>();
 
   constructor(
     private godService: GodService,
     private locationService: LocationService,
+    @Inject('AppStore') private appStore,
+    private locationActions: LocationActions
   ) {}
 
   public transmitODRegister(result: any): void
@@ -40,49 +43,65 @@ export class NativeCommunicationService {
     }
 
     // location is not the same as before
-    if(!this.locationService.sameAsCurrentLocation(location.id))
+    if (!this.locationService.sameAsCurrentLocation(location.id))
     {
-      //console.log('I have a new Location ' + location.id);
+      // console.log('I have a new Location ' + location.id);
       const exhibitParent = JSON.parse(localStorage.getItem('atExhibitParent'));
       const onExhibit = JSON.parse(localStorage.getItem('onExhibit'));
 
-      // locationtype is not onExhibit (type=2) and onExhibit is not on || locationtype is onExhibit and exhibitParent is set with my own parentId
-      if((location.locationTypeId != 2 && !onExhibit) || (location.locationTypeId == 2 && exhibitParent == location.parentId)){
-        console.log(location);
-        this.locationTableOnChange.next(location);
-        this.godService.registerLocation(location.id);
+      if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParent === location.parentId))
+      {
+        if (location.locationTypeId === 2)
+        {
+          this.godService.checkLocationStatus(location.id, res => {
+            if (res === 'FREE')
+            {
+              this.locationTableOnChange.next(location);
+              this.godService.registerLocation(location.id);
+            }
+            else
+            {
+              this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
+            }
+          });
+        }
+        else
+        {
+          this.locationTableOnChange.next(location);
+          this.godService.registerLocation(location.id);
+        }
       }
     }
   }
 
   public checkPlatform(){
-    let userAgent: any = window.navigator.userAgent;
-    let safariCheck: boolean = false;
-    let chromeCheck: boolean = false;
-    let androidCheck: boolean = false;
+    const userAgent: any = window.navigator.userAgent;
+    let safariCheck = false;
+    let chromeCheck = false;
+    let androidCheck = false;
 
-    if(userAgent.indexOf('Safari')!=(-1)){
+    if (userAgent.indexOf('Safari') !== (-1)){
       safariCheck = true;
     }
-    if(userAgent.indexOf('Chrome')!=(-1)){
+    if (userAgent.indexOf('Chrome') !== (-1)){
       chromeCheck = true;
     }
-    if(userAgent.indexOf('Android')!=(-1)){
+    if (userAgent.indexOf('Android') !== (-1)){
       androidCheck = true;
     }
 
-    if(androidCheck){
+    if (androidCheck){
       this.isAndroid = true;
       this.isIOS = false;
-      return "Android";
-    }else if(safariCheck || chromeCheck){
-      if(!androidCheck){
+      return 'Android';
+    }else if (safariCheck || chromeCheck){
+      if (!androidCheck){
         this.isWeb = true;
         this.isIOS = false;
-        return "Web";
+        return 'Web';
       }
     }
-    return "IOS";
+    return 'IOS';
 
   }
 

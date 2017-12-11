@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { WindowRef } from '../WindowRef';
 import {LocationService} from './location.service';
 import {ExhibitSocketService} from './exhibit-socket.service';
 import {GodService} from './god.service';
+import {LocationActions} from '../actions/LocationActions';
 
 @Injectable()
 export class ExhibitService {
@@ -13,13 +14,19 @@ export class ExhibitService {
     private winRef: WindowRef,
     private locationService: LocationService,
     private socket: ExhibitSocketService,
-    private socketGod: GodService
+    private socketGod: GodService,
+    @Inject('AppStore') private appStore,
+    private locationActions: LocationActions
   )
   {}
 
   public establishExhibitConnection(url: string ): void
   {
     this.socket.openNewExhibitConnection(url);
+
+    this.socket.connection.on('connected', () => {
+      this.appStore.dispatch(this.locationActions.changeConnectedExhibit(true));
+    });
   }
 
   public connectOD(): any
@@ -35,6 +42,8 @@ export class ExhibitService {
     this.socket.connection.on('connectODResult', result =>
     {
       console.log(result);
+
+      this.socket.connection.removeAllListeners('connectODResult');
     });
   }
 
@@ -45,13 +54,17 @@ export class ExhibitService {
 
     this.socket.connection.on('closeConnectionResult', result =>
     {
-      console.log(result);
       if (result === 'SUCCESS')
       {
         this.socket.connection.disconnect();
 
-        this.socketGod.disconnectedFromExhibit(this.locationService.currentLocation.parentId);
+        this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
+
+        this.socketGod.disconnectedFromExhibit(this.locationService.currentLocation.parentId, this.locationService.currentLocation.id);
       }
+
+      this.socket.connection.removeAllListeners('closeConnectionResult');
     });
+
   }
 }

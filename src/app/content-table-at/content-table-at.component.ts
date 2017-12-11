@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
 import { GodService } from '../services/god.service';
 import {LocationService} from '../services/location.service';
 import { Router } from '@angular/router';
 import {NativeCommunicationService} from '../services/native-communication.service';
-// import {Observable} from 'rxjs/Rx';
+import {Unsubscribe} from 'redux';
+import {TimerObservable} from 'rxjs/observable/TimerObservable';
 
 @Component({
   selector: 'app-content-table-at',
@@ -12,62 +13,68 @@ import {NativeCommunicationService} from '../services/native-communication.servi
 })
 export class ContentTableAtComponent implements OnInit, OnDestroy {
   private location: any;
-  private locationName: string;
+  public locationName: string;
   private locationId: any;
-  private locationStatusFree: boolean;
-  private locationStatusOccupied: boolean;
+  public locationStatusFree: boolean;
+  public locationStatusOccupied: boolean;
   private checkStatusTimer: any;
   public isWeb: boolean;
+  public joinGame: boolean;
+  public locationSocketStatus: undefined;
+
+  private _unsubscribe: Unsubscribe;
+  private _statusTimerSubscription;
 
   constructor(
     private godService: GodService,
     private router: Router,
     private locationService: LocationService,
-    private nativeCommunicationService: NativeCommunicationService
-  ) { }
+    private nativeCommunicationService: NativeCommunicationService,
+    @Inject('AppStore') private appStore
+  ) {
+    this._unsubscribe = this.appStore.subscribe(() => {
+      const state = this.appStore.getState();
+      this.updateLocationStatus(state.locationStatus);
+      this.locationSocketStatus = state.locationSocketStatus;
+    });
+  }
 
   ngOnInit() {
-    // TODO: get current Location from LocationService
+    console.log('TABLE-AT');
     this.location = this.locationService.currentLocation;
     this.locationName = this.location.description;
     this.locationId = this.location.id;
     this.locationStatusFree = false;
     this.locationStatusOccupied = false;
+    this.joinGame = true;
 
     this.isWeb = this.nativeCommunicationService.isWeb;
 
-
-    this.godService.checkLocationStatus(this.locationId);
-
-    /*// Timer starts after 1sec, repeats every 5sec
-    this.checkStatusTimer = Rx.Observable.timer(1000, 5000);
-    this.checkStatusTimer.subscribe(
-      // set timer for checking LocationStatus --> need locationID
-      this.checkLocationStatus(this.locationId)
-    );*/
+    // Timer starts after 1sec, repeats every 5sec
+    this.checkStatusTimer = TimerObservable.create(100, 50000);
+    this._statusTimerSubscription = this.checkStatusTimer.subscribe(() => {
+      this.godService.checkLocationStatus(this.locationId);
+    });
   }
 
   ngOnDestroy() {
     // Stop the timer
-    // this.checkStatusTimer.unsubscribe();
-  }
-
-  checkLocationStatus(data: any){
-    this.godService.checkLocationStatus(data);
+    this._statusTimerSubscription.unsubscribe();
+    this._unsubscribe();
   }
 
   redirectToOnTable()
   {
+    console.log('REDIRECT-TO-TABLE-ON');
     this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
   }
 
-  requestLocationStatus(){
-    this.checkLocationStatus(this.locationId);
-    if (this.locationService.status === 'FREE'){
+  updateLocationStatus(status: string){
+    if (status === 'FREE'){
       this.locationStatusFree = true;
       this.locationStatusOccupied = false;
     }
-    if (this.locationService.status === 'OCCUPIED'){
+    if (status === 'OCCUPIED'){
       this.locationStatusFree = false;
       this.locationStatusOccupied = true;
     }
@@ -75,6 +82,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   // saves ID of current exhibit in localstorage
   startOnTableSearch(){
+    this.joinGame = false;
     localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
   }
 }

@@ -1,15 +1,15 @@
 <h1>
   Willkommen bei {{locationName}}
 </h1>
-<button (click)="requestLocationStatus()">check Location Status</button>
 
 
 <div *ngIf="locationStatusFree">
-  <p>Table ist frei</p>
-  <button mat-raised-button color="primary" (click)="startOnTableSearch()">Mitspielen</button>
-  <p>Bitte lege Dein Handy auf ein Beacon am Table</p>
+  <h3>Table ist frei</h3>
+  <button *ngIf="joinGame" mat-raised-button color="primary" (click)="startOnTableSearch()">Mitspielen</button>
+  <p *ngIf="!joinGame">Bitte lege Dein Handy auf ein Beacon am Table</p>
+  <h4 *ngIf="locationSocketStatus === 'OCCUPIED'">Dieses Beacon ist schon belegt!</h4>
 
-  <div class="webdevtools" *ngIf="isWeb">
+  <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
     <button mat-raised-button color="primary" (click)="redirectToOnTable()">Register Location TableOn</button>
   </div>
 </div>

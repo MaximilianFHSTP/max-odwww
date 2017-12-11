@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
 import { GodService } from '../services/god.service';
 import {LocationService} from '../services/location.service';
 import {ExhibitService} from '../services/exhibit.service';
 import {NativeCommunicationService} from '../services/native-communication.service';
+import {Unsubscribe} from 'redux';
 
 @Component({
   selector: 'app-content-table-on',
@@ -10,34 +11,38 @@ import {NativeCommunicationService} from '../services/native-communication.servi
   styleUrls: ['./content-table-on.component.css']
 })
 export class ContentTableOnComponent implements OnInit {
-  private connectionSuccess: boolean;
-  private location: any;
-  private locationName: string;
+  public connectionSuccess: boolean;
+  public locationName: string;
+
+  private _location: any;
+  private _unsubscribe: Unsubscribe;
 
   constructor(
     private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
-    private nativeCommunicationService: NativeCommunicationService
-  ) { }
+    private nativeCommunicationService: NativeCommunicationService,
+    @Inject('AppStore') private appStore
+  ) {
+    this._unsubscribe = this.appStore.subscribe(() => {
+      const state = this.appStore.getState();
+      this.connectionSuccess = state.connectedToExhibit;
+    });
+  }
 
   ngOnInit() {
-    this.location = this.locationService.currentLocation;
-    this.locationName = this.location.description;
+    this._location = this.locationService.currentLocation;
+    this.locationName = this._location.description;
 
-    const parentLocation = this.locationService.findLocation(this.location.parentId);
+    const parentLocation = this.locationService.findLocation(this._location.parentId);
 
     // TODO get IP address from LocationService
     const url = 'http://' + parentLocation.ipAddress + ':8100';
 
-    // TODO open SocketConnection connectOD(user)
-    // if success set connectionSuccess true
-    this.connectionSuccess = false;
-
-    this.nativeCommunicationService.locationTableOnChange.subscribe(value =>{
-      this.location = value;
-      this.locationName = this.location.description;
-      const ip = this.location.ipAddress;
+    this.nativeCommunicationService.locationTableOnChange.subscribe(value => {
+      this._location = value;
+      this.locationName = this._location.description;
+      const ip = this._location.ipAddress;
     });
 
     this.exhibitService.establishExhibitConnection(url);
@@ -56,5 +61,6 @@ export class ContentTableOnComponent implements OnInit {
 
   ngOnDestroy() {
     this.disconnectFromExhibit();
+    this._unsubscribe();
   }
 }

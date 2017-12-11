@@ -1,16 +1,19 @@
-<h1>
-  Willkommen bei {{locationName}}
-</h1>
-<div *ngIf="connectionSuccess; else elseBlock">
-  <p>
-  Verbindung zum Table erfolgreich aufgebaut.
-  </p>
+<div class="wrapper">
+    <h1>
+      Willkommen bei {{locationName}}
+    </h1>
+    <div *ngIf="connectionSuccess; else elseBlock">
+      <h3>
+        <mat-icon style="color:green; width: 80px; font-size: 80px;">check_circle</mat-icon>
+        Verbindung zum Table erfolgreich aufgebaut.
+      </h3>
+    </div>
+    <ng-template #elseBlock>
+      <mat-spinner></mat-spinner>
+      <h3>
+        Verbindung zum Table wird aufgebaut.
+      </h3>
+    </ng-template>
+
+    <button mat-raised-button color="primary" (click)="disconnectFromExhibit()">Disconnect Exhibit</button>
 </div>
-<ng-template #elseBlock>
-  <p>
-    Verbindung zum Table wird aufgebaut.
-  <p>
-</ng-template>
-
-<button mat-raised-button color="primary" (click)="disconnectFromExhibit()">Disconnect Exhibit</button>
-

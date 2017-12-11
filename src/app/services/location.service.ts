@@ -5,7 +5,6 @@ export class LocationService
 {
   private _lookuptable: any;
   private _currentLocation: any;
-  private _status: any;
 
   constructor() { }
 
@@ -14,7 +13,7 @@ export class LocationService
     let toFind: number;
 
     if (!this._lookuptable) {
-      return toFind;
+      return;
     }
 
     for (let i = 0; i < this._lookuptable.length; i++)
@@ -39,8 +38,8 @@ export class LocationService
   {
     let isSame = false;
 
-    if(this._currentLocation){
-      if(id == this._currentLocation.id){
+    if (this._currentLocation){
+      if (id === this._currentLocation.id){
         isSame = true;
       }
     }
@@ -66,15 +65,5 @@ export class LocationService
   set currentLocation(location: any)
   {
     this._currentLocation = location;
-  }
-
-  get status(): any
-  {
-    return this._status;
-  }
-
-  set status(status: any)
-  {
-    this._status = status;
   }
 }
