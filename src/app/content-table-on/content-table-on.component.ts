@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
 import { GodService } from '../services/god.service';
 import {LocationService} from '../services/location.service';
 import {ExhibitService} from '../services/exhibit.service';
-import {NativeCommunicationService} from '../services/native-communication.service';
 import {Unsubscribe} from 'redux';
 
 @Component({
@@ -10,7 +9,7 @@ import {Unsubscribe} from 'redux';
   templateUrl: './content-table-on.component.html',
   styleUrls: ['./content-table-on.component.css']
 })
-export class ContentTableOnComponent implements OnInit {
+export class ContentTableOnComponent implements OnInit, OnDestroy {
   public connectionSuccess: boolean;
   public locationName: string;
 
@@ -21,7 +20,6 @@ export class ContentTableOnComponent implements OnInit {
     private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
-    private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
@@ -39,12 +37,6 @@ export class ContentTableOnComponent implements OnInit {
     // TODO get IP address from LocationService
     const url = 'http://' + parentLocation.ipAddress + ':8100';
 
-    this.nativeCommunicationService.locationTableOnChange.subscribe(value => {
-      this._location = value;
-      this.locationName = this._location.description;
-      const ip = this._location.ipAddress;
-    });
-
     this.exhibitService.establishExhibitConnection(url);
 
     this.exhibitService.connectOD();
@@ -52,15 +44,15 @@ export class ContentTableOnComponent implements OnInit {
     localStorage.setItem('onExhibit', JSON.stringify(true));
   }
 
+  ngOnDestroy() {
+    this.disconnectFromExhibit();
+    this._unsubscribe();
+  }
+
   public disconnectFromExhibit()
   {
     this.exhibitService.disconnect();
     localStorage.setItem('atExhibitParent', JSON.stringify(0));
     localStorage.setItem('onExhibit', JSON.stringify(false));
-  }
-
-  ngOnDestroy() {
-    this.disconnectFromExhibit();
-    this._unsubscribe();
   }
 }

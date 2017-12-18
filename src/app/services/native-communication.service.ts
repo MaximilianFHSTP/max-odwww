@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import { GodService } from './god.service';
 import {LocationService} from './location.service';
-import { Subject } from 'rxjs/Subject';
 import {LocationActions} from '../actions/LocationActions';
 
 @Injectable()
@@ -10,8 +9,6 @@ export class NativeCommunicationService {
   public isIOS = true;
   public isAndroid = false;
   public isWeb = false;
-
-  public locationTableOnChange: Subject<any> = new Subject<any>();
 
   constructor(
     private godService: GodService,
@@ -45,7 +42,6 @@ export class NativeCommunicationService {
     // location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
     {
-      // console.log('I have a new Location ' + location.id);
       const exhibitParent = JSON.parse(localStorage.getItem('atExhibitParent'));
       const onExhibit = JSON.parse(localStorage.getItem('onExhibit'));
 
@@ -56,7 +52,6 @@ export class NativeCommunicationService {
           this.godService.checkLocationStatus(location.id, res => {
             if (res === 'FREE')
             {
-              this.locationTableOnChange.next(location);
               this.godService.registerLocation(location.id);
             }
             else
@@ -67,7 +62,6 @@ export class NativeCommunicationService {
         }
         else
         {
-          this.locationTableOnChange.next(location);
           this.godService.registerLocation(location.id);
         }
       }
