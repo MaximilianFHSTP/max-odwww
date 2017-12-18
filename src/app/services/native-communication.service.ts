@@ -40,7 +40,7 @@ export class NativeCommunicationService {
     }
 
     // location is not the same as before
-    if (!this.locationService.sameAsCurrentLocation(location.id))
+    if (!this.locationService.sameAsCurrentLocation(location.id) && this.locationService.currentLocation.locationTypeId !== 2)
     {
       if (this.locationService.currentLocation && this.locationService.currentLocation.locationTypeId === 2)
       {
