@@ -42,6 +42,11 @@ export class NativeCommunicationService {
     // location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
     {
+      if (this.locationService.currentLocation && this.locationService.currentLocation.locationTypeId === 2)
+      {
+        return;
+      }
+
       const exhibitParent = JSON.parse(localStorage.getItem('atExhibitParent'));
       const onExhibit = JSON.parse(localStorage.getItem('onExhibit'));
 
@@ -53,6 +58,7 @@ export class NativeCommunicationService {
             if (res === 'FREE')
             {
               this.godService.registerLocation(location.id);
+              this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
             }
             else
             {
