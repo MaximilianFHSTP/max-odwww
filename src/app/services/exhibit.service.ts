@@ -31,13 +31,14 @@ export class ExhibitService {
 
   public connectOD(): any
   {
-    const user = localStorage.getItem('user');
+    const user = JSON.parse(localStorage.getItem('user'));
+    const location = this.locationService.currentLocation;
 
     if (!user) {
       return;
     }
 
-    this.socket.connection.emit('connectOD', user);
+    this.socket.connection.emit('connectOD', {user, location});
 
     this.socket.connection.on('connectODResult', result =>
     {
