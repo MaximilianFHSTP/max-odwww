@@ -36,15 +36,18 @@ export class GodService {
       this.locationService.lookuptable = result.locations;
 
       this.router.navigate(['/mainview']).then( () =>
-      {
-        // send success to native & start beacon scan
-        // TODO: switch für iOS & Android
-      if (isIOS){
-        this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
-      }else if (isAndroid){
-        this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
-      }
-      });
+        {
+          // send success to native & start beacon scan
+          if (isIOS)
+          {
+            this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
+          }
+          else if (isAndroid)
+          {
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
+          }
+        }
+      );
 
       this.socket.removeAllListeners('registerODResult');
     });
