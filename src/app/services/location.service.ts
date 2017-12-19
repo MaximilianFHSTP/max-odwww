@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class LocationService
 {
   private _lookuptable: any;
   private _currentLocation: any;
+
+  public locationChanged: Subject<any> = new Subject<any>();
 
   constructor() { }
 
@@ -30,8 +33,8 @@ export class LocationService
   public updateCurrentLocation(id: number)
   {
     const location = this.findLocation(id);
-
     this._currentLocation = location;
+    this.locationChanged.next(this._currentLocation);
   }
 
   public sameAsCurrentLocation(id: number): boolean
