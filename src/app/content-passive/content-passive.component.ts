@@ -20,6 +20,10 @@ export class ContentPassiveComponent implements OnInit
 
   ngOnInit()
   {
+    this._location = this.locationService.currentLocation
+    this.locationName = this._location.description
+    this.locationId = this._location.id
+    
     this.locationService.locationChanged.subscribe(value =>
       {
       this._location = value;
