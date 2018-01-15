@@ -4,6 +4,7 @@ import { WindowRef } from '../WindowRef';
 import {LocationService} from './location.service';
 import {GodSocketService} from './god-socket.service';
 import {LocationActions} from '../actions/LocationActions';
+import {UserActions} from '../actions/UserActions';
 
 @Injectable()
 export class GodService {
@@ -14,7 +15,8 @@ export class GodService {
     private locationService: LocationService,
     private socket: GodSocketService,
     @Inject('AppStore') private appStore,
-    private locationActions: LocationActions
+    private locationActions: LocationActions,
+    private userActions: UserActions
   )
   {
     this.socket.on('news', msg =>
@@ -23,6 +25,7 @@ export class GodService {
     });
   }
 
+  // TODO: change - get Infos about platform from central store
   public registerOD(data: any, isIOS: boolean, isAndroid: boolean, isWeb: boolean): any
   {
     this.socket.emit('registerOD', data);
@@ -31,7 +34,9 @@ export class GodService {
     {
       // console.log(result.user);
       console.log(result);
-      localStorage.setItem('user', JSON.stringify(result.user));
+      
+      //TODO: store lookuptable in store
+      this.appStore.dispatch(this.userActions.changeUser(result.user));
       localStorage.setItem('lookuptable', JSON.stringify(result.locations));
       this.locationService.lookuptable = result.locations;
 
@@ -53,9 +58,11 @@ export class GodService {
     });
   }
 
+  // TODO: change - get Infos about platform from central store
   public registerLocation(id: number, isIOS: boolean, isAndroid: boolean, isWeb: boolean): any
   {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const state = this.appStore.getState();
+    const user = state.user;
     this.socket.emit('registerLocation', {location: id, user: user.id});
 
     this.socket.on('registerLocationResult', registeredLocation =>
@@ -72,7 +79,6 @@ export class GodService {
       
       this.router.navigate([this.locationService.currentLocation.contentURL]).then( () =>
       {
-        console.log(this.winRef.nativeWindow.webkit);
         // send success to native & trigger signal
         if (isIOS)
         {
@@ -122,7 +128,8 @@ export class GodService {
     {
       console.log('Disconnected from Exhibit-' + parentLocation + ': ' + result);
 
-      //this.registerLocation(parentLocation);
+      // TODO: set parent location not possible
+      // this.registerLocation(parentLocation);
 
       this.socket.removeAllListeners('disconnectedFromExhibitResult');
     });

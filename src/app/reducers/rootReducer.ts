@@ -1,4 +1,5 @@
 import * as LocationActions from '../actions/LocationActions';
+import * as UserActions from '../actions/UserActions';
 
 const initialState = {
   lookupTable: [],
@@ -6,7 +7,8 @@ const initialState = {
   currentLocation: undefined,
   locationStatus: undefined,
   locationSocketStatus: undefined,
-  connectedToExhibit: false
+  connectedToExhibit: false,
+  platform: undefined
 };
 
 export function rootReducer(state = initialState, action)
@@ -35,6 +37,12 @@ export function rootReducer(state = initialState, action)
       return {
         ...state,
         locationSocketStatus: action.locationSocketStatus
+      };
+
+    case UserActions.CHANGE_USER:
+      return {
+        ...state,
+        user: action.user
       };
 
     default:
