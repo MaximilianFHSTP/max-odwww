@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LocationService } from '../services/location.service';
 
 @Component(
@@ -8,7 +8,7 @@ import { LocationService } from '../services/location.service';
   styleUrls: ['./content-passive.component.css']
   }
 )
-export class ContentPassiveComponent implements OnInit
+export class ContentPassiveComponent implements OnInit, OnDestroy
 {
   private _location: any;
   private locationName: string;
@@ -20,9 +20,9 @@ export class ContentPassiveComponent implements OnInit
 
   ngOnInit()
   {
-    this._location = this.locationService.currentLocation
-    this.locationName = this._location.description
-    this.locationId = this._location.id
+    this._location = this.locationService.currentLocation;
+    this.locationName = this._location.description;
+    this.locationId = this._location.id;
     
     this.locationService.locationChanged.subscribe(value =>
       {
@@ -31,5 +31,9 @@ export class ContentPassiveComponent implements OnInit
       this.locationId = this._location.id;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.locationService.locationChanged.unsubscribe();
   }
 }
