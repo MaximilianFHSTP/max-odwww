@@ -5,6 +5,7 @@ import {LocationService} from './location.service';
 import {ExhibitSocketService} from './exhibit-socket.service';
 import {GodService} from './god.service';
 import {LocationActions} from '../actions/LocationActions';
+import {UserActions} from '../actions/UserActions';
 
 @Injectable()
 export class ExhibitService {
@@ -16,7 +17,8 @@ export class ExhibitService {
     private socket: ExhibitSocketService,
     private socketGod: GodService,
     @Inject('AppStore') private appStore,
-    private locationActions: LocationActions
+    private locationActions: LocationActions,
+    private userActions: UserActions
   )
   {}
 
@@ -31,7 +33,10 @@ export class ExhibitService {
 
   public connectOD(): any
   {
-    const user = JSON.parse(localStorage.getItem('user'));
+    // TODO: change to appstore
+    const state = this.appStore.getState();
+    const user = state.user;
+    //const user = JSON.parse(localStorage.getItem('user'));
     const location = this.locationService.currentLocation;
 
     if (!user) {
@@ -50,7 +55,10 @@ export class ExhibitService {
 
   public disconnect()
   {
-    const user = JSON.parse(localStorage.getItem('user'));
+    // TODO: change to appstore
+    const state = this.appStore.getState();
+    const user = state.user;
+    //const user = JSON.parse(localStorage.getItem('user'));
     this.socket.connection.emit('closeConnection', user);
 
     this.socket.connection.on('closeConnectionResult', result =>

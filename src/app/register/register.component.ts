@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../services/native-communication.service';
 import { WindowRef } from '../WindowRef';
+import {UserActions} from '../actions/UserActions';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+@Injectable()
 export class RegisterComponent implements OnInit
 {
   public name: string;
@@ -16,6 +18,8 @@ export class RegisterComponent implements OnInit
     private router: Router,
     private nativeCommunicationService: NativeCommunicationService,
     private winRef: WindowRef,
+    @Inject('AppStore') private appStore,
+    private userActions: UserActions
   ) { }
 
   public requestDeviceInfos()
@@ -40,6 +44,7 @@ export class RegisterComponent implements OnInit
   ngOnInit()
   {
     this.name = '';
+    // TODO: change to appstore
   /*  if (localStorage.getItem('user') && localStorage.getItem('lookuptable'))
     {
       this.router.navigate(['/mainview']).then( () =>

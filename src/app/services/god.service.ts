@@ -5,6 +5,7 @@ import {LocationService} from './location.service';
 import {GodSocketService} from './god-socket.service';
 import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
+import { appStore } from '../app.module';
 
 @Injectable()
 export class GodService {
@@ -26,7 +27,7 @@ export class GodService {
   }
 
   // TODO: change - get Infos about platform from central store
-  public registerOD(data: any, isIOS: boolean, isAndroid: boolean, isWeb: boolean): any
+  public registerOD(data: any): any
   {
     this.socket.emit('registerOD', data);
 
@@ -40,16 +41,23 @@ export class GodService {
       localStorage.setItem('lookuptable', JSON.stringify(result.locations));
       this.locationService.lookuptable = result.locations;
 
+      const state = this.appStore.getState();
+      const platform = state.platform;
+
       this.router.navigate(['/mainview']).then( () =>
         {
           // send success to native & start beacon scan
-          if (isIOS)
-          {
-            this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
-          }
-          else if (isAndroid)
-          {
-            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
+          switch (platform) {
+            case 'IOS':
+              this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
+            break;
+
+            case 'Android':
+              this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
+            break;
+      
+            default:
+              break;
           }
         }
       );
@@ -57,11 +65,10 @@ export class GodService {
       this.socket.removeAllListeners('registerODResult');
     });
   }
-
-  // TODO: change - get Infos about platform from central store
-  public registerLocation(id: number, isIOS: boolean, isAndroid: boolean, isWeb: boolean): any
+  
+  public registerLocation(id: number): any
   {
-    const state = this.appStore.getState();
+    let state = this.appStore.getState();
     const user = state.user;
     this.socket.emit('registerLocation', {location: id, user: user.id});
 
@@ -77,16 +84,23 @@ export class GodService {
       this.locationService.updateCurrentLocation(registeredLocation);
       console.log(this.locationService.currentLocation);
       
+      state = this.appStore.getState();
+      const platform = state.platform;
+
       this.router.navigate([this.locationService.currentLocation.contentURL]).then( () =>
       {
         // send success to native & trigger signal
-        if (isIOS)
-        {
+        switch (platform) {
+          case 'IOS':
           this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage('success');
-        }
-        else if (isAndroid)
-        {
+          break;
+
+          case 'Android':
           this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerSignal();
+          break;
+    
+          default:
+            break;
         }
       }
     );
@@ -128,8 +142,7 @@ export class GodService {
     {
       console.log('Disconnected from Exhibit-' + parentLocation + ': ' + result);
 
-      // TODO: set parent location not possible
-      // this.registerLocation(parentLocation);
+      this.registerLocation(parentLocation);
 
       this.socket.removeAllListeners('disconnectedFromExhibitResult');
     });

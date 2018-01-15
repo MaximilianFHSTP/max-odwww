@@ -45,6 +45,14 @@ export function rootReducer(state = initialState, action)
         user: action.user
       };
 
+    case UserActions.CHANGE_PLATFORM:
+      return {
+        ...state,
+        platform: action.platform
+      };
+
+
+
     default:
       return state;
   }

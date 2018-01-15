@@ -25,7 +25,7 @@ export class NativeCommunicationService {
     const deviceModel: string = result.deviceModel;
 
     const data = {identifier: this.registerName, deviceAddress, deviceOS, deviceVersion, deviceModel};
-    this.godService.registerOD(data, this.isIOS, this.isAndroid, this.isWeb);
+    this.godService.registerOD(data);
   }
 
   public transmitLocationRegister(result: any)
@@ -57,7 +57,7 @@ export class NativeCommunicationService {
           this.godService.checkLocationStatus(location.id, res => {
             if (res === 'FREE')
             {
-              this.godService.registerLocation(location.id, this.isIOS, this.isAndroid, this.isWeb);
+              this.godService.registerLocation(location.id);
               this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
             }
             else
@@ -68,7 +68,7 @@ export class NativeCommunicationService {
         }
         else
         {
-          this.godService.registerLocation(location.id, this.isIOS, this.isAndroid, this.isWeb);
+          this.godService.registerLocation(location.id);
         }
       }
     }

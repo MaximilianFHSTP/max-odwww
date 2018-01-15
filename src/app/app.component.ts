@@ -1,5 +1,6 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, Inject, Injectable, OnInit } from '@angular/core';
 import {NativeCommunicationService} from './services/native-communication.service';
+import {UserActions} from './actions/UserActions';
 
 
 @Component({
@@ -7,13 +8,16 @@ import {NativeCommunicationService} from './services/native-communication.servic
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+@Injectable()
+export class AppComponent implements OnInit {
   title = 'app';
 
   public platform: String;
 
   constructor(
-    private nativeCommunicationService: NativeCommunicationService
+    private nativeCommunicationService: NativeCommunicationService,
+    @Inject('AppStore') private appStore,
+    private userActions: UserActions
   ) { }
 
   ngOnInit() {
@@ -23,7 +27,8 @@ export class AppComponent {
   }
 
   public requestCheckedPlatform(){
-    this.platform = this.nativeCommunicationService.checkPlatform();
-    console.log("Detected Platform " + this.platform);
+    this.appStore.dispatch(this.userActions.changePlatform(this.nativeCommunicationService.checkPlatform()));
+    // this.platform = this.nativeCommunicationService.checkPlatform();
+    // console.log("Detected Platform " + this.platform);
   }
 }

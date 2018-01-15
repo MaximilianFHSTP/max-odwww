@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import {NativeCommunicationService} from '../services/native-communication.service';
 import {LocationService} from '../services/location.service';
+import {UserActions} from '../actions/UserActions';
 
 @Component({
   selector: 'app-main-view',
   templateUrl: './main-view.component.html',
   styleUrls: ['./main-view.component.css']
 })
+@Injectable()
 export class MainViewComponent implements OnInit {
   private user: any;
   private lookuptable: any;
@@ -14,7 +16,9 @@ export class MainViewComponent implements OnInit {
 
   constructor(
     private nativeCommunicationService: NativeCommunicationService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    @Inject('AppStore') private appStore,
+    private userActions: UserActions
   ) { }
 
   public requestRegisterLocation()
@@ -23,7 +27,11 @@ export class MainViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'));
+    // TODO: Change to appStore
+    const state = this.appStore.getState();
+    this.user = state.user;
+    //this.user = JSON.parse(localStorage.getItem('user'));
+
     this.locationService.lookuptable = JSON.parse(localStorage.getItem('lookuptable'));
 
     this.isWeb = this.nativeCommunicationService.isWeb;
