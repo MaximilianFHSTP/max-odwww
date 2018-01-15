@@ -8,7 +8,7 @@ import { LocationService } from '../services/location.service';
   styleUrls: ['./content-passive.component.css']
   }
 )
-export class ContentPassiveComponent implements OnInit, OnDestroy
+export class ContentPassiveComponent implements OnInit
 {
   private _location: any;
   private locationName: string;
@@ -32,8 +32,8 @@ export class ContentPassiveComponent implements OnInit, OnDestroy
       }
     );
   }
-
+/*
   ngOnDestroy() {
     this.locationService.locationChanged.unsubscribe();
-  }
+  }*/
 }
