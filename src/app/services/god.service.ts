@@ -53,7 +53,7 @@ export class GodService {
     });
   }
 
-  public registerLocation(id: number): any
+  public registerLocation(id: number, isIOS: boolean, isAndroid: boolean, isWeb: boolean): any
   {
     const user = JSON.parse(localStorage.getItem('user'));
     this.socket.emit('registerLocation', {location: id, user: user.id});
@@ -69,7 +69,21 @@ export class GodService {
 
       this.locationService.updateCurrentLocation(registeredLocation);
       console.log(this.locationService.currentLocation);
-      this.router.navigate([this.locationService.currentLocation.contentURL]);
+      
+      this.router.navigate([this.locationService.currentLocation.contentURL]).then( () =>
+      {
+        console.log(this.winRef.nativeWindow.webkit);
+        // send success to native & trigger signal
+        if (isIOS)
+        {
+          this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage('success');
+        }
+        else if (isAndroid)
+        {
+          this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerSignal();
+        }
+      }
+    );
 
       this.socket.removeAllListeners('registerLocationResult');
     });
@@ -108,7 +122,7 @@ export class GodService {
     {
       console.log('Disconnected from Exhibit-' + parentLocation + ': ' + result);
 
-      this.registerLocation(parentLocation);
+      //this.registerLocation(parentLocation);
 
       this.socket.removeAllListeners('disconnectedFromExhibitResult');
     });
