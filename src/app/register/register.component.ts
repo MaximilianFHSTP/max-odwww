@@ -26,35 +26,29 @@ export class RegisterComponent implements OnInit
   {
     this.nativeCommunicationService.registerName = this.name;
 
-    // TODO detect if iOS or Android and differ between them
-    if(this.nativeCommunicationService.isIOS){
-      this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
-    }else if(this.nativeCommunicationService.isAndroid){
-      this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getDeviceInfos();
-    }else{
-      // INFO Workaround for trying the application in the browser
-      const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
-      this.nativeCommunicationService.transmitODRegister(data);
+    const state = this.appStore.getState();
+    const platform = state.platform;
+
+    switch (platform) {
+      case 'IOS':
+        this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
+      break;
+
+      case 'Android':
+        this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getDeviceInfos();
+      break;
+
+      default:
+        // INFO: Workaround for trying the application in the browser
+        const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
+        this.nativeCommunicationService.transmitODRegister(data);
+        break;
     }
-
-
-
   }
 
   ngOnInit()
   {
     this.name = '';
-    // TODO: change to appstore
-  /*  if (localStorage.getItem('user') && localStorage.getItem('lookuptable'))
-    {
-      this.router.navigate(['/mainview']).then( () =>
-      {
-        // send success to native & start beacon scan
-        // TODO: switch für iOS & Android
-        this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
-      });
-
-    }*/
   }
 
 }
