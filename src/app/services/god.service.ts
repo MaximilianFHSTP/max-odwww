@@ -26,7 +26,6 @@ export class GodService {
     });
   }
 
-  // TODO: change - get Infos about platform from central store
   public registerOD(data: any): any
   {
     this.socket.emit('registerOD', data);
@@ -65,7 +64,7 @@ export class GodService {
       this.socket.removeAllListeners('registerODResult');
     });
   }
-  
+
   public registerLocation(id: number): any
   {
     let state = this.appStore.getState();

@@ -38,11 +38,6 @@
      window.update_location = function(beacon){
        //console.log("call from native: update_location" + beacon);
        window.angularComponentRef.componentFn("update_location",beacon);
-       /*var myexhibit = get_exhibit_by_id(beacon['minor']);
-       var currentOD =  JSON.parse(localStorage.getItem('currentOD'));
-       if(myexhibit.id){
-         socket.emit('registerLocation', {user: currentOD.id, location: myexhibit.id});
-       }*/
      };
 
 
@@ -51,8 +46,6 @@
      window.send_device_infos = function(deviceinfos){
        //console.log("call from native: send_device_infos" + deviceinfos);
        window.angularComponentRef.componentFn("send_device_infos",deviceinfos);
-       /*console.log(deviceinfos);
-       register_od(deviceinfos);*/
      };
 
     window.callfromnative = function(theParameter){
@@ -68,8 +61,6 @@
       console.log(text);
       window.angularComponentRef.componentFn("test",text);
     };
-
-
 
     // testfunction for calling native
     function call_native(){

@@ -36,7 +36,6 @@ export class ExhibitService {
     // TODO: change to appstore
     const state = this.appStore.getState();
     const user = state.user;
-    //const user = JSON.parse(localStorage.getItem('user'));
     const location = this.locationService.currentLocation;
 
     if (!user) {
@@ -58,7 +57,6 @@ export class ExhibitService {
     // TODO: change to appstore
     const state = this.appStore.getState();
     const user = state.user;
-    //const user = JSON.parse(localStorage.getItem('user'));
     this.socket.connection.emit('closeConnection', user);
 
     this.socket.connection.on('closeConnectionResult', result =>
