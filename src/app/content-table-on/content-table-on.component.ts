@@ -34,7 +34,7 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
 
     const parentLocation = this.locationService.findLocation(this._location.parentId);
 
-    // TODO get IP address from LocationService
+    // TODO: get IP address from LocationService
     const url = 'http://' + parentLocation.ipAddress + ':8100';
 
     this.exhibitService.establishExhibitConnection(url);

@@ -31,11 +31,11 @@ export class NativeCommunicationService {
   public transmitLocationRegister(result: any)
   {
     const minor: number = result.minor;
-
     const location = this.locationService.findLocation(minor);
 
     if (!location)
     {
+      console.log('this is not a valid location');
       return;
     }
 
@@ -44,6 +44,7 @@ export class NativeCommunicationService {
     {
       if (this.locationService.currentLocation && this.locationService.currentLocation.locationTypeId === 2)
       {
+        console.log('this is not a valid location - type 2');
         return;
       }
 

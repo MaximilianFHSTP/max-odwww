@@ -33,7 +33,7 @@ export class ExhibitService {
 
   public connectOD(): any
   {
-    // TODO: change to appstore
+    
     const state = this.appStore.getState();
     const user = state.user;
     const location = this.locationService.currentLocation;
@@ -54,9 +54,10 @@ export class ExhibitService {
 
   public disconnect()
   {
-    // TODO: change to appstore
+    
     const state = this.appStore.getState();
     const user = state.user;
+    
     this.socket.connection.emit('closeConnection', user);
 
     this.socket.connection.on('closeConnectionResult', result =>

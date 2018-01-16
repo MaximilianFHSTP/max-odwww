@@ -32,6 +32,7 @@ export class ContentPassiveComponent implements OnInit
       }
     );
   }
+  // TODO: destroy subscribtion --> code below is producing an error
 /*
   ngOnDestroy() {
     this.locationService.locationChanged.unsubscribe();
