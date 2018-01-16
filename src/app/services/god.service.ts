@@ -32,12 +32,10 @@ export class GodService {
 
     this.socket.on('registerODResult', result =>
     {
-      // console.log(result.user);
       console.log(result);
       
-      //TODO: store lookuptable in store
       this.appStore.dispatch(this.userActions.changeUser(result.user));
-      localStorage.setItem('lookuptable', JSON.stringify(result.locations));
+      this.appStore.dispatch(this.userActions.changeLookupTable(result.locations));
       this.locationService.lookuptable = result.locations;
 
       const state = this.appStore.getState();

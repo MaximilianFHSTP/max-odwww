@@ -1,5 +1,6 @@
 export const CHANGE_USER = 'CHANGE_USER';
 export const CHANGE_PLATFORM = 'CHANGE_PLATFORM';
+export const CHANGE_LOOKUPTABLE = 'CHANGE_LOOKUPTABLE';
 
 export class UserActions
 {
@@ -23,4 +24,14 @@ export class UserActions
       platform: platform
     };
   }
+
+  public changeLookupTable(lookupTable: any)
+  {
+    return {
+      type: CHANGE_LOOKUPTABLE,
+      lookupTable: lookupTable
+    };
+  }
+
+
 }

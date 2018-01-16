@@ -51,6 +51,11 @@ export function rootReducer(state = initialState, action)
         platform: action.platform
       };
 
+    case UserActions.CHANGE_LOOKUPTABLE:
+      return {
+        ...state,
+        lookupTable: action.lookupTable
+      };
 
 
     default:

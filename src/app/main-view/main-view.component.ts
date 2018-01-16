@@ -27,12 +27,10 @@ export class MainViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO: Change to appStore
+    
     const state = this.appStore.getState();
     this.user = state.user;
-    //this.user = JSON.parse(localStorage.getItem('user'));
-
-    this.locationService.lookuptable = JSON.parse(localStorage.getItem('lookuptable'));
+    this.locationService.lookuptable = state.lookupTable;
 
     this.isWeb = this.nativeCommunicationService.isWeb;
   }
