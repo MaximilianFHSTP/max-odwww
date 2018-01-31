@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { appStore } from '../app.module';
+import {UserActions} from '../actions/UserActions';
 
 @Injectable()
 export class LocationService
@@ -9,7 +11,10 @@ export class LocationService
 
   public locationChanged: Subject<any> = new Subject<any>();
 
-  constructor() { }
+  constructor(
+    @Inject('AppStore') private appStore,
+    private userActions: UserActions
+  ) { }
 
   public findLocation(id: number): any
   {
