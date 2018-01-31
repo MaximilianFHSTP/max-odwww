@@ -48,10 +48,15 @@ export class NativeCommunicationService {
         return;
       }
 
-      const exhibitParent = JSON.parse(localStorage.getItem('atExhibitParent'));
-      const onExhibit = JSON.parse(localStorage.getItem('onExhibit'));
+      const state = this.appStore.getState();
+      // const exhibitParent = JSON.parse(localStorage.getItem('atExhibitParent'));
+      // const onExhibit = JSON.parse(localStorage.getItem('onExhibit'));
+      const exhibitParentId = state.atExhibitParent;
+      const onExhibit = state.onExhibit;
 
-      if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParent === location.parentId))
+      console.log('new valid location found - check and registerLocation at GoD');
+
+      if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParentId === location.parentId))
       {
         if (location.locationTypeId === 2)
         {

@@ -8,7 +8,9 @@ const initialState = {
   locationStatus: undefined,
   locationSocketStatus: undefined,
   connectedToExhibit: false,
-  platform: undefined
+  platform: undefined,
+  atExhibitParentId: undefined,
+  onExhibit: undefined
 };
 
 export function rootReducer(state = initialState, action)
@@ -37,6 +39,18 @@ export function rootReducer(state = initialState, action)
       return {
         ...state,
         locationSocketStatus: action.locationSocketStatus
+      };
+
+    case LocationActions.CHANGE_AT_EXHIBIT_PARENT_ID:
+      return {
+        ...state,
+        atExhibitParentId: action.atExhibitParentId
+      };
+
+    case LocationActions.CHANGE_ON_EXHIBIT:
+      return {
+        ...state,
+        onExhibit: action.onExhibit
       };
 
     case UserActions.CHANGE_USER:

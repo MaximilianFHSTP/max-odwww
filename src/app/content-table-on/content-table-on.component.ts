@@ -3,6 +3,7 @@ import { GodService } from '../services/god.service';
 import {LocationService} from '../services/location.service';
 import {ExhibitService} from '../services/exhibit.service';
 import {Unsubscribe} from 'redux';
+import {LocationActions} from '../actions/LocationActions';
 
 @Component({
   selector: 'app-content-table-on',
@@ -20,7 +21,8 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
     private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
-    @Inject('AppStore') private appStore
+    @Inject('AppStore') private appStore,
+    private locationActions: LocationActions
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
@@ -41,7 +43,8 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
 
     this.exhibitService.connectOD();
 
-    localStorage.setItem('onExhibit', JSON.stringify(true));
+    //localStorage.setItem('onExhibit', JSON.stringify(true));
+    this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
   }
 
   ngOnDestroy() {
@@ -52,7 +55,9 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
   public disconnectFromExhibit()
   {
     this.exhibitService.disconnect();
-    localStorage.setItem('atExhibitParent', JSON.stringify(0));
-    localStorage.setItem('onExhibit', JSON.stringify(false));
+    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
+    this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+    //localStorage.setItem('atExhibitParent', JSON.stringify(0));
+    //localStorage.setItem('onExhibit', JSON.stringify(false));
   }
 }

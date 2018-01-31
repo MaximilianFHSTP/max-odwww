@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import {NativeCommunicationService} from '../services/native-communication.service';
 import {Unsubscribe} from 'redux';
 import {TimerObservable} from 'rxjs/observable/TimerObservable';
+import {LocationActions} from '../actions/LocationActions';
 
 @Component({
   selector: 'app-content-table-at',
@@ -30,7 +31,8 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private router: Router,
     private locationService: LocationService,
     private nativeCommunicationService: NativeCommunicationService,
-    @Inject('AppStore') private appStore
+    @Inject('AppStore') private appStore,
+    private locationActions: LocationActions
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
@@ -83,6 +85,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   // saves ID of current exhibit in localstorage
   startOnTableSearch(){
     this.joinGame = false;
-    localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
+    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
+    // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
   }
 }
