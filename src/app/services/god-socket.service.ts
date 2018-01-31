@@ -6,7 +6,7 @@ export class GodSocketService extends Socket {
 
   constructor() {
     // super({ url: 'http://god.meeteux.fhstp.ac.at:3000', options: {} });
-    super({ url: 'http://god.meeteux.fhstp.ac.at:3000', options: {} });
+    super({ url: 'https://god.meeteux.fhstp.ac.at', options: {secure: true} });
   }
 
 }
