@@ -23,6 +23,7 @@ export class GodService {
     this.socket.on('news', msg =>
     {
       console.log(msg);
+      // this.nativeCommunicationService.sendToNative(msg, 'print');
     });
   }
 
@@ -33,6 +34,7 @@ export class GodService {
     this.socket.on('registerODResult', result =>
     {
       console.log(result);
+      // this.nativeCommunicationService.sendToNative(result, 'print');
       
       this.appStore.dispatch(this.userActions.changeUser(result.user));
       this.appStore.dispatch(this.userActions.changeLookupTable(result.locations));
@@ -44,6 +46,8 @@ export class GodService {
       this.router.navigate(['/mainview']).then( () =>
         {
           // send success to native & start beacon scan
+
+          // this.nativeCommunicationService.sendToNative('success', 'registerOD');
           switch (platform) {
             case 'IOS':
               this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
@@ -75,11 +79,13 @@ export class GodService {
       if (registeredLocation === 'FAILED')
       {
         console.log('RegisterLocation: FAILED');
+        // this.nativeCommunicationService.sendToNative('RegisterLocation: FAILED', 'print');
         return;
       }
 
       this.locationService.updateCurrentLocation(registeredLocation);
       console.log(this.locationService.currentLocation);
+      // this.nativeCommunicationService.sendToNative(this.locationService.currentLocation, 'print');
       
       state = this.appStore.getState();
       const platform = state.platform;
@@ -137,6 +143,7 @@ export class GodService {
 
     this.socket.on('disconnectedFromExhibitResult', result =>
     {
+      
       console.log('Disconnected from Exhibit-' + parentLocation + ': ' + result);
 
       this.registerLocation(parentLocation);

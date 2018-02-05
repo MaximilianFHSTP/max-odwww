@@ -55,20 +55,6 @@
       });
     };
 
-    // testfunction for calling native
-    // only parameter is possible for communicating between native and web
-    window.set_headline = function(text){
-      console.log(text);
-      window.angularComponentRef.componentFn("test",text);
-    };
-
-    // testfunction for calling native
-    function call_native(){
-      console.log("asked for");
-      window.webkit.messageHandlers.observe.postMessage("hello");
-    }
-
-    window.setTimeout(call_native, 1000);
   </script>
 </body>
 </html>

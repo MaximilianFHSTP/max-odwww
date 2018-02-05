@@ -2,6 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import { GodService } from './god.service';
 import {LocationService} from './location.service';
 import {LocationActions} from '../actions/LocationActions';
+import { WindowRef } from '../WindowRef';
 
 @Injectable()
 export class NativeCommunicationService {
@@ -14,7 +15,8 @@ export class NativeCommunicationService {
     private godService: GodService,
     private locationService: LocationService,
     @Inject('AppStore') private appStore,
-    private locationActions: LocationActions
+    private locationActions: LocationActions,
+    private winRef: WindowRef
   ) {}
 
   public transmitODRegister(result: any): void
@@ -35,7 +37,7 @@ export class NativeCommunicationService {
 
     if (!location)
     {
-      console.log('this is not a valid location');
+      this.sendToNative('this is not a valid location', 'print');
       return;
     }
 
@@ -44,17 +46,15 @@ export class NativeCommunicationService {
     {
       if (this.locationService.currentLocation && this.locationService.currentLocation.locationTypeId === 2)
       {
-        console.log('this is not a valid location - type 2');
+        this.sendToNative('this is not a valid location - type 2', 'print');
         return;
       }
 
       const state = this.appStore.getState();
-      // const exhibitParent = JSON.parse(localStorage.getItem('atExhibitParent'));
-      // const onExhibit = JSON.parse(localStorage.getItem('onExhibit'));
-      const exhibitParentId = state.atExhibitParent;
+      const exhibitParentId = state.atExhibitParentId;
       const onExhibit = state.onExhibit;
-
-      console.log('new valid location found - check and registerLocation at GoD');
+      
+      this.sendToNative('new valid location found - check and registerLocation at GoD', 'print');
 
       if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParentId === location.parentId))
       {
@@ -80,19 +80,78 @@ export class NativeCommunicationService {
     }
   }
 
+  // handels console.log - sends to native console if iOS || Android
+  public sendToNative(messageBody, messageName){
+    if (this.isWeb)
+    {
+      console.log(messageBody);
+    }
+
+    if (this.isIOS)
+    {
+      switch (messageName) {
+        case 'print':
+          this.winRef.nativeWindow.webkit.messageHandlers.print.postMessage(messageBody);
+          break;
+      
+        case 'getDeviceInfos':
+          this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage(messageBody);
+          break;
+        
+        case 'registerOD':
+          this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage(messageBody);
+          break;
+
+        case 'triggerSignal':
+          this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage(messageBody);
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    if (this.isAndroid)
+    {
+      switch (messageName) {
+        case 'print':
+          this.winRef.nativeWindow.MEETeUXAndroidAppRoot.print(messageBody);
+          break;
+      
+        case 'getDeviceInfos':
+          this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getDeviceInfos();
+          break;
+        
+        case 'registerOD':
+          this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
+          break;
+
+        case 'triggerSignal':
+          this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerSignal();
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
   public checkPlatform(){
     const userAgent: any = window.navigator.userAgent;
     let safariCheck = false;
     let chromeCheck = false;
     let androidCheck = false;
 
-    if (userAgent.indexOf('Safari') !== (-1)){
+    if (userAgent.indexOf('Safari') !== (-1))
+    {
       safariCheck = true;
     }
-    if (userAgent.indexOf('Chrome') !== (-1)){
+    if (userAgent.indexOf('Chrome') !== (-1))
+    {
       chromeCheck = true;
     }
-    if (userAgent.indexOf('Android') !== (-1)){
+    if (userAgent.indexOf('Android') !== (-1))
+    {
       androidCheck = true;
     }
 
@@ -100,8 +159,11 @@ export class NativeCommunicationService {
       this.isAndroid = true;
       this.isIOS = false;
       return 'Android';
-    }else if (safariCheck || chromeCheck){
-      if (!androidCheck){
+    }
+    else if (safariCheck || chromeCheck)
+    {
+      if (!androidCheck)
+      {
         this.isWeb = true;
         this.isIOS = false;
         return 'Web';

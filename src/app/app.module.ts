@@ -84,35 +84,27 @@ export class AppModule {
     private nativeCommunicationService: NativeCommunicationService
   ) {
 
-    // console.log('Window object', winRef.nativeWindow);
-
     winRef.nativeWindow.angularComponentRef = {
       zone: this.zone,
       componentFn: (message, value) => this.callFromOutside(message, value),
       component: this
     };
-    console.log('reference added');
   }
 
   callFromOutside(message, value) {
-    // this.zone.run(() => {
-      console.log('calledFromOutside ' + message);
-    // });
+      // console.log('calledFromOutside ' + message);
+      this.nativeCommunicationService.sendToNative('calledFromOutside ' + message, 'print');
+
     switch (message) {
        case 'update_location': {
-          // statements;
-          // console.log(value);
-          // this.communicationService.transmitLocationRegister({minor: 100, major: 10});
           this.nativeCommunicationService.transmitLocationRegister(value);
           break;
        }
        case 'send_device_infos': {
-          // statements;
           this.nativeCommunicationService.transmitODRegister(value);
           break;
        }
        default: {
-          // statements;
           break;
        }
     }

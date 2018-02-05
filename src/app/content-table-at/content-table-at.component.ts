@@ -42,7 +42,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('TABLE-AT');
+    this.nativeCommunicationService.sendToNative('TABLE-AT', 'print');
     this.location = this.locationService.currentLocation;
     this.locationName = this.location.description;
     this.locationId = this.location.id;
@@ -67,7 +67,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   redirectToOnTable()
   {
-    console.log('REDIRECT-TO-TABLE-ON');
+    this.nativeCommunicationService.sendToNative('REDIRECT-TO-TABLE-ON', 'print');
     this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
   }
 
