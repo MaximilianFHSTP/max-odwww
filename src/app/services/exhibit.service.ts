@@ -35,7 +35,7 @@ export class ExhibitService {
 
   public connectOD(): any
   {
-    
+
     const state = this.appStore.getState();
     const user = state.user;
     const location = this.locationService.currentLocation;
@@ -50,15 +50,24 @@ export class ExhibitService {
     {
       this.nativeCommunicationService.sendToNative(result, 'print');
       this.socket.connection.removeAllListeners('connectODResult');
+      this.startAutoResponder();
+    });
+  }
+
+  private startAutoResponder()
+  {
+    this.socket.connection.on('exhibitStatusCheck', () => {
+      const user = this.appStore.getState().user;
+      this.socket.connection.emit('exhibitStatusCheckResult', user);
     });
   }
 
   public disconnect()
   {
-    
+
     const state = this.appStore.getState();
     const user = state.user;
-    
+
     this.socket.connection.emit('closeConnection', user);
 
     this.socket.connection.on('closeConnectionResult', result =>
@@ -73,6 +82,7 @@ export class ExhibitService {
       }
 
       this.socket.connection.removeAllListeners('closeConnectionResult');
+      this.socket.connection.removeAllListeners('exhibitStatusCheck');
     });
 
   }
