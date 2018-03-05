@@ -6,6 +6,7 @@ import {GodSocketService} from './god-socket.service';
 import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import { appStore } from '../app.module';
+import { UtilitiesService } from './utilities.service';
 
 @Injectable()
 export class GodService {
@@ -17,13 +18,13 @@ export class GodService {
     private socket: GodSocketService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
-    private userActions: UserActions
+    private userActions: UserActions,
+    private utilitiesService: UtilitiesService 
   )
   {
     this.socket.on('news', msg =>
     {
-      console.log(msg);
-      // this.nativeCommunicationService.sendToNative(msg, 'print');
+      this.utilitiesService.sendToNative(msg, 'print');
     });
   }
 
@@ -33,8 +34,7 @@ export class GodService {
 
     this.socket.on('registerODResult', result =>
     {
-      console.log(result);
-      // this.nativeCommunicationService.sendToNative(result, 'print');
+      this.utilitiesService.sendToNative(result, 'print');
       
       this.appStore.dispatch(this.userActions.changeUser(result.user));
       this.appStore.dispatch(this.userActions.changeLookupTable(result.locations));
@@ -46,8 +46,7 @@ export class GodService {
       this.router.navigate(['/mainview']).then( () =>
         {
           // send success to native & start beacon scan
-
-          // this.nativeCommunicationService.sendToNative('success', 'registerOD');
+          this.utilitiesService.sendToNative('success', 'registerOD');
           switch (platform) {
             case 'IOS':
               this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
@@ -75,17 +74,14 @@ export class GodService {
 
     this.socket.on('registerLocationResult', registeredLocation =>
     {
-      // console.log(registeredLocation);
       if (registeredLocation === 'FAILED')
       {
-        console.log('RegisterLocation: FAILED');
-        // this.nativeCommunicationService.sendToNative('RegisterLocation: FAILED', 'print');
+        this.utilitiesService.sendToNative('RegisterLocation: FAILED', 'print');
         return;
       }
 
       this.locationService.updateCurrentLocation(registeredLocation);
-      console.log(this.locationService.currentLocation);
-      // this.nativeCommunicationService.sendToNative(this.locationService.currentLocation, 'print');
+      this.utilitiesService.sendToNative(this.locationService.currentLocation, 'print');
       
       state = this.appStore.getState();
       const platform = state.platform;
@@ -95,12 +91,12 @@ export class GodService {
         // send success to native & trigger signal
         switch (platform) {
           case 'IOS':
-          this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage('success');
-          break;
+            this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage('success');
+            break;
 
           case 'Android':
-          this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerSignal();
-          break;
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerSignal();
+            break;
     
           default:
             break;
@@ -144,7 +140,7 @@ export class GodService {
     this.socket.on('disconnectedFromExhibitResult', result =>
     {
       
-      console.log('Disconnected from Exhibit-' + parentLocation + ': ' + result);
+      this.utilitiesService.sendToNative('Disconnected from Exhibit-' + parentLocation + ': ' + result, 'print');
 
       this.registerLocation(parentLocation);
 

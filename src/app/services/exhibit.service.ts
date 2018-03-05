@@ -6,7 +6,7 @@ import {ExhibitSocketService} from './exhibit-socket.service';
 import {GodService} from './god.service';
 import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
-import {NativeCommunicationService} from '../services/native-communication.service';
+import { UtilitiesService } from '../services/utilities.service';
 
 @Injectable()
 export class ExhibitService {
@@ -20,7 +20,7 @@ export class ExhibitService {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private userActions: UserActions,
-    private nativeCommunicationService: NativeCommunicationService
+    private utilitiesService: UtilitiesService 
   )
   {}
 
@@ -48,7 +48,7 @@ export class ExhibitService {
 
     this.socket.connection.on('connectODResult', result =>
     {
-      this.nativeCommunicationService.sendToNative(result, 'print');
+      this.utilitiesService.sendToNative(result, 'print');
       this.socket.connection.removeAllListeners('connectODResult');
       this.startAutoResponder();
     });

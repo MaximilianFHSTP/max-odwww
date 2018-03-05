@@ -6,6 +6,7 @@ import {NativeCommunicationService} from '../services/native-communication.servi
 import {Unsubscribe} from 'redux';
 import {TimerObservable} from 'rxjs/observable/TimerObservable';
 import {LocationActions} from '../actions/LocationActions';
+import { UtilitiesService } from '../services/utilities.service';
 
 @Component({
   selector: 'app-content-table-at',
@@ -32,7 +33,8 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private locationService: LocationService,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore,
-    private locationActions: LocationActions
+    private locationActions: LocationActions,
+    private utilitiesService: UtilitiesService 
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
@@ -42,7 +44,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.nativeCommunicationService.sendToNative('TABLE-AT', 'print');
+    this.utilitiesService.sendToNative('TABLE-AT', 'print');
     this.location = this.locationService.currentLocation;
     this.locationName = this.location.description;
     this.locationId = this.location.id;
@@ -50,7 +52,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.locationStatusOccupied = false;
     this.joinGame = true;
 
-    this.isWeb = this.nativeCommunicationService.isWeb;
+    this.isWeb = this.utilitiesService.isWeb;
 
     // Timer starts after 1sec, repeats every 5sec
     this.checkStatusTimer = TimerObservable.create(100, 50000);
@@ -67,7 +69,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   redirectToOnTable()
   {
-    this.nativeCommunicationService.sendToNative('REDIRECT-TO-TABLE-ON', 'print');
+    this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON', 'print');
     this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
   }
 
