@@ -22,9 +22,10 @@ export class RegisterComponent implements OnInit
     private userActions: UserActions
   ) { }
 
-  public requestDeviceInfos()
+  public requestDeviceInfos(isGuest: boolean)
   {
     this.nativeCommunicationService.registerName = this.name;
+    this.nativeCommunicationService.registerIsGuest = isGuest;
 
     const state = this.appStore.getState();
     const platform = state.platform;

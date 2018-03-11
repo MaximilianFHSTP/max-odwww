@@ -26,7 +26,10 @@ export class ExhibitService {
 
   public establishExhibitConnection(url: string ): void
   {
-    this.socket.openNewExhibitConnection(url);
+    const localURL = 'http://localhost:8100/';
+    this.socket.openNewExhibitConnection(localURL);
+
+    // this.socket.openNewExhibitConnection(url);
 
     this.socket.connection.on('connected', () => {
       this.appStore.dispatch(this.locationActions.changeConnectedExhibit(true));
@@ -57,6 +60,7 @@ export class ExhibitService {
   private startAutoResponder()
   {
     this.socket.connection.on('exhibitStatusCheck', () => {
+      console.log('Auto Responder Check');
       const user = this.appStore.getState().user;
       this.socket.connection.emit('exhibitStatusCheckResult', user);
     });

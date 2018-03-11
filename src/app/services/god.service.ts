@@ -5,6 +5,7 @@ import {LocationService} from './location.service';
 import {GodSocketService} from './god-socket.service';
 import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
+import {StatusActions} from '../actions/StatusActions';
 import { appStore } from '../app.module';
 
 @Injectable()
@@ -17,7 +18,8 @@ export class GodService {
     private socket: GodSocketService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
-    private userActions: UserActions
+    private userActions: UserActions,
+    private statusActions: StatusActions
   )
   {
     this.socket.on('news', msg =>
@@ -33,12 +35,20 @@ export class GodService {
 
     this.socket.on('registerODResult', result =>
     {
-      console.log(result);
+      const res = result.data;
+      const message = result.message;
       // this.nativeCommunicationService.sendToNative(result, 'print');
-      
-      this.appStore.dispatch(this.userActions.changeUser(result.user));
-      this.appStore.dispatch(this.userActions.changeLookupTable(result.locations));
-      this.locationService.lookuptable = result.locations;
+
+      if (message.code > 299)
+      {
+        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+
+      this.appStore.dispatch(this.userActions.changeUser(res.user));
+      this.appStore.dispatch(this.userActions.changeLookupTable(res.locations));
+      this.appStore.dispatch(this.userActions.changeToken(res.token));
+      this.locationService.lookuptable = res.locations;
 
       const state = this.appStore.getState();
       const platform = state.platform;
@@ -56,7 +66,55 @@ export class GodService {
             case 'Android':
               this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
             break;
-      
+
+            default:
+              break;
+          }
+        }
+      );
+
+      this.socket.removeAllListeners('registerODResult');
+    });
+  }
+
+  public registerODGuest(data: any): any
+  {
+    this.socket.emit('registerODGuest', data);
+
+    this.socket.on('registerODResult', result =>
+    {
+      const res = result.data;
+      const message = result.message;
+      // this.nativeCommunicationService.sendToNative(result, 'print');
+
+      if (message.code > 299)
+      {
+        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+
+      this.appStore.dispatch(this.userActions.changeUser(res.user));
+      this.appStore.dispatch(this.userActions.changeLookupTable(res.locations));
+      this.appStore.dispatch(this.userActions.changeToken(res.token));
+      this.locationService.lookuptable = res.locations;
+
+      const state = this.appStore.getState();
+      const platform = state.platform;
+
+      this.router.navigate(['/mainview']).then( () =>
+        {
+          // send success to native & start beacon scan
+
+          // this.nativeCommunicationService.sendToNative('success', 'registerOD');
+          switch (platform) {
+            case 'IOS':
+              this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
+              break;
+
+            case 'Android':
+              this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
+              break;
+
             default:
               break;
           }
@@ -73,20 +131,22 @@ export class GodService {
     const user = state.user;
     this.socket.emit('registerLocation', {location: id, user: user.id});
 
-    this.socket.on('registerLocationResult', registeredLocation =>
+    this.socket.on('registerLocationResult', result =>
     {
-      // console.log(registeredLocation);
-      if (registeredLocation === 'FAILED')
+      const res = result.data;
+      const message = result.message;
+
+      if (message.code > 299)
       {
         console.log('RegisterLocation: FAILED');
-        // this.nativeCommunicationService.sendToNative('RegisterLocation: FAILED', 'print');
+        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
 
-      this.locationService.updateCurrentLocation(registeredLocation);
+      this.locationService.updateCurrentLocation(res);
       console.log(this.locationService.currentLocation);
       // this.nativeCommunicationService.sendToNative(this.locationService.currentLocation, 'print');
-      
+
       state = this.appStore.getState();
       const platform = state.platform;
 
@@ -101,7 +161,7 @@ export class GodService {
           case 'Android':
           this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerSignal();
           break;
-    
+
           default:
             break;
         }
@@ -118,19 +178,25 @@ export class GodService {
 
     this.socket.on('checkLocationStatusResult', result =>
     {
-      if (result === 'FAILED')
+      const res = result.data;
+      const message = result.message;
+
+      if (message.code > 299)
       {
+        console.log('RegisterLocation: FAILED');
+        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
-      const location = this.locationService.findLocation(data);
+
+      const location = this.locationService.findLocation(res.location);
 
       if (location.locationTypeId !== 2) {
-        this.appStore.dispatch(this.locationActions.changeLocationStatus(result));
+        this.appStore.dispatch(this.locationActions.changeLocationStatus(res.status));
       }
 
       if (callback != null)
       {
-        callback(result);
+        callback(res.status);
       }
 
       this.socket.removeAllListeners('checkLocationStatusResult');
@@ -143,10 +209,18 @@ export class GodService {
 
     this.socket.on('disconnectedFromExhibitResult', result =>
     {
-      
-      console.log('Disconnected from Exhibit-' + parentLocation + ': ' + result);
+      const res = result.data;
+      const message = result.message;
 
-      this.registerLocation(parentLocation);
+      if (message.code > 299)
+      {
+        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+
+      console.log('Disconnected from Exhibit-' + res.parent + ': ' + res.location);
+
+      this.registerLocation(res.parent);
 
       this.socket.removeAllListeners('disconnectedFromExhibitResult');
     });

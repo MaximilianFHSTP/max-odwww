@@ -1,6 +1,7 @@
 export const CHANGE_USER = 'CHANGE_USER';
 export const CHANGE_PLATFORM = 'CHANGE_PLATFORM';
 export const CHANGE_LOOKUPTABLE = 'CHANGE_LOOKUPTABLE';
+export const CHANGE_TOKEN = 'CHANGE_TOKEN';
 
 export class UserActions
 {
@@ -33,5 +34,11 @@ export class UserActions
     };
   }
 
-
+  public changeToken(token: String)
+  {
+    return {
+      type: CHANGE_TOKEN,
+      token: token
+    };
+  }
 }

@@ -6,6 +6,7 @@
       <input matInput placeholder="Username" [(ngModel)]="name">
     </mat-form-field>
     <br />
-    <button mat-raised-button color="primary" (click)="requestDeviceInfos()">Register</button>
+    <button mat-raised-button color="primary" (click)="requestDeviceInfos(false)">Register</button>
+    <button mat-raised-button color="primary" (click)="requestDeviceInfos(true)">Register As Guest</button>
   </mat-card>
 </div>

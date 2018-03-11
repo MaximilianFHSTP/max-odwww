@@ -1,7 +1,9 @@
 import * as LocationActions from '../actions/LocationActions';
 import * as UserActions from '../actions/UserActions';
+import * as StatusActions from '../actions/StatusActions';
 
 const initialState = {
+  token: undefined,
   lookupTable: [],
   user: undefined,
   currentLocation: undefined,
@@ -10,7 +12,8 @@ const initialState = {
   connectedToExhibit: false,
   platform: undefined,
   atExhibitParentId: undefined,
-  onExhibit: undefined
+  onExhibit: undefined,
+  error: undefined
 };
 
 export function rootReducer(state = initialState, action)
@@ -59,6 +62,12 @@ export function rootReducer(state = initialState, action)
         user: action.user
       };
 
+    case UserActions.CHANGE_TOKEN:
+      return {
+        ...state,
+        token: action.token
+      };
+
     case UserActions.CHANGE_PLATFORM:
       return {
         ...state,
@@ -71,6 +80,11 @@ export function rootReducer(state = initialState, action)
         lookupTable: action.lookupTable
       };
 
+    case StatusActions.CHANGE_ERROR_MESSAGE:
+      return {
+        ...state,
+        error: action.error
+      };
 
     default:
       return state;

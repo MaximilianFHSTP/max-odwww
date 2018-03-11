@@ -29,6 +29,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { rootReducer } from './reducers/rootReducer';
 import { LocationActions } from './actions/LocationActions';
 import { UserActions } from './actions/UserActions';
+import { StatusActions } from './actions/StatusActions';
 import logger from 'redux-logger';
 
 
@@ -73,7 +74,8 @@ export const appStore = createStore(
     LocationService,
     { provide: 'AppStore', useValue: appStore },
     LocationActions,
-    UserActions
+    UserActions,
+    StatusActions
   ],
   bootstrap: [AppComponent]
 })

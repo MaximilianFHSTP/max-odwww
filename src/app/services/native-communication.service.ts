@@ -7,6 +7,7 @@ import { WindowRef } from '../WindowRef';
 @Injectable()
 export class NativeCommunicationService {
   public registerName: string;
+  public registerIsGuest = true;
   public isIOS = true;
   public isAndroid = false;
   public isWeb = false;
@@ -25,9 +26,15 @@ export class NativeCommunicationService {
     const deviceOS: string = result.deviceOS;
     const deviceVersion: string = result.deviceVersion;
     const deviceModel: string = result.deviceModel;
-
-    const data = {identifier: this.registerName, deviceAddress, deviceOS, deviceVersion, deviceModel};
-    this.godService.registerOD(data);
+    if (this.registerIsGuest)
+    {
+      const data = {deviceAddress, deviceOS, deviceVersion, deviceModel};
+      this.godService.registerODGuest(data);
+    }
+    else {
+      const data = {identifier: this.registerName, deviceAddress, deviceOS, deviceVersion, deviceModel};
+      this.godService.registerOD(data);
+    }
   }
 
   public transmitLocationRegister(result: any)
@@ -53,7 +60,7 @@ export class NativeCommunicationService {
       const state = this.appStore.getState();
       const exhibitParentId = state.atExhibitParentId;
       const onExhibit = state.onExhibit;
-      
+
       this.sendToNative('new valid location found - check and registerLocation at GoD', 'print');
 
       if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParentId === location.parentId))
@@ -93,11 +100,11 @@ export class NativeCommunicationService {
         case 'print':
           this.winRef.nativeWindow.webkit.messageHandlers.print.postMessage(messageBody);
           break;
-      
+
         case 'getDeviceInfos':
           this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage(messageBody);
           break;
-        
+
         case 'registerOD':
           this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage(messageBody);
           break;
@@ -117,11 +124,11 @@ export class NativeCommunicationService {
         case 'print':
           this.winRef.nativeWindow.MEETeUXAndroidAppRoot.print(messageBody);
           break;
-      
+
         case 'getDeviceInfos':
           this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getDeviceInfos();
           break;
-        
+
         case 'registerOD':
           this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
           break;
