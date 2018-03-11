@@ -15,6 +15,7 @@ import {NativeCommunicationService} from './services/native-communication.servic
 import {GodService} from './services/god.service';
 import {ExhibitService} from './services/exhibit.service';
 import { WindowRef } from './WindowRef';
+import { UtilitiesService } from './services/utilities.service';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -76,6 +77,7 @@ export const appStore = createStore(
     LocationActions,
     UserActions,
     StatusActions
+    UtilitiesService
   ],
   bootstrap: [AppComponent]
 })
@@ -83,7 +85,8 @@ export class AppModule {
   constructor(
     private winRef: WindowRef,
     private zone: NgZone,
-    private nativeCommunicationService: NativeCommunicationService
+    private nativeCommunicationService: NativeCommunicationService,
+    private utilitiesService: UtilitiesService
   ) {
 
     winRef.nativeWindow.angularComponentRef = {
@@ -95,7 +98,7 @@ export class AppModule {
 
   callFromOutside(message, value) {
       // console.log('calledFromOutside ' + message);
-      this.nativeCommunicationService.sendToNative('calledFromOutside ' + message, 'print');
+      this.utilitiesService.sendToNative('calledFromOutside ' + message, 'print');
 
     switch (message) {
        case 'update_location': {

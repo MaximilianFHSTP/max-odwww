@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import {NativeCommunicationService} from '../services/native-communication.service';
 import {LocationService} from '../services/location.service';
 import {UserActions} from '../actions/UserActions';
+import { UtilitiesService } from '../services/utilities.service';
 
 @Component({
   selector: 'app-main-view',
@@ -18,7 +19,8 @@ export class MainViewComponent implements OnInit {
     private nativeCommunicationService: NativeCommunicationService,
     private locationService: LocationService,
     @Inject('AppStore') private appStore,
-    private userActions: UserActions
+    private userActions: UserActions,
+    private utilitiesService: UtilitiesService 
   ) { }
 
   public requestRegisterLocation()
@@ -32,7 +34,7 @@ export class MainViewComponent implements OnInit {
     this.user = state.user;
     this.locationService.lookuptable = state.lookupTable;
 
-    this.isWeb = this.nativeCommunicationService.isWeb;
+    this.isWeb = this.utilitiesService.isWeb;
   }
 
 }
