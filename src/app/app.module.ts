@@ -76,7 +76,7 @@ export const appStore = createStore(
     { provide: 'AppStore', useValue: appStore },
     LocationActions,
     UserActions,
-    StatusActions
+    StatusActions,
     UtilitiesService
   ],
   bootstrap: [AppComponent]

@@ -7,13 +7,14 @@ import { UtilitiesService } from './utilities.service';
 @Injectable()
 export class NativeCommunicationService {
   public registerName: string;
+  public registerIsGuest: boolean;
 
   constructor(
     private godService: GodService,
     private locationService: LocationService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
-    private utilitiesService: UtilitiesService 
+    private utilitiesService: UtilitiesService
   ) {}
 
   public transmitODRegister(result: any): void
@@ -56,7 +57,7 @@ export class NativeCommunicationService {
       const state = this.appStore.getState();
       const exhibitParentId = state.atExhibitParentId;
       const onExhibit = state.onExhibit;
-      
+
       this.utilitiesService.sendToNative('new valid location found - check and registerLocation at GoD', 'print');
 
       if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParentId === location.parentId))

@@ -20,8 +20,8 @@ export class GodService {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private userActions: UserActions,
-    private statusActions: StatusActions
-    private utilitiesService: UtilitiesService 
+    private statusActions: StatusActions,
+    private utilitiesService: UtilitiesService
   )
   {
     this.socket.on('news', msg =>
