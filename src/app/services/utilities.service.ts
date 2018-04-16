@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WindowRef } from '../WindowRef';
+import {GodService} from './god.service';
 
 @Injectable()
 export class UtilitiesService {
@@ -16,52 +17,82 @@ export class UtilitiesService {
     public sendToNative(messageBody, messageName){
       if (this.isWeb)
       {
-        console.log(messageBody);
+        switch (messageName)
+        {
+          case 'saveToken':
+            // console.log(messageBody);
+            localStorage.setItem('token', JSON.stringify({token: messageBody}));
+            break;
+
+          case 'deleteToken':
+            // localStorage.removeItem('token');
+            break;
+
+          default:
+            console.log(messageBody);
+            break;
+        }
       }
-  
+
       if (this.isIOS)
       {
         switch (messageName) {
           case 'print':
             this.winRef.nativeWindow.webkit.messageHandlers.print.postMessage(messageBody);
             break;
-        
+
           case 'getDeviceInfos':
             this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage(messageBody);
             break;
-          
+
           case 'registerOD':
             this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage(messageBody);
             break;
-  
+
           case 'triggerSignal':
             this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage(messageBody);
             break;
-  
+
+          case 'saveToken':
+            this.winRef.nativeWindow.webkit.messageHandlers.saveToken.postMessage(messageBody);
+            break;
+
+          case 'deleteToken':
+            this.winRef.nativeWindow.webkit.messsageHandlers.deleteToken.postMessage('delete');
+            break;
+
           default:
             break;
         }
       }
-  
+
       if (this.isAndroid)
       {
         switch (messageName) {
           case 'print':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.print(messageBody);
             break;
-        
+
           case 'getDeviceInfos':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getDeviceInfos();
             break;
-          
+
           case 'registerOD':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
             break;
-  
+
           case 'triggerSignal':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerSignal();
             break;
-  
+
+            // TODO: Android Implementation
+          case 'saveToken':
+            break;
+
+          // TODO: Android Implementation
+          case 'deleteToken':
+            break;
+
           default:
             break;
         }
@@ -74,7 +105,7 @@ export class UtilitiesService {
       let safariCheck = false;
       let chromeCheck = false;
       let androidCheck = false;
-  
+
       if (userAgent.indexOf('Safari') !== (-1))
       {
         safariCheck = true;
@@ -87,7 +118,7 @@ export class UtilitiesService {
       {
         androidCheck = true;
       }
-  
+
       if (androidCheck){
         this.isAndroid = true;
         this.isIOS = false;
@@ -104,5 +135,4 @@ export class UtilitiesService {
       }
       return 'IOS';
     }
-
 }

@@ -83,4 +83,15 @@ export class NativeCommunicationService {
       }
     }
   }
+
+  public autoLogin(data): void
+  {
+    const token: String = data.token;
+    this.utilitiesService.sendToNative('Autlogin', 'print');
+
+    if (token)
+    {
+      this.godService.autoLogin(token);
+    }
+  }
 }

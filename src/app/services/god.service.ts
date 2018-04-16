@@ -8,6 +8,7 @@ import {UserActions} from '../actions/UserActions';
 import {StatusActions} from '../actions/StatusActions';
 import { appStore } from '../app.module';
 import { UtilitiesService } from './utilities.service';
+import {NativeCommunicationService} from './native-communication.service';
 
 @Injectable()
 export class GodService {
@@ -17,7 +18,7 @@ export class GodService {
     private winRef: WindowRef,
     private locationService: LocationService,
     private socket: GodSocketService,
-    @Inject('AppStore') private appStore,
+    @Inject('AppStore') private store,
     private locationActions: LocationActions,
     private userActions: UserActions,
     private statusActions: StatusActions,
@@ -43,16 +44,16 @@ export class GodService {
 
       if (message.code > 299)
       {
-        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
 
-      this.appStore.dispatch(this.userActions.changeUser(res.user));
-      this.appStore.dispatch(this.userActions.changeLookupTable(res.locations));
-      this.appStore.dispatch(this.userActions.changeToken(res.token));
+      this.store.dispatch(this.userActions.changeUser(res.user));
+      this.store.dispatch(this.userActions.changeLookupTable(res.locations));
+      this.store.dispatch(this.userActions.changeToken(res.token));
       this.locationService.lookuptable = res.locations;
 
-      const state = this.appStore.getState();
+      const state = this.store.getState();
       const platform = state.platform;
 
       this.router.navigate(['/mainview']).then( () =>
@@ -90,16 +91,16 @@ export class GodService {
 
       if (message.code > 299)
       {
-        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
 
-      this.appStore.dispatch(this.userActions.changeUser(res.user));
-      this.appStore.dispatch(this.userActions.changeLookupTable(res.locations));
-      this.appStore.dispatch(this.userActions.changeToken(res.token));
+      this.store.dispatch(this.userActions.changeUser(res.user));
+      this.store.dispatch(this.userActions.changeLookupTable(res.locations));
+      this.store.dispatch(this.userActions.changeToken(res.token));
       this.locationService.lookuptable = res.locations;
 
-      const state = this.appStore.getState();
+      const state = this.store.getState();
       const platform = state.platform;
 
       this.router.navigate(['/mainview']).then( () =>
@@ -128,7 +129,7 @@ export class GodService {
 
   public registerLocation(id: number): any
   {
-    let state = this.appStore.getState();
+    let state = this.store.getState();
     const user = state.user;
     this.socket.emit('registerLocation', {location: id, user: user.id});
 
@@ -139,14 +140,14 @@ export class GodService {
 
       if (message.code > 299)
       {
-        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
         this.utilitiesService.sendToNative('RegisterLocation: FAILED', 'print');
         return;
       }
 
       this.locationService.updateCurrentLocation(res);
       this.utilitiesService.sendToNative(this.locationService.currentLocation, 'print');
-      state = this.appStore.getState();
+      state = this.store.getState();
       const platform = state.platform;
 
       this.router.navigate([this.locationService.currentLocation.contentURL]).then( () =>
@@ -181,14 +182,14 @@ export class GodService {
       if (message.code > 299)
       {
         console.log('RegisterLocation: FAILED');
-        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
 
       const location = this.locationService.findLocation(res.location);
 
       if (location.locationTypeId !== 2) {
-        this.appStore.dispatch(this.locationActions.changeLocationStatus(res.status));
+        this.store.dispatch(this.locationActions.changeLocationStatus(res.status));
       }
 
       if (callback != null)
@@ -212,15 +213,47 @@ export class GodService {
 
       if (message.code > 299)
       {
-        this.appStore.dispatch(this.statusActions.changeErrorMessage(message));
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
 
-      console.log('Disconnected from Exhibit-' + res.parent + ': ' + res.location);
+      // console.log('Disconnected from Exhibit-' + res.parent + ': ' + res.location);
 
       this.registerLocation(res.parent);
 
       this.socket.removeAllListeners('disconnectedFromExhibitResult');
+    });
+  }
+
+  public autoLogin(token: String): void
+  {
+    this.socket.emit('autoLoginOD', token);
+
+    this.socket.on('autoLoginODResult', result =>
+    {
+      console.log('---------------------- AutoLoginODResult -----------------------------');
+      console.log(result);
+
+      const data = result.data;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+
+      this.store.dispatch(this.userActions.changeUser(data.user));
+      this.store.dispatch(this.userActions.changeLookupTable(data.locations));
+      this.store.dispatch(this.userActions.changeToken(data.token));
+      this.locationService.lookuptable = data.locations;
+
+      this.router.navigate(['/mainview']).then( () =>
+      {
+
+      });
+
+      this.socket.removeAllListeners('autoLoginODResult');
     });
   }
 }
