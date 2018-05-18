@@ -61,6 +61,11 @@ export class UtilitiesService {
             this.winRef.nativeWindow.webkit.messsageHandlers.deleteToken.postMessage('delete');
             break;
 
+          case 'showUnityView':
+            this.winRef.nativeWindow.webkit.messageHandlers.print.postMessage(messageBody);
+            this.winRef.nativeWindow.webkit.messsageHandlers.observe.postMessage('showUnityView');
+            break;
+
           default:
             break;
         }
@@ -91,6 +96,10 @@ export class UtilitiesService {
 
           // TODO: Android Implementation
           case 'deleteToken':
+            break;
+
+          case 'showUnityView':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.showUnityView();
             break;
 
           default:

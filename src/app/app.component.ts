@@ -79,4 +79,10 @@ export class AppComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
+  public showUnityView()
+  {
+    // this.utilitiesService.sendToNative('AppComponent Show Unity', 'print');
+    this.nativeCommunicationService.transmitShowUnity();
+  }
 }
