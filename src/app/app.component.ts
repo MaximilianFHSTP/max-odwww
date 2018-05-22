@@ -62,7 +62,10 @@ export class AppComponent implements OnInit, OnDestroy {
     const state = this.appStore.getState();
     const platform = state.platform;
 
+    this.utilitiesService.sendToNative('getToken', 'getToken');
+/*
     switch (platform) {
+      
       case 'IOS':
         this.winRef.nativeWindow.webkit.messageHandlers.getToken.postMessage('get');
         break;
@@ -78,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.nativeCommunicationService.autoLogin(data);
         }
         break;
-    }
+    }*/
   }
 
   public showUnityView()

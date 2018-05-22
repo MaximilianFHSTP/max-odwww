@@ -60,6 +60,8 @@ export class GodService {
         {
           // send success to native & start beacon scan
           this.utilitiesService.sendToNative('success', 'registerOD');
+
+          /*
           switch (platform) {
             case 'IOS':
               this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
@@ -71,7 +73,7 @@ export class GodService {
 
             default:
               break;
-          }
+          }*/
         }
       );
 
@@ -108,6 +110,8 @@ export class GodService {
           // send success to native & start beacon scan
 
           // this.nativeCommunicationService.sendToNative('success', 'registerOD');
+          this.utilitiesService.sendToNative('success', 'registerOD');
+          /*
           switch (platform) {
             case 'IOS':
               this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
@@ -119,7 +123,7 @@ export class GodService {
 
             default:
               break;
-          }
+          }*/
         }
       );
 
@@ -153,7 +157,8 @@ export class GodService {
       this.router.navigate([this.locationService.currentLocation.contentURL]).then( () =>
       {
         // send success to native & trigger signal
-        switch (platform) {
+        this.utilitiesService.sendToNative('success', 'triggerSignal');
+        /*switch (platform) {
           case 'IOS':
             this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage('success');
             break;
@@ -162,7 +167,7 @@ export class GodService {
             break;
           default:
             break;
-        }
+        }*/
       }
     );
 
@@ -256,6 +261,8 @@ export class GodService {
         // send success to native & start beacon scan
 
         // this.nativeCommunicationService.sendToNative('success', 'registerOD');
+        this.utilitiesService.sendToNative('success', 'registerOD');
+/*
         switch (platform)
         {
           case 'IOS':
@@ -268,7 +275,7 @@ export class GodService {
 
           default:
             break;
-        }
+        }*/
       });
 
       this.socket.removeAllListeners('autoLoginODResult');

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../services/native-communication.service';
 import { WindowRef } from '../WindowRef';
 import {UserActions} from '../actions/UserActions';
+import { UtilitiesService } from '../services/utilities.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ export class RegisterComponent implements OnInit
     private nativeCommunicationService: NativeCommunicationService,
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
-    private userActions: UserActions
+    private userActions: UserActions,
+    private utilitiesService: UtilitiesService
   ) { }
 
   public requestDeviceInfos(isGuest: boolean)
@@ -30,6 +32,9 @@ export class RegisterComponent implements OnInit
     const state = this.appStore.getState();
     const platform = state.platform;
 
+    this.utilitiesService.sendToNative('getDeviceInfos', 'getDeviceInfos');
+
+    /*
     switch (platform) {
       case 'IOS':
         this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
@@ -44,7 +49,7 @@ export class RegisterComponent implements OnInit
         const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
         this.nativeCommunicationService.transmitODRegister(data);
         break;
-    }
+    }*/
   }
 
   ngOnInit()
