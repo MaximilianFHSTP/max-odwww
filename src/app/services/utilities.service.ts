@@ -92,10 +92,12 @@ export class UtilitiesService {
 
             // TODO: Android Implementation
           case 'saveToken':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.saveToken(messageBody);
             break;
 
           // TODO: Android Implementation
           case 'deleteToken':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.deleteToken();
             break;
 
           case 'showUnityView':
