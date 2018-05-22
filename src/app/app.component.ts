@@ -69,6 +69,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
       case 'Android':
         // TODO: Android Implementation
+        this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
         break;
 
       default:

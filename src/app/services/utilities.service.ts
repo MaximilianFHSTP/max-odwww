@@ -96,7 +96,7 @@ export class UtilitiesService {
 
           // TODO: Android Implementation
           case 'clearToken':
-            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.deleteToken();
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.clearToken();
             break;
 
           case 'showUnityView':
