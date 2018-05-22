@@ -91,12 +91,19 @@ export class NativeCommunicationService {
   public autoLogin(data): void
   {
     const token: String = data.token;
-    this.utilitiesService.sendToNative('Autlogin', 'print');
+    this.utilitiesService.sendToNative('Autologin', 'print');
 
     if (token)
     {
       this.godService.autoLogin(token);
     }
+  }
+
+  public transmitShowUnity(): void
+  {
+    // this.utilitiesService.sendToNative('NativeCommService Show Unity before', 'print');
+    this.utilitiesService.sendToNative('showUnityView', 'showUnityView');
+    // this.utilitiesService.sendToNative('NativeCommService Show Unity after', 'print');
   }
 
   public logout(): void
