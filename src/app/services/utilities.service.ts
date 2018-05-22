@@ -24,12 +24,11 @@ export class UtilitiesService {
             localStorage.setItem('token', JSON.stringify({token: messageBody}));
             break;
 
-          case 'deleteToken':
-            // localStorage.removeItem('token');
+          case 'clearToken':
+            localStorage.removeItem('token');
             break;
 
           default:
-            console.log(messageBody);
             break;
         }
       }
@@ -57,8 +56,8 @@ export class UtilitiesService {
             this.winRef.nativeWindow.webkit.messageHandlers.saveToken.postMessage(messageBody);
             break;
 
-          case 'deleteToken':
-            this.winRef.nativeWindow.webkit.messsageHandlers.deleteToken.postMessage('delete');
+          case 'clearToken':
+            this.winRef.nativeWindow.webkit.messsageHandlers.clearToken.postMessage(messageBody);
             break;
 
           case 'showUnityView':
@@ -96,7 +95,7 @@ export class UtilitiesService {
             break;
 
           // TODO: Android Implementation
-          case 'deleteToken':
+          case 'clearToken':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.deleteToken();
             break;
 

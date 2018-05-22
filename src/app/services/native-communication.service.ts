@@ -3,6 +3,8 @@ import { GodService } from './god.service';
 import {LocationService} from './location.service';
 import {LocationActions} from '../actions/LocationActions';
 import { UtilitiesService } from './utilities.service';
+import {Router} from '@angular/router';
+import {UserActions} from '../actions/UserActions';
 
 @Injectable()
 export class NativeCommunicationService {
@@ -10,11 +12,13 @@ export class NativeCommunicationService {
   public registerIsGuest: boolean;
 
   constructor(
+    private router: Router,
     private godService: GodService,
     private locationService: LocationService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private userActions: UserActions
   ) {}
 
   public transmitODRegister(result: any): void
@@ -100,5 +104,19 @@ export class NativeCommunicationService {
     // this.utilitiesService.sendToNative('NativeCommService Show Unity before', 'print');
     this.utilitiesService.sendToNative('showUnityView', 'showUnityView');
     // this.utilitiesService.sendToNative('NativeCommService Show Unity after', 'print');
+  }
+
+  public logout(): void
+  {
+    this.utilitiesService.sendToNative('clearToken', 'clearToken');
+  }
+
+  public logoutSuccess(): void
+  {
+    this.appStore.dispatch(this.userActions.changeToken(undefined));
+    this.router.navigate(['']).then( () =>
+    {
+      this.utilitiesService.sendToNative('User Logged out', 'print');
+    });
   }
 }

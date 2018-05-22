@@ -36,6 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
       if (this.currentToken !== token && token !== undefined)
       {
         this.utilitiesService.sendToNative(token, 'saveToken');
+        this.currentToken = token;
       }
     });
   }
@@ -84,5 +85,10 @@ export class AppComponent implements OnInit, OnDestroy {
   {
     // this.utilitiesService.sendToNative('AppComponent Show Unity', 'print');
     this.nativeCommunicationService.transmitShowUnity();
+  }
+
+  public logoutUser()
+  {
+    this.nativeCommunicationService.logout();
   }
 }
