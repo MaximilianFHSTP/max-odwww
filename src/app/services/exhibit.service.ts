@@ -20,13 +20,14 @@ export class ExhibitService {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private userActions: UserActions,
-    private utilitiesService: UtilitiesService 
+    private utilitiesService: UtilitiesService
   )
   {}
 
   public establishExhibitConnection(url: string ): void
   {
-    const localURL = 'http://localhost:8100/';
+    console.log(url);
+    const localURL = 'http://192.168.8.253:8100/';
     this.socket.openNewExhibitConnection(localURL);
 
     // this.socket.openNewExhibitConnection(url);

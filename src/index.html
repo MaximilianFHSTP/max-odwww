@@ -55,6 +55,13 @@
       window.angularComponentRef.componentFn("send_token",token);
     };
 
+    // call from native
+    // gets deviceInfos, calls registerOD
+    window.logout_success = function(message){
+      //console.log("call from native: send_device_infos" + deviceinfos);
+      window.angularComponentRef.componentFn("logout_success",message);
+    };
+
     window.callfromnative = function(theParameter){
       $scope.$apply(function(){
         // Do whatever you want to do with data passed

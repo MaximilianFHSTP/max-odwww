@@ -6,9 +6,9 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
-    <button mat-menu-item>
-      <mat-icon>dialpad</mat-icon>
-      <span>Redial</span>
+    <button mat-menu-item (click)="logoutUser()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
     </button>
   </mat-menu>
 </mat-toolbar>

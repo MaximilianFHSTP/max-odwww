@@ -79,4 +79,9 @@ export class AppComponent implements OnInit, OnDestroy {
         break;
     }
   }
+
+  public logoutUser()
+  {
+    this.nativeCommunicationService.logout();
+  }
 }

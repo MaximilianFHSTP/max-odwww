@@ -231,8 +231,8 @@ export class GodService {
 
     this.socket.on('autoLoginODResult', result =>
     {
-      console.log('---------------------- AutoLoginODResult -----------------------------');
-      console.log(result);
+      // console.log('---------------------- AutoLoginODResult -----------------------------');
+      // console.log(result);
 
       const data = result.data;
       const message = result.message;
@@ -248,9 +248,27 @@ export class GodService {
       this.store.dispatch(this.userActions.changeToken(data.token));
       this.locationService.lookuptable = data.locations;
 
+      const state = this.store.getState();
+      const platform = state.platform;
+
       this.router.navigate(['/mainview']).then( () =>
       {
+        // send success to native & start beacon scan
 
+        // this.nativeCommunicationService.sendToNative('success', 'registerOD');
+        switch (platform)
+        {
+          case 'IOS':
+            this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
+            break;
+
+          case 'Android':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
+            break;
+
+          default:
+            break;
+        }
       });
 
       this.socket.removeAllListeners('autoLoginODResult');

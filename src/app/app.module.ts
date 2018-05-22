@@ -109,6 +109,10 @@ export class AppModule {
           this.nativeCommunicationService.transmitODRegister(value);
           break;
        }
+      case 'logout_success': {
+        this.nativeCommunicationService.logoutSuccess();
+        break;
+      }
       case 'send_token': {
         this.nativeCommunicationService.autoLogin(value);
         break;
