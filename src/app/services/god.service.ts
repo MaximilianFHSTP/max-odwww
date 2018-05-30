@@ -158,16 +158,6 @@ export class GodService {
       {
         // send success to native & trigger signal
         this.utilitiesService.sendToNative('success', 'triggerSignal');
-        /*switch (platform) {
-          case 'IOS':
-            this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage('success');
-            break;
-
-          case 'Android':
-            break;
-          default:
-            break;
-        }*/
       }
     );
 
@@ -260,22 +250,7 @@ export class GodService {
       {
         // send success to native & start beacon scan
 
-        // this.nativeCommunicationService.sendToNative('success', 'registerOD');
         this.utilitiesService.sendToNative('success', 'registerOD');
-/*
-        switch (platform)
-        {
-          case 'IOS':
-            this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
-            break;
-
-          case 'Android':
-            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
-            break;
-
-          default:
-            break;
-        }*/
       });
 
       this.socket.removeAllListeners('autoLoginODResult');
