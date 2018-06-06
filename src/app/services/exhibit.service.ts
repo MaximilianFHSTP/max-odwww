@@ -7,6 +7,7 @@ import {GodService} from './god.service';
 import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import { UtilitiesService } from '../services/utilities.service';
+import {NativeCommunicationService} from './native-communication.service';
 
 @Injectable()
 export class ExhibitService {
@@ -20,15 +21,16 @@ export class ExhibitService {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private userActions: UserActions,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private nativeCommunicationService: NativeCommunicationService
   )
   {}
 
   public establishExhibitConnection(url: string ): void
   {
-    console.log(url);
-    const localURL = 'http://192.168.8.253:8100/';
-    this.socket.openNewExhibitConnection(localURL);
+    // console.log(url);
+    // const localURL = 'http://localhost:8100/';
+    this.socket.openNewExhibitConnection(url);
 
     // this.socket.openNewExhibitConnection(url);
 
@@ -55,6 +57,7 @@ export class ExhibitService {
       this.utilitiesService.sendToNative(result, 'print');
       this.socket.connection.removeAllListeners('connectODResult');
       this.startAutoResponder();
+      this.nativeCommunicationService.transmitShowUnity();
     });
   }
 
