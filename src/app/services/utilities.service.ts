@@ -35,39 +35,13 @@ export class UtilitiesService {
 
       if (this.isIOS)
       {
-        switch (messageName) {
-          case 'print':
-            this.winRef.nativeWindow.webkit.messageHandlers.print.postMessage(messageBody);
-            break;
+        const message = 
+        {
+          'name' : messageName,
+          'data' : messageBody 
+        };
 
-          case 'getDeviceInfos':
-            this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage(messageBody);
-            break;
-
-          case 'registerOD':
-            this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage(messageBody);
-            break;
-
-          case 'triggerSignal':
-            this.winRef.nativeWindow.webkit.messageHandlers.triggerSignal.postMessage(messageBody);
-            break;
-
-          case 'saveToken':
-            this.winRef.nativeWindow.webkit.messageHandlers.saveToken.postMessage(messageBody);
-            break;
-
-          case 'clearToken':
-            this.winRef.nativeWindow.webkit.messsageHandlers.clearToken.postMessage(messageBody);
-            break;
-
-          case 'showUnityView':
-            this.winRef.nativeWindow.webkit.messageHandlers.print.postMessage(messageBody);
-            this.winRef.nativeWindow.webkit.messsageHandlers.observe.postMessage('showUnityView');
-            break;
-
-          default:
-            break;
-        }
+        this.winRef.nativeWindow.webkit.messageHandlers.observe.postMessage(message);
       }
 
       if (this.isAndroid)
@@ -89,16 +63,20 @@ export class UtilitiesService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerSignal();
             break;
 
-            // TODO: Android Implementation
           case 'saveToken':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.saveToken(messageBody);
             break;
 
-          // TODO: Android Implementation
           case 'clearToken':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.clearToken();
             break;
 
           case 'showUnityView':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.showUnityView();
+            break;
+          
+          case 'getToken':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
             break;
 
           default:
