@@ -29,7 +29,7 @@ export class ExhibitService {
   public establishExhibitConnection(url: string ): void
   {
     // console.log(url);
-    // const localURL = 'http://localhost:8100/';
+    const localURL = 'http://localhost:8100/';
     this.socket.openNewExhibitConnection(url);
 
     // this.socket.openNewExhibitConnection(url);

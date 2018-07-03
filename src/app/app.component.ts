@@ -63,26 +63,15 @@ export class AppComponent implements OnInit, OnDestroy {
     const platform = state.platform;
 
     this.utilitiesService.sendToNative('getToken', 'getToken');
-/*
-    switch (platform) {
-      
-      case 'IOS':
-        this.winRef.nativeWindow.webkit.messageHandlers.getToken.postMessage('get');
-        break;
 
-      case 'Android':
-        // TODO: Android Implementation
-        this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
-        break;
-
-      default:
-        const data = JSON.parse(localStorage.getItem('token'));
-        // console.log('LOCAL STORAGE: ' + data.token);
-        if (data) {
-          this.nativeCommunicationService.autoLogin(data);
-        }
-        break;
-    }*/
+    if (platform !== 'IOS' && platform !== 'Android')
+    {
+      const data = JSON.parse(localStorage.getItem('token'));
+      // console.log('LOCAL STORAGE: ' + data.token);
+      if (data) {
+        this.nativeCommunicationService.autoLogin(data);
+      }
+    }
   }
 
   public showUnityView()

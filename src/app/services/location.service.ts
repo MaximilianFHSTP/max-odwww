@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { appStore } from '../app.module';
 import {UserActions} from '../actions/UserActions';
 

@@ -34,22 +34,11 @@ export class RegisterComponent implements OnInit
 
     this.utilitiesService.sendToNative('getDeviceInfos', 'getDeviceInfos');
 
-    /*
-    switch (platform) {
-      case 'IOS':
-        this.winRef.nativeWindow.webkit.messageHandlers.getDeviceInfos.postMessage('get');
-      break;
-
-      case 'Android':
-        this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getDeviceInfos();
-      break;
-
-      default:
-        // INFO: Workaround for trying the application in the browser
-        const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
-        this.nativeCommunicationService.transmitODRegister(data);
-        break;
-    }*/
+    if (platform !== 'IOS' && platform !== 'Android')
+    {
+      const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
+      this.nativeCommunicationService.transmitODRegister(data);
+    }
   }
 
   ngOnInit()
