@@ -1,24 +1,29 @@
 import { Inject, Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { appStore } from '../app.module';
-import {UserActions} from '../actions/UserActions';
+import { BehaviorSubject } from 'rxjs';
+import {LocationActions} from '../actions/LocationActions';
 
 @Injectable()
 export class LocationService
 {
   private _lookuptable: any;
-  private _currentLocation: any;
-
-  public locationChanged: Subject<any> = new Subject<any>();
+  private readonly _currentLocation: BehaviorSubject<any>;
 
   constructor(
     @Inject('AppStore') private appStore,
-    private userActions: UserActions
-  ) { }
+    private locationActions: LocationActions
+  ) {
+    this.appStore.subscribe(() => {
+      const state = this.appStore.getState();
+      this._currentLocation.next(state.currentLocation);
+      this._lookuptable = state.lookupTable;
+    });
 
-  public findLocation(id: number): any
+    this._currentLocation = new BehaviorSubject<any>(undefined);
+  }
+
+  public findLocation(id: Number): any
   {
-    let toFind: number;
+    let toFind: any;
 
     if (!this._lookuptable) {
       return;
@@ -35,19 +40,43 @@ export class LocationService
     return toFind;
   }
 
-  public updateCurrentLocation(id: number)
+  public findStartLocation(): any
   {
-    const location = this.findLocation(id);
-    this._currentLocation = location;
-    this.locationChanged.next(this._currentLocation);
+    let toFind: number;
+
+    if (!this._lookuptable) {
+      return;
+    }
+
+    for (let i = 0; i < this._lookuptable.length; i++)
+    {
+      const location = this._lookuptable[i];
+      if (location.isStartPoint)
+      {
+        toFind = location;
+      }
+    }
+    return toFind;
+  }
+
+  public setToStartPoint(): void
+  {
+    const startPoint = this.findStartLocation();
+    this.appStore.dispatch(this.locationActions.changeCurrentLocation(startPoint));
+  }
+
+  public updateCurrentLocation(locationId: Number)
+  {
+    const loc = this.findLocation(locationId);
+    this.appStore.dispatch(this.locationActions.changeCurrentLocation(loc));
   }
 
   public sameAsCurrentLocation(id: number): boolean
   {
     let isSame = false;
-
-    if (this._currentLocation){
-      if (id === this._currentLocation.id){
+    const currLoc = this._currentLocation.value;
+    if (currLoc){
+      if (id === currLoc.id){
         isSame = true;
       }
     }
@@ -65,13 +94,8 @@ export class LocationService
     this._lookuptable = locations;
   }
 
-  get currentLocation(): any
+  get currentLocation(): BehaviorSubject<any>
   {
     return this._currentLocation;
-  }
-
-  set currentLocation(location: any)
-  {
-    this._currentLocation = location;
   }
 }

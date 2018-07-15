@@ -24,7 +24,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   public joinGame: boolean;
   public locationSocketStatus: undefined;
 
-  private _unsubscribe: Unsubscribe;
+  private readonly _unsubscribe: Unsubscribe;
   private _statusTimerSubscription;
 
   constructor(
@@ -34,7 +34,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
-    private utilitiesService: UtilitiesService 
+    private utilitiesService: UtilitiesService
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
@@ -45,7 +45,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.utilitiesService.sendToNative('TABLE-AT', 'print');
-    this.location = this.locationService.currentLocation;
+    this.location = this.locationService.currentLocation.value;
     this.locationName = this.location.description;
     this.locationId = this.location.id;
     this.locationStatusFree = false;

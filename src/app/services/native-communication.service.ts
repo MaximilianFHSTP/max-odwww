@@ -49,10 +49,12 @@ export class NativeCommunicationService {
       return;
     }
 
+    const currLoc = this.locationService.currentLocation.value;
+
     // location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
     {
-      if (this.locationService.currentLocation && this.locationService.currentLocation.locationTypeId === 2)
+      if (this.locationService.currentLocation && currLoc.locationTypeId === 2)
       {
         this.utilitiesService.sendToNative('this is not a valid location - type 2', 'print');
         return;
@@ -114,6 +116,7 @@ export class NativeCommunicationService {
   public logoutSuccess(): void
   {
     this.appStore.dispatch(this.userActions.changeToken(undefined));
+    this.appStore.dispatch(this.locationActions);
     this.router.navigate(['']).then( () =>
     {
       this.utilitiesService.sendToNative('User Logged out', 'print');

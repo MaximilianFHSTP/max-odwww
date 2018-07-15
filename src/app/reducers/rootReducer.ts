@@ -20,10 +20,10 @@ export function rootReducer(state = initialState, action)
 {
   switch (action.type)
   {
-    case LocationActions.CHANGE_LOCATION:
+    case LocationActions.CHANGE_CURRENT_LOCATION:
       return {
         ...state,
-        currentLocation: action.locationId
+        currentLocation: action.location
       };
 
     case LocationActions.CHANGE_CONNECTED_EXHIBIT:

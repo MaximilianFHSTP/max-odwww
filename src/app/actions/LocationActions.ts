@@ -1,4 +1,4 @@
-export const CHANGE_LOCATION = 'CHANGE_LOCATION';
+export const CHANGE_CURRENT_LOCATION = 'CHANGE_CURRENT_LOCATION';
 export const CHANGE_CONNECTED_EXHIBIT = 'CHANGE_CONNECTED_EXHIBIT';
 export const CHANGE_LOCATION_STATUS = 'CHANGE_LOCATION_STATUS';
 export const CHANGE_LOCATION_SOCKET_STATUS = 'CHANGE_LOCATION_SOCKET_STATUS';
@@ -12,11 +12,11 @@ export class LocationActions
   {
   }
 
-  public changeLocation(locationId: number)
+  public changeCurrentLocation(location: JSON)
   {
     return {
-      type: CHANGE_LOCATION,
-      locationId: locationId
+      type: CHANGE_CURRENT_LOCATION,
+      location: location
     };
   }
 

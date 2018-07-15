@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
 import { LocationService } from '../services/location.service';
+import {Unsubscribe} from 'redux';
 
 @Component(
   {
@@ -8,33 +9,37 @@ import { LocationService } from '../services/location.service';
   styleUrls: ['./content-passive.component.css']
   }
 )
-export class ContentPassiveComponent implements OnInit
+export class ContentPassiveComponent implements OnInit, OnDestroy
 {
   private _location: any;
   private locationName: string;
   private locationId: any;
+  private _unsubscribe: Unsubscribe;
 
   constructor(
-    private locationService: LocationService
-  ) { }
+    private locationService: LocationService,
+    @Inject('AppStore') private appStore
+  ) {
+    this._unsubscribe = this.appStore.subscribe(() => {
+      const state = this.appStore.getState();
+      this.updateLocationInformation(state.currentLocation);
+    });
+  }
 
   ngOnInit()
   {
-    this._location = this.locationService.currentLocation;
+    const state = this.appStore.getState();
+    this.updateLocationInformation(state.currentLocation);
+  }
+
+  updateLocationInformation(value)
+  {
+    this._location = value;
     this.locationName = this._location.description;
     this.locationId = this._location.id;
-    
-    this.locationService.locationChanged.subscribe(value =>
-      {
-      this._location = value;
-      this.locationName = this._location.description;
-      this.locationId = this._location.id;
-      }
-    );
   }
-  // TODO: destroy subscribtion --> code below is producing an error
-/*
+
   ngOnDestroy() {
-    this.locationService.locationChanged.unsubscribe();
-  }*/
+    this._unsubscribe();
+  }
 }

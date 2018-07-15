@@ -20,16 +20,21 @@ export class MainViewComponent implements OnInit {
     private locationService: LocationService,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
-    private utilitiesService: UtilitiesService 
+    private utilitiesService: UtilitiesService
   ) { }
 
-  public requestRegisterLocation()
+  public requestRegisterLocationTableAt()
   {
     this.nativeCommunicationService.transmitLocationRegister({minor: 100, major: 10});
   }
 
+  public requestRegisterLocationPassive()
+  {
+    this.nativeCommunicationService.transmitLocationRegister({minor: 1009, major: 10});
+  }
+
   ngOnInit() {
-    
+
     const state = this.appStore.getState();
     this.user = state.user;
     this.locationService.lookuptable = state.lookupTable;

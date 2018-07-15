@@ -51,29 +51,13 @@ export class GodService {
       this.store.dispatch(this.userActions.changeUser(res.user));
       this.store.dispatch(this.userActions.changeLookupTable(res.locations));
       this.store.dispatch(this.userActions.changeToken(res.token));
-      this.locationService.lookuptable = res.locations;
 
-      const state = this.store.getState();
-      const platform = state.platform;
+      this.locationService.setToStartPoint();
 
       this.router.navigate(['/mainview']).then( () =>
         {
           // send success to native & start beacon scan
           this.utilitiesService.sendToNative('success', 'registerOD');
-
-          /*
-          switch (platform) {
-            case 'IOS':
-              this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
-            break;
-
-            case 'Android':
-              this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
-            break;
-
-            default:
-              break;
-          }*/
         }
       );
 
@@ -100,30 +84,12 @@ export class GodService {
       this.store.dispatch(this.userActions.changeUser(res.user));
       this.store.dispatch(this.userActions.changeLookupTable(res.locations));
       this.store.dispatch(this.userActions.changeToken(res.token));
-      this.locationService.lookuptable = res.locations;
 
-      const state = this.store.getState();
-      const platform = state.platform;
+      this.locationService.setToStartPoint();
 
       this.router.navigate(['/mainview']).then( () =>
         {
-          // send success to native & start beacon scan
-
-          // this.nativeCommunicationService.sendToNative('success', 'registerOD');
           this.utilitiesService.sendToNative('success', 'registerOD');
-          /*
-          switch (platform) {
-            case 'IOS':
-              this.winRef.nativeWindow.webkit.messageHandlers.registerOD.postMessage('success');
-              break;
-
-            case 'Android':
-              this.winRef.nativeWindow.MEETeUXAndroidAppRoot.registerOD();
-              break;
-
-            default:
-              break;
-          }*/
         }
       );
 
@@ -133,7 +99,7 @@ export class GodService {
 
   public registerLocation(id: number): any
   {
-    let state = this.store.getState();
+    const state = this.store.getState();
     const user = state.user;
     this.socket.emit('registerLocation', {location: id, user: user.id});
 
@@ -141,6 +107,8 @@ export class GodService {
     {
       const res = result.data;
       const message = result.message;
+
+      console.log(result);
 
       if (message.code > 299)
       {
@@ -151,10 +119,9 @@ export class GodService {
 
       this.locationService.updateCurrentLocation(res);
       this.utilitiesService.sendToNative(this.locationService.currentLocation, 'print');
-      state = this.store.getState();
-      const platform = state.platform;
+      const currLoc = this.locationService.currentLocation.value;
 
-      this.router.navigate([this.locationService.currentLocation.contentURL]).then( () =>
+      this.router.navigate([currLoc.contentURL]).then( () =>
       {
         // send success to native & trigger signal
         this.utilitiesService.sendToNative('success', 'triggerSignal');
@@ -226,8 +193,6 @@ export class GodService {
 
     this.socket.on('autoLoginODResult', result =>
     {
-      // console.log('---------------------- AutoLoginODResult -----------------------------');
-      // console.log(result);
 
       const data = result.data;
       const message = result.message;
@@ -241,10 +206,8 @@ export class GodService {
       this.store.dispatch(this.userActions.changeUser(data.user));
       this.store.dispatch(this.userActions.changeLookupTable(data.locations));
       this.store.dispatch(this.userActions.changeToken(data.token));
-      this.locationService.lookuptable = data.locations;
 
-      const state = this.store.getState();
-      const platform = state.platform;
+      this.locationService.setToStartPoint();
 
       this.router.navigate(['/mainview']).then( () =>
       {

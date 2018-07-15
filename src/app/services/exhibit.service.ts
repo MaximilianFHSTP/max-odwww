@@ -30,7 +30,7 @@ export class ExhibitService {
   {
     // console.log(url);
     const localURL = 'http://localhost:8100/';
-    this.socket.openNewExhibitConnection(url);
+    this.socket.openNewExhibitConnection(localURL);
 
     // this.socket.openNewExhibitConnection(url);
 
@@ -86,7 +86,9 @@ export class ExhibitService {
 
         this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
 
-        this.socketGod.disconnectedFromExhibit(this.locationService.currentLocation.parentId, this.locationService.currentLocation.id);
+        const currLoc = this.locationService.currentLocation.value;
+
+        this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
       }
 
       this.socket.connection.removeAllListeners('closeConnectionResult');
