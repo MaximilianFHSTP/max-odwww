@@ -14,11 +14,15 @@ import { UtilitiesService } from '../services/utilities.service';
   styleUrls: ['./content-table-at.component.css']
 })
 export class ContentTableAtComponent implements OnInit, OnDestroy {
+
+  // location data
   private location: any;
   public locationName: string;
-  private locationId: any;
+  private locationId: number;
   public locationStatusFree: boolean;
   public locationStatusOccupied: boolean;
+  public locationType: number;
+
   private checkStatusTimer: any;
   public isWeb: boolean;
   public joinGame: boolean;
@@ -45,13 +49,15 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.utilitiesService.sendToNative('TABLE-AT', 'print');
+
     this.location = this.locationService.currentLocation.value;
     this.locationName = this.location.description;
     this.locationId = this.location.id;
     this.locationStatusFree = false;
     this.locationStatusOccupied = false;
-    this.joinGame = true;
+    this.locationType = this.location.locationTypeId;
 
+    this.joinGame = true;
     this.isWeb = this.utilitiesService.isWeb;
 
     // Timer starts after 1sec, repeats every 5sec
@@ -71,6 +77,13 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   {
     this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON', 'print');
     this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
+  }
+
+  redirectToOnTableBehavior()
+  {
+    this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON-Behavior', 'print');
+    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
+    this.nativeCommunicationService.transmitLocationRegisterTableBehavior();
   }
 
   updateLocationStatus(status: string){

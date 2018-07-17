@@ -90,6 +90,32 @@ export class NativeCommunicationService {
     }
   }
 
+  public transmitLocationRegisterTableBehavior(): void
+  {
+    const location = this.locationService.findBehaviorChildLocation();
+
+    if (!location)
+    {
+      this.utilitiesService.sendToNative('this is not a valid location', 'print');
+      return;
+    }
+
+    // location is not the same as before
+    if (!this.locationService.sameAsCurrentLocation(location.id))
+    {
+
+      const state = this.appStore.getState();
+      const exhibitParentId = state.atExhibitParentId;
+
+      this.utilitiesService.sendToNative('new valid location found - check and registerLocation at GoD', 'print');
+
+      if (location.locationTypeId === 7 && exhibitParentId === location.parentId)
+      {
+        this.godService.registerLocation(location.id);
+      }
+    }
+  }
+
   public autoLogin(data): void
   {
     const token: String = data.token;
