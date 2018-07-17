@@ -35,10 +35,10 @@ export class UtilitiesService {
 
       if (this.isIOS)
       {
-        const message = 
+        const message =
         {
           'name' : messageName,
-          'data' : messageBody 
+          'data' : messageBody
         };
 
         this.winRef.nativeWindow.webkit.messageHandlers.observe.postMessage(message);
@@ -74,10 +74,19 @@ export class UtilitiesService {
           case 'showUnityView':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.showUnityView();
             break;
-          
+
           case 'getToken':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
             break;
+
+          case 'stopScanning':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.stopScanner();
+            break;
+
+          case 'restartScanning':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.restartScanner();
+            break;
+
 
           default:
             break;

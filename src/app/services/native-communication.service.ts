@@ -5,6 +5,8 @@ import {LocationActions} from '../actions/LocationActions';
 import { UtilitiesService } from './utilities.service';
 import {Router} from '@angular/router';
 import {UserActions} from '../actions/UserActions';
+import { MatDialog} from '@angular/material';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 
 @Injectable()
 export class NativeCommunicationService {
@@ -18,7 +20,8 @@ export class NativeCommunicationService {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
-    private userActions: UserActions
+    private userActions: UserActions,
+    private dialog: MatDialog
   ) {}
 
   public transmitODRegister(result: any): void
@@ -50,6 +53,7 @@ export class NativeCommunicationService {
     }
 
     const currLoc = this.locationService.currentLocation.value;
+    console.log(this.locationService.currentLocation);
 
     // location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
@@ -73,8 +77,17 @@ export class NativeCommunicationService {
           this.godService.checkLocationStatus(location.id, res => {
             if (res === 'FREE')
             {
-              this.godService.registerLocation(location.id);
-              this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
+              console.log("I am free");
+              this.utilitiesService.sendToNative('stopScanning','stopScanning');
+              let dialogRef = this.dialog.open(AlertDialogComponent);
+              dialogRef.afterClosed().subscribe(result => {
+                console.log('Result: ', result);
+                if (result == 'confirm'){
+                  this.godService.registerLocation(location.id);
+                  this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
+                }
+                this.utilitiesService.sendToNative('restartScanning','restartScanning');
+              })
             }
             else
             {
@@ -84,7 +97,16 @@ export class NativeCommunicationService {
         }
         else
         {
-          this.godService.registerLocation(location.id);
+          console.log("I am else");
+          this.utilitiesService.sendToNative('stopScanning','stopScanning');
+          let dialogRef = this.dialog.open(AlertDialogComponent);
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('Result: ', result);
+            if (result == 'confirm'){
+              this.godService.registerLocation(location.id);
+            }
+            this.utilitiesService.sendToNative('restartScanning','restartScanning');
+          })
         }
       }
     }
