@@ -58,4 +58,9 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
   }
+
+  public sendMessageToExhibit()
+  {
+    this.exhibitService.sendMessage();
+  }
 }

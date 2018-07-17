@@ -44,7 +44,7 @@ export class ExhibitService {
 
     const state = this.appStore.getState();
     const user = state.user;
-    const location = this.locationService.currentLocation;
+    const location = this.locationService.currentLocation.value;
 
     if (!user) {
       return;
@@ -68,6 +68,12 @@ export class ExhibitService {
       const user = this.appStore.getState().user;
       this.socket.connection.emit('exhibitStatusCheckResult', user);
     });
+  }
+
+  public sendMessage()
+  {
+    const user = this.appStore.getState().user;
+    this.socket.connection.emit('sendMessage', {user, message: 'Na'});
   }
 
   public disconnect()
