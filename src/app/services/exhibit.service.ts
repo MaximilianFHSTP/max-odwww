@@ -8,6 +8,9 @@ import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import { UtilitiesService } from '../services/utilities.service';
 import {NativeCommunicationService} from './native-communication.service';
+import * as SuccessTypes from '../config/SuccessTypes';
+import * as ErrorTypes from '../config/ErrorTypes';
+import {StatusActions} from '../actions/StatusActions';
 
 @Injectable()
 export class ExhibitService {
@@ -21,6 +24,7 @@ export class ExhibitService {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private userActions: UserActions,
+    private statusActions: StatusActions,
     private utilitiesService: UtilitiesService,
     private nativeCommunicationService: NativeCommunicationService
   )
@@ -36,6 +40,16 @@ export class ExhibitService {
 
     this.socket.connection.on('connected', () => {
       this.appStore.dispatch(this.locationActions.changeConnectedExhibit(true));
+    });
+
+    this.socket.connection.on('disconnect', () => {
+      const error: Message = {code: ErrorTypes.LOST_CONNECTION_TO_EXHIBIT, message: 'Lost connection to Exhibit'};
+      this.appStore.dispatch(this.statusActions.changeErrorMessage(error));
+
+      this.socket.connection.disconnect();
+
+      const currLoc = this.locationService.currentLocation.value;
+      this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
     });
   }
 
