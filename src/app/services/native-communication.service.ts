@@ -148,4 +148,19 @@ export class NativeCommunicationService {
       this.utilitiesService.sendToNative('User Logged out', 'print');
     });
   }
+
+  public transmitLocationLike(like: boolean): void
+  {
+    const currLoc = this.locationService.currentLocation.value;
+
+    if (like) {
+      this.utilitiesService.sendToNative('Like location ' + currLoc.name, 'print');
+    }
+    else {
+      this.utilitiesService.sendToNative('Unlike location ' + currLoc.name, 'print');
+    }
+
+
+    this.godService.registerLocationLike(currLoc, like);
+  }
 }
