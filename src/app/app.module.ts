@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
-  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule} from '@angular/material';
+  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule} from '@angular/material';
 
 import { SocketIoModule} from 'ngx-socket-io';
 import {GodSocketService} from './services/god-socket.service';
@@ -34,6 +34,7 @@ import { StatusActions } from './actions/StatusActions';
 import logger from 'redux-logger';
 
 
+
 export const appStore = createStore(
   rootReducer,
   applyMiddleware(logger)
@@ -54,6 +55,7 @@ export const appStore = createStore(
     SocketIoModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatSnackBarModule,
     MatCheckboxModule,
     MatToolbarModule,
     MatMenuModule,
