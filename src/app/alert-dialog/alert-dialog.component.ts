@@ -1,24 +1,29 @@
-import { Component } from '@angular/core';
-import {MatDialog, MatDialogRef } from "@angular/material";
+import { Component, OnInit } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-alert-dialog',
-  templateUrl: './alert-dialog.component.html'
+  templateUrl: './alert-dialog.component.html',
+  styleUrls: ['./alert-dialog.component.css']
 })
-export class AlertDialogComponent {
+export class AlertDialogComponent implements OnInit{
 
-  constructor(public dialogRef: MatDialogRef<AlertDialogComponent>) { }
+  constructor(public thisDialogRef: MatDialogRef<AlertDialogComponent>) { }
+
+  ngOnInit(){
+
+  }
 
   cancelDialog() {
     console.log("canceled");
-    console.log(this.dialogRef);
-    this.dialogRef.close('cancel');
+    console.log(this.thisDialogRef);
+    this.thisDialogRef.close('cancel');
   }
 
   confirmDialog() {
     console.log("confirmed");
-    console.log(this.dialogRef);
-    this.dialogRef.close('confirm');
+    console.log(this.thisDialogRef);
+    this.thisDialogRef.close('confirm');
   }
 }

@@ -80,6 +80,7 @@ export class NativeCommunicationService {
               console.log("I am free");
               this.utilitiesService.sendToNative('stopScanning','stopScanning');
               let dialogRef = this.dialog.open(AlertDialogComponent);
+              console.log(this.dialog.openDialogs);
               dialogRef.afterClosed().subscribe(result => {
                 console.log('Result: ', result);
                 if (result == 'confirm'){
@@ -100,6 +101,7 @@ export class NativeCommunicationService {
           console.log("I am else");
           this.utilitiesService.sendToNative('stopScanning','stopScanning');
           let dialogRef = this.dialog.open(AlertDialogComponent);
+          console.log(this.dialog.openDialogs);
           dialogRef.afterClosed().subscribe(result => {
             console.log('Result: ', result);
             if (result == 'confirm'){
