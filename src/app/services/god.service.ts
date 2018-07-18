@@ -6,9 +6,9 @@ import {GodSocketService} from './god-socket.service';
 import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import {StatusActions} from '../actions/StatusActions';
-import { appStore } from '../app.module';
 import { UtilitiesService } from './utilities.service';
-import {NativeCommunicationService} from './native-communication.service';
+import * as ErrorTypes from '../config/ErrorTypes';
+import * as SuccessTypes from '../config/SuccessTypes';
 
 @Injectable()
 export class GodService {
@@ -28,6 +28,16 @@ export class GodService {
     this.socket.on('news', msg =>
     {
       this.utilitiesService.sendToNative(msg, 'print');
+    });
+
+    this.socket.on('disconnect', () => {
+      const error: Message = {code: ErrorTypes.LOST_CONNECTION_TO_GOD, message: 'Lost connection to Server'};
+      this.store.dispatch(this.statusActions.changeErrorMessage(error));
+    });
+
+    this.socket.on('reconnect', () => {
+      const success: Message = {code: SuccessTypes.SUCCESS_RECONNECTED_TO_GOD, message: 'Reconnected to Server'};
+      this.store.dispatch(this.statusActions.changeSuccessMessage(success));
     });
   }
 
