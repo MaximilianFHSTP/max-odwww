@@ -1,8 +1,9 @@
 <h2 matDialogTitle>New Exhibit?</h2>
-<mat-dialog-content>
-  <p>Do you want to enter the exhibit?</p>
-</mat-dialog-content>
+<div mat-dialog-content>
+  <p>Do you want to enter the exhibit {{number}}?</p>
+</div>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="cancelDialog()" color="primary">No</button>
-  <button mat-button (click)="confirmDialog()" color="warn">Yes</button>
+  <button mat-raised-button color="primary" (tap)="cancelDialog()">No</button>
+  <button mat-raised-button color="primary" (tap)="confirmDialog()">Yes</button>
 </mat-dialog-actions>
+

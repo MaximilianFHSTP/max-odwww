@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, EventEmitter, Output, OnInit} from '@angular/core';
 import { GodService } from './god.service';
 import {LocationService} from './location.service';
 import {LocationActions} from '../actions/LocationActions';
@@ -7,11 +7,18 @@ import {Router} from '@angular/router';
 import {UserActions} from '../actions/UserActions';
 import { MatDialog} from '@angular/material';
 import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import {AlertService} from './alert.service';
 
 @Injectable()
-export class NativeCommunicationService {
+export class NativeCommunicationService implements OnInit {
   public registerName: string;
   public registerIsGuest: boolean;
+  private subject = new Subject<any>();
+  private message: any;
+  private subscription: Subscription;
 
   constructor(
     private router: Router,
@@ -21,8 +28,27 @@ export class NativeCommunicationService {
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
     private userActions: UserActions,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private alertService: AlertService
+  ) {
+    this.subscription = this.alertService.getMessageResponse().subscribe(message => {
+      console.log('ho ' + message.result + ' ' + message.location + ' '+ message.resStatus);
+      if(message.result === 'confirm'){
+        if (message.resStatus === 'FREE'){
+          this.godService.registerLocation(message.location);
+          this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(message.resStatus));
+        }else{
+          this.godService.registerLocation(message.location);
+        }
+      }else{
+        console.log("nope");
+      }
+      this.utilitiesService.sendToNative('restartScanning','restartScanning');
+    });
+  }
+
+  ngOnInit() {
+  }
 
   public transmitODRegister(result: any): void
   {
@@ -79,16 +105,9 @@ export class NativeCommunicationService {
             {
               console.log("I am free");
               this.utilitiesService.sendToNative('stopScanning','stopScanning');
-              let dialogRef = this.dialog.open(AlertDialogComponent);
-              console.log(this.dialog.openDialogs);
-              dialogRef.afterClosed().subscribe(result => {
-                console.log('Result: ', result);
-                if (result == 'confirm'){
-                  this.godService.registerLocation(location.id);
-                  this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
-                }
-                this.utilitiesService.sendToNative('restartScanning','restartScanning');
-              })
+              const data = {location: location.id, resStatus: res};
+              this.alertService.sendMessage(data);
+
             }
             else
             {
@@ -98,17 +117,11 @@ export class NativeCommunicationService {
         }
         else
         {
-          console.log("I am else");
           this.utilitiesService.sendToNative('stopScanning','stopScanning');
-          let dialogRef = this.dialog.open(AlertDialogComponent);
-          console.log(this.dialog.openDialogs);
-          dialogRef.afterClosed().subscribe(result => {
-            console.log('Result: ', result);
-            if (result == 'confirm'){
-              this.godService.registerLocation(location.id);
-            }
-            this.utilitiesService.sendToNative('restartScanning','restartScanning');
-          })
+          console.log("I am else");
+          const data = {location: location.id, resStatus: null};
+          this.alertService.sendMessage(data);
+
         }
       }
     }

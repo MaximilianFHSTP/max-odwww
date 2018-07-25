@@ -5,6 +5,12 @@ import { UtilitiesService } from './services/utilities.service';
 import {Unsubscribe} from 'redux';
 import {NativeCommunicationService} from './services/native-communication.service';
 import {WindowRef} from './WindowRef';
+import { Subscription } from 'rxjs/Subscription';
+import { MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
+import {AlertService} from './services/alert.service';
 
 
 @Component({
@@ -19,6 +25,10 @@ export class AppComponent implements OnInit, OnDestroy {
   public platform: String;
   private _unsubscribe: Unsubscribe;
   private currentToken: String;
+  private message: any;
+  private subscription: Subscription;
+  private subscriptionBack: Subscription;
+  private subject = new Subject<any>();
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -26,7 +36,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
     private winRef: WindowRef,
-    private nativeCommunicationService: NativeCommunicationService
+    private nativeCommunicationService: NativeCommunicationService,
+    private dialog: MatDialog,
+    private alertService: AlertService
   )
   {
     this._unsubscribe = this.appStore.subscribe(() => {
@@ -39,9 +51,15 @@ export class AppComponent implements OnInit, OnDestroy {
         this.currentToken = token;
       }
     });
+    this.subscription = this.alertService.getMessage().subscribe(message => {
+      console.log('hi ' + message.location + ' ' + message.resStatus);
+      this.openDialog(message);
+    });
   }
 
   ngOnInit() {
+
+
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
 
@@ -49,8 +67,25 @@ export class AppComponent implements OnInit, OnDestroy {
     this.getTokenForAutoLogin();
   }
 
+  openDialog(message: any) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    let dialogRef = this.dialog.open(AlertDialogComponent, dialogConfig);
+    dialogRef.componentInstance.number = message.location;
+    console.log(this.dialog.openDialogs);
+    this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
+      const data = {result: result, location: message.location, resStatus: message.resStatus};
+      this.alertService.sendMessageResponse(data);
+    });
+  }
+
   ngOnDestroy() {
     this._unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public requestCheckedPlatform(){

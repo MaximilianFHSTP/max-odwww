@@ -36,6 +36,8 @@ import logger from 'redux-logger';
 import { MatDialogModule } from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
+import{AlertService} from './services/alert.service';
+
 
 export const appStore = createStore(
   rootReducer,
@@ -59,6 +61,7 @@ export const appStore = createStore(
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
@@ -67,8 +70,7 @@ export const appStore = createStore(
     MatInputModule,
     MatProgressSpinnerModule,
     AppRoutingModule,
-    FormsModule,
-    MatDialogModule
+    FormsModule
   ],
   providers: [
     GodSocketService,
@@ -82,7 +84,8 @@ export const appStore = createStore(
     LocationActions,
     UserActions,
     StatusActions,
-    UtilitiesService
+    UtilitiesService,
+    AlertService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
