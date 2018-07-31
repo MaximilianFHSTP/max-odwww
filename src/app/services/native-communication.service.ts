@@ -104,9 +104,11 @@ export class NativeCommunicationService implements OnInit {
             if (res === 'FREE')
             {
               console.log("I am free");
-              this.utilitiesService.sendToNative('stopScanning','stopScanning');
-              const data = {location: location.id, resStatus: res};
-              this.alertService.sendMessage(data);
+              this.godService.registerLocation(location.id);
+              this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
+              //this.utilitiesService.sendToNative('stopScanning','stopScanning');
+              //const data = {location: location.id, resStatus: res};
+              //this.alertService.sendMessage(data);
 
             }
             else
