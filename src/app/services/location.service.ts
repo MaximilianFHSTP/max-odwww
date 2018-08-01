@@ -40,6 +40,26 @@ export class LocationService
     return toFind;
   }
 
+  public findBehaviorChildLocation(): any
+  {
+    let toFind: any;
+    const currLoc = this._currentLocation.value;
+
+    if (!this._lookuptable) {
+      return;
+    }
+
+    for (let i = 0; i < this._lookuptable.length; i++)
+    {
+      const location = this._lookuptable[i];
+      if (location.parentId === currLoc.id)
+      {
+        toFind = location;
+      }
+    }
+    return toFind;
+  }
+
   public findStartLocation(): any
   {
     let toFind: number;

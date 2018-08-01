@@ -129,6 +129,32 @@ export class NativeCommunicationService implements OnInit {
     }
   }
 
+  public transmitLocationRegisterTableBehavior(): void
+  {
+    const location = this.locationService.findBehaviorChildLocation();
+
+    if (!location)
+    {
+      this.utilitiesService.sendToNative('this is not a valid location', 'print');
+      return;
+    }
+
+    // location is not the same as before
+    if (!this.locationService.sameAsCurrentLocation(location.id))
+    {
+
+      const state = this.appStore.getState();
+      const exhibitParentId = state.atExhibitParentId;
+
+      this.utilitiesService.sendToNative('new valid location found - check and registerLocation at GoD', 'print');
+
+      if (location.locationTypeId === 7 && exhibitParentId === location.parentId)
+      {
+        this.godService.registerLocation(location.id);
+      }
+    }
+  }
+
   public autoLogin(data): void
   {
     const token: String = data.token;
@@ -160,6 +186,21 @@ export class NativeCommunicationService implements OnInit {
     {
       this.utilitiesService.sendToNative('User Logged out', 'print');
     });
+  }
+
+  public transmitLocationLike(like: boolean): void
+  {
+    const currLoc = this.locationService.currentLocation.value;
+
+    if (like) {
+      this.utilitiesService.sendToNative('Like location ' + currLoc.name, 'print');
+    }
+    else {
+      this.utilitiesService.sendToNative('Unlike location ' + currLoc.name, 'print');
+    }
+
+
+    this.godService.registerLocationLike(currLoc, like);
   }
 
   public changeBeacon(): void{

@@ -11,7 +11,7 @@ import { UtilitiesService } from '../services/utilities.service';
 })
 @Injectable()
 export class MainViewComponent implements OnInit {
-  private user: any;
+  public user: any;
   private lookuptable: any;
   public isWeb: boolean;
 
@@ -26,6 +26,11 @@ export class MainViewComponent implements OnInit {
   public requestRegisterLocationTableAt()
   {
     this.nativeCommunicationService.transmitLocationRegister({minor: 100, major: 10});
+  }
+
+  public requestRegisterLocationTableAtBehavior()
+  {
+    this.nativeCommunicationService.transmitLocationRegister({minor: 101, major: 10});
   }
 
   public requestRegisterLocationPassive()

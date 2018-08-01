@@ -15,7 +15,7 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
   public locationName: string;
 
   private _location: any;
-  private _unsubscribe: Unsubscribe;
+  private readonly _unsubscribe: Unsubscribe;
 
   constructor(
     private godService: GodService,
@@ -31,7 +31,7 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._location = this.locationService.currentLocation;
+    this._location = this.locationService.currentLocation.value;
     this.locationName = this._location.description;
 
     const parentLocation = this.locationService.findLocation(this._location.parentId);
@@ -43,7 +43,7 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
 
     this.exhibitService.connectOD();
 
-    //localStorage.setItem('onExhibit', JSON.stringify(true));
+    // localStorage.setItem('onExhibit', JSON.stringify(true));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
   }
 
@@ -57,7 +57,10 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
     this.exhibitService.disconnect();
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
-    //localStorage.setItem('atExhibitParent', JSON.stringify(0));
-    //localStorage.setItem('onExhibit', JSON.stringify(false));
+  }
+
+  public sendMessageToExhibit()
+  {
+    this.exhibitService.sendMessage();
   }
 }
