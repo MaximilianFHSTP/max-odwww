@@ -18,3 +18,5 @@
 </mat-toolbar>
 
 <router-outlet></router-outlet>
+
+ <button *ngIf="registered" (click)="changeToNearestBeacon()">Next Beacon</button>

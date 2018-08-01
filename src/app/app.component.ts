@@ -5,6 +5,13 @@ import { UtilitiesService } from './services/utilities.service';
 import {Unsubscribe} from 'redux';
 import {NativeCommunicationService} from './services/native-communication.service';
 import {WindowRef} from './WindowRef';
+import { Subscription } from 'rxjs/Subscription';
+import { MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
+import {AlertService} from './services/alert.service';
+
 import * as SuccessTypes from './config/SuccessTypes';
 import * as ErrorTypes from './config/ErrorTypes';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
@@ -19,8 +26,13 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
 
   public platform: String;
+  public registered: boolean;
   private _unsubscribe: Unsubscribe;
   private currentToken: String;
+  private message: any;
+  private subscription: Subscription;
+  private subscriptionBack: Subscription;
+  private subject = new Subject<any>();
   private currentError: number;
   private currentSuccess: number;
 
@@ -30,6 +42,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
     private winRef: WindowRef,
+    private nativeCommunicationService: NativeCommunicationService,
+    private dialog: MatDialog,
+    private alertService: AlertService
     private nativeCommunicationService: NativeCommunicationService,
     public snackBar: MatSnackBar
   )
@@ -62,9 +77,16 @@ export class AppComponent implements OnInit, OnDestroy {
         let snackBarRef = this.snackBar.open(successMessage.message, 'OK', config);
       }
     });
+    this.subscription = this.alertService.getMessage().subscribe(message => {
+      console.log('hi ' + message.location + ' ' + message.resStatus);
+      this.openDialog(message);
+    });
   }
 
   ngOnInit() {
+
+    this.registered = true;
+
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
 
@@ -72,8 +94,25 @@ export class AppComponent implements OnInit, OnDestroy {
     this.getTokenForAutoLogin();
   }
 
+  openDialog(message: any) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    let dialogRef = this.dialog.open(AlertDialogComponent, dialogConfig);
+    dialogRef.componentInstance.number = message.location;
+    console.log(this.dialog.openDialogs);
+    this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
+      const data = {result: result, location: message.location, resStatus: message.resStatus};
+      this.alertService.sendMessageResponse(data);
+    });
+  }
+
   ngOnDestroy() {
     this._unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public requestCheckedPlatform(){
@@ -106,5 +145,9 @@ export class AppComponent implements OnInit, OnDestroy {
   public logoutUser()
   {
     this.nativeCommunicationService.logout();
+  }
+
+  public changeToNearestBeacon(){
+    this.nativeCommunicationService.changeBeacon();
   }
 }

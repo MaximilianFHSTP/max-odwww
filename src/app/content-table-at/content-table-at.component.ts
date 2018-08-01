@@ -103,4 +103,12 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
     // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
   }
+
+  registerLocationLike() {
+    this.nativeCommunicationService.transmitLocationLike(true);
+  }
+
+  registerLocationUnlike() {
+    this.nativeCommunicationService.transmitLocationLike(false);
+  }
 }

@@ -142,6 +142,30 @@ export class GodService {
     });
   }
 
+  public registerLocationLike(location: any, like: boolean): void
+  {
+    const state = this.store.getState();
+    const user = state.user;
+    this.socket.emit('registerLocationLike', {location: location.id, like, user: user.id});
+
+    this.socket.on('registerLocationLikeResult', result =>
+    {
+      const res = result.data;
+      const message = result.message;
+
+      console.log(res);
+
+      if (message.code > 299)
+      {
+        console.log('RegisterLocation: FAILED');
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+
+      this.socket.removeAllListeners('registerLocationLikeResult');
+    });
+  }
+
   public checkLocationStatus(data: any, callback: any = null): void
   {
     this.socket.emit('checkLocationStatus', data);

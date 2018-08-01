@@ -1,15 +1,24 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, EventEmitter, Output, OnInit} from '@angular/core';
 import { GodService } from './god.service';
 import {LocationService} from './location.service';
 import {LocationActions} from '../actions/LocationActions';
 import { UtilitiesService } from './utilities.service';
 import {Router} from '@angular/router';
 import {UserActions} from '../actions/UserActions';
+import { MatDialog} from '@angular/material';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import {AlertService} from './alert.service';
 
 @Injectable()
-export class NativeCommunicationService {
+export class NativeCommunicationService implements OnInit {
   public registerName: string;
   public registerIsGuest: boolean;
+  private subject = new Subject<any>();
+  private message: any;
+  private subscription: Subscription;
 
   constructor(
     private router: Router,
@@ -18,8 +27,28 @@ export class NativeCommunicationService {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
-    private userActions: UserActions
-  ) {}
+    private userActions: UserActions,
+    private dialog: MatDialog,
+    private alertService: AlertService
+  ) {
+    this.subscription = this.alertService.getMessageResponse().subscribe(message => {
+      console.log('ho ' + message.result + ' ' + message.location + ' '+ message.resStatus);
+      if(message.result === 'confirm'){
+        if (message.resStatus === 'FREE'){
+          this.godService.registerLocation(message.location);
+          this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(message.resStatus));
+        }else{
+          this.godService.registerLocation(message.location);
+        }
+      }else{
+        console.log("nope");
+      }
+      this.utilitiesService.sendToNative('restartScanning','restartScanning');
+    });
+  }
+
+  ngOnInit() {
+  }
 
   public transmitODRegister(result: any): void
   {
@@ -50,6 +79,7 @@ export class NativeCommunicationService {
     }
 
     const currLoc = this.locationService.currentLocation.value;
+    console.log(this.locationService.currentLocation);
 
     // location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
@@ -73,8 +103,13 @@ export class NativeCommunicationService {
           this.godService.checkLocationStatus(location.id, res => {
             if (res === 'FREE')
             {
+              console.log("I am free");
               this.godService.registerLocation(location.id);
               this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
+              //this.utilitiesService.sendToNative('stopScanning','stopScanning');
+              //const data = {location: location.id, resStatus: res};
+              //this.alertService.sendMessage(data);
+
             }
             else
             {
@@ -84,7 +119,11 @@ export class NativeCommunicationService {
         }
         else
         {
-          this.godService.registerLocation(location.id);
+          this.utilitiesService.sendToNative('stopScanning','stopScanning');
+          console.log("I am else");
+          const data = {location: location.id, resStatus: null};
+          this.alertService.sendMessage(data);
+
         }
       }
     }
@@ -147,5 +186,24 @@ export class NativeCommunicationService {
     {
       this.utilitiesService.sendToNative('User Logged out', 'print');
     });
+  }
+
+  public transmitLocationLike(like: boolean): void
+  {
+    const currLoc = this.locationService.currentLocation.value;
+
+    if (like) {
+      this.utilitiesService.sendToNative('Like location ' + currLoc.name, 'print');
+    }
+    else {
+      this.utilitiesService.sendToNative('Unlike location ' + currLoc.name, 'print');
+    }
+
+
+    this.godService.registerLocationLike(currLoc, like);
+  }
+
+  public changeBeacon(): void{
+    this.utilitiesService.sendToNative('changeBeacon', 'changeBeacon');
   }
 }
