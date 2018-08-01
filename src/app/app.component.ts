@@ -23,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
 
   public platform: String;
+  public registered: boolean;
   private _unsubscribe: Unsubscribe;
   private currentToken: String;
   private message: any;
@@ -59,6 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.registered = false;
 
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));

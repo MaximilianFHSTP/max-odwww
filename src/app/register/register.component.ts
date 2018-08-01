@@ -4,6 +4,7 @@ import { NativeCommunicationService } from '../services/native-communication.ser
 import { WindowRef } from '../WindowRef';
 import {UserActions} from '../actions/UserActions';
 import { UtilitiesService } from '../services/utilities.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class RegisterComponent implements OnInit
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private appComponent: AppComponent
   ) { }
 
   public requestDeviceInfos(isGuest: boolean)
@@ -30,7 +32,7 @@ export class RegisterComponent implements OnInit
     this.nativeCommunicationService.registerName = this.name;
     this.nativeCommunicationService.registerIsGuest = isGuest;
 
-    this.registered = true;
+    this.appComponent.registered = true;
 
     const state = this.appStore.getState();
     const platform = state.platform;
@@ -47,7 +49,7 @@ export class RegisterComponent implements OnInit
   ngOnInit()
   {
     this.name = '';
-    this.registered = false;
+    this.appComponent.registered = false;
   }
 
 }
