@@ -119,4 +119,8 @@ export class AppComponent implements OnInit, OnDestroy {
   {
     this.nativeCommunicationService.logout();
   }
+
+  public changeToNearestBeacon(){
+    this.nativeCommunicationService.changeBeacon();
+  }
 }

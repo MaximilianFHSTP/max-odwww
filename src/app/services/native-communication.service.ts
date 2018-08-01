@@ -161,4 +161,8 @@ export class NativeCommunicationService implements OnInit {
       this.utilitiesService.sendToNative('User Logged out', 'print');
     });
   }
+
+  public changeBeacon(): void{
+    this.utilitiesService.sendToNative('changeBeacon', 'changeBeacon');
+  }
 }

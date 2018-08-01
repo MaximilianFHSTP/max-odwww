@@ -14,6 +14,7 @@ import { UtilitiesService } from '../services/utilities.service';
 export class RegisterComponent implements OnInit
 {
   public name: string;
+  public registered: boolean;
 
   constructor(
     private router: Router,
@@ -28,6 +29,8 @@ export class RegisterComponent implements OnInit
   {
     this.nativeCommunicationService.registerName = this.name;
     this.nativeCommunicationService.registerIsGuest = isGuest;
+
+    this.registered = true;
 
     const state = this.appStore.getState();
     const platform = state.platform;
@@ -44,6 +47,7 @@ export class RegisterComponent implements OnInit
   ngOnInit()
   {
     this.name = '';
+    this.registered = false;
   }
 
 }
