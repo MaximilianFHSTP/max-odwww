@@ -42,9 +42,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
     private winRef: WindowRef,
-    private nativeCommunicationService: NativeCommunicationService,
     private dialog: MatDialog,
-    private alertService: AlertService
+    private alertService: AlertService,
     private nativeCommunicationService: NativeCommunicationService,
     public snackBar: MatSnackBar
   )
