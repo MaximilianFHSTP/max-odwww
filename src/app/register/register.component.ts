@@ -15,7 +15,7 @@ import { AppComponent } from '../app.component';
 export class RegisterComponent implements OnInit
 {
   public name: string;
-  public registered: boolean;
+  public registered: boolean = true;
 
   constructor(
     private router: Router,
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit
   ngOnInit()
   {
     this.name = '';
-    this.appComponent.registered = false;
+    
   }
 
 }

@@ -60,7 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.registered = false;
+    this.registered = true;
 
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
