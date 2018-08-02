@@ -22,4 +22,12 @@ export class AlertService {
   getMessageResponse(): Observable<any> {
       return this.subjectResponse.asObservable();
   }
+
+  sendMessageLocationid(message: any) {
+    this.subjectResponse.next(message);
+  }
+
+  getMessageLocationid(): Observable<any> {
+      return this.subjectResponse.asObservable();
+  }
 }

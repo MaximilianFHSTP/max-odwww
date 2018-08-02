@@ -32,16 +32,9 @@ export class NativeCommunicationService implements OnInit {
     private alertService: AlertService
   ) {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
-      console.log('ho ' + message.result + ' ' + message.location + ' '+ message.resStatus);
       if(message.result === 'confirm'){
-        if (message.resStatus === 'FREE'){
-          this.godService.registerLocation(message.location);
-          this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(message.resStatus));
-        }else{
-          this.godService.registerLocation(message.location);
-        }
+        this.godService.registerLocation(message.location);
       }else{
-        console.log("nope");
       }
       this.utilitiesService.sendToNative('restartScanning','restartScanning');
     });
@@ -79,7 +72,6 @@ export class NativeCommunicationService implements OnInit {
     }
 
     const currLoc = this.locationService.currentLocation.value;
-    console.log(this.locationService.currentLocation);
 
     // location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
@@ -103,12 +95,8 @@ export class NativeCommunicationService implements OnInit {
           this.godService.checkLocationStatus(location.id, res => {
             if (res === 'FREE')
             {
-              console.log("I am free");
               this.godService.registerLocation(location.id);
               this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
-              //this.utilitiesService.sendToNative('stopScanning','stopScanning');
-              //const data = {location: location.id, resStatus: res};
-              //this.alertService.sendMessage(data);
 
             }
             else
@@ -120,10 +108,11 @@ export class NativeCommunicationService implements OnInit {
         else
         {
           this.utilitiesService.sendToNative('stopScanning','stopScanning');
-          console.log("I am else");
           const data = {location: location.id, resStatus: null};
-          this.alertService.sendMessage(data);
 
+          this.alertService.sendMessageLocationid(data);
+          const elm: HTMLElement = document.getElementById('ghostButton') as HTMLElement;
+          elm.click();
         }
       }
     }

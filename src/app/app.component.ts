@@ -32,9 +32,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private message: any;
   private subscription: Subscription;
   private subscriptionBack: Subscription;
+  private subscriptionLocationid: Subscription;
   private subject = new Subject<any>();
   private currentError: number;
   private currentSuccess: number;
+  private registerLocationmessage: any;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -78,7 +80,11 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     this.subscription = this.alertService.getMessage().subscribe(message => {
       console.log('hi ' + message.location + ' ' + message.resStatus);
-      this.openDialog(message);
+      this.openDialog(/*message*/);
+    });
+    this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
+      console.log('hi ' + message.location + ' ' + message.resStatus);
+      this.registerLocationmessage = message;
     });
   }
 
@@ -91,20 +97,25 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.requestCheckedPlatform();
     this.getTokenForAutoLogin();
+
   }
 
-  openDialog(message: any) {
+  openDialog() {
 
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
 
-    let dialogRef = this.dialog.open(AlertDialogComponent, dialogConfig);
-    dialogRef.componentInstance.number = message.location;
-    console.log(this.dialog.openDialogs);
+    console.log('appcomponent:openDialog() ', this.registerLocationmessage);
+
+    let dialogRef = this.dialog.open(AlertDialogComponent,
+      {data: { number: this.registerLocationmessage.location},
+      disableClose: true,
+      autoFocus: false
+    });
     this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
-      const data = {result: result, location: message.location, resStatus: message.resStatus};
+      const data = {result: result, location: this.registerLocationmessage.location, resStatus: this.registerLocationmessage.resStatus};
       this.alertService.sendMessageResponse(data);
     });
   }

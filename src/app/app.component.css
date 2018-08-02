@@ -10,3 +10,7 @@
 ::ng-deep snack-bar-container.error-snackbar{
   background: darkred;
 }
+
+.hiddenbutton{
+  display: none;
+}

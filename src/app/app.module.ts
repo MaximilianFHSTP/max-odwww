@@ -72,7 +72,7 @@ export const appStore = createStore(
     MatInputModule,
     MatProgressSpinnerModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     GodSocketService,
