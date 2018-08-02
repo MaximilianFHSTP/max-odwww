@@ -33,8 +33,8 @@ export class ExhibitService {
   public establishExhibitConnection(url: string ): void
   {
     // console.log(url);
-    const localURL = 'http://localhost:8100/';
-    this.socket.openNewExhibitConnection(localURL);
+    //const localURL = 'http://localhost:8100/';
+    this.socket.openNewExhibitConnection(url);
 
     // this.socket.openNewExhibitConnection(url);
 
@@ -71,7 +71,7 @@ export class ExhibitService {
       this.utilitiesService.sendToNative(result, 'print');
       this.socket.connection.removeAllListeners('connectODResult');
       this.startAutoResponder();
-      this.nativeCommunicationService.transmitShowUnity();
+      //this.nativeCommunicationService.transmitShowUnity();
     });
   }
 
