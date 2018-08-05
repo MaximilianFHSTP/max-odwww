@@ -78,12 +78,11 @@ export class AppComponent implements OnInit, OnDestroy {
         let snackBarRef = this.snackBar.open(successMessage.message, 'OK', config);
       }
     });
-    this.subscription = this.alertService.getMessage().subscribe(message => {
-      console.log('hi ' + message.location + ' ' + message.resStatus);
-      this.openDialog(/*message*/);
-    });
+    // this.subscription = this.alertService.getMessage().subscribe(message => {
+    //   console.log('hi ' + message.location + ' ' + message.resStatus);
+    //   this.openDialog(/*message*/);
+    // });
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
-      console.log('hi ' + message.location + ' ' + message.resStatus);
       this.registerLocationmessage = message;
     });
   }
@@ -106,8 +105,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
-
-    console.log('appcomponent:openDialog() ', this.registerLocationmessage);
 
     let dialogRef = this.dialog.open(AlertDialogComponent,
       {data: { number: this.registerLocationmessage.location},
