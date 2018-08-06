@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
-  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule} from '@angular/material';
+  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule} from '@angular/material';
 
 import { SocketIoModule} from 'ngx-socket-io';
 import {GodSocketService} from './services/god-socket.service';
@@ -33,6 +33,12 @@ import { UserActions } from './actions/UserActions';
 import { StatusActions } from './actions/StatusActions';
 import logger from 'redux-logger';
 
+import { MatDialogModule } from '@angular/material';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+
+import{AlertService} from './services/alert.service';
+
+
 
 export const appStore = createStore(
   rootReducer,
@@ -47,14 +53,17 @@ export const appStore = createStore(
     MainViewComponent,
     ContentTableAtComponent,
     ContentTableOnComponent,
-    ContentPassiveComponent
+    ContentPassiveComponent,
+    AlertDialogComponent
   ],
   imports: [
     BrowserModule,
     SocketIoModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatSnackBarModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
@@ -63,7 +72,7 @@ export const appStore = createStore(
     MatInputModule,
     MatProgressSpinnerModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     GodSocketService,
@@ -77,9 +86,13 @@ export const appStore = createStore(
     LocationActions,
     UserActions,
     StatusActions,
-    UtilitiesService
+    UtilitiesService,
+    AlertService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertDialogComponent
+  ]
 })
 export class AppModule {
   constructor(

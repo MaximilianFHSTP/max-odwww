@@ -1,15 +1,24 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, EventEmitter, Output, OnInit} from '@angular/core';
 import { GodService } from './god.service';
 import {LocationService} from './location.service';
 import {LocationActions} from '../actions/LocationActions';
 import { UtilitiesService } from './utilities.service';
 import {Router} from '@angular/router';
 import {UserActions} from '../actions/UserActions';
+import { MatDialog} from '@angular/material';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import {AlertService} from './alert.service';
 
 @Injectable()
-export class NativeCommunicationService {
+export class NativeCommunicationService implements OnInit {
   public registerName: string;
   public registerIsGuest: boolean;
+  private subject = new Subject<any>();
+  private message: any;
+  private subscription: Subscription;
 
   constructor(
     private router: Router,
@@ -18,8 +27,21 @@ export class NativeCommunicationService {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
-    private userActions: UserActions
-  ) {}
+    private userActions: UserActions,
+    private dialog: MatDialog,
+    private alertService: AlertService
+  ) {
+    this.subscription = this.alertService.getMessageResponse().subscribe(message => {
+      if(message.result === 'confirm'){
+        this.godService.registerLocation(message.location);
+      }else{
+      }
+      this.utilitiesService.sendToNative('restartScanning','restartScanning');
+    });
+  }
+
+  ngOnInit() {
+  }
 
   public transmitODRegister(result: any): void
   {
@@ -75,6 +97,7 @@ export class NativeCommunicationService {
             {
               this.godService.registerLocation(location.id);
               this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
+
             }
             else
             {
@@ -84,7 +107,12 @@ export class NativeCommunicationService {
         }
         else
         {
-          this.godService.registerLocation(location.id);
+          this.utilitiesService.sendToNative('stopScanning','stopScanning');
+          const data = {location: location.id, resStatus: null};
+
+          this.alertService.sendMessageLocationid(data);
+          const elm: HTMLElement = document.getElementById('ghostButton') as HTMLElement;
+          elm.click();
         }
       }
     }
@@ -162,5 +190,9 @@ export class NativeCommunicationService {
 
 
     this.godService.registerLocationLike(currLoc, like);
+  }
+
+  public changeBeacon(): void{
+    this.utilitiesService.sendToNative('changeBeacon', 'changeBeacon');
   }
 }
