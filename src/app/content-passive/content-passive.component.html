@@ -1,4 +1,14 @@
 <h1>
-  Willkommen bei {{locationName}}
+  Willkommen bei {{location.description}}
 </h1>
-<p>{{locationId}} - Passives Exibit</p>
+<p>{{location.id}} - Passives Exibit</p>
+
+<button *ngIf="location.liked; else notLiked" id="unlike" mat-raised-button color="warn" (click)="registerLocationUnlike()">
+  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Unlike
+</button>
+
+<ng-template #notLiked>
+  <button id="like" mat-stroked-button color="warn" (click)="registerLocationLike()">
+    <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Like
+  </button>
+</ng-template>
