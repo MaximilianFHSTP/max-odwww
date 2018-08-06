@@ -16,8 +16,6 @@ import {AlertService} from './alert.service';
 export class NativeCommunicationService implements OnInit {
   public registerName: string;
   public registerIsGuest: boolean;
-  private subject = new Subject<any>();
-  private message: any;
   private subscription: Subscription;
 
   constructor(
@@ -32,7 +30,7 @@ export class NativeCommunicationService implements OnInit {
     private alertService: AlertService
   ) {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
-      if(message.result === 'confirm'){
+      if (message.result === 'confirm'){
         this.godService.registerLocation(message.location);
       }else{
       }
@@ -190,9 +188,5 @@ export class NativeCommunicationService implements OnInit {
 
 
     this.godService.registerLocationLike(currLoc, like);
-  }
-
-  public changeBeacon(): void{
-    this.utilitiesService.sendToNative('changeBeacon', 'changeBeacon');
   }
 }

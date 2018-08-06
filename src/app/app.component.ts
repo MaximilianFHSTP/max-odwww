@@ -26,14 +26,11 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
 
   public platform: String;
-  public registered: boolean;
-  private _unsubscribe: Unsubscribe;
+  private readonly _unsubscribe: Unsubscribe;
   private currentToken: String;
-  private message: any;
   private subscription: Subscription;
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
-  private subject = new Subject<any>();
   private currentError: number;
   private currentSuccess: number;
   private registerLocationmessage: any;
@@ -68,14 +65,14 @@ export class AppComponent implements OnInit, OnDestroy {
         const config = new MatSnackBarConfig();
         config.duration = 3000;
         config.panelClass = ['error-snackbar'];
-        const snackBarRef = this.snackBar.open(errorMessage.message, 'OK', config);
+        this.snackBar.open(errorMessage.message, 'OK', config);
       }
 
       if (successMessage && successMessage.code !== this.currentSuccess){
         const config = new MatSnackBarConfig();
         config.duration = 3000;
         config.panelClass = ['success-snackbar'];
-        const snackBarRef = this.snackBar.open(successMessage.message, 'OK', config);
+        this.snackBar.open(successMessage.message, 'OK', config);
       }
     });
     // this.subscription = this.alertService.getMessage().subscribe(message => {
@@ -88,9 +85,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    this.registered = true;
-
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
 
@@ -152,9 +146,5 @@ export class AppComponent implements OnInit, OnDestroy {
   public logoutUser()
   {
     this.nativeCommunicationService.logout();
-  }
-
-  public changeToNearestBeacon(){
-    this.nativeCommunicationService.changeBeacon();
   }
 }
