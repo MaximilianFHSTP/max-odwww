@@ -64,18 +64,18 @@ export class AppComponent implements OnInit, OnDestroy {
         this.currentToken = token;
       }
 
-      if(errorMessage && errorMessage.code !== this.currentError){
-        let config = new MatSnackBarConfig();
+      if (errorMessage && errorMessage.code !== this.currentError){
+        const config = new MatSnackBarConfig();
         config.duration = 3000;
         config.panelClass = ['error-snackbar'];
-        let snackBarRef = this.snackBar.open(errorMessage.message, 'OK', config);
+        const snackBarRef = this.snackBar.open(errorMessage.message, 'OK', config);
       }
 
-      if(successMessage && successMessage.code !== this.currentSuccess){
-        let config = new MatSnackBarConfig();
+      if (successMessage && successMessage.code !== this.currentSuccess){
+        const config = new MatSnackBarConfig();
         config.duration = 3000;
         config.panelClass = ['success-snackbar'];
-        let snackBarRef = this.snackBar.open(successMessage.message, 'OK', config);
+        const snackBarRef = this.snackBar.open(successMessage.message, 'OK', config);
       }
     });
     // this.subscription = this.alertService.getMessage().subscribe(message => {
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit, OnDestroy {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
 
-    let dialogRef = this.dialog.open(AlertDialogComponent,
+    const dialogRef = this.dialog.open(AlertDialogComponent,
       {data: { number: this.registerLocationmessage.location},
       disableClose: true,
       autoFocus: false

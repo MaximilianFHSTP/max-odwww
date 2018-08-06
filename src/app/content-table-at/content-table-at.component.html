@@ -24,6 +24,12 @@
   <h3>Der Table ist gerade nicht frei, probieren Sie es später erneut!</h3>
 </div>
 
-<button id="like" mat-stroked-button color="warn" (click)="registerLocationLike()">
-  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Like
+<button *ngIf="location.liked; else notLiked" id="unlike" mat-raised-button color="warn" (click)="registerLocationUnlike()">
+  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Unlike
 </button>
+
+<ng-template #notLiked>
+  <button id="like" mat-stroked-button color="warn" (click)="registerLocationLike()">
+    <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Like
+  </button>
+</ng-template>

@@ -153,7 +153,10 @@ export class GodService {
       const res = result.data;
       const message = result.message;
 
-      console.log(res);
+      this.store.dispatch(this.userActions.changeLookupTable(res.locations));
+
+      const currLoc = this.locationService.currentLocation.value;
+      this.locationService.updateCurrentLocation(currLoc.id);
 
       if (message.code > 299)
       {
