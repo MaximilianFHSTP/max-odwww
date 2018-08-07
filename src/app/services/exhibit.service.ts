@@ -43,10 +43,8 @@ export class ExhibitService {
     });
 
     this.socket.connection.on('disconnect', () => {
-      const error: Message = {code: ErrorTypes.LOST_CONNECTION_TO_EXHIBIT, message: 'Lost connection to Exhibit'};
-      this.appStore.dispatch(this.statusActions.changeErrorMessage(error));
-
-      this.socket.connection.disconnect();
+      // const error: Message = {code: ErrorTypes.LOST_CONNECTION_TO_EXHIBIT, message: 'Lost connection to Exhibit'};
+      // this.appStore.dispatch(this.statusActions.changeErrorMessage(error));
 
       const currLoc = this.locationService.currentLocation.value;
       this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
@@ -71,7 +69,7 @@ export class ExhibitService {
       this.utilitiesService.sendToNative(result, 'print');
       this.socket.connection.removeAllListeners('connectODResult');
       this.startAutoResponder();
-      //this.nativeCommunicationService.transmitShowUnity();
+      // this.nativeCommunicationService.transmitShowUnity();
     });
   }
 
@@ -92,7 +90,6 @@ export class ExhibitService {
 
   public disconnect()
   {
-
     const state = this.appStore.getState();
     const user = state.user;
 
@@ -106,14 +103,13 @@ export class ExhibitService {
 
         this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
 
-        const currLoc = this.locationService.currentLocation.value;
+        // const currLoc = this.locationService.currentLocation.value;
 
-        this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
+        // this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
       }
 
       this.socket.connection.removeAllListeners('closeConnectionResult');
       this.socket.connection.removeAllListeners('exhibitStatusCheck');
     });
-
   }
 }
