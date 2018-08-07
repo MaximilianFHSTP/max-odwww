@@ -48,7 +48,6 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.disconnectFromExhibit();
     this._unsubscribe();
   }
 

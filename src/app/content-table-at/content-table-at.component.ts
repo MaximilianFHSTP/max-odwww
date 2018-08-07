@@ -7,6 +7,7 @@ import {Unsubscribe} from 'redux';
 import {TimerObservable} from 'rxjs/observable/TimerObservable';
 import {LocationActions} from '../actions/LocationActions';
 import { UtilitiesService } from '../services/utilities.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-content-table-at',
@@ -16,7 +17,7 @@ import { UtilitiesService } from '../services/utilities.service';
 export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   // location data
-  private location: any;
+  public location: any;
   public locationName: string;
   private locationId: number;
   public locationStatusFree: boolean;
@@ -30,6 +31,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   private readonly _unsubscribe: Unsubscribe;
   private _statusTimerSubscription;
+  private _curLocSubscribe: Subscription;
 
   constructor(
     private godService: GodService,
@@ -44,6 +46,11 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
       const state = this.appStore.getState();
       this.updateLocationStatus(state.locationStatus);
       this.locationSocketStatus = state.locationSocketStatus;
+    });
+
+    this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
+    {
+      this.location = value;
     });
   }
 
@@ -71,6 +78,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     // Stop the timer
     this._statusTimerSubscription.unsubscribe();
     this._unsubscribe();
+    this._curLocSubscribe.unsubscribe();
   }
 
   redirectToOnTable()

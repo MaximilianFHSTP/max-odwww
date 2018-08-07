@@ -87,10 +87,6 @@ export class UtilitiesService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.restartScanner();
             break;
 
-          case 'changeBeacon':
-          this.winRef.nativeWindow.MEETeUXAndroidAppRoot.changeBeacon();
-          break;
-
           default:
             break;
         }

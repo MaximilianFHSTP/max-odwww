@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 export class AlertService {
   private subjectAlert = new Subject<any>();
   private subjectResponse = new Subject<any>();
+  private subjectLocationId = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -21,5 +22,13 @@ export class AlertService {
 
   getMessageResponse(): Observable<any> {
       return this.subjectResponse.asObservable();
+  }
+
+  sendMessageLocationid(message: any) {
+    this.subjectLocationId.next(message);
+  }
+
+  getMessageLocationid(): Observable<any> {
+      return this.subjectLocationId.asObservable();
   }
 }

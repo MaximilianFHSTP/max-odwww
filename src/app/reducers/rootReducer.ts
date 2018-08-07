@@ -13,7 +13,8 @@ const initialState = {
   platform: undefined,
   atExhibitParentId: undefined,
   onExhibit: undefined,
-  error: undefined
+  errorMessage: undefined,
+  successMessage: undefined
 };
 
 export function rootReducer(state = initialState, action)
@@ -83,7 +84,13 @@ export function rootReducer(state = initialState, action)
     case StatusActions.CHANGE_ERROR_MESSAGE:
       return {
         ...state,
-        error: action.error
+        errorMessage: action.error
+      };
+
+    case StatusActions.CHANGE_SUCCESS_MESSAGE:
+      return {
+        ...state,
+        successMessage: action.success
       };
 
     default:

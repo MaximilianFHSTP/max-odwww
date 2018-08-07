@@ -5,6 +5,7 @@ import { WindowRef } from '../WindowRef';
 import {UserActions} from '../actions/UserActions';
 import { UtilitiesService } from '../services/utilities.service';
 import { AppComponent } from '../app.component';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,6 @@ import { AppComponent } from '../app.component';
 export class RegisterComponent implements OnInit
 {
   public name: string;
-  public registered: boolean = true;
 
   constructor(
     private router: Router,
@@ -23,16 +23,13 @@ export class RegisterComponent implements OnInit
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
-    private utilitiesService: UtilitiesService,
-    private appComponent: AppComponent
+    private utilitiesService: UtilitiesService
   ) { }
 
   public requestDeviceInfos(isGuest: boolean)
   {
     this.nativeCommunicationService.registerName = this.name;
     this.nativeCommunicationService.registerIsGuest = isGuest;
-
-    this.appComponent.registered = true;
 
     const state = this.appStore.getState();
     const platform = state.platform;
@@ -49,7 +46,7 @@ export class RegisterComponent implements OnInit
   ngOnInit()
   {
     this.name = '';
-    
+
   }
 
 }
