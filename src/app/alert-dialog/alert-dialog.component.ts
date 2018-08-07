@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
-import { Alert } from 'selenium-webdriver';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-alert-dialog',
@@ -9,7 +8,7 @@ import { Alert } from 'selenium-webdriver';
 })
 export class AlertDialogComponent implements OnInit{
 
-  number:string;
+  number: string;
   constructor(public thisDialogRef: MatDialogRef<AlertDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
@@ -18,11 +17,11 @@ export class AlertDialogComponent implements OnInit{
 
   cancelDialog() {
     this.thisDialogRef.close('cancel');
-    console.log("canceled");
+    // console.log("canceled");
   }
 
   confirmDialog() {
     this.thisDialogRef.close('confirm');
-    console.log("confirmed");
+    // console.log("confirmed");
   }
 }

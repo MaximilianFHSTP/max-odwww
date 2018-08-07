@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
-  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule} from '@angular/material';
+  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule, MatBadgeModule} from '@angular/material';
 
 import { SocketIoModule} from 'ngx-socket-io';
 import {GodSocketService} from './services/god-socket.service';
@@ -36,7 +36,7 @@ import logger from 'redux-logger';
 import { MatDialogModule } from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
-import{AlertService} from './services/alert.service';
+import {AlertService} from './services/alert.service';
 
 
 
@@ -71,6 +71,7 @@ export const appStore = createStore(
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatBadgeModule,
     AppRoutingModule,
     FormsModule,
   ],
