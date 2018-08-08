@@ -70,8 +70,11 @@ export class NativeCommunicationService implements OnInit {
 
   public transmitLocationRegister(result: any)
   {
+    const state = this.appStore.getState();
     const minor: number = result.minor;
     const location = this.locationService.findLocation(minor);
+
+    if (state.lastDismissed === result.minor) { return; }
 
     if (!location)
     {
@@ -90,11 +93,10 @@ export class NativeCommunicationService implements OnInit {
         return;
       }
 
-      const state = this.appStore.getState();
       const exhibitParentId = state.atExhibitParentId;
       const onExhibit = state.onExhibit;
 
-      this.utilitiesService.sendToNative('new valid location found - check and registerLocation at GoD', 'print');
+      this.utilitiesService.sendToNative('new valid location found - check and registerLocation at GoD - ' + location.id, 'print');
 
       if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParentId === location.parentId))
       {
@@ -105,7 +107,6 @@ export class NativeCommunicationService implements OnInit {
             {
               this.godService.registerLocation(location.id, false);
               this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
-
             }
             else
             {

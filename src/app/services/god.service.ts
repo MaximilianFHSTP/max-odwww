@@ -126,10 +126,10 @@ export class GodService {
         return;
       }
 
-      if (!dis)
+      if (dis === false)
       {
         this.locationService.updateCurrentLocation(loc);
-        this.utilitiesService.sendToNative(this.locationService.currentLocation, 'print');
+        this.utilitiesService.sendToNative('New Location is ' + this.locationService.currentLocation, 'print');
         const currLoc = this.locationService.currentLocation.value;
 
         this.router.navigate([currLoc.contentURL]).then(() => {
