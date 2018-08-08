@@ -22,6 +22,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   private locationId: number;
   public locationStatusFree: boolean;
   public locationStatusOccupied: boolean;
+  public locationStatusOffline: boolean;
   public locationType: number;
 
   private checkStatusTimer: any;
@@ -62,6 +63,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.locationId = this.location.id;
     this.locationStatusFree = false;
     this.locationStatusOccupied = false;
+    this.locationStatusOffline = false;
     this.locationType = this.location.locationTypeId;
 
     this.joinGame = true;
@@ -98,10 +100,17 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     if (status === 'FREE'){
       this.locationStatusFree = true;
       this.locationStatusOccupied = false;
+      this.locationStatusOffline = false;
     }
-    if (status === 'OCCUPIED'){
+    else if (status === 'OCCUPIED'){
       this.locationStatusFree = false;
       this.locationStatusOccupied = true;
+      this.locationStatusOffline = false;
+    }
+    else if (status === 'OFFLINE') {
+      this.locationStatusOffline = true;
+      this.locationStatusFree = false;
+      this.locationStatusOccupied = false;
     }
   }
 

@@ -24,6 +24,10 @@
   <h3>Der Table ist gerade nicht frei, probieren Sie es später erneut!</h3>
 </div>
 
+<div *ngIf="locationStatusOffline">
+  <h3>Beim Table ist leider ein Problem aufgetreten und steht daher zur Zeit nicht zur Verfügung!</h3>
+</div>
+
 <button *ngIf="location.liked; else notLiked" id="unlike" mat-raised-button color="warn" (click)="registerLocationUnlike()">
   <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Unlike
 </button>
