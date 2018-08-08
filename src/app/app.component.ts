@@ -68,6 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
         config.duration = 3000;
         config.panelClass = ['error-snackbar'];
         this.snackBar.open(errorMessage.message, 'OK', config);
+        this.currentError = errorMessage.code;
       }
 
       if (successMessage && successMessage.code !== this.currentSuccess){
@@ -75,6 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
         config.duration = 3000;
         config.panelClass = ['success-snackbar'];
         this.snackBar.open(successMessage.message, 'OK', config);
+        this.currentSuccess = successMessage.code;
       }
     });
     // this.subscription = this.alertService.getMessage().subscribe(message => {
