@@ -14,7 +14,8 @@ const initialState = {
   atExhibitParentId: undefined,
   onExhibit: undefined,
   errorMessage: undefined,
-  successMessage: undefined
+  successMessage: undefined,
+  lastDismissed: undefined
 };
 
 export function rootReducer(state = initialState, action)
@@ -55,6 +56,12 @@ export function rootReducer(state = initialState, action)
       return {
         ...state,
         onExhibit: action.onExhibit
+      };
+
+    case LocationActions.CHANGE_LAST_DISMISSED:
+      return {
+        ...state,
+        lastDismissed: action.lastDismissed
       };
 
     case UserActions.CHANGE_USER:

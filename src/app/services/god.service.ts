@@ -107,18 +107,17 @@ export class GodService {
     });
   }
 
-  public registerLocation(id: number): any
+  public registerLocation(id: number, dismissed: boolean): any
   {
     const state = this.store.getState();
     const user = state.user;
-    this.socket.emit('registerLocation', {location: id, user: user.id});
+    this.socket.emit('registerLocation', {location: id, user: user.id, dismissed});
 
     this.socket.on('registerLocationResult', result =>
     {
-      const res = result.data;
+      const loc = result.data.location;
+      const dis = result.data.dismissed;
       const message = result.message;
-
-      console.log(result);
 
       if (message.code > 299)
       {
@@ -127,16 +126,18 @@ export class GodService {
         return;
       }
 
-      this.locationService.updateCurrentLocation(res);
-      this.utilitiesService.sendToNative(this.locationService.currentLocation, 'print');
-      const currLoc = this.locationService.currentLocation.value;
-
-      this.router.navigate([currLoc.contentURL]).then( () =>
+      if (!dis)
       {
-        // send success to native & trigger signal
-        this.utilitiesService.sendToNative('success', 'triggerSignal');
+        this.locationService.updateCurrentLocation(loc);
+        this.utilitiesService.sendToNative(this.locationService.currentLocation, 'print');
+        const currLoc = this.locationService.currentLocation.value;
+
+        this.router.navigate([currLoc.contentURL]).then(() => {
+            // send success to native & trigger signal
+            this.utilitiesService.sendToNative('success', 'triggerSignal');
+          }
+        );
       }
-    );
 
       this.socket.removeAllListeners('registerLocationResult');
     });
@@ -218,7 +219,7 @@ export class GodService {
 
       // console.log('Disconnected from Exhibit-' + res.parent + ': ' + res.location);
 
-      this.registerLocation(res.parent);
+      this.registerLocation(res.parent, false);
 
       this.socket.removeAllListeners('disconnectedFromExhibitResult');
     });

@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private currentError: number;
   private currentSuccess: number;
   private registerLocationmessage: any;
+  public dismissedLocation: number;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -54,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
       const errorMessage = state.errorMessage;
       const successMessage = state.successMessage;
 
+      this.dismissedLocation = state.lastDismissed;
 
       if (this.currentToken !== token && token !== undefined)
       {
@@ -66,6 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
         config.duration = 3000;
         config.panelClass = ['error-snackbar'];
         this.snackBar.open(errorMessage.message, 'OK', config);
+        this.currentError = errorMessage.code;
       }
 
       if (successMessage && successMessage.code !== this.currentSuccess){
@@ -73,6 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
         config.duration = 3000;
         config.panelClass = ['success-snackbar'];
         this.snackBar.open(successMessage.message, 'OK', config);
+        this.currentSuccess = successMessage.code;
       }
     });
     // this.subscription = this.alertService.getMessage().subscribe(message => {
@@ -107,6 +111,24 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
       const data = {result: result, location: this.registerLocationmessage.location, resStatus: this.registerLocationmessage.resStatus};
+      this.alertService.sendMessageResponse(data);
+    });
+  }
+
+  openDialogDismissed() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    const dialogRef = this.dialog.open(AlertDialogComponent,
+      {data: { number: this.dismissedLocation },
+        disableClose: true,
+        autoFocus: false
+      });
+    this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
+      const data = {result: result, location: this.dismissedLocation, resStatus: this.registerLocationmessage.resStatus};
       this.alertService.sendMessageResponse(data);
     });
   }

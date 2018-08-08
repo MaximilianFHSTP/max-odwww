@@ -31,8 +31,18 @@ export class NativeCommunicationService implements OnInit {
   ) {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
       if (message.result === 'confirm'){
-        this.godService.registerLocation(message.location);
-      }else{
+        this.godService.registerLocation(message.location, false);
+
+        const lastDis = this.appStore.getState().lastDismissed;
+        if (lastDis === message.location )
+        {
+          this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
+        }
+      }
+      else
+      {
+        this.appStore.dispatch(this.locationActions.changeLastDismissed(message.location));
+        this.godService.registerLocation(message.location, true);
       }
       this.utilitiesService.sendToNative('restartScanning','restartScanning');
     });
@@ -93,7 +103,7 @@ export class NativeCommunicationService implements OnInit {
           this.godService.checkLocationStatus(location.id, res => {
             if (res === 'FREE')
             {
-              this.godService.registerLocation(location.id);
+              this.godService.registerLocation(location.id, false);
               this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(res));
 
             }
@@ -137,7 +147,7 @@ export class NativeCommunicationService implements OnInit {
 
       if (location.locationTypeId === 7 && exhibitParentId === location.parentId)
       {
-        this.godService.registerLocation(location.id);
+        this.godService.registerLocation(location.id, false);
       }
     }
   }
