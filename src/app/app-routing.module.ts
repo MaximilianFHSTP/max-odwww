@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: '', component: RegisterComponent},
   { path: 'mainview', component: MainViewComponent },
   { path: 'passive', component: ContentPassiveComponent },
-  { path: 'tableat', component: ContentTableAtComponent },
+  { path: 'tableat', component: ContentTableAtComponent, runGuardsAndResolvers: 'always'},
   { path: 'tableon', component: ContentTableOnComponent },
   // additional routes here
 
@@ -25,7 +25,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(
       routes,
-      { enableTracing: false }) // <-- debugging purposes only)
+      {onSameUrlNavigation: 'reload', enableTracing: false }) // <-- debugging purposes only)
     ],
   exports: [ RouterModule ]
 })
