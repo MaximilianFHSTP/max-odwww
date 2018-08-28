@@ -179,7 +179,13 @@ export class NativeCommunicationService implements OnInit {
   public logoutSuccess(): void
   {
     this.appStore.dispatch(this.userActions.changeToken(undefined));
-    this.appStore.dispatch(this.locationActions);
+    this.appStore.dispatch(this.locationActions.changeCurrentLocation(undefined));
+    this.appStore.dispatch(this.locationActions.changeLocationStatus(undefined));
+    this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(undefined));
+    this.appStore.dispatch(this.locationActions.changeConnectedExhibit(undefined));
+    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(undefined));
+    this.appStore.dispatch(this.locationActions.changeOnExhibit(undefined));
+    this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
     this.router.navigate(['']).then( () =>
     {
       this.utilitiesService.sendToNative('User Logged out', 'print');
