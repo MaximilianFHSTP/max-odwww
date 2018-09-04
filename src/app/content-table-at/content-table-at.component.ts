@@ -63,25 +63,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initialiseInvites();/*
-    this.utilitiesService.sendToNative('TABLE-AT', 'print');
-
-    this.location = this.locationService.currentLocation.value;
-    this.locationName = this.location.description;
-    this.locationId = this.location.id;
-    this.locationStatusFree = false;
-    this.locationStatusOccupied = false;
-    this.locationStatusOffline = false;
-    this.locationType = this.location.locationTypeId;
-
-    this.joinGame = true;
-    this.isWeb = this.utilitiesService.isWeb;
-
-    // Timer starts after 1sec, repeats every 5sec
-    this.checkStatusTimer = TimerObservable.create(100, 50000);
-    this._statusTimerSubscription = this.checkStatusTimer.subscribe(() => {
-      this.godService.checkLocationStatus(this.locationId);
-    });*/
+    this.initialiseInvites();
   }
 
   initialiseInvites() {
@@ -118,6 +100,11 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
   }
 
+  redirectToPassiveExhibit()
+  {
+    this.nativeCommunicationService.transmitLocationRegister({minor: 1009, major: 10});
+  }
+
   redirectToOnTableBehavior()
   {
     this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON-Behavior', 'print');
@@ -146,6 +133,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   // saves ID of current exhibit in localstorage
   startOnTableSearch(){
     this.joinGame = false;
+    this.locationService.stopLocationScanning();
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
     // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
   }

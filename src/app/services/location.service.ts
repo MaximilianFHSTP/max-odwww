@@ -104,6 +104,16 @@ export class LocationService
     return isSame;
   }
 
+  public stopLocationScanning(): void
+  {
+    this.appStore.dispatch(this.locationActions.changeLocationScanning(false));
+  }
+
+  public startLocationScanning(): void
+  {
+    this.appStore.dispatch(this.locationActions.changeLocationScanning(true));
+  }
+
   get lookuptable(): any
   {
     return this._lookuptable;

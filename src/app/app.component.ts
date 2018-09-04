@@ -1,4 +1,4 @@
-import {Component, NgZone, Inject, Injectable, OnInit, OnDestroy} from '@angular/core';
+import {Component, Inject, Injectable, OnInit, OnDestroy} from '@angular/core';
 import {UserActions} from './actions/UserActions';
 import {LocationActions} from './actions/LocationActions';
 import { UtilitiesService } from './services/utilities.service';
@@ -6,14 +6,9 @@ import {Unsubscribe} from 'redux';
 import {NativeCommunicationService} from './services/native-communication.service';
 import {WindowRef} from './WindowRef';
 import { Subscription } from 'rxjs/Subscription';
-import { MatDialog, MatDialogRef, MatDialogConfig} from '@angular/material';
+import { MatDialog, MatDialogConfig} from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs/Subject';
 import {AlertService} from './services/alert.service';
-
-import * as SuccessTypes from './config/SuccessTypes';
-import * as ErrorTypes from './config/ErrorTypes';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 
 @Component({

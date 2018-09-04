@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { WindowRef } from '../WindowRef';
-import {GodService} from './god.service';
 
 @Injectable()
 export class UtilitiesService {
@@ -77,14 +76,6 @@ export class UtilitiesService {
 
           case 'getToken':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
-            break;
-
-          case 'stopScanning':
-            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.stopScanner();
-            break;
-
-          case 'restartScanning':
-            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.restartScanner();
             break;
 
           default:

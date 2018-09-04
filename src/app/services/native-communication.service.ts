@@ -1,4 +1,4 @@
-import {Inject, Injectable, EventEmitter, Output, OnInit} from '@angular/core';
+import {Inject, Injectable, OnInit} from '@angular/core';
 import { GodService } from './god.service';
 import {LocationService} from './location.service';
 import {LocationActions} from '../actions/LocationActions';
@@ -6,9 +6,6 @@ import { UtilitiesService } from './utilities.service';
 import {Router} from '@angular/router';
 import {UserActions} from '../actions/UserActions';
 import { MatDialog} from '@angular/material';
-import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import {AlertService} from './alert.service';
 
@@ -44,7 +41,7 @@ export class NativeCommunicationService implements OnInit {
         this.appStore.dispatch(this.locationActions.changeLastDismissed(message.location));
         this.godService.registerLocation(message.location, true);
       }
-      this.utilitiesService.sendToNative('restartScanning','restartScanning');
+      this.locationService.startLocationScanning();
     });
   }
 
@@ -75,6 +72,7 @@ export class NativeCommunicationService implements OnInit {
     const location = this.locationService.findLocation(minor);
 
     if (state.lastDismissed === result.minor) { return; }
+    if (state.locationScanning === false && location.locationTypeId !== 2)  { return;  }
 
     if (!location)
     {
@@ -84,9 +82,10 @@ export class NativeCommunicationService implements OnInit {
 
     const currLoc = this.locationService.currentLocation.value;
 
-    // location is not the same as before
+    // if the location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
     {
+      // If the current location is from type activeExhibitOn the redirection should be disabled
       if (this.locationService.currentLocation && currLoc.locationTypeId === 2)
       {
         this.utilitiesService.sendToNative('this is not a valid location - type 2', 'print');
@@ -116,7 +115,7 @@ export class NativeCommunicationService implements OnInit {
         }
         else
         {
-          this.utilitiesService.sendToNative('stopScanning','stopScanning');
+          this.locationService.stopLocationScanning();
           const data = {location: location.id, resStatus: null};
 
           this.alertService.sendMessageLocationid(data);

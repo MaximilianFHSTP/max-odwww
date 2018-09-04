@@ -4,6 +4,7 @@ import {LocationService} from '../services/location.service';
 import {ExhibitService} from '../services/exhibit.service';
 import {Unsubscribe} from 'redux';
 import {LocationActions} from '../actions/LocationActions';
+import {UtilitiesService} from '../services/utilities.service';
 
 @Component({
   selector: 'app-content-table-on',
@@ -21,6 +22,7 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
     private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
+    private utilitiesService: UtilitiesService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions
   ) {
@@ -45,10 +47,12 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
 
     // localStorage.setItem('onExhibit', JSON.stringify(true));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+    this.locationService.stopLocationScanning();
   }
 
   ngOnDestroy() {
     this._unsubscribe();
+    this.locationService.startLocationScanning();
   }
 
   public disconnectFromExhibit()
