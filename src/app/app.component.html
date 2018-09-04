@@ -19,7 +19,7 @@
 
 <router-outlet></router-outlet>
 
-<button id="dismissedButton" *ngIf="dismissedLocation" (click)="openDialogDismissed()" mat-fab color="primary" [matBadge]="dismissedLocation" matBadgePosition="before" matBadgeColor="accent">
+<button id="dismissedButton" *ngIf="dismissedLocation && showDismissed" (click)="openDialogDismissed()" mat-fab color="primary" [matBadge]="dismissedLocation" matBadgePosition="before" matBadgeColor="accent">
   <mat-icon>room</mat-icon>
 </button>
 

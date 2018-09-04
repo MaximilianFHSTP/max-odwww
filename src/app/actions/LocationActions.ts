@@ -5,6 +5,7 @@ export const CHANGE_LOCATION_SOCKET_STATUS = 'CHANGE_LOCATION_SOCKET_STATUS';
 export const CHANGE_AT_EXHIBIT_PARENT_ID = 'CHANGE_AT_EXHIBIT_PARENT_ID';
 export const CHANGE_ON_EXHIBIT = 'CHANGE_ON_EXHIBIT';
 export const CHANGE_LAST_DISMISSED = 'CHANGE_LAST_DISMISSED';
+export const CHANGE_SHOW_DISMISSED = 'CHANGE_SHOW_DISMISSED';
 export const CHANGE_LOCATION_SCANNING = 'CHANGE_LOCATION_SCANNING';
 
 export class LocationActions
@@ -66,6 +67,14 @@ export class LocationActions
     return {
       type: CHANGE_LAST_DISMISSED,
       lastDismissed: dismissedId
+    };
+  }
+
+  public changeShowDismissed(shown: boolean)
+  {
+    return {
+      type: CHANGE_SHOW_DISMISSED,
+      showDismissed: shown
     };
   }
 

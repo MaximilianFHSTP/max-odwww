@@ -16,6 +16,7 @@ const initialState = {
   errorMessage: undefined,
   successMessage: undefined,
   lastDismissed: undefined,
+  showDismissed: true,
   locationScanning: true
 };
 
@@ -63,6 +64,12 @@ export function rootReducer(state = initialState, action)
       return {
         ...state,
         lastDismissed: action.lastDismissed
+      };
+
+    case LocationActions.CHANGE_SHOW_DISMISSED:
+      return {
+        ...state,
+        showDismissed: action.showDismissed
       };
 
     case LocationActions.CHANGE_LOCATION_SCANNING:

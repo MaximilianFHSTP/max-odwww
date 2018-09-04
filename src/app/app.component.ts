@@ -30,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private currentSuccess: number;
   private registerLocationmessage: any;
   public dismissedLocation: number;
+  public showDismissed: boolean;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -51,6 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
       const successMessage = state.successMessage;
 
       this.dismissedLocation = state.lastDismissed;
+      this.showDismissed = state.showDismissed;
 
       if (this.currentToken !== token && token !== undefined)
       {
