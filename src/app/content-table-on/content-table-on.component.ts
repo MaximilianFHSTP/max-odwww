@@ -51,7 +51,9 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
     this.locationService.stopLocationScanning();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy()
+  {
+    this.exhibitService.disconnect();
     this._unsubscribe();
     this.appStore.dispatch(this.locationActions.changeShowDismissed(true));
     this.locationService.startLocationScanning();
@@ -60,8 +62,6 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
   public disconnectFromExhibit()
   {
     this.exhibitService.disconnect();
-    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
-    this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
   }
 
   public sendMessageToExhibit()

@@ -7,9 +7,6 @@ import {GodService} from './god.service';
 import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import { UtilitiesService } from '../services/utilities.service';
-import {NativeCommunicationService} from './native-communication.service';
-import * as SuccessTypes from '../config/SuccessTypes';
-import * as ErrorTypes from '../config/ErrorTypes';
 import {StatusActions} from '../actions/StatusActions';
 
 @Injectable()
@@ -25,8 +22,7 @@ export class ExhibitService {
     private locationActions: LocationActions,
     private userActions: UserActions,
     private statusActions: StatusActions,
-    private utilitiesService: UtilitiesService,
-    private nativeCommunicationService: NativeCommunicationService
+    private utilitiesService: UtilitiesService
   )
   {}
 
@@ -48,6 +44,9 @@ export class ExhibitService {
 
       const currLoc = this.locationService.currentLocation.value;
       this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
+      this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
+      this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
+      this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
     });
   }
 
@@ -76,7 +75,8 @@ export class ExhibitService {
   private startAutoResponder()
   {
     this.socket.connection.on('exhibitStatusCheck', () => {
-      console.log('Auto Responder Check');
+      console.log('AutoResponderCheck');
+      this.utilitiesService.sendToNative('AutoResponderCheck', 'print');
       const user = this.appStore.getState().user;
       this.socket.connection.emit('exhibitStatusCheckResult', user);
     });
