@@ -157,7 +157,7 @@ export class NativeCommunicationService implements OnInit {
     const token: String = data.token;
     this.utilitiesService.sendToNative('Autologin', 'print');
 
-    if (token)
+    if (token !== undefined && token !== null && token !== '')
     {
       this.godService.autoLogin(token);
     }
