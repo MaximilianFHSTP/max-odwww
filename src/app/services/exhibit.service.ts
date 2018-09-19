@@ -8,6 +8,8 @@ import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import { UtilitiesService } from '../services/utilities.service';
 import {StatusActions} from '../actions/StatusActions';
+import * as SuccessTypes from '../config/SuccessTypes';
+import * as ErrorTypes from '../config/ErrorTypes';
 
 @Injectable()
 export class ExhibitService {
@@ -37,6 +39,12 @@ export class ExhibitService {
     this.socket.connection.on('connected', () =>
     {
       this.appStore.dispatch(this.locationActions.changeConnectedExhibit(true));
+
+      const state = this.appStore.getState();
+      if(state.successMessage && state.successMessage.code === SuccessTypes.SUCCESS_DISCONNECTED_FROM_EXHIBIT)
+      {
+        this.appStore.dispatch(this.statusActions.changeSuccessMessage(undefined));
+      }
     });
 
     this.socket.connection.on('reconnect', () =>
@@ -49,6 +57,15 @@ export class ExhibitService {
       // this.appStore.dispatch(this.statusActions.changeErrorMessage(error));
 
       const currLoc = this.locationService.currentLocation.value;
+
+      const state = this.appStore.getState();
+
+      if((!state.successMessage) || (state.successMessage && state.successMessage.code !==
+        SuccessTypes.SUCCESS_DISCONNECTED_FROM_EXHIBIT))
+      {
+        const errorMessage = {message:'You were disconnected from the Exhibit', code: ErrorTypes.LOST_CONNECTION_TO_EXHIBIT};
+        this.appStore.dispatch(this.statusActions.changeErrorMessage(errorMessage));
+      }
 
       if(currLoc)
       {
@@ -109,6 +126,9 @@ export class ExhibitService {
     {
       if (result === 'SUCCESS')
       {
+        this.appStore.dispatch(this.statusActions.changeSuccessMessage({message: 'You decided to quit',
+          code: SuccessTypes.SUCCESS_DISCONNECTED_FROM_EXHIBIT}));
+
         this.socket.connection.disconnect();
 
         this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));

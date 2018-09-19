@@ -1,5 +1,6 @@
 import {Component, Inject, Injectable, OnInit, OnDestroy} from '@angular/core';
 import {UserActions} from './actions/UserActions';
+import {StatusActions} from './actions/StatusActions';
 import {LocationActions} from './actions/LocationActions';
 import { UtilitiesService } from './services/utilities.service';
 import {Unsubscribe} from 'redux';
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject('AppStore') private appStore,
+    private statusActions: StatusActions,
     private userActions: UserActions,
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
