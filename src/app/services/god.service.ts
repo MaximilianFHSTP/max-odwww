@@ -61,6 +61,7 @@ export class GodService {
       this.store.dispatch(this.userActions.changeUser(res.user));
       this.store.dispatch(this.userActions.changeLookupTable(res.locations));
       this.store.dispatch(this.userActions.changeToken(res.token));
+      this.store.dispatch(this.statusActions.changeLoggedIn(true));
 
       this.locationService.setToStartPoint();
 
@@ -94,6 +95,7 @@ export class GodService {
       this.store.dispatch(this.userActions.changeUser(res.user));
       this.store.dispatch(this.userActions.changeLookupTable(res.locations));
       this.store.dispatch(this.userActions.changeToken(res.token));
+      this.store.dispatch(this.statusActions.changeLoggedIn(true));
 
       this.locationService.setToStartPoint();
 
@@ -203,6 +205,7 @@ export class GodService {
 
   public disconnectedFromExhibit(parentLocation, location): void
   {
+    console.log('disconnectedFromExhibit');
     this.socket.emit('disconnectedFromExhibit', {parentLocation, location});
 
     this.socket.on('disconnectedFromExhibitResult', result =>
@@ -218,8 +221,10 @@ export class GodService {
       }
 
       // console.log('Disconnected from Exhibit-' + res.parent + ': ' + res.location);
-
-      this.registerLocation(res.parent, false);
+      if(this.store.getState().isLoggedIn === true)
+      {
+        this.registerLocation(res.parent, false);
+      }
 
       this.socket.removeAllListeners('disconnectedFromExhibitResult');
     });
@@ -244,6 +249,7 @@ export class GodService {
       this.store.dispatch(this.userActions.changeUser(data.user));
       this.store.dispatch(this.userActions.changeLookupTable(data.locations));
       this.store.dispatch(this.userActions.changeToken(data.token));
+      this.store.dispatch(this.statusActions.changeLoggedIn(true));
 
       this.locationService.setToStartPoint();
 

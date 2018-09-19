@@ -5,9 +5,11 @@ import {LocationActions} from '../actions/LocationActions';
 import { UtilitiesService } from './utilities.service';
 import {Router} from '@angular/router';
 import {UserActions} from '../actions/UserActions';
+import {StatusActions} from '../actions/StatusActions';
 import { MatDialog} from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 import {AlertService} from './alert.service';
+import {ExhibitService} from './exhibit.service';
 
 @Injectable()
 export class NativeCommunicationService implements OnInit {
@@ -23,8 +25,10 @@ export class NativeCommunicationService implements OnInit {
     private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
     private userActions: UserActions,
+    private statusActions: StatusActions,
     private dialog: MatDialog,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private exhibitService: ExhibitService
   ) {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
       if (message.result === 'confirm'){
@@ -173,22 +177,30 @@ export class NativeCommunicationService implements OnInit {
   public logout(): void
   {
     this.utilitiesService.sendToNative('clearToken', 'clearToken');
+
+    if(this.utilitiesService.isWeb === true)
+    {
+      this.logoutSuccess();
+    }
   }
 
   public logoutSuccess(): void
   {
-    this.appStore.dispatch(this.userActions.changeToken(undefined));
-    this.appStore.dispatch(this.locationActions.changeCurrentLocation(undefined));
-    this.appStore.dispatch(this.locationActions.changeLocationStatus(undefined));
-    this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(undefined));
-    this.appStore.dispatch(this.locationActions.changeConnectedExhibit(undefined));
-    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(undefined));
-    this.appStore.dispatch(this.locationActions.changeOnExhibit(undefined));
-    this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
+    this.appStore.dispatch(this.statusActions.changeLoggedIn(false));
+    this.exhibitService.disconnect();
+
     this.router.navigate(['']).then( () =>
     {
       this.utilitiesService.sendToNative('User Logged out', 'print');
     });
+
+    this.appStore.dispatch(this.userActions.changeToken(undefined));
+    this.appStore.dispatch(this.locationActions.changeLocationStatus(undefined));
+    this.appStore.dispatch(this.locationActions.changeLocationSocketStatus(undefined));
+    this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
+    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(undefined));
+    this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+    this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
   }
 
   public transmitLocationLike(like: boolean): void
