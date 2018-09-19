@@ -17,7 +17,8 @@ const initialState = {
   successMessage: undefined,
   lastDismissed: undefined,
   showDismissed: true,
-  locationScanning: true
+  locationScanning: true,
+  isLoggedIn: false
 };
 
 export function rootReducer(state = initialState, action)
@@ -112,6 +113,12 @@ export function rootReducer(state = initialState, action)
       return {
         ...state,
         successMessage: action.success
+      };
+
+    case StatusActions.CHANGE_LOGGED_IN:
+      return {
+        ...state,
+        isLoggedIn: action.isLoggedIn
       };
 
     default:

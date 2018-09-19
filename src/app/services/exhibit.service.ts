@@ -34,8 +34,14 @@ export class ExhibitService {
 
     // this.socket.openNewExhibitConnection(url);
 
-    this.socket.connection.on('connected', () => {
+    this.socket.connection.on('connected', () =>
+    {
       this.appStore.dispatch(this.locationActions.changeConnectedExhibit(true));
+    });
+
+    this.socket.connection.on('reconnect', () =>
+    {
+      this.connectOD();
     });
 
     this.socket.connection.on('disconnect', () => {
@@ -43,10 +49,14 @@ export class ExhibitService {
       // this.appStore.dispatch(this.statusActions.changeErrorMessage(error));
 
       const currLoc = this.locationService.currentLocation.value;
-      this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
-      this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
-      this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
-      this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+
+      if(currLoc)
+      {
+        this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
+        this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
+        this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
+        this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+      }
     });
   }
 
