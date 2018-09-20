@@ -108,6 +108,7 @@ export class AppComponent implements OnInit, OnDestroy {
       disableClose: true,
       autoFocus: false
     });
+    this.utilitiesService.sendToNative('success', 'triggerSignal');
     this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
       const data = {result: result, location: this.registerLocationmessage.location, resStatus: this.registerLocationmessage.resStatus};
       this.alertService.sendMessageResponse(data);

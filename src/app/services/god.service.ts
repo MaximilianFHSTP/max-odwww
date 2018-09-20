@@ -136,7 +136,7 @@ export class GodService {
 
         this.router.navigate([currLoc.contentURL]).then(() => {
             // send success to native & trigger signal
-            this.utilitiesService.sendToNative('success', 'triggerSignal');
+            // this.utilitiesService.sendToNative('success', 'triggerSignal');
           }
         );
       }
