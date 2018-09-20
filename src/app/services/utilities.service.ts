@@ -78,6 +78,10 @@ export class UtilitiesService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
             break;
 
+          case 'showBackgroundNotification':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.showBackgroundNotification(messageBody);
+            break;
+
           default:
             break;
         }

@@ -109,6 +109,7 @@ export class AppComponent implements OnInit, OnDestroy {
       autoFocus: false
     });
     this.utilitiesService.sendToNative('success', 'triggerSignal');
+    this.utilitiesService.sendToNative(this.registerLocationmessage.location, 'showBackgroundNotification');
     this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
       const data = {result: result, location: this.registerLocationmessage.location, resStatus: this.registerLocationmessage.resStatus};
       this.alertService.sendMessageResponse(data);
