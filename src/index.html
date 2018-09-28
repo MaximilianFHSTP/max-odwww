@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Meeteux</title>
+  <base href="./">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <app-root></app-root>
+  <script type="text/javascript">
+    // needed for preventing angular to do history things
+     var _iOSHistory = [];
+     window.history.replaceState = function (data, title, url) {
+         var baseUrl = window.location.href.substring(0, window.location.href.length - 11);
+         url = url.substring(baseUrl.length - 6);
+         arguments[2] = url;
+         _iOSHistory.push(arguments);
+     };
+     window.history.pushState = function (data, title, url) {
+        var baseUrl = window.location.href.substring(0, window.location.href.length - 11);
+        url = url.substring(baseUrl.length - 6);
+        arguments[2] = url;
+        _iOSHistory.push(arguments);
+     };
+
+
+
+
+     // call from native
+     // handles new location
+     // gets major and minor of beacon in an array
+     // sets new location
+     window.update_location = function(beacon){
+       //console.log("call from native: update_location" + beacon);
+       window.angularComponentRef.componentFn("update_location",beacon);
+     };
+
+
+     // call from native
+     // gets deviceInfos, calls registerOD
+     window.send_device_infos = function(deviceinfos){
+       //console.log("call from native: send_device_infos" + deviceinfos);
+       window.angularComponentRef.componentFn("send_device_infos",deviceinfos);
+     };
+
+    // call from native
+    // gets deviceInfos, calls registerOD
+    window.send_token = function(token){
+      //console.log("call from native: send_device_infos" + deviceinfos);
+      window.angularComponentRef.componentFn("send_token",token);
+    };
+
+    // call from native
+    // gets deviceInfos, calls registerOD
+    window.logout_success = function(message){
+      //console.log("call from native: send_device_infos" + deviceinfos);
+      window.angularComponentRef.componentFn("logout_success",message);
+    };
+
+    window.callfromnative = function(theParameter){
+      $scope.$apply(function(){
+        // Do whatever you want to do with data passed
+        console.log("coming from native");
+      });
+    };
+
+  </script>
+</body>
+</html>

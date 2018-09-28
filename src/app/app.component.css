@@ -1,0 +1,16 @@
+.example-fill-remaining-space
+{
+  flex: 1 1 auto;
+}
+
+::ng-deep snack-bar-container.success-snackbar{
+  background: darkgreen;
+}
+
+::ng-deep snack-bar-container.error-snackbar{
+  background: darkred;
+}
+
+.hiddenbutton{
+  display: none;
+}
