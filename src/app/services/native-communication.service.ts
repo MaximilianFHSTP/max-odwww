@@ -167,6 +167,17 @@ export class NativeCommunicationService implements OnInit {
     }
   }
 
+  public checkWifi(data: any): void
+  {
+    const wifiSSSID: String = data.ssid;
+    console.log(wifiSSSID);
+
+    if (wifiSSSID !== undefined && wifiSSSID !== null && wifiSSSID !== '')
+    {
+      this.godService.checkWifi(wifiSSSID);
+    }
+  }
+
   public transmitShowUnity(): void
   {
     // this.utilitiesService.sendToNative('NativeCommService Show Unity before', 'print');

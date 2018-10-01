@@ -134,7 +134,7 @@ export class AppModule {
         break;
       }
       case 'send_wifi_ssid': {
-        this.godService.checkWifi(value);
+        this.nativeCommunicationService.checkWifi(value);
         break;
       }
        default: {
