@@ -78,8 +78,8 @@ export class UtilitiesService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
             break;
 
-          case 'sendWifiStatus':
-            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.sendWifiStatus(messageBody);
+          case 'getWifiStatusResult':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getWifiStatusResult(messageBody);
             break;
 
           default:

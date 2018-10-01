@@ -273,9 +273,9 @@ export class GodService {
       const isCorrect = result.check;
 
       if(isCorrect === true){
-        this.utilitiesService.sendToNative('true','sendWifiStatus');
+        this.utilitiesService.sendToNative('true','getWifiStatusResult');
       }else{
-        this.utilitiesService.sendToNative('false','sendWifiStatus');
+        this.utilitiesService.sendToNative('false','getWifiStatusResult');
       }
 
     });
