@@ -100,7 +100,8 @@ export class AppModule {
     private winRef: WindowRef,
     private zone: NgZone,
     private nativeCommunicationService: NativeCommunicationService,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private godService: GodService
   ) {
 
     winRef.nativeWindow.angularComponentRef = {
@@ -130,6 +131,10 @@ export class AppModule {
       }
       case 'send_token': {
         this.nativeCommunicationService.autoLogin(value);
+        break;
+      }
+      case 'send_wifi_ssid': {
+        this.godService.checkWifi(value);
         break;
       }
        default: {

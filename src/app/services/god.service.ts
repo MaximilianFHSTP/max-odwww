@@ -263,4 +263,21 @@ export class GodService {
       this.socket.removeAllListeners('autoLoginODResult');
     });
   }
+
+  public checkWifi(wifiSSID: any): void
+  {
+    this.socket.emit('checkWifiSSID', wifiSSID);
+
+    this.socket.on('checkWifiSSIDResult', result =>
+    {
+      const isCorrect = result.check;
+
+      if(isCorrect === true){
+        this.utilitiesService.sendToNative('true','sendWifiStatus');
+      }else{
+        this.utilitiesService.sendToNative('false','sendWifiStatus');
+      }
+
+    });
+  }
 }
