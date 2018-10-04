@@ -7,6 +7,7 @@ import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import {StatusActions} from '../actions/StatusActions';
 import { UtilitiesService } from './utilities.service';
+import { AlertService } from './alert.service';
 import * as ErrorTypes from '../config/ErrorTypes';
 import * as SuccessTypes from '../config/SuccessTypes';
 
@@ -22,7 +23,8 @@ export class GodService {
     private locationActions: LocationActions,
     private userActions: UserActions,
     private statusActions: StatusActions,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private alertService: AlertService
   )
   {
     this.socket.on('news', msg =>
@@ -271,11 +273,17 @@ export class GodService {
     this.socket.on('checkWifiSSIDResult', result =>
     {
       const isCorrect = result.check;
+      const nativeSettingType = "wifi";
 
-      if(isCorrect === true){
+      if(isCorrect){
         this.utilitiesService.sendToNative('correctWifi','getWifiStatusResult');
+        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
       }else{
-        this.utilitiesService.sendToNative('wrongWifi','getWifiStatusResult');
+        const data = {nativeSettingType: nativeSettingType};
+
+        this.alertService.sendMessageNativeSettingCheck(data);
+        const elm: HTMLElement = document.getElementById('ghostButtonWifi') as HTMLElement;
+        elm.click();
       }
 
     });

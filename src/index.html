@@ -69,6 +69,11 @@
       window.angularComponentRef.componentFn("send_wifi_ssid",message);
     };
 
+    window.send_bluetooth_check = function(message){
+      //console.log("call from native: send_device_infos" + deviceinfos);
+      window.angularComponentRef.componentFn("send_bluetooth_check",message);
+    };
+
     window.callfromnative = function(theParameter){
       $scope.$apply(function(){
         // Do whatever you want to do with data passed
