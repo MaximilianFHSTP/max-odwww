@@ -58,7 +58,7 @@ export class NativeCommunicationService implements OnInit {
     });
     this.subscriptionWifi = this.alertService.getMessageNativeWifiSettingCheckResult().subscribe(message => {
       if (message.result === 'confirm'){
-        this.utilitiesService.sendToNative('wrongWifi','getWifiStatusResult');
+        this.utilitiesService.sendToNative('wrongWifi','activateWifiSettings');
         this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
       }else if(message.result === 'cancel'){
         this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
