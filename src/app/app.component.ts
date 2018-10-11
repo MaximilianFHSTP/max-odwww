@@ -148,8 +148,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
     if(this.nativeSettingType === "Wifi"){
       console.log("openNativeSetting " + this.nativeSettingType);
+      var platformSpecificConfirm;
+      if(this.utilitiesService.checkPlatform() === 'Android'){
+        platformSpecificConfirm = "To the Settings";
+      }else if(this.utilitiesService.checkPlatform() === 'IOS'){
+        platformSpecificConfirm = "To the Settings";
+      }
       const dialogRef = this.dialog.open(NativeSettingDialogComponent,
-        {data: { settingtype: this.nativeSettingType},
+        {data: { settingtype: this.nativeSettingType, confirmDialogText: platformSpecificConfirm},
         disableClose: true,
         autoFocus: false
       });
@@ -158,8 +164,14 @@ export class AppComponent implements OnInit, OnDestroy {
         this.alertService.sendMessageNativeWifiSettingCheckResult(data);
       });
     }else if(this.nativeSettingType === "Bluetooth"){
+      var platformSpecificConfirm;
+      if(this.utilitiesService.checkPlatform() === 'Android'){
+        platformSpecificConfirm = "Activate Bluetooth";
+      }else if(this.utilitiesService.checkPlatform() === 'IOS'){
+        platformSpecificConfirm = "To the Settings";
+      }
       const dialogRef = this.dialog.open(NativeSettingDialogComponent,
-        {data: { settingtype: this.nativeSettingType},
+        {data: { settingtype: this.nativeSettingType, confirmDialogText: platformSpecificConfirm},
         disableClose: true,
         autoFocus: false
       });

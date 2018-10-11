@@ -9,6 +9,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class NativeSettingDialogComponent implements OnInit{
 
   settingtype: string;
+  confirmDialogText: string;
   constructor(public thisDialogRef: MatDialogRef<NativeSettingDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
