@@ -7,6 +7,8 @@ export const CHANGE_ON_EXHIBIT = 'CHANGE_ON_EXHIBIT';
 export const CHANGE_LAST_DISMISSED = 'CHANGE_LAST_DISMISSED';
 export const CHANGE_SHOW_DISMISSED = 'CHANGE_SHOW_DISMISSED';
 export const CHANGE_LOCATION_SCANNING = 'CHANGE_LOCATION_SCANNING';
+export const CHANGE_CLOSEST_EXHIBIT = 'CHANGE_CLOSEST_EXHIBIT';
+export const CHANGE_SHOW_CLOSEST_EXHIBIT = 'CHANGE_SHOW_CLOSEST_EXHIBIT';
 
 export class LocationActions
 {
@@ -62,19 +64,19 @@ export class LocationActions
     };
   }
 
-  public changeLastDismissed(dismissedId: number)
+  public changeClosestExhibit(closestExhibitId: number)
   {
     return {
-      type: CHANGE_LAST_DISMISSED,
-      lastDismissed: dismissedId
+      type: CHANGE_CLOSEST_EXHIBIT,
+      closestExhibit: closestExhibitId
     };
   }
 
-  public changeShowDismissed(shown: boolean)
+  public changeShowClosestExhibit(shown: boolean)
   {
     return {
-      type: CHANGE_SHOW_DISMISSED,
-      showDismissed: shown
+      type: CHANGE_SHOW_CLOSEST_EXHIBIT,
+      showClosestExhibit: shown
     };
   }
 

@@ -34,15 +34,13 @@ export class NativeCommunicationService implements OnInit {
       if (message.result === 'confirm'){
         this.godService.registerLocation(message.location, false);
 
-        const lastDis = this.appStore.getState().lastDismissed;
-        if (lastDis === message.location )
-        {
-          this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
+        const lastClosest = this.appStore.getState().closestExhibit;
+        if(lastClosest === message.location){
+          this.appStore.dispatch(this.locationActions.changeClosestExhibit(undefined));
         }
       }
       else
       {
-        this.appStore.dispatch(this.locationActions.changeLastDismissed(message.location));
         this.godService.registerLocation(message.location, true);
       }
       this.locationService.startLocationScanning();
@@ -73,6 +71,12 @@ export class NativeCommunicationService implements OnInit {
   {
     const state = this.appStore.getState();
     const minor: number = result.minor;
+
+    if(minor !== this.appStore.getState().closestExhibit){
+      this.appStore.dispatch(this.locationActions.changeClosestExhibit(minor));
+      console.log("nativeCom " + this.appStore.getState().closestExhibit);
+    }
+
     const location = this.locationService.findLocation(minor);
 
     if (state.lastDismissed === result.minor) { return; }
@@ -199,7 +203,7 @@ export class NativeCommunicationService implements OnInit {
     this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(undefined));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
-    this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
+    this.appStore.dispatch(this.locationActions.changeClosestExhibit(undefined));
   }
 
   public transmitLocationLike(like: boolean): void

@@ -30,8 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private currentError: number;
   private currentSuccess: number;
   private registerLocationmessage: any;
-  public dismissedLocation: number;
-  public showDismissed: boolean;
+  private showClosestExhibit: boolean;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -53,8 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
       const errorMessage = state.errorMessage;
       const successMessage = state.successMessage;
 
-      this.dismissedLocation = state.lastDismissed;
-      this.showDismissed = state.showDismissed;
+      this.showClosestExhibit = state.showClosestExhibit;
 
       if (this.currentToken !== token && token !== undefined)
       {
@@ -111,24 +109,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.utilitiesService.sendToNative('success', 'triggerSignal');
     this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
       const data = {result: result, location: this.registerLocationmessage.location, resStatus: this.registerLocationmessage.resStatus};
-      this.alertService.sendMessageResponse(data);
-    });
-  }
-
-  openDialogDismissed() {
-
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = false;
-
-    const dialogRef = this.dialog.open(AlertDialogComponent,
-      {data: { number: this.dismissedLocation },
-        disableClose: true,
-        autoFocus: false
-      });
-    this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
-      const data = {result: result, location: this.dismissedLocation, resStatus: this.registerLocationmessage.resStatus};
       this.alertService.sendMessageResponse(data);
     });
   }

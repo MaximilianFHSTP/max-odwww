@@ -2,6 +2,9 @@
   <mat-card class="registerForm">
     <h1>Willkommen {{user.name}}</h1>
     <br />
+    <button id="closestExhibitButton" (click)="openDialogClosestExhibit()" mat-fab color="primary" [matBadge]="closestLocation" matBadgePosition="before" matBadgeColor="accent">
+      <mat-icon>room</mat-icon>
+    </button>
     <div class="webdevtools" *ngIf="isWeb">
       <button mat-raised-button color="primary" (click)="requestRegisterLocationTableAt()">Register Location TableAt</button>
       <button mat-raised-button color="primary" (click)="requestRegisterLocationTableAtBehavior()">Register Location TableAtBehavior</button>
