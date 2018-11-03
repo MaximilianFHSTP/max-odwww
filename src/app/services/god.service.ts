@@ -272,8 +272,8 @@ export class GodService {
 
     this.socket.on('checkWifiSSIDResult', result =>
     {
-      const isCorrect = result.check;
-      const nativeSettingType = "wifi";
+      const isCorrect = result.data.check;
+      const nativeSettingType = 'wifi';
 
       if(isCorrect){
         this.utilitiesService.sendToNative('correctWifi','getWifiStatusResult');
