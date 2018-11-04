@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
-  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule, MatBadgeModule} from '@angular/material';
+  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule, MatBadgeModule,
+  MatListModule} from '@angular/material';
 
 import { SocketIoModule} from 'ngx-socket-io';
 import {GodSocketService} from './services/god-socket.service';
@@ -67,6 +68,7 @@ export const appStore = createStore(
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
+    MatListModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,

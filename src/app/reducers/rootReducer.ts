@@ -7,6 +7,7 @@ const initialState = {
   lookupTable: [],
   user: undefined,
   currentLocation: undefined,
+  nearestLocation: 100,
   locationStatus: undefined,
   locationSocketStatus: undefined,
   connectedToExhibit: false,
@@ -15,8 +16,6 @@ const initialState = {
   onExhibit: undefined,
   errorMessage: undefined,
   successMessage: undefined,
-  lastDismissed: undefined,
-  showDismissed: true,
   locationScanning: true,
   isLoggedIn: false
 };
@@ -61,16 +60,10 @@ export function rootReducer(state = initialState, action)
         onExhibit: action.onExhibit
       };
 
-    case LocationActions.CHANGE_LAST_DISMISSED:
+    case LocationActions.CHANGE_NEAREST_LOCATION:
       return {
         ...state,
-        lastDismissed: action.lastDismissed
-      };
-
-    case LocationActions.CHANGE_SHOW_DISMISSED:
-      return {
-        ...state,
-        showDismissed: action.showDismissed
+        nearestLocation: action.nearestLocation
       };
 
     case LocationActions.CHANGE_LOCATION_SCANNING:

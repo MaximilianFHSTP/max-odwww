@@ -47,7 +47,6 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
 
     // localStorage.setItem('onExhibit', JSON.stringify(true));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
-    this.appStore.dispatch(this.locationActions.changeShowDismissed(false));
     this.locationService.stopLocationScanning();
   }
 
@@ -55,7 +54,6 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
   {
     this.exhibitService.disconnect();
     this._unsubscribe();
-    this.appStore.dispatch(this.locationActions.changeShowDismissed(true));
     this.locationService.startLocationScanning();
   }
 

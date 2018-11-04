@@ -33,16 +33,9 @@ export class NativeCommunicationService implements OnInit {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
       if (message.result === 'confirm'){
         this.godService.registerLocation(message.location, false);
-
-        const lastDis = this.appStore.getState().lastDismissed;
-        if (lastDis === message.location )
-        {
-          this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
-        }
       }
       else
       {
-        this.appStore.dispatch(this.locationActions.changeLastDismissed(message.location));
         this.godService.registerLocation(message.location, true);
       }
       this.locationService.startLocationScanning();
@@ -75,7 +68,6 @@ export class NativeCommunicationService implements OnInit {
     const minor: number = result.minor;
     const location = this.locationService.findLocation(minor);
 
-    if (state.lastDismissed === result.minor) { return; }
     if (state.locationScanning === false && location.locationTypeId !== 2)  { return;  }
 
     if (!location)
@@ -84,6 +76,7 @@ export class NativeCommunicationService implements OnInit {
       return;
     }
 
+    this.appStore.dispatch(this.locationActions.changeNearestLocation(location.id));
     const currLoc = this.locationService.currentLocation.value;
 
     // if the location is not the same as before
@@ -199,7 +192,6 @@ export class NativeCommunicationService implements OnInit {
     this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(undefined));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
-    this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
   }
 
   public transmitLocationLike(like: boolean): void

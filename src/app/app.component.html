@@ -1,4 +1,6 @@
 <mat-toolbar id="header" color="primary">
+  <a mat-button routerLink="mainview" *ngIf="router.url !== '/mainview'">back</a>
+  <span class="example-fill-remaining-space"></span>
   <span>MEETeUX</span>
 
   <span class="example-fill-remaining-space"></span>
@@ -18,9 +20,5 @@
 </mat-toolbar>
 
 <router-outlet></router-outlet>
-
-<button id="dismissedButton" *ngIf="dismissedLocation && showDismissed" (click)="openDialogDismissed()" mat-fab color="primary" [matBadge]="dismissedLocation" matBadgePosition="before" matBadgeColor="accent">
-  <mat-icon>room</mat-icon>
-</button>
 
 <button id="ghostButton" class="hiddenbutton" (click)="openDialog()">Ghost</button>

@@ -1,7 +1,50 @@
-.wrapper {
-  padding: 0 20px 0 20px;
+h1 {
+  margin: 50px 0 50px 25px;
 }
 
-button {
-  margin-left: 10px;
+#nearestButton {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+}
+
+#nearestButton .mat-icon {
+  width: 30px;
+  height: 30px;
+}
+
+#nearestButton .material-icons {
+  font-size: 28px;
+}
+
+#nearestButton .mat-badge-content {
+  width: 30px;
+  height: 30px;
+  line-height: 32px;
+  font-size: 10px;
+}
+
+.mat-list-item {
+  margin: 0 0 80px 0;
+  width: 100%;
+}
+
+.timeline-card {
+  width: 100%;
+}
+
+.timeline-card-left {
+  width: 50%;
+  float: left;
+}
+
+.timeline-card-right {
+  width: 50%;
+  overflow: hidden;
+  text-align: right;
+}
+
+.webdevtools {
+  margin-bottom: 80px;
+  margin-left: 50px;
 }

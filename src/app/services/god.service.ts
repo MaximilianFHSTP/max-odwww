@@ -119,6 +119,7 @@ export class GodService {
     {
       const loc = result.data.location;
       const dis = result.data.dismissed;
+      const lookuptable = result.data.lookuptable;
       const message = result.message;
 
       if (message.code > 299)
@@ -127,6 +128,8 @@ export class GodService {
         this.utilitiesService.sendToNative('RegisterLocation: FAILED', 'print');
         return;
       }
+
+      this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
       if (dis === false)
       {
