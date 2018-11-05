@@ -33,6 +33,11 @@ export class NativeCommunicationService implements OnInit {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
       if (message.result === 'confirm'){
         this.godService.registerLocation(message.location, false);
+
+        const lastClosest = this.appStore.getState().closestExhibit;
+        if(lastClosest === message.location){
+          this.appStore.dispatch(this.locationActions.changeClosestExhibit(undefined));
+        }
       }
       else
       {
@@ -66,6 +71,12 @@ export class NativeCommunicationService implements OnInit {
   {
     const state = this.appStore.getState();
     const minor: number = result.minor;
+
+    if(minor !== this.appStore.getState().closestExhibit){
+      this.appStore.dispatch(this.locationActions.changeClosestExhibit(minor));
+      console.log("nativeCom " + this.appStore.getState().closestExhibit);
+    }
+
     const location = this.locationService.findLocation(minor);
 
     if (state.locationScanning === false && location.locationTypeId !== 2)  { return;  }
@@ -192,6 +203,7 @@ export class NativeCommunicationService implements OnInit {
     this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(undefined));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+    this.appStore.dispatch(this.locationActions.changeClosestExhibit(undefined));
   }
 
   public transmitLocationLike(like: boolean): void

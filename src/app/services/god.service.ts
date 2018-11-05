@@ -7,6 +7,7 @@ import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import {StatusActions} from '../actions/StatusActions';
 import { UtilitiesService } from './utilities.service';
+import { AlertService } from './alert.service';
 import * as ErrorTypes from '../config/ErrorTypes';
 import * as SuccessTypes from '../config/SuccessTypes';
 

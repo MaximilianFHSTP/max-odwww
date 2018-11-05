@@ -4,8 +4,6 @@ import { NativeCommunicationService } from '../services/native-communication.ser
 import { WindowRef } from '../WindowRef';
 import {UserActions} from '../actions/UserActions';
 import { UtilitiesService } from '../services/utilities.service';
-import { AppComponent } from '../app.component';
-import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-register',

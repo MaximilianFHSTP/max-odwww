@@ -108,4 +108,27 @@ export class MainViewComponent implements OnInit, OnDestroy {
     this.isWeb = this.utilitiesService.isWeb;
   }
 
+  openDialogClosestExhibit() {
+    this.locationService.stopLocationScanning();
+    const dialogConfig = new MatDialogConfig();
+
+    //this.utilitiesService.sendToNative('sendClosestExhibit', 'sendClosestExhibit');
+    const state = this.appStore.getState();
+    const closestExhibit = state.closestExhibit;
+    console.log("OpenDialog" + closestExhibit);
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    const dialogRef = this.dialog.open(AlertDialogComponent,
+      {data: { number: closestExhibit },
+        disableClose: true,
+        autoFocus: false
+      });
+    this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
+      const data = {result: result, location: closestExhibit, resStatus: null};
+      this.alertService.sendMessageResponse(data);
+    });
+  }
+
 }

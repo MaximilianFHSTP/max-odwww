@@ -16,6 +16,7 @@ const initialState = {
   onExhibit: undefined,
   errorMessage: undefined,
   successMessage: undefined,
+  closestExhibit: undefined,
   locationScanning: true,
   isLoggedIn: false
 };
@@ -60,11 +61,11 @@ export function rootReducer(state = initialState, action)
         onExhibit: action.onExhibit
       };
 
-    case LocationActions.CHANGE_NEAREST_LOCATION:
-      return {
-        ...state,
-        nearestLocation: action.nearestLocation
-      };
+    case LocationActions.CHANGE_CLOSEST_EXHIBIT:
+    return {
+      ...state,
+      closestExhibit: action.closestExhibit
+    };
 
     case LocationActions.CHANGE_LOCATION_SCANNING:
       return {

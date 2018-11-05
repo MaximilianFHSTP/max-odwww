@@ -6,6 +6,8 @@ export const CHANGE_AT_EXHIBIT_PARENT_ID = 'CHANGE_AT_EXHIBIT_PARENT_ID';
 export const CHANGE_ON_EXHIBIT = 'CHANGE_ON_EXHIBIT';
 export const CHANGE_NEAREST_LOCATION = 'CHANGE_NEAREST_LOCATION';
 export const CHANGE_LOCATION_SCANNING = 'CHANGE_LOCATION_SCANNING';
+export const CHANGE_CLOSEST_EXHIBIT = 'CHANGE_CLOSEST_EXHIBIT';
+export const CHANGE_SHOW_CLOSEST_EXHIBIT = 'CHANGE_SHOW_CLOSEST_EXHIBIT';
 
 export class LocationActions
 {
@@ -61,11 +63,11 @@ export class LocationActions
     };
   }
 
-  public changeNearestLocation(locationId: number)
+  public changeClosestExhibit(closestExhibitId: number)
   {
     return {
-      type: CHANGE_NEAREST_LOCATION,
-      nearestLocation: locationId
+      type: CHANGE_CLOSEST_EXHIBIT,
+      closestExhibit: closestExhibitId
     };
   }
 
