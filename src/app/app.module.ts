@@ -119,7 +119,7 @@ export class AppModule {
     switch (message) {
        case 'update_location': {
          this.utilitiesService.sendToNative('Received Location Register ' + value.minor, 'print');
-          this.nativeCommunicationService.transmitLocationRegister(value);
+          this.nativeCommunicationService.transmitLocationRegister(value, false);
           break;
        }
        case 'send_device_infos': {

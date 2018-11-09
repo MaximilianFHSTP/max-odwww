@@ -1,5 +1,5 @@
 <mat-toolbar id="header" color="primary">
-  <a mat-button routerLink="mainview" *ngIf="router.url !== '/mainview'">back</a>
+  <a mat-button (click)="redirectToTimeline()" *ngIf="router.url !== '/mainview'">back</a>
   <span class="example-fill-remaining-space"></span>
   <span>MEETeUX</span>
 
@@ -11,10 +11,6 @@
     <button mat-menu-item (click)="logoutUser()">
       <mat-icon>exit_to_app</mat-icon>
       <span>Logout</span>
-    </button>
-    <button mat-menu-item (click)="showUnityView()">
-      <mat-icon>whatshot</mat-icon>
-      <span>Unity</span>
     </button>
   </mat-menu>
 </mat-toolbar>

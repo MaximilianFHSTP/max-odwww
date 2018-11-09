@@ -1,7 +1,7 @@
 import {Component, Inject, Injectable, OnInit, OnDestroy} from '@angular/core';
 import {UserActions} from './actions/UserActions';
-import {StatusActions} from './actions/StatusActions';
 import {LocationActions} from './actions/LocationActions';
+import {StatusActions} from './actions/StatusActions';
 import { UtilitiesService } from './services/utilities.service';
 import {Unsubscribe} from 'redux';
 import {NativeCommunicationService} from './services/native-communication.service';
@@ -12,6 +12,7 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import {AlertService} from './services/alert.service';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {Router} from '@angular/router';
+import {LocationService} from './services/location.service';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private statusActions: StatusActions,
     private userActions: UserActions,
     private locationActions: LocationActions,
+    private locationService: LocationService,
     private utilitiesService: UtilitiesService,
     private winRef: WindowRef,
     private dialog: MatDialog,
@@ -137,14 +139,19 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  public showUnityView()
-  {
-    // this.utilitiesService.sendToNative('AppComponent Show Unity', 'print');
-    this.nativeCommunicationService.transmitShowUnity();
-  }
-
   public logoutUser()
   {
     this.nativeCommunicationService.logout();
+  }
+
+  public redirectToTimeline()
+  {
+    this.locationService.setToStartPoint();
+    this.router.navigate(['/mainview']).then( () =>
+      {
+        // send success to native & start beacon scan
+        this.utilitiesService.sendToNative('success', 'redirectToTimeline');
+      }
+    );
   }
 }

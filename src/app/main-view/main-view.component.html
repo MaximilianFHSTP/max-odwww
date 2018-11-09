@@ -1,5 +1,4 @@
 <div class="wrapper">
-    <button id="closestExhibitButton" (click)="openDialogClosestExhibit()" mat-fab color="primary" [matBadge]="closestLocation" matBadgePosition="before" matBadgeColor="accent">
   <h1>Willkommen {{user.name}}</h1>
   <br />
   <div class="webdevtools" *ngIf="isWeb">
@@ -22,7 +21,7 @@
     </mat-list>
   </div>
 
-  <button id="nearestButton" *ngIf="nearestLocation" (click)="openDialogNearest()" mat-fab color="primary" [matBadge]="nearestLocation" matBadgePosition="before" matBadgeColor="accent">
+  <button id="nearestButton" *ngIf="closestExhibit" (click)="openDialogClosestExhibit()" mat-fab color="primary" [matBadge]="closestExhibit" matBadgePosition="before" matBadgeColor="accent">
     <mat-icon>room</mat-icon>
   </button>
 

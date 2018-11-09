@@ -2,6 +2,7 @@ import {Component, OnInit, Inject, Injectable, OnDestroy} from '@angular/core';
 import {NativeCommunicationService} from '../services/native-communication.service';
 import {LocationService} from '../services/location.service';
 import {UserActions} from '../actions/UserActions';
+import {LocationActions} from '../actions/LocationActions';
 import { UtilitiesService } from '../services/utilities.service';
 import {Unsubscribe} from 'redux';
 import {MatDialog, MatDialogConfig} from '@angular/material';
@@ -24,13 +25,14 @@ export class MainViewComponent implements OnInit, OnDestroy {
   public user: any;
   public timelineLocations: any;
   public isWeb: boolean;
-  public nearestLocation: number;
+  public closestExhibit: number;
 
   constructor(
     private nativeCommunicationService: NativeCommunicationService,
     private locationService: LocationService,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
+    private locationActions: LocationActions,
     private utilitiesService: UtilitiesService,
     private dialog: MatDialog,
     private alertService: AlertService
@@ -39,30 +41,12 @@ export class MainViewComponent implements OnInit, OnDestroy {
     this._unsubscribe = this.appStore.subscribe(() =>
     {
       const state = this.appStore.getState();
-      this.nearestLocation = state.nearestLocation;
+      this.closestExhibit = state.closestExhibit;
       this.timelineLocations = this.locationService.getTimelineLocations();
     });
 
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
       this.registerLocationmessage = message;
-    });
-  }
-
-  openDialogNearest() {
-
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = false;
-
-    const dialogRef = this.dialog.open(AlertDialogComponent,
-      {data: { number: this.nearestLocation },
-        disableClose: true,
-        autoFocus: false
-      });
-    this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
-      const data = {result: result, location: this.nearestLocation, resStatus: this.registerLocationmessage.resStatus};
-      this.alertService.sendMessageResponse(data);
     });
   }
 
@@ -80,22 +64,22 @@ export class MainViewComponent implements OnInit, OnDestroy {
 
   public requestRegisterLocationTableAt()
   {
-    this.nativeCommunicationService.transmitLocationRegister({minor: 100, major: 10});
+    this.nativeCommunicationService.transmitLocationRegister({minor: 100, major: 10}, false);
   }
 
   public requestRegisterLocationTableAtBehavior()
   {
-    this.nativeCommunicationService.transmitLocationRegister({minor: 101, major: 10});
+    this.nativeCommunicationService.transmitLocationRegister({minor: 101, major: 10}, false);
   }
 
   public requestRegisterLocationPassive()
   {
-    this.nativeCommunicationService.transmitLocationRegister({minor: 1009, major: 10});
+    this.nativeCommunicationService.transmitLocationRegister({minor: 1009, major: 10}, false);
   }
 
   public requestRegisterLocation(id: number, parentId: number)
   {
-    this.nativeCommunicationService.transmitLocationRegister({minor: id, major: parentId});
+    this.nativeCommunicationService.transmitLocationRegister({minor: id, major: parentId}, true);
   }
 
   ngOnInit() {
@@ -104,6 +88,8 @@ export class MainViewComponent implements OnInit, OnDestroy {
     this.user = state.user;
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
+    this.closestExhibit = state.closestExhibit;
+    console.log('ClosestExhibit: ' + this.closestExhibit);
 
     this.isWeb = this.utilitiesService.isWeb;
   }
@@ -112,21 +98,16 @@ export class MainViewComponent implements OnInit, OnDestroy {
     this.locationService.stopLocationScanning();
     const dialogConfig = new MatDialogConfig();
 
-    //this.utilitiesService.sendToNative('sendClosestExhibit', 'sendClosestExhibit');
-    const state = this.appStore.getState();
-    const closestExhibit = state.closestExhibit;
-    console.log("OpenDialog" + closestExhibit);
-
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
 
     const dialogRef = this.dialog.open(AlertDialogComponent,
-      {data: { number: closestExhibit },
+      {data: { number: this.closestExhibit },
         disableClose: true,
         autoFocus: false
       });
     this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
-      const data = {result: result, location: closestExhibit, resStatus: null};
+      const data = {result: result, location: this.closestExhibit, resStatus: null};
       this.alertService.sendMessageResponse(data);
     });
   }

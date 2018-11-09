@@ -33,11 +33,6 @@ export class NativeCommunicationService implements OnInit {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
       if (message.result === 'confirm'){
         this.godService.registerLocation(message.location, false);
-
-        const lastClosest = this.appStore.getState().closestExhibit;
-        if(lastClosest === message.location){
-          this.appStore.dispatch(this.locationActions.changeClosestExhibit(undefined));
-        }
       }
       else
       {
@@ -67,15 +62,10 @@ export class NativeCommunicationService implements OnInit {
     }
   }
 
-  public transmitLocationRegister(result: any)
+  public transmitLocationRegister(result: any, userTriggered: boolean)
   {
     const state = this.appStore.getState();
     const minor: number = result.minor;
-
-    if(minor !== this.appStore.getState().closestExhibit){
-      this.appStore.dispatch(this.locationActions.changeClosestExhibit(minor));
-      console.log("nativeCom " + this.appStore.getState().closestExhibit);
-    }
 
     const location = this.locationService.findLocation(minor);
 
@@ -87,12 +77,15 @@ export class NativeCommunicationService implements OnInit {
       return;
     }
 
-    this.appStore.dispatch(this.locationActions.changeNearestLocation(location.id));
     const currLoc = this.locationService.currentLocation.value;
 
     // if the location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
     {
+      if (minor !== this.appStore.getState().closestExhibit && !userTriggered)
+      {
+        this.appStore.dispatch(this.locationActions.changeClosestExhibit(minor));
+      }
       // If the current location is from type activeExhibitOn the redirection should be disabled
       if (this.locationService.currentLocation && currLoc.locationTypeId === 2)
       {

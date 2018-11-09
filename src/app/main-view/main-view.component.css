@@ -48,3 +48,7 @@ h1 {
   margin-bottom: 80px;
   margin-left: 50px;
 }
+
+.webdevtools button {
+  margin-left: 10px;
+}

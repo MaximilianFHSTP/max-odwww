@@ -7,7 +7,6 @@ const initialState = {
   lookupTable: [],
   user: undefined,
   currentLocation: undefined,
-  nearestLocation: 100,
   locationStatus: undefined,
   locationSocketStatus: undefined,
   connectedToExhibit: false,
