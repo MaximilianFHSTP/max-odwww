@@ -57,7 +57,7 @@ export class GodService {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
-
+      console.log('RegisterOD ' + res.user + ' ' + res.token);
       this.store.dispatch(this.userActions.changeUser(res.user));
       this.store.dispatch(this.userActions.changeLookupTable(res.locations));
       this.store.dispatch(this.userActions.changeToken(res.token));
@@ -261,6 +261,60 @@ export class GodService {
       });
 
       this.socket.removeAllListeners('autoLoginODResult');
+    });
+  }
+
+  public loginOD(data: any): void
+  {
+    this.socket.emit('loginOD', data);
+
+    this.socket.on('loginODResult', result =>
+    {
+
+      const data = result.data;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+
+      this.store.dispatch(this.userActions.changeUser(data.user));
+      this.store.dispatch(this.userActions.changeLookupTable(data.locations));
+      this.store.dispatch(this.userActions.changeToken(data.token));
+      this.store.dispatch(this.statusActions.changeLoggedIn(true));
+
+      this.locationService.setToStartPoint();
+
+      this.router.navigate(['/mainview']).then( () =>
+      {
+        // send success to native & start beacon scan
+
+        this.utilitiesService.sendToNative('success', 'loginOD');
+      });
+
+      this.socket.removeAllListeners('loginODResult');
+    });
+  }
+
+  public checkUsernameExists(username: String): void
+  {
+    this.socket.emit('checkUsernameExists', username);
+
+    this.socket.on('checkUsernameExistsResult', result =>
+    {
+      return result;
+    });
+  }
+
+  public checkEmailExists(email: String): void
+  {
+    this.socket.emit('checkEmailExists', email);
+
+    this.socket.on('checkEmailExistsResult', result =>
+    {
+      return result;
     });
   }
 }
