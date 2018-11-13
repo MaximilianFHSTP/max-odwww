@@ -36,6 +36,7 @@ import logger from 'redux-logger';
 
 import { MatDialogModule } from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { NativeSettingDialogComponent } from './native-setting-dialog/native-setting-dialog.component';
 
 import {AlertService} from './services/alert.service';
 
@@ -55,7 +56,8 @@ export const appStore = createStore(
     ContentTableAtComponent,
     ContentTableOnComponent,
     ContentPassiveComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    NativeSettingDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,8 @@ export const appStore = createStore(
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    AlertDialogComponent
+    AlertDialogComponent,
+    NativeSettingDialogComponent
   ]
 })
 export class AppModule {
@@ -102,7 +105,8 @@ export class AppModule {
     private winRef: WindowRef,
     private zone: NgZone,
     private nativeCommunicationService: NativeCommunicationService,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private godService: GodService
   ) {
 
     winRef.nativeWindow.angularComponentRef = {
@@ -132,6 +136,14 @@ export class AppModule {
       }
       case 'send_token': {
         this.nativeCommunicationService.autoLogin(value);
+        break;
+      }
+      case 'send_wifi_ssid': {
+        this.nativeCommunicationService.checkWifi(value);
+        break;
+      }
+      case 'send_bluetooth_check': {
+        this.nativeCommunicationService.checkBluetooth();
         break;
       }
        default: {

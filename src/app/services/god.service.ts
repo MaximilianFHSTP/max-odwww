@@ -23,7 +23,8 @@ export class GodService {
     private locationActions: LocationActions,
     private userActions: UserActions,
     private statusActions: StatusActions,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private alertService: AlertService
   )
   {
     this.socket.on('news', msg =>
@@ -287,6 +288,29 @@ export class GodService {
       });
 
       this.socket.removeAllListeners('autoLoginODResult');
+    });
+  }
+
+  public checkWifi(wifiSSID: any): void
+  {
+    this.socket.emit('checkWifiSSID', wifiSSID);
+
+    this.socket.on('checkWifiSSIDResult', result =>
+    {
+      const isCorrect = result.data.check;
+      const nativeSettingType = 'wifi';
+
+      if(isCorrect){
+        this.utilitiesService.sendToNative('correctWifi','getWifiStatusResult');
+        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
+      }else{
+        const data = {nativeSettingType: nativeSettingType};
+
+        this.alertService.sendMessageNativeSettingCheck(data);
+        const elm: HTMLElement = document.getElementById('ghostButtonWifi') as HTMLElement;
+        elm.click();
+      }
+
     });
   }
 }

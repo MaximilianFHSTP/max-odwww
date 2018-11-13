@@ -82,6 +82,22 @@ export class UtilitiesService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
             break;
 
+          case 'getWifiStatusResult':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getWifiStatusResult(messageBody);
+            break;
+
+          case 'activateBluetoothCheck':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateBluetoothCheck();
+            break;
+
+          case 'activateBluetooth':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateBluetooth();
+            break;
+
+          case 'activateWifiSettings':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateWifiSettings();
+            break;
+
           default:
             break;
         }

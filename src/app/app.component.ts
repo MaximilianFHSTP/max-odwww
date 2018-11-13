@@ -9,6 +9,7 @@ import {WindowRef} from './WindowRef';
 import { Subscription } from 'rxjs/Subscription';
 import { MatDialog, MatDialogConfig} from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import {NativeSettingDialogComponent} from './native-setting-dialog/native-setting-dialog.component';
 import {AlertService} from './services/alert.service';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {Router} from '@angular/router';
@@ -29,9 +30,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
+  private subscriptionNativeSettingCheckResult: Subscription;
   private currentError: number;
   private currentSuccess: number;
   private registerLocationmessage: any;
+  public nativeSettingType: any;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -84,6 +87,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
       this.registerLocationmessage = message;
     });
+    this.subscriptionNativeSettingCheckResult = this.alertService.getMessageNativeSettingCheck().subscribe(message => {
+      this.nativeSettingType = message.nativeSettingType;
+    });
   }
 
   ngOnInit() {
@@ -111,6 +117,49 @@ export class AppComponent implements OnInit, OnDestroy {
       const data = {result: result, location: this.registerLocationmessage.location, resStatus: this.registerLocationmessage.resStatus};
       this.alertService.sendMessageResponse(data);
     });
+  }
+
+  openNativeSetting() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    if(this.nativeSettingType === "Wifi"){
+
+      console.log("openNativeSetting " + this.nativeSettingType);
+      var platformSpecificConfirm;
+      if(this.utilitiesService.checkPlatform() === 'Android'){
+        platformSpecificConfirm = "To the Settings";
+      }else if(this.utilitiesService.checkPlatform() === 'IOS'){
+        platformSpecificConfirm = "To the Settings";
+      }
+      const dialogRef = this.dialog.open(NativeSettingDialogComponent,
+        {data: { settingtype: this.nativeSettingType, confirmDialogText: platformSpecificConfirm},
+        disableClose: true,
+        autoFocus: false
+      });
+      this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
+        const data = {result: result};
+        this.alertService.sendMessageNativeWifiSettingCheckResult(data);
+      });
+    }else if(this.nativeSettingType === "Bluetooth"){
+      var platformSpecificConfirm;
+      if(this.utilitiesService.checkPlatform() === 'Android'){
+        platformSpecificConfirm = "Activate Bluetooth";
+      }else if(this.utilitiesService.checkPlatform() === 'IOS'){
+        platformSpecificConfirm = "To the Settings";
+      }
+      const dialogRef = this.dialog.open(NativeSettingDialogComponent,
+        disableClose: true,
+        {data: { settingtype: this.nativeSettingType, confirmDialogText: platformSpecificConfirm},
+        autoFocus: false
+      });
+      this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
+        const data = {result: result};
+        this.alertService.sendMessageNativeBluetoothSettingCheckResult(data);
+      });
+    }
   }
 
   ngOnDestroy() {

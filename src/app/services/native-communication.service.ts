@@ -16,6 +16,8 @@ export class NativeCommunicationService implements OnInit {
   public registerName: string;
   public registerIsGuest: boolean;
   private subscription: Subscription;
+  private subscriptionWifi: Subscription;
+  private subscriptionBluetooth: Subscription;
 
   constructor(
     private router: Router,
@@ -39,6 +41,22 @@ export class NativeCommunicationService implements OnInit {
         this.godService.registerLocation(message.location, true);
       }
       this.locationService.startLocationScanning();
+    });
+    this.subscriptionBluetooth = this.alertService.getMessageNativeBluetoothSettingCheckResult().subscribe(message => {
+      if (message.result === 'confirm'){
+        this.utilitiesService.sendToNative('turnOnBluetooth','activateBluetooth');
+      }else if(message.result === 'cancel'){
+        //TODO: when alert for turning on Bluetooth was canceled
+      }
+    });
+    this.subscriptionWifi = this.alertService.getMessageNativeWifiSettingCheckResult().subscribe(message => {
+      if (message.result === 'confirm'){
+        this.utilitiesService.sendToNative('wrongWifi','activateWifiSettings');
+        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
+      }else if(message.result === 'cancel'){
+        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
+        //TODO: when alert for switching to correct wifi was canceled
+      }
     });
   }
 
@@ -194,6 +212,26 @@ export class NativeCommunicationService implements OnInit {
     {
       this.godService.autoLogin(token);
     }
+  }
+
+  public checkWifi(data: any): void
+  {
+    const wifiSSSID: String = data.ssid;
+    console.log(wifiSSSID);
+
+    if (wifiSSSID !== undefined && wifiSSSID !== null && wifiSSSID !== '')
+    {
+      this.godService.checkWifi(wifiSSSID);
+    }
+  }
+
+  public checkBluetooth(): void{
+    const nativeSettingType = "Bluetooth";
+    const data = {nativeSettingType: nativeSettingType};
+
+    this.alertService.sendMessageNativeSettingCheck(data);
+    const elm: HTMLElement = document.getElementById('ghostButtonBluetooth') as HTMLElement;
+    elm.click();
   }
 
   public transmitShowUnity(): void
