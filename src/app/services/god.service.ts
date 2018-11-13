@@ -120,7 +120,6 @@ export class GodService {
     {
       const loc = result.data.location;
       const dis = result.data.dismissed;
-      const lookuptable = result.data.lookuptable;
       const message = result.message;
 
       if (message.code > 299)
@@ -129,8 +128,6 @@ export class GodService {
         this.utilitiesService.sendToNative('RegisterLocation: FAILED', 'print');
         return;
       }
-
-      this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
       if (dis === false)
       {
@@ -144,6 +141,31 @@ export class GodService {
           }
         );
       }
+
+      this.socket.removeAllListeners('registerLocationResult');
+    });
+  }
+
+  public registerTimelineUpdate(id: number): any
+  {
+    const state = this.store.getState();
+    const user = state.user;
+
+    this.socket.emit('registerTimelineUpdate', {location: id, user: user.id});
+
+    this.socket.on('registerTimelineUpdateResult', result =>
+    {
+      const lookuptable = result.data.lookuptable;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        this.utilitiesService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
+        return;
+      }
+
+      this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
       this.socket.removeAllListeners('registerLocationResult');
     });

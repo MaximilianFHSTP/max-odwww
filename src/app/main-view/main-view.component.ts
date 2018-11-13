@@ -62,24 +62,9 @@ export class MainViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  public requestRegisterLocationTableAt()
-  {
-    this.nativeCommunicationService.transmitLocationRegister({minor: 100, major: 10}, false);
-  }
-
-  public requestRegisterLocationTableAtBehavior()
-  {
-    this.nativeCommunicationService.transmitLocationRegister({minor: 101, major: 10}, false);
-  }
-
-  public requestRegisterLocationPassive()
-  {
-    this.nativeCommunicationService.transmitLocationRegister({minor: 1009, major: 10}, false);
-  }
-
   public requestRegisterLocation(id: number, parentId: number)
   {
-    this.nativeCommunicationService.transmitLocationRegister({minor: id, major: parentId}, true);
+    this.nativeCommunicationService.transmitLocationRegister({minor: id, major: parentId});
   }
 
   ngOnInit() {
@@ -112,4 +97,24 @@ export class MainViewComponent implements OnInit, OnDestroy {
     });
   }
 
+  /*
+  ------------------------------------------------------------
+                      Helper functions
+  ------------------------------------------------------------
+  */
+
+  public requestRegisterLocationTableAt()
+  {
+    this.nativeCommunicationService.transmitTimelineUpdate({minor: 100, major: 10});
+  }
+
+  public requestRegisterLocationTableAtBehavior()
+  {
+    this.nativeCommunicationService.transmitTimelineUpdate({minor: 101, major: 10});
+  }
+
+  public requestRegisterLocationPassive()
+  {
+    this.nativeCommunicationService.transmitTimelineUpdate({minor: 1009, major: 10});
+  }
 }

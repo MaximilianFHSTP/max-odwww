@@ -23,6 +23,10 @@ export class UtilitiesService {
             localStorage.setItem('token', JSON.stringify({token: messageBody}));
             break;
 
+          case 'print':
+            console.log(messageBody);
+            break;
+
           case 'clearToken':
             localStorage.removeItem('token');
             break;

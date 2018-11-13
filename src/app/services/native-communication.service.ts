@@ -62,14 +62,12 @@ export class NativeCommunicationService implements OnInit {
     }
   }
 
-  public transmitLocationRegister(result: any, userTriggered: boolean)
+  public transmitLocationRegister(result: any)
   {
     const state = this.appStore.getState();
     const minor: number = result.minor;
 
     const location = this.locationService.findLocation(minor);
-
-    if (state.locationScanning === false && location.locationTypeId !== 2)  { return;  }
 
     if (!location)
     {
@@ -82,10 +80,6 @@ export class NativeCommunicationService implements OnInit {
     // if the location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id))
     {
-      if (minor !== this.appStore.getState().closestExhibit && !userTriggered)
-      {
-        this.appStore.dispatch(this.locationActions.changeClosestExhibit(minor));
-      }
       // If the current location is from type activeExhibitOn the redirection should be disabled
       if (this.locationService.currentLocation && currLoc.locationTypeId === 2)
       {
@@ -95,8 +89,6 @@ export class NativeCommunicationService implements OnInit {
 
       const exhibitParentId = state.atExhibitParentId;
       const onExhibit = state.onExhibit;
-
-      this.utilitiesService.sendToNative('new valid location found - check and registerLocation at GoD - ' + location.id, 'print');
 
       if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParentId === location.parentId))
       {
@@ -123,6 +115,46 @@ export class NativeCommunicationService implements OnInit {
           const elm: HTMLElement = document.getElementById('ghostButton') as HTMLElement;
           elm.click();
         }
+      }
+    }
+  }
+
+  public transmitTimelineUpdate(result: any)
+  {
+    const state = this.appStore.getState();
+    const minor: number = result.minor;
+
+    const location = this.locationService.findLocation(minor);
+
+    if (state.locationScanning === false && location.locationTypeId !== 2)  { return;  }
+
+    if (!location)
+    {
+      this.utilitiesService.sendToNative('this is not a valid location', 'print');
+      return;
+    }
+
+    const currLoc = this.locationService.currentLocation.value;
+
+    // if the location is not the same as before
+    if (!this.locationService.sameAsCurrentLocation(location.id))
+    {
+      // update the closestExhibit if the location is not already the closest one
+      if (minor !== this.appStore.getState().closestExhibit)
+      {
+        this.appStore.dispatch(this.locationActions.changeClosestExhibit(minor));
+      }
+      // If the current location is from type activeExhibitOn the redirection should be disabled
+      if (this.locationService.currentLocation && currLoc.locationTypeId === 2)
+      {
+        this.utilitiesService.sendToNative('this is not a valid location - type 2', 'print');
+        return;
+      }
+
+      // check if the location is still locked. If so unlock it
+      if (location.locked)
+      {
+        this.godService.registerTimelineUpdate(location.id);
       }
     }
   }
