@@ -344,4 +344,26 @@ export class GodService {
       return result;
     });
   }
+
+  public checkWifi(wifiSSID: any): void
+  {
+    this.socket.emit('checkWifiSSID', wifiSSID);
+
+    this.socket.on('checkWifiSSIDResult', result =>
+    {
+      const isCorrect = result.data.check;
+      const nativeSettingType = 'wifi';
+
+      if(isCorrect){
+        this.utilitiesService.sendToNative('correctWifi','getWifiStatusResult');
+        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
+      }else{
+        const data = {nativeSettingType: nativeSettingType};
+
+        this.alertService.sendMessageNativeSettingCheck(data);
+        const elm: HTMLElement = document.getElementById('ghostButtonWifi') as HTMLElement;
+        elm.click();
+      }
+    }
+  }
 }
