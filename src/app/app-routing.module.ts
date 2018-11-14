@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { ContentPassiveComponent } from './content-passive/content-passive.component';
@@ -10,8 +11,9 @@ import { ContentTableOnComponent } from './content-table-on/content-table-on.com
 
 
 const routes: Routes = [
-  { path: '', component: RegisterComponent},
+  { path: '', component: LoginComponent},
   { path: 'mainview', component: MainViewComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'passive', component: ContentPassiveComponent },
   { path: 'tableat', component: ContentTableAtComponent, runGuardsAndResolvers: 'always'},
   { path: 'tableon', component: ContentTableOnComponent },

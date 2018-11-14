@@ -14,7 +14,11 @@ import {ExhibitService} from './exhibit.service';
 @Injectable()
 export class NativeCommunicationService implements OnInit {
   public registerName: string;
+  public registerEmail: string;
+  public registerPassword: string;
   public registerIsGuest: boolean;
+  public loginName: string;
+  public loginPassword: string;
   private subscription: Subscription;
   private subscriptionWifi: Subscription;
   private subscriptionBluetooth: Subscription;
@@ -75,8 +79,29 @@ export class NativeCommunicationService implements OnInit {
       this.godService.registerODGuest(data);
     }
     else {
-      const data = {identifier: this.registerName, deviceAddress, deviceOS, deviceVersion, deviceModel};
-      this.godService.registerOD(data);
+      const data = {identifier: this.registerName, password: this.registerPassword, email: this.registerEmail,
+        deviceAddress, deviceOS, deviceVersion, deviceModel};
+      const isUsernameExisting = this.godService.checkUsernameExists(this.registerName);
+      const isEmailExisting = this.godService.checkEmailExists(this.registerEmail);
+      if(!isUsernameExisting && !isEmailExisting){
+        console.log('transmitRegisterOD ' + data.identifier + ' ' + data.email);
+        this.godService.registerOD(data);
+      }else{
+        // TODO: Alert with error message of existing username
+        console.log('ERROR: username already existw#s');
+      }
+    }
+  }
+
+  public transmitODLogin(): void
+  {
+    const isEmail = this.utilitiesService.checkIfEmail(this.loginName);
+    if(isEmail){
+      const data = {user: undefined, email: this.loginName, password: this.loginPassword};
+      this.godService.loginOD(data);
+    }else{
+      const data = {user: this.loginName, email: undefined, password: this.loginPassword};
+      this.godService.loginOD(data);
     }
   }
 

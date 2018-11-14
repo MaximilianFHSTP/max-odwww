@@ -21,6 +21,7 @@ import { UtilitiesService } from './services/utilities.service';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { ContentTableAtComponent } from './content-table-at/content-table-at.component';
 import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
@@ -40,6 +41,8 @@ import { NativeSettingDialogComponent } from './native-setting-dialog/native-set
 
 import {AlertService} from './services/alert.service';
 
+import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+
 
 
 export const appStore = createStore(
@@ -58,6 +61,7 @@ export const appStore = createStore(
     ContentPassiveComponent,
     AlertDialogComponent,
     NativeSettingDialogComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +82,7 @@ export const appStore = createStore(
     MatBadgeModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     GodSocketService,
@@ -92,7 +97,8 @@ export const appStore = createStore(
     UserActions,
     StatusActions,
     UtilitiesService,
-    AlertService
+    AlertService,
+    FormBuilder
   ],
   bootstrap: [AppComponent],
   entryComponents: [
