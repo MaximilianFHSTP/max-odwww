@@ -217,7 +217,7 @@ export class NativeCommunicationService implements OnInit {
   public checkWifi(data: any): void
   {
     const wifiSSSID: String = data.ssid;
-    console.log(wifiSSSID);
+    this.utilitiesService.sendToNative('Received SSID: ' + wifiSSSID, 'print');
 
     if (wifiSSSID !== undefined && wifiSSSID !== null && wifiSSSID !== '')
     {
@@ -226,19 +226,12 @@ export class NativeCommunicationService implements OnInit {
   }
 
   public checkBluetooth(): void{
-    const nativeSettingType = "Bluetooth";
+    const nativeSettingType = 'Bluetooth';
     const data = {nativeSettingType: nativeSettingType};
 
     this.alertService.sendMessageNativeSettingCheck(data);
     const elm: HTMLElement = document.getElementById('ghostButtonBluetooth') as HTMLElement;
     elm.click();
-  }
-
-  public transmitShowUnity(): void
-  {
-    // this.utilitiesService.sendToNative('NativeCommService Show Unity before', 'print');
-    this.utilitiesService.sendToNative('showUnityView', 'showUnityView');
-    // this.utilitiesService.sendToNative('NativeCommService Show Unity after', 'print');
   }
 
   public logout(): void

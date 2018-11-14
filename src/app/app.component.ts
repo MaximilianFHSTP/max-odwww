@@ -123,16 +123,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const dialogConfig = new MatDialogConfig();
 
+    console.log(this.nativeSettingType);
+
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
-    if(this.nativeSettingType === "Wifi"){
+    if(this.nativeSettingType === 'wifi'){
 
-      console.log("openNativeSetting " + this.nativeSettingType);
-      var platformSpecificConfirm;
+      console.log('openNativeSetting ' + this.nativeSettingType);
+      let platformSpecificConfirm;
       if(this.utilitiesService.checkPlatform() === 'Android'){
-        platformSpecificConfirm = "To the Settings";
+        platformSpecificConfirm = 'To the Settings';
       }else if(this.utilitiesService.checkPlatform() === 'IOS'){
-        platformSpecificConfirm = "To the Settings";
+        platformSpecificConfirm = 'To the Settings';
+      } else {
+        platformSpecificConfirm = 'To the Settings';
       }
       const dialogRef = this.dialog.open(NativeSettingDialogComponent,
         {data: { settingtype: this.nativeSettingType, confirmDialogText: platformSpecificConfirm},
@@ -143,18 +147,15 @@ export class AppComponent implements OnInit, OnDestroy {
         const data = {result: result};
         this.alertService.sendMessageNativeWifiSettingCheckResult(data);
       });
-    }else if(this.nativeSettingType === "Bluetooth"){
-      var platformSpecificConfirm;
+    }else if(this.nativeSettingType === 'Bluetooth'){
+      let platformSpecificConfirm;
       if(this.utilitiesService.checkPlatform() === 'Android'){
-        platformSpecificConfirm = "Activate Bluetooth";
+        platformSpecificConfirm = 'Activate Bluetooth';
       }else if(this.utilitiesService.checkPlatform() === 'IOS'){
-        platformSpecificConfirm = "To the Settings";
+        platformSpecificConfirm = 'To the Settings';
       }
-      const dialogRef = this.dialog.open(NativeSettingDialogComponent,
-        disableClose: true,
-        {data: { settingtype: this.nativeSettingType, confirmDialogText: platformSpecificConfirm},
-        autoFocus: false
-      });
+      const dialogRef = this.dialog.open(NativeSettingDialogComponent, {data: { settingtype: this.nativeSettingType,
+          confirmDialogText: platformSpecificConfirm}, disableClose: true, autoFocus: false });
       this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
         const data = {result: result};
         this.alertService.sendMessageNativeBluetoothSettingCheckResult(data);

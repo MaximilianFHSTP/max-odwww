@@ -117,4 +117,9 @@ export class MainViewComponent implements OnInit, OnDestroy {
   {
     this.nativeCommunicationService.transmitTimelineUpdate({minor: 1009, major: 10});
   }
+
+  public checkWifiForWeb()
+  {
+    this.nativeCommunicationService.checkWifi({ssid: 'FH_STP_WLAN'});
+  }
 }
