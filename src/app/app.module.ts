@@ -60,7 +60,7 @@ export const appStore = createStore(
     ContentTableOnComponent,
     ContentPassiveComponent,
     AlertDialogComponent,
-    NativeSettingDialogComponent
+    NativeSettingDialogComponent,
     LoginComponent
   ],
   imports: [

@@ -355,16 +355,19 @@ export class GodService {
       const isCorrect = result.data.check;
       const nativeSettingType = 'wifi';
 
-      if(isCorrect){
+      if(isCorrect)
+      {
         this.utilitiesService.sendToNative('correctWifi','getWifiStatusResult');
         this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
-      }else{
+      }
+      else
+      {
         const data = {nativeSettingType: nativeSettingType};
 
         this.alertService.sendMessageNativeSettingCheck(data);
         const elm: HTMLElement = document.getElementById('ghostButtonWifi') as HTMLElement;
         elm.click();
       }
-    }
+    });
   }
 }
