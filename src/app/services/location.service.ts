@@ -21,6 +21,20 @@ export class LocationService
     this._currentLocation = new BehaviorSubject<any>(undefined);
   }
 
+  public getTimelineLocations():any
+  {
+    const timelineLocations = [];
+    for (let i = 0; i < this._lookuptable.length; i++)
+    {
+      const location = this._lookuptable[i];
+      if (location.showInTimeline)
+      {
+        timelineLocations.push(location);
+      }
+    }
+    return timelineLocations;
+  }
+
   public findLocation(id: Number): any
   {
     let toFind: any;

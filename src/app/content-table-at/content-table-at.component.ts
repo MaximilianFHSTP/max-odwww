@@ -94,24 +94,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this._curLocSubscribe.unsubscribe();
   }
 
-  redirectToOnTable()
-  {
-    this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON', 'print');
-    this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
-  }
-
-  redirectToPassiveExhibit()
-  {
-    this.nativeCommunicationService.transmitLocationRegister({minor: 1009, major: 10});
-  }
-
-  redirectToOnTableBehavior()
-  {
-    this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON-Behavior', 'print');
-    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
-    this.nativeCommunicationService.transmitLocationRegisterTableBehavior();
-  }
-
   updateLocationStatus(status: string){
     if (status === 'FREE'){
       this.locationStatusFree = true;
@@ -144,5 +126,29 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   registerLocationUnlike() {
     this.nativeCommunicationService.transmitLocationLike(false);
+  }
+
+  /*
+  ------------------------------------------------------------
+                      Helper functions
+  ------------------------------------------------------------
+  */
+
+  redirectToOnTable()
+  {
+    this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON', 'print');
+    this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
+  }
+
+  redirectToPassiveExhibit()
+  {
+    this.nativeCommunicationService.transmitLocationRegister({minor: 1009, major: 10});
+  }
+
+  redirectToOnTableBehavior()
+  {
+    this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON-Behavior', 'print');
+    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
+    this.nativeCommunicationService.transmitLocationRegisterTableBehavior();
   }
 }

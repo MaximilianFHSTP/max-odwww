@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
-  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule, MatBadgeModule} from '@angular/material';
+  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule, MatBadgeModule,
+  MatListModule} from '@angular/material';
 
 import { SocketIoModule} from 'ngx-socket-io';
 import {GodSocketService} from './services/god-socket.service';
@@ -20,6 +21,7 @@ import { UtilitiesService } from './services/utilities.service';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 import { MainViewComponent } from './main-view/main-view.component';
 import { ContentTableAtComponent } from './content-table-at/content-table-at.component';
 import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
@@ -35,8 +37,11 @@ import logger from 'redux-logger';
 
 import { MatDialogModule } from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { NativeSettingDialogComponent } from './native-setting-dialog/native-setting-dialog.component';
 
 import {AlertService} from './services/alert.service';
+
+import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -54,7 +59,9 @@ export const appStore = createStore(
     ContentTableAtComponent,
     ContentTableOnComponent,
     ContentPassiveComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    NativeSettingDialogComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +74,7 @@ export const appStore = createStore(
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
+    MatListModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -74,6 +82,7 @@ export const appStore = createStore(
     MatBadgeModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     GodSocketService,
@@ -88,11 +97,13 @@ export const appStore = createStore(
     UserActions,
     StatusActions,
     UtilitiesService,
-    AlertService
+    AlertService,
+    FormBuilder
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    AlertDialogComponent
+    AlertDialogComponent,
+    NativeSettingDialogComponent
   ]
 })
 export class AppModule {
@@ -100,7 +111,8 @@ export class AppModule {
     private winRef: WindowRef,
     private zone: NgZone,
     private nativeCommunicationService: NativeCommunicationService,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private godService: GodService
   ) {
 
     winRef.nativeWindow.angularComponentRef = {
@@ -117,7 +129,7 @@ export class AppModule {
     switch (message) {
        case 'update_location': {
          this.utilitiesService.sendToNative('Received Location Register ' + value.minor, 'print');
-          this.nativeCommunicationService.transmitLocationRegister(value);
+          this.nativeCommunicationService.transmitTimelineUpdate(value);
           break;
        }
        case 'send_device_infos': {
@@ -130,6 +142,14 @@ export class AppModule {
       }
       case 'send_token': {
         this.nativeCommunicationService.autoLogin(value);
+        break;
+      }
+      case 'send_wifi_ssid': {
+        this.nativeCommunicationService.checkWifi(value);
+        break;
+      }
+      case 'send_bluetooth_check': {
+        this.nativeCommunicationService.checkBluetooth();
         break;
       }
        default: {

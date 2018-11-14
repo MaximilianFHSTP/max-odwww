@@ -14,8 +14,14 @@ import {ExhibitService} from './exhibit.service';
 @Injectable()
 export class NativeCommunicationService implements OnInit {
   public registerName: string;
+  public registerEmail: string;
+  public registerPassword: string;
   public registerIsGuest: boolean;
+  public loginName: string;
+  public loginPassword: string;
   private subscription: Subscription;
+  private subscriptionWifi: Subscription;
+  private subscriptionBluetooth: Subscription;
 
   constructor(
     private router: Router,
@@ -33,19 +39,28 @@ export class NativeCommunicationService implements OnInit {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
       if (message.result === 'confirm'){
         this.godService.registerLocation(message.location, false);
-
-        const lastDis = this.appStore.getState().lastDismissed;
-        if (lastDis === message.location )
-        {
-          this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
-        }
       }
       else
       {
-        this.appStore.dispatch(this.locationActions.changeLastDismissed(message.location));
         this.godService.registerLocation(message.location, true);
       }
       this.locationService.startLocationScanning();
+    });
+    this.subscriptionBluetooth = this.alertService.getMessageNativeBluetoothSettingCheckResult().subscribe(message => {
+      if (message.result === 'confirm'){
+        this.utilitiesService.sendToNative('turnOnBluetooth','activateBluetooth');
+      }else if(message.result === 'cancel'){
+        // TODO: when alert for turning on Bluetooth was canceled
+      }
+    });
+    this.subscriptionWifi = this.alertService.getMessageNativeWifiSettingCheckResult().subscribe(message => {
+      if (message.result === 'confirm'){
+        this.utilitiesService.sendToNative('wrongWifi','activateWifiSettings');
+        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
+      }else if(message.result === 'cancel'){
+        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
+        // TODO: when alert for switching to correct wifi was canceled
+      }
     });
   }
 
@@ -64,8 +79,29 @@ export class NativeCommunicationService implements OnInit {
       this.godService.registerODGuest(data);
     }
     else {
-      const data = {identifier: this.registerName, deviceAddress, deviceOS, deviceVersion, deviceModel};
-      this.godService.registerOD(data);
+      const data = {identifier: this.registerName, password: this.registerPassword, email: this.registerEmail,
+        deviceAddress, deviceOS, deviceVersion, deviceModel};
+      const isUsernameExisting = this.godService.checkUsernameExists(this.registerName);
+      const isEmailExisting = this.godService.checkEmailExists(this.registerEmail);
+      if(!isUsernameExisting && !isEmailExisting){
+        console.log('transmitRegisterOD ' + data.identifier + ' ' + data.email);
+        this.godService.registerOD(data);
+      }else{
+        // TODO: Alert with error message of existing username
+        console.log('ERROR: username already existw#s');
+      }
+    }
+  }
+
+  public transmitODLogin(): void
+  {
+    const isEmail = this.utilitiesService.checkIfEmail(this.loginName);
+    if(isEmail){
+      const data = {user: undefined, email: this.loginName, password: this.loginPassword};
+      this.godService.loginOD(data);
+    }else{
+      const data = {user: this.loginName, email: undefined, password: this.loginPassword};
+      this.godService.loginOD(data);
     }
   }
 
@@ -73,10 +109,8 @@ export class NativeCommunicationService implements OnInit {
   {
     const state = this.appStore.getState();
     const minor: number = result.minor;
-    const location = this.locationService.findLocation(minor);
 
-    if (state.lastDismissed === result.minor) { return; }
-    if (state.locationScanning === false && location.locationTypeId !== 2)  { return;  }
+    const location = this.locationService.findLocation(minor);
 
     if (!location)
     {
@@ -98,8 +132,6 @@ export class NativeCommunicationService implements OnInit {
 
       const exhibitParentId = state.atExhibitParentId;
       const onExhibit = state.onExhibit;
-
-      this.utilitiesService.sendToNative('new valid location found - check and registerLocation at GoD - ' + location.id, 'print');
 
       if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParentId === location.parentId))
       {
@@ -126,6 +158,47 @@ export class NativeCommunicationService implements OnInit {
           const elm: HTMLElement = document.getElementById('ghostButton') as HTMLElement;
           elm.click();
         }
+      }
+    }
+  }
+
+  public transmitTimelineUpdate(result: any)
+  {
+    const state = this.appStore.getState();
+    const minor: number = result.minor;
+
+    const location = this.locationService.findLocation(minor);
+
+    if (state.locationScanning === false && location.locationTypeId !== 2)  { return;  }
+
+    if (!location)
+    {
+      this.utilitiesService.sendToNative('this is not a valid location', 'print');
+      return;
+    }
+
+    const currLoc = this.locationService.currentLocation.value;
+
+    // if the location is not the same as before
+    if (!this.locationService.sameAsCurrentLocation(location.id))
+    {
+      // update the closestExhibit if the location is not already the closest one
+      if (minor !== this.appStore.getState().closestExhibit)
+      {
+        this.appStore.dispatch(this.locationActions.changeClosestExhibit(minor));
+      }
+      // If the current location is from type activeExhibitOn the redirection should be disabled
+      if (this.locationService.currentLocation && currLoc.locationTypeId === 2)
+      {
+        this.utilitiesService.sendToNative('this is not a valid location - type 2', 'print');
+        return;
+      }
+
+      // check if the location is still locked. If so unlock it
+      if (location.locked)
+      {
+        this.godService.registerTimelineUpdate(location.id);
+        this.utilitiesService.sendToNative(location.id, 'showBackgroundNotification');
       }
     }
   }
@@ -167,11 +240,24 @@ export class NativeCommunicationService implements OnInit {
     }
   }
 
-  public transmitShowUnity(): void
+  public checkWifi(data: any): void
   {
-    // this.utilitiesService.sendToNative('NativeCommService Show Unity before', 'print');
-    this.utilitiesService.sendToNative('showUnityView', 'showUnityView');
-    // this.utilitiesService.sendToNative('NativeCommService Show Unity after', 'print');
+    const wifiSSSID: String = data.ssid;
+    this.utilitiesService.sendToNative('Received SSID: ' + wifiSSSID, 'print');
+
+    if (wifiSSSID !== undefined && wifiSSSID !== null && wifiSSSID !== '')
+    {
+      this.godService.checkWifi(wifiSSSID);
+    }
+  }
+
+  public checkBluetooth(): void{
+    const nativeSettingType = 'Bluetooth';
+    const data = {nativeSettingType: nativeSettingType};
+
+    this.alertService.sendMessageNativeSettingCheck(data);
+    const elm: HTMLElement = document.getElementById('ghostButtonBluetooth') as HTMLElement;
+    elm.click();
   }
 
   public logout(): void
@@ -199,7 +285,7 @@ export class NativeCommunicationService implements OnInit {
     this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(undefined));
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
-    this.appStore.dispatch(this.locationActions.changeLastDismissed(undefined));
+    this.appStore.dispatch(this.locationActions.changeClosestExhibit(undefined));
   }
 
   public transmitLocationLike(like: boolean): void

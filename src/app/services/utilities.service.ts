@@ -23,6 +23,10 @@ export class UtilitiesService {
             localStorage.setItem('token', JSON.stringify({token: messageBody}));
             break;
 
+          case 'print':
+            console.log(messageBody);
+            break;
+
           case 'clearToken':
             localStorage.removeItem('token');
             break;
@@ -78,6 +82,26 @@ export class UtilitiesService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getToken();
             break;
 
+          case 'getWifiStatusResult':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getWifiStatusResult(messageBody);
+            break;
+
+          case 'activateBluetoothCheck':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateBluetoothCheck();
+            break;
+
+          case 'activateBluetooth':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateBluetooth();
+            break;
+
+          case 'activateWifiSettings':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateWifiSettings();
+            break;
+
+          case 'showBackgroundNotification':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.showBackgroundNotification(messageBody);
+            break;
+
           default:
             break;
         }
@@ -119,5 +143,17 @@ export class UtilitiesService {
         }
       }
       return 'IOS';
+    }
+
+    public checkIfEmail(email: string){
+      let isEmail;
+      const re = new RegExp(/^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$/);
+      // const re = new RegExp('^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$');
+      if(re.test(email)){
+        isEmail = true;
+      }else{
+        isEmail = false;
+      }
+      return isEmail;
     }
 }

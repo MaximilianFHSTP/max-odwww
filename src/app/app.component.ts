@@ -1,7 +1,7 @@
 import {Component, Inject, Injectable, OnInit, OnDestroy} from '@angular/core';
 import {UserActions} from './actions/UserActions';
-import {StatusActions} from './actions/StatusActions';
 import {LocationActions} from './actions/LocationActions';
+import {StatusActions} from './actions/StatusActions';
 import { UtilitiesService } from './services/utilities.service';
 import {Unsubscribe} from 'redux';
 import {NativeCommunicationService} from './services/native-communication.service';
@@ -9,8 +9,11 @@ import {WindowRef} from './WindowRef';
 import { Subscription } from 'rxjs/Subscription';
 import { MatDialog, MatDialogConfig} from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import {NativeSettingDialogComponent} from './native-setting-dialog/native-setting-dialog.component';
 import {AlertService} from './services/alert.service';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+import {Router} from '@angular/router';
+import {LocationService} from './services/location.service';
 
 @Component({
   selector: 'app-root',
@@ -27,23 +30,25 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
+  private subscriptionNativeSettingCheckResult: Subscription;
   private currentError: number;
   private currentSuccess: number;
   private registerLocationmessage: any;
-  public dismissedLocation: number;
-  public showDismissed: boolean;
+  public nativeSettingType: any;
 
   constructor(
     @Inject('AppStore') private appStore,
     private statusActions: StatusActions,
     private userActions: UserActions,
     private locationActions: LocationActions,
+    private locationService: LocationService,
     private utilitiesService: UtilitiesService,
     private winRef: WindowRef,
     private dialog: MatDialog,
     private alertService: AlertService,
     private nativeCommunicationService: NativeCommunicationService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public router: Router
   )
   {
     this._unsubscribe = this.appStore.subscribe(() => {
@@ -52,9 +57,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
       const errorMessage = state.errorMessage;
       const successMessage = state.successMessage;
-
-      this.dismissedLocation = state.lastDismissed;
-      this.showDismissed = state.showDismissed;
 
       if (this.currentToken !== token && token !== undefined)
       {
@@ -85,6 +87,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
       this.registerLocationmessage = message;
     });
+    this.subscriptionNativeSettingCheckResult = this.alertService.getMessageNativeSettingCheck().subscribe(message => {
+      this.nativeSettingType = message.nativeSettingType;
+    });
   }
 
   ngOnInit() {
@@ -93,7 +98,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.requestCheckedPlatform();
     this.getTokenForAutoLogin();
-
   }
 
   openDialog() {
@@ -108,29 +112,55 @@ export class AppComponent implements OnInit, OnDestroy {
       disableClose: true,
       autoFocus: false
     });
-    this.utilitiesService.sendToNative('success', 'triggerSignal');
+
     this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
       const data = {result: result, location: this.registerLocationmessage.location, resStatus: this.registerLocationmessage.resStatus};
       this.alertService.sendMessageResponse(data);
     });
   }
 
-  openDialogDismissed() {
+  openNativeSetting() {
 
     const dialogConfig = new MatDialogConfig();
 
+    console.log(this.nativeSettingType);
+
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
+    if(this.nativeSettingType === 'wifi'){
 
-    const dialogRef = this.dialog.open(AlertDialogComponent,
-      {data: { number: this.dismissedLocation },
+      console.log('openNativeSetting ' + this.nativeSettingType);
+      let platformSpecificConfirm;
+      if(this.utilitiesService.checkPlatform() === 'Android'){
+        platformSpecificConfirm = 'To the Settings';
+      }else if(this.utilitiesService.checkPlatform() === 'IOS'){
+        platformSpecificConfirm = 'To the Settings';
+      } else {
+        platformSpecificConfirm = 'To the Settings';
+      }
+      const dialogRef = this.dialog.open(NativeSettingDialogComponent,
+        {data: { settingtype: this.nativeSettingType, confirmDialogText: platformSpecificConfirm},
         disableClose: true,
         autoFocus: false
       });
-    this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
-      const data = {result: result, location: this.dismissedLocation, resStatus: this.registerLocationmessage.resStatus};
-      this.alertService.sendMessageResponse(data);
-    });
+      this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
+        const data = {result: result};
+        this.alertService.sendMessageNativeWifiSettingCheckResult(data);
+      });
+    }else if(this.nativeSettingType === 'Bluetooth'){
+      let platformSpecificConfirm;
+      if(this.utilitiesService.checkPlatform() === 'Android'){
+        platformSpecificConfirm = 'Activate Bluetooth';
+      }else if(this.utilitiesService.checkPlatform() === 'IOS'){
+        platformSpecificConfirm = 'To the Settings';
+      }
+      const dialogRef = this.dialog.open(NativeSettingDialogComponent, {data: { settingtype: this.nativeSettingType,
+          confirmDialogText: platformSpecificConfirm}, disableClose: true, autoFocus: false });
+      this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
+        const data = {result: result};
+        this.alertService.sendMessageNativeBluetoothSettingCheckResult(data);
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -159,14 +189,19 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  public showUnityView()
-  {
-    // this.utilitiesService.sendToNative('AppComponent Show Unity', 'print');
-    this.nativeCommunicationService.transmitShowUnity();
-  }
-
   public logoutUser()
   {
     this.nativeCommunicationService.logout();
+  }
+
+  public redirectToTimeline()
+  {
+    this.locationService.setToStartPoint();
+    this.router.navigate(['/mainview']).then( () =>
+      {
+        // send success to native & start beacon scan
+        this.utilitiesService.sendToNative('success', 'redirectToTimeline');
+      }
+    );
   }
 }

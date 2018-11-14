@@ -7,6 +7,7 @@ import {LocationActions} from '../actions/LocationActions';
 import {UserActions} from '../actions/UserActions';
 import {StatusActions} from '../actions/StatusActions';
 import { UtilitiesService } from './utilities.service';
+import { AlertService } from './alert.service';
 import * as ErrorTypes from '../config/ErrorTypes';
 import * as SuccessTypes from '../config/SuccessTypes';
 
@@ -22,7 +23,8 @@ export class GodService {
     private locationActions: LocationActions,
     private userActions: UserActions,
     private statusActions: StatusActions,
-    private utilitiesService: UtilitiesService
+    private utilitiesService: UtilitiesService,
+    private alertService: AlertService
   )
   {
     this.socket.on('news', msg =>
@@ -57,7 +59,7 @@ export class GodService {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
-
+      console.log('RegisterOD ' + res.user + ' ' + res.token);
       this.store.dispatch(this.userActions.changeUser(res.user));
       this.store.dispatch(this.userActions.changeLookupTable(res.locations));
       this.store.dispatch(this.userActions.changeToken(res.token));
@@ -140,6 +142,32 @@ export class GodService {
           }
         );
       }
+
+      this.socket.removeAllListeners('registerLocationResult');
+    });
+  }
+
+  public registerTimelineUpdate(id: number): any
+  {
+    const state = this.store.getState();
+    const user = state.user;
+
+    this.socket.emit('registerTimelineUpdate', {location: id, user: user.id});
+
+    this.socket.on('registerTimelineUpdateResult', result =>
+    {
+      const lookuptable = result.data.lookuptable;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        this.utilitiesService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
+        return;
+      }
+
+      this.utilitiesService.sendToNative('success', 'triggerSignal');
+      this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
       this.socket.removeAllListeners('registerLocationResult');
     });
@@ -262,5 +290,81 @@ export class GodService {
 
       this.socket.removeAllListeners('autoLoginODResult');
     });
+  }
+
+  public loginOD(data: any): void
+  {
+    this.socket.emit('loginOD', data);
+
+    this.socket.on('loginODResult', result =>
+    {
+
+      const data = result.data;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+
+      this.store.dispatch(this.userActions.changeUser(data.user));
+      this.store.dispatch(this.userActions.changeLookupTable(data.locations));
+      this.store.dispatch(this.userActions.changeToken(data.token));
+      this.store.dispatch(this.statusActions.changeLoggedIn(true));
+
+      this.locationService.setToStartPoint();
+
+      this.router.navigate(['/mainview']).then( () =>
+      {
+        // send success to native & start beacon scan
+
+        this.utilitiesService.sendToNative('success', 'loginOD');
+      });
+
+      this.socket.removeAllListeners('loginODResult');
+    });
+  }
+
+  public checkUsernameExists(username: String): void
+  {
+    this.socket.emit('checkUsernameExists', username);
+
+    this.socket.on('checkUsernameExistsResult', result =>
+    {
+      return result;
+    });
+  }
+
+  public checkEmailExists(email: String): void
+  {
+    this.socket.emit('checkEmailExists', email);
+
+    this.socket.on('checkEmailExistsResult', result =>
+    {
+      return result;
+    });
+  }
+
+  public checkWifi(wifiSSID: any): void
+  {
+    this.socket.emit('checkWifiSSID', wifiSSID);
+
+    this.socket.on('checkWifiSSIDResult', result =>
+    {
+      const isCorrect = result.data.check;
+      const nativeSettingType = 'wifi';
+
+      if(isCorrect){
+        this.utilitiesService.sendToNative('correctWifi','getWifiStatusResult');
+        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
+      }else{
+        const data = {nativeSettingType: nativeSettingType};
+
+        this.alertService.sendMessageNativeSettingCheck(data);
+        const elm: HTMLElement = document.getElementById('ghostButtonWifi') as HTMLElement;
+        elm.click();
+      }
+    }
   }
 }
