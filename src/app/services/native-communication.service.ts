@@ -46,7 +46,7 @@ export class NativeCommunicationService implements OnInit {
       if (message.result === 'confirm'){
         this.utilitiesService.sendToNative('turnOnBluetooth','activateBluetooth');
       }else if(message.result === 'cancel'){
-        //TODO: when alert for turning on Bluetooth was canceled
+        // TODO: when alert for turning on Bluetooth was canceled
       }
     });
     this.subscriptionWifi = this.alertService.getMessageNativeWifiSettingCheckResult().subscribe(message => {
@@ -55,7 +55,7 @@ export class NativeCommunicationService implements OnInit {
         this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
       }else if(message.result === 'cancel'){
         this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
-        //TODO: when alert for switching to correct wifi was canceled
+        // TODO: when alert for switching to correct wifi was canceled
       }
     });
   }

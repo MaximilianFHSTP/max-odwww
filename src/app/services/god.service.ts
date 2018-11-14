@@ -166,6 +166,7 @@ export class GodService {
         return;
       }
 
+      this.utilitiesService.sendToNative('success', 'triggerSignal');
       this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
       this.socket.removeAllListeners('registerLocationResult');
