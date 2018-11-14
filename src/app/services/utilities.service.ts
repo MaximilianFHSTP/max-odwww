@@ -98,6 +98,10 @@ export class UtilitiesService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateWifiSettings();
             break;
 
+          case 'showBackgroundNotification':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.showBackgroundNotification(messageBody);
+            break;
+
           default:
             break;
         }

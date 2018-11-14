@@ -173,6 +173,7 @@ export class NativeCommunicationService implements OnInit {
       if (location.locked)
       {
         this.godService.registerTimelineUpdate(location.id);
+        this.utilitiesService.sendToNative(location.id, 'showBackgroundNotification');
       }
     }
   }
