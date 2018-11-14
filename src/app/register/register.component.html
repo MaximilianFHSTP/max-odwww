@@ -2,11 +2,30 @@
   <mat-card class="registerForm">
     <h1>Registration</h1>
     <h2>Please enter a username</h2>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Username" [(ngModel)]="name">
-    </mat-form-field>
-    <br />
-    <button mat-raised-button color="primary" (click)="requestDeviceInfos(false)">Register</button>
-    <button mat-raised-button color="primary" (click)="requestDeviceInfos(true)">Register As Guest</button>
+
+    <form name="registerForm" [formGroup]="signupForm">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Username" required [(ngModel)]="name" [formControl]="nameFormControl">
+        <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" [(ngModel)]="email" required [formControl]="emailFormControl">
+        <mat-error *ngIf="emailFormControl.invalid">{{getRequiredErrorMessage('email')}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Password" [(ngModel)]="password" required [formControl]="passwordFormControl">
+        <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Password Confirmation" [(ngModel)]="confirmPassword" required [formControl]="confirmPasswordFormControl">
+        <mat-error *ngIf="confirmPasswordFormControl.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <br />
+      <button mat-raised-button [disabled]="signupForm.invalid" color="primary" (click)="requestDeviceInfos(false)">Register</button>
+      <button mat-raised-button color="primary" (click)="requestDeviceInfos(true)">Register As Guest</button>
+    </form>
   </mat-card>
 </div>

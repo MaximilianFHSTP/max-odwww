@@ -144,4 +144,16 @@ export class UtilitiesService {
       }
       return 'IOS';
     }
+
+    public checkIfEmail(email: string){
+      let isEmail;
+      const re = new RegExp(/^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$/);
+      // const re = new RegExp('^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$');
+      if(re.test(email)){
+        isEmail = true;
+      }else{
+        isEmail = false;
+      }
+      return isEmail;
+    }
 }
