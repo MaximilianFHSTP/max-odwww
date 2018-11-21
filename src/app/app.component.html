@@ -1,5 +1,5 @@
 <mat-toolbar id="header" color="primary">
-  <a mat-button (click)="redirectToTimeline()" *ngIf="router.url !== '/mainview'">back</a>
+  <a mat-button (click)="redirectToTimeline()" *ngIf="router.url === '/passive' || router.url === '/tableat'">back</a>
   <span class="example-fill-remaining-space"></span>
   <span>MEETeUX</span>
 
