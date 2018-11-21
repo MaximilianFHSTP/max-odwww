@@ -136,13 +136,8 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   redirectToOnTable()
   {
-    this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON', 'print');
-    this.nativeCommunicationService.transmitLocationRegister({minor: 1000, major: 100});
-  }
-
-  redirectToPassiveExhibit()
-  {
-    this.nativeCommunicationService.transmitLocationRegister({minor: 1009, major: 10});
+    // this.utilitiesService.sendToNative('REDIRECT-TO-TABLE-ON', 'print');
+    this.nativeCommunicationService.transmitTimelineUpdate({minor: 1000, major: 100});
   }
 
   redirectToOnTableBehavior()

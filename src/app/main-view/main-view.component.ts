@@ -108,6 +108,11 @@ export class MainViewComponent implements OnInit, OnDestroy {
     this.nativeCommunicationService.transmitTimelineUpdate({minor: 100, major: 10});
   }
 
+  public requestRegisterLocationTableOn()
+  {
+    this.nativeCommunicationService.transmitTimelineUpdate({minor: 1000, major: 100});
+  }
+
   public requestRegisterLocationTableAtBehavior()
   {
     this.nativeCommunicationService.transmitTimelineUpdate({minor: 101, major: 10});
