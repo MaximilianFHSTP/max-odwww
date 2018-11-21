@@ -302,4 +302,15 @@ export class NativeCommunicationService implements OnInit {
 
     this.godService.registerLocationLike(currLoc, like);
   }
+
+  public redirectToTimeline()
+  {
+    this.locationService.setToStartPoint();
+    this.router.navigate(['/mainview']).then( () =>
+      {
+        // send success to native & start beacon scan
+        this.utilitiesService.sendToNative('success', 'redirectToTimeline');
+      }
+    );
+  }
 }

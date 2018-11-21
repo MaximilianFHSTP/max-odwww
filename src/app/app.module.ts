@@ -152,6 +152,10 @@ export class AppModule {
         this.nativeCommunicationService.checkBluetooth();
         break;
       }
+      case 'back_button_pressed': {
+        this.nativeCommunicationService.redirectToTimeline();
+        break;
+      }
        default: {
           break;
        }
