@@ -8,10 +8,12 @@ import { MainViewComponent } from './main-view/main-view.component';
 import { ContentPassiveComponent } from './content-passive/content-passive.component';
 import { ContentTableAtComponent } from './content-table-at/content-table-at.component';
 import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
+import { StartViewComponent } from './start-view/start-view.component';
 
 
 const routes: Routes = [
-  { path: '', component: LoginComponent},
+  { path: '', component: StartViewComponent},
+  { path: 'login', component: LoginComponent},
   { path: 'mainview', component: MainViewComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'passive', component: ContentPassiveComponent },

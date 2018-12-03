@@ -10,6 +10,9 @@ export class AlertService {
   private subjectNativeSettingCheck = new Subject<any>();
   private subjectNativeWifiSettingCheckResult = new Subject<any>();
   private subjectNativeBluetoothSettingCheckResult = new Subject<any>();
+  private subjectNativeBackbuttonTimeline = new Subject<any>();
+  private subjectNativeBackbuttonStart = new Subject<any>();
+  private subjectWrongLoginCheck = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -57,5 +60,29 @@ export class AlertService {
 
   getMessageNativeWifiSettingCheckResult(): Observable<any> {
       return this.subjectNativeWifiSettingCheckResult.asObservable();
+  }
+
+  sendMessageNativeBackbuttonTimeline() {
+    this.subjectNativeBackbuttonTimeline.next();
+  }
+
+  getMessageNativeBackbuttonTimeline(): Observable<any> {
+      return this.subjectNativeBackbuttonTimeline.asObservable();
+  }
+
+  sendMessageNativeBackbuttonStart() {
+    this.subjectNativeBackbuttonStart.next();
+  }
+
+  getMessageNativeBackbuttonStart(): Observable<any> {
+      return this.subjectNativeBackbuttonStart.asObservable();
+  }
+
+  setMessageWrongLoginCheck(message: any) {
+    this.subjectWrongLoginCheck.next(message);
+  }
+
+  getMessageWrongLoginCheck(): Observable<any>{
+    return this.subjectWrongLoginCheck.asObservable();
   }
 }

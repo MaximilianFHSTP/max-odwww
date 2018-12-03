@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required,
-    Validators.pattern('(?=.*[a-z])(?=.*[!@#$%^&)§(/])[A-Za-z\d$@$!%*?&].{5,}')]);
+    Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
   signupForm: FormGroup = new FormGroup({

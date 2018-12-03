@@ -14,9 +14,9 @@
         <mat-error *ngIf="passwordFormControl.invalid">{{getRequiredErrorMessage('password')}}</mat-error>
       </mat-form-field>
       <br />
+      <mat-error *ngIf="wrongLogin">{{getLoginErrorMessage()}}</mat-error>
       <button mat-raised-button [disabled]="loginForm.invalid" color="primary" (click)="loginDevice()">Login</button>
-      <br />
-      <button mat-raised-button color="primary" (click)="forwardToRegister()">Go to Register</button>
+
     </form>
   </mat-card>
 </div>

@@ -38,10 +38,12 @@ import logger from 'redux-logger';
 import { MatDialogModule } from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { NativeSettingDialogComponent } from './native-setting-dialog/native-setting-dialog.component';
+import {StartViewComponent} from './start-view/start-view.component';
 
 import {AlertService} from './services/alert.service';
 
 import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 
@@ -61,7 +63,8 @@ export const appStore = createStore(
     ContentPassiveComponent,
     AlertDialogComponent,
     NativeSettingDialogComponent,
-    LoginComponent
+    LoginComponent,
+    StartViewComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +115,8 @@ export class AppModule {
     private zone: NgZone,
     private nativeCommunicationService: NativeCommunicationService,
     private utilitiesService: UtilitiesService,
-    private godService: GodService
+    private godService: GodService,
+    public router: Router
   ) {
 
     winRef.nativeWindow.angularComponentRef = {
@@ -153,7 +157,15 @@ export class AppModule {
         break;
       }
       case 'back_button_pressed': {
-        this.nativeCommunicationService.redirectToTimeline();
+        if(this.router.url === '/register' || this.router.url === '/login' || this.router.url === ''){
+          // this.nativeCommunicationService.redirectToStart();
+          const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
+          elm.click();
+        }else{
+          // this.nativeCommunicationService.redirectToTimeline();
+          const elm: HTMLElement = document.getElementById('redirectTimeline') as HTMLElement;
+          elm.click();
+        }
         break;
       }
        default: {

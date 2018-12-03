@@ -87,7 +87,7 @@ export class NativeCommunicationService implements OnInit {
         this.godService.registerOD(data);
       } else {
         // TODO: Alert with error message of existing username
-        console.log('ERROR: username already existw#s');
+        console.log('ERROR: username already exists');
       }
     }
   }
@@ -240,9 +240,11 @@ export class NativeCommunicationService implements OnInit {
   public logoutSuccess(): void {
     this.appStore.dispatch(this.statusActions.changeLoggedIn(false));
 
-    this.router.navigate(['']).then(() => {
+    /*this.router.navigate(['']).then(() => {
       this.utilitiesService.sendToNative('User Logged out', 'print');
-    });
+    });*/
+    const elm: HTMLElement = document.getElementById('logout') as HTMLElement;
+    elm.click();
 
     this.appStore.dispatch(this.userActions.changeToken(undefined));
     this.appStore.dispatch(this.locationActions.changeLocationStatus(undefined));
@@ -269,12 +271,25 @@ export class NativeCommunicationService implements OnInit {
 
   public redirectToTimeline()
   {
-    this.locationService.setToStartPoint();
+    this.alertService.sendMessageNativeBackbuttonTimeline();
+    /*this.locationService.setToStartPoint();
     this.router.navigate(['/mainview']).then( () =>
       {
         // send success to native & start beacon scan
         this.utilitiesService.sendToNative('success', 'redirectToTimeline');
       }
-    );
+    );*/
+  }
+
+  public redirectToStart()
+  {
+    this.alertService.sendMessageNativeBackbuttonStart();
+    /*this.locationService.setToStartPoint();
+    this.router.navigate(['']).then( () =>
+      {
+        // send success to native & start beacon scan
+        this.utilitiesService.sendToNative('success', 'redirectToStart');
+      }
+    );*/
   }
 }

@@ -31,6 +31,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
   private subscriptionNativeSettingCheckResult: Subscription;
+  private subscriptionNativeBackbuttonTimelineResult: Subscription;
+  private subscriptionNativeBackbuttonStartResult: Subscription;
   private currentError: number;
   private currentSuccess: number;
   private registerLocationmessage: any;
@@ -89,6 +91,12 @@ export class AppComponent implements OnInit, OnDestroy {
     });
     this.subscriptionNativeSettingCheckResult = this.alertService.getMessageNativeSettingCheck().subscribe(message => {
       this.nativeSettingType = message.nativeSettingType;
+    });
+    this.subscriptionNativeBackbuttonTimelineResult = this.alertService.getMessageNativeBackbuttonTimeline().subscribe(message => {
+      this.redirectToTimeline();
+    });
+    this.subscriptionNativeBackbuttonStartResult = this.alertService.getMessageNativeBackbuttonStart().subscribe(message => {
+      this.redirectToStart();
     });
   }
 
@@ -201,6 +209,24 @@ export class AppComponent implements OnInit, OnDestroy {
       {
         // send success to native & start beacon scan
         this.utilitiesService.sendToNative('success', 'redirectToTimeline');
+      }
+    );
+  }
+
+  public redirectToStart()
+  {
+    this.locationService.setToStartPoint();
+    this.router.navigate(['']).then( () =>
+      {
+        this.utilitiesService.sendToNative('redirectToStart', 'print');
+      }
+    );
+  }
+
+  public logoutRouting(){
+    this.router.navigate(['']).then( () =>
+      {
+        this.utilitiesService.sendToNative('User Logged out', 'print');
       }
     );
   }

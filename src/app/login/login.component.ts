@@ -7,6 +7,8 @@ import { UtilitiesService } from '../services/utilities.service';
 import { AppComponent } from '../app.component';
 import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +20,9 @@ export class LoginComponent implements OnInit
 {
   public loginName: string;
   public loginPassword: string;
+  public wrongLogin: boolean;
+
+  private subscriptionWrongLogin: Subscription;
 
   nameFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required]);
@@ -34,11 +39,18 @@ export class LoginComponent implements OnInit
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
     private utilitiesService: UtilitiesService,
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    private alertService: AlertService
+  ) {
+    this.subscriptionWrongLogin = this.alertService.getMessageWrongLoginCheck().subscribe(message => {
+      this.wrongLogin = message;
+      console.log('LoginComponent' + message);
+    });
+   }
 
   public loginDevice()
   {
+    console.log('LoginComponentButton');
     this.nativeCommunicationService.loginName = this.nameFormControl.value;
     this.nativeCommunicationService.loginPassword = this.passwordFormControl.value;
 
@@ -59,8 +71,8 @@ export class LoginComponent implements OnInit
     return this.loginForm.get(field).hasError('required') ? 'You must enter a value' : '';
   }
 
-  forwardToRegister(){
-    this.router.navigate(['/register']);
+  getLoginErrorMessage(){
+    return 'These credentials don\'t match';
   }
 
 }

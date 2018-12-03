@@ -294,20 +294,24 @@ export class GodService {
 
   public loginOD(data: any): void
   {
+    console.log('LoginODBefore');
     this.socket.emit('loginOD', data);
 
     this.socket.on('loginODResult', result =>
     {
-
+      console.log('LoginOD' + result.message);
       const data = result.data;
       const message = result.message;
 
       if (message.code > 299)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        console.log('LoginODWrong');
+        this.alertService.setMessageWrongLoginCheck(false);
         return;
       }
-
+      console.log('LoginODTrue');
+      this.alertService.setMessageWrongLoginCheck(true);
       this.store.dispatch(this.userActions.changeUser(data.user));
       this.store.dispatch(this.userActions.changeLookupTable(data.locations));
       this.store.dispatch(this.userActions.changeToken(data.token));
