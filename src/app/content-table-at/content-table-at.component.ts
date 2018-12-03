@@ -24,6 +24,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   public locationStatusOccupied: boolean;
   public locationStatusOffline: boolean;
   public locationType: number;
+  public isJoinButtonUnlocked: boolean;
 
   private checkStatusTimer: any;
   public isWeb: boolean;
@@ -47,6 +48,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       this.updateLocationStatus(state.locationStatus);
+      this.updateJoinButtonStatus(state.closestExhibit);
       this.locationSocketStatus = state.locationSocketStatus;
     });
 
@@ -92,6 +94,12 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this._statusTimerSubscription.unsubscribe();
     this._unsubscribe();
     this._curLocSubscribe.unsubscribe();
+  }
+
+  updateJoinButtonStatus(locationId: number)
+  {
+    // Checking if the closest exhibit is the current active exhibit or one of the tableOn beacons
+    this.isJoinButtonUnlocked = this.locationService.isActiveLocationInRange(locationId);
   }
 
   updateLocationStatus(status: string){

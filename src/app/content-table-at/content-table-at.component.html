@@ -12,12 +12,11 @@
 
     <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
       <button mat-raised-button color="primary" (click)="redirectToOnTable()">Register Location TableOn</button>
-      <button mat-raised-button color="primary" (click)="redirectToPassiveExhibit()">Register Location Passive 1009</button>
     </div>
   </div>
   <div *ngIf="locationType == 6">
     <h3>Table ist frei</h3>
-    <button *ngIf="joinGame" mat-raised-button color="primary" (click)="redirectToOnTableBehavior()">Mitspielen</button>
+    <button *ngIf="joinGame" ng-disabled="isJoinButtonUnlocked" mat-raised-button color="primary" (click)="redirectToOnTableBehavior()">Mitspielen</button>
   </div>
 </div>
 

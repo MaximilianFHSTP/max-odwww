@@ -21,6 +21,12 @@ export class LocationService
     this._currentLocation = new BehaviorSubject<any>(undefined);
   }
 
+  public isActiveLocationInRange(locationId: number): boolean
+  {
+    const nearestLoc = this.findLocation(locationId);
+    return nearestLoc.id === this._currentLocation || nearestLoc.parentId === this._currentLocation;
+  }
+
   public getTimelineLocations():any
   {
     const timelineLocations = [];
