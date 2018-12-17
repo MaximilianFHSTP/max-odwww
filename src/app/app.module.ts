@@ -39,6 +39,8 @@ import { MatDialogModule } from '@angular/material';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { NativeSettingDialogComponent } from './native-setting-dialog/native-setting-dialog.component';
 import {StartViewComponent} from './start-view/start-view.component';
+import { ChangeCredentialsComponent } from './change-credentials/change-credentials.component';
+import {DeleteDialogComponent} from './delete-dialog/delete-dialog.component';
 
 import {AlertService} from './services/alert.service';
 
@@ -64,7 +66,9 @@ export const appStore = createStore(
     AlertDialogComponent,
     NativeSettingDialogComponent,
     LoginComponent,
-    StartViewComponent
+    StartViewComponent,
+    ChangeCredentialsComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +110,8 @@ export const appStore = createStore(
   bootstrap: [AppComponent],
   entryComponents: [
     AlertDialogComponent,
-    NativeSettingDialogComponent
+    NativeSettingDialogComponent,
+    DeleteDialogComponent
   ]
 })
 export class AppModule {

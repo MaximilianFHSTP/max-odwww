@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NativeSettingDialogComponent } from './native-setting-dialog.component';
 
-describe('ContentPassiveComponent', () => {
+describe('NativeSettingDialogComponent', () => {
   let component: NativeSettingDialogComponent;
   let fixture: ComponentFixture<NativeSettingDialogComponent>;
 

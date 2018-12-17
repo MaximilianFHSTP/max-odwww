@@ -27,6 +27,8 @@ export class MainViewComponent implements OnInit, OnDestroy {
   public isWeb: boolean;
   public closestExhibit: number;
 
+  public locationId: string;
+
   constructor(
     private nativeCommunicationService: NativeCommunicationService,
     private locationService: LocationService,
@@ -95,6 +97,15 @@ export class MainViewComponent implements OnInit, OnDestroy {
       const data = {result: result, location: this.closestExhibit, resStatus: null};
       this.alertService.sendMessageResponse(data);
     });
+  }
+
+  scroll() {
+    // console.log(this.registerLocationmessage.location);
+    const id = this.registerLocationmessage.location;
+    // console.log(id + ` scrolling to ${id}`);
+    const el = document.getElementById(id);
+    el.scrollIntoView({behavior:'smooth'});
+    // el.scrollIntoView({behavior:'smooth'});*/
   }
 
   /*

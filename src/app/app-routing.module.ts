@@ -9,6 +9,8 @@ import { ContentPassiveComponent } from './content-passive/content-passive.compo
 import { ContentTableAtComponent } from './content-table-at/content-table-at.component';
 import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
 import { StartViewComponent } from './start-view/start-view.component';
+import { ChangeCredentialsComponent } from './change-credentials/change-credentials.component';
+
 
 
 const routes: Routes = [
@@ -16,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'mainview', component: MainViewComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'changecred', component: ChangeCredentialsComponent },
   { path: 'passive', component: ContentPassiveComponent },
   { path: 'tableat', component: ContentTableAtComponent, runGuardsAndResolvers: 'always'},
   { path: 'tableon', component: ContentTableOnComponent },

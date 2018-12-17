@@ -102,6 +102,10 @@ export class UtilitiesService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.showBackgroundNotification(messageBody);
             break;
 
+          case 'openWifiDialogNative':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.openWifiDialogNative();
+            break;
+
           default:
             break;
         }

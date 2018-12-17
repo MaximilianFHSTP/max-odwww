@@ -166,6 +166,12 @@ export class GodService {
         return;
       }
 
+      // TODO: TRIGGER SCROLL HERE
+      const data = {location: id};
+      this.alertService.sendMessageLocationid(data);
+      const elm: HTMLElement = document.getElementById('ghostScrollbutton') as HTMLElement;
+      elm.click();
+
       this.utilitiesService.sendToNative('success', 'triggerSignal');
       this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
@@ -307,11 +313,10 @@ export class GodService {
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
         console.log('LoginODWrong');
-        this.alertService.setMessageWrongLoginCheck(false);
+        this.alertService.setMessageWrongLoginCheck(true);
         return;
       }
-      console.log('LoginODTrue');
-      this.alertService.setMessageWrongLoginCheck(true);
+      this.alertService.setMessageWrongLoginCheck(false);
       this.store.dispatch(this.userActions.changeUser(data.user));
       this.store.dispatch(this.userActions.changeLookupTable(data.locations));
       this.store.dispatch(this.userActions.changeToken(data.token));
@@ -366,12 +371,33 @@ export class GodService {
       }
       else
       {
-        const data = {nativeSettingType: nativeSettingType};
+        this.utilitiesService.sendToNative('openWifiDialogNative','openWifiDialogNative');
+
+        // Triggering the Alert in the web part
+        /*const data = {nativeSettingType: nativeSettingType};
 
         this.alertService.sendMessageNativeSettingCheck(data);
         const elm: HTMLElement = document.getElementById('ghostButtonWifi') as HTMLElement;
-        elm.click();
+        elm.click();*/
       }
+    });
+  }
+
+  public updateUserCredentials(data: any){
+    this.socket.emit('updateUserCredentials', data);
+
+    this.socket.on('updateUserCredentialsResult', result =>
+    {
+      return result;
+    });
+  }
+
+  public deleteUserAccount(data){
+    this.socket.emit('deleteUserAccount', data);
+
+    this.socket.on('deleteUserAccountResult', result =>
+    {
+      return result;
     });
   }
 }

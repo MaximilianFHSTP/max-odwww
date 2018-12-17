@@ -19,6 +19,10 @@ export class NativeCommunicationService implements OnInit {
   public registerIsGuest: boolean;
   public loginName: string;
   public loginPassword: string;
+  public changeName: string;
+  public changeEmail: string;
+  public changeOldPassword: string;
+  public changeNewPassword: string;
   private subscription: Subscription;
   private subscriptionWifi: Subscription;
   private subscriptionBluetooth: Subscription;
@@ -139,6 +143,19 @@ export class NativeCommunicationService implements OnInit {
       }
     }
 
+  }
+
+  public transmitUserCredentialChange(){
+    const state = this.appStore.getState();
+    const data = {id: state.user.id, username: this.changeName, email: this.loginName, password: this.changeOldPassword,
+      newPassword: this.changeNewPassword};
+    this.godService.updateUserCredentials(data);
+  }
+
+  public deleteUserAccount(){
+    const state = this.appStore.getState();
+    // const data = {username: state.user.name, email: state.user.email};
+    this.godService.deleteUserAccount(state.user.id);
   }
 
   public transmitTimelineUpdate(result: any) {
