@@ -1,31 +1,36 @@
 <h1>
-  Willkommen bei {{location.description}}
+  {{ 'tableAt.welcomeText' | translate }} {{location.description}}
 </h1>
+
+<div *ngFor="let cont of location.contents">
+  <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>
+  <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
+</div>
 
 
 <div *ngIf="locationStatusFree">
   <div *ngIf="locationType == 3">
-    <h3>Table ist frei</h3>
-    <button *ngIf="joinGame" mat-raised-button color="primary" (click)="startOnTableSearch()">Mitspielen</button>
-    <p *ngIf="!joinGame">Bitte lege Dein Handy auf ein Beacon am Table</p>
-    <h4 *ngIf="locationSocketStatus === 'OCCUPIED'">Dieses Beacon ist schon belegt!</h4>
+    <h3>{{ 'tableAt.tableFreeText' | translate }}</h3>
+    <button *ngIf="joinGame" mat-raised-button color="primary" (click)="startOnTableSearch()">{{ 'tableAt.tableJoinButton' | translate }}</button>
+    <p *ngIf="!joinGame">{{ 'tableAt.beaconPutText' | translate }}</p>
+    <h4 *ngIf="locationSocketStatus === 'OCCUPIED'">{{ 'tableAt.beaconOccupiedText' | translate }}</h4>
 
     <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
       <button mat-raised-button color="primary" (click)="redirectToOnTable()">Register Location TableOn</button>
     </div>
   </div>
   <div *ngIf="locationType == 6">
-    <h3>Table ist frei</h3>
-    <button *ngIf="joinGame" ng-disabled="isJoinButtonUnlocked" mat-raised-button color="primary" (click)="redirectToOnTableBehavior()">Mitspielen</button>
+    <h3>{{ 'tableAt.tableFreeText' | translate }}</h3>
+    <button *ngIf="joinGame" ng-disabled="isJoinButtonUnlocked" mat-raised-button color="primary" (click)="redirectToOnTableBehavior()">{{ 'tableAt.tableJoinButton' | translate }}</button>
   </div>
 </div>
 
 <div *ngIf="locationStatusOccupied">
-  <h3>Der Table ist gerade nicht frei, probieren Sie es später erneut!</h3>
+  <h3>{{ 'tableAt.tableOccupiedText' | translate }}</h3>
 </div>
 
 <div *ngIf="locationStatusOffline">
-  <h3>Beim Table ist leider ein Problem aufgetreten und steht daher zur Zeit nicht zur Verfügung!</h3>
+  <h3>{{ 'tableAt.tableOfflineText' | translate }}</h3>
 </div>
 
 <button *ngIf="location.liked; else notLiked" id="unlike" mat-raised-button color="warn" (click)="registerLocationUnlike()">

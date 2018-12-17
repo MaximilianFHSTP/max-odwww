@@ -17,7 +17,8 @@ const initialState = {
   successMessage: undefined,
   closestExhibit: undefined,
   locationScanning: true,
-  isLoggedIn: false
+  isLoggedIn: false,
+  language: 1
 };
 
 export function rootReducer(state = initialState, action)
@@ -112,6 +113,12 @@ export function rootReducer(state = initialState, action)
       return {
         ...state,
         isLoggedIn: action.isLoggedIn
+      };
+
+    case StatusActions.CHANGE_LANGUAGE:
+      return {
+        ...state,
+        language: action.language
       };
 
     default:
