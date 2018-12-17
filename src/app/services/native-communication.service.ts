@@ -71,14 +71,18 @@ export class NativeCommunicationService implements OnInit {
     const deviceOS: string = result.deviceOS;
     const deviceVersion: string = result.deviceVersion;
     const deviceModel: string = result.deviceModel;
+
+    const state = this.appStore.getState();
+    const language = state.language;
+
     if (this.registerIsGuest) {
-      const data = {deviceAddress, deviceOS, deviceVersion, deviceModel};
+      const data = {deviceAddress, deviceOS, deviceVersion, deviceModel, language};
       this.godService.registerODGuest(data);
     }
     else {
       const data = {
         identifier: this.registerName, password: this.registerPassword, email: this.registerEmail,
-        deviceAddress, deviceOS, deviceVersion, deviceModel
+        deviceAddress, deviceOS, deviceVersion, deviceModel, language
       };
       const isUsernameExisting = this.godService.checkUsernameExists(this.registerName);
       const isEmailExisting = this.godService.checkEmailExists(this.registerEmail);
@@ -267,6 +271,11 @@ export class NativeCommunicationService implements OnInit {
 
 
     this.godService.registerLocationLike(currLoc, like);
+  }
+
+  public changeUserLanguage(lang: number)
+  {
+    this.godService.updateUserLanguage(lang);
   }
 
   public redirectToTimeline()

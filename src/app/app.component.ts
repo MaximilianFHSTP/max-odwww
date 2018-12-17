@@ -14,6 +14,7 @@ import {AlertService} from './services/alert.service';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {Router} from '@angular/router';
 import {LocationService} from './services/location.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private currentSuccess: number;
   private registerLocationmessage: any;
   public nativeSettingType: any;
+  public language: string;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -50,9 +52,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     private nativeCommunicationService: NativeCommunicationService,
     public snackBar: MatSnackBar,
-    public router: Router
+    public router: Router,
+    private translate: TranslateService
   )
   {
+    translate.setDefaultLang('en');
+    this.language = 'en';
+
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       const token = state.token;
@@ -131,7 +137,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const dialogConfig = new MatDialogConfig();
 
-    console.log(this.nativeSettingType);
+    // console.log(this.nativeSettingType);
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
@@ -229,5 +235,18 @@ export class AppComponent implements OnInit, OnDestroy {
         this.utilitiesService.sendToNative('User Logged out', 'print');
       }
     );
+  }
+
+  public useLanguage(language: string) {
+    this.translate.use(language);
+
+    if(language === 'de')
+    {
+      this.nativeCommunicationService.changeUserLanguage(2);
+    }
+    else {
+      this.nativeCommunicationService.changeUserLanguage(1);
+    }
+    this.language = language;
   }
 }

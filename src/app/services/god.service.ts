@@ -156,7 +156,7 @@ export class GodService {
 
     this.socket.on('registerTimelineUpdateResult', result =>
     {
-      const lookuptable = result.data.lookuptable;
+      const lookuptable = result.data.locations;
       const message = result.message;
 
       if (message.code > 299)
@@ -372,6 +372,33 @@ export class GodService {
         const elm: HTMLElement = document.getElementById('ghostButtonWifi') as HTMLElement;
         elm.click();
       }
+    });
+  }
+
+  public updateUserLanguage(lang: number): any
+  {
+    const state = this.store.getState();
+    const user = state.user;
+
+    this.socket.emit('updateUserLanguage', {language: lang, user: user.id});
+
+    this.socket.on('updateUserLanguageResult', result =>
+    {
+      const lookuptable = result.data.locations;
+      const language = result.data.language;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        this.utilitiesService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
+        return;
+      }
+
+      this.store.dispatch(this.statusActions.changeLanguage(language));
+      this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
+
+      this.socket.removeAllListeners('registerLocationResult');
     });
   }
 }

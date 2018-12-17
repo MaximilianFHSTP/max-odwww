@@ -1,7 +1,11 @@
 <h1>
-  Willkommen bei {{location.description}}
+  {{ 'passiveExhibit.welcomeText' | translate }} {{location.description}} - {{location.id}}
 </h1>
-<p>{{location.id}} - Passives Exibit</p>
+
+<div *ngFor="let cont of location.contents">
+  <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>
+  <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
+</div>
 
 <button *ngIf="location.liked; else notLiked" id="unlike" mat-raised-button color="warn" (click)="registerLocationUnlike()">
   <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Unlike

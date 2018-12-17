@@ -30,6 +30,7 @@ export class ContentPassiveComponent implements OnInit, OnDestroy
     this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
     {
       this.location = value;
+      console.log(this.location);
     });
   }
 
