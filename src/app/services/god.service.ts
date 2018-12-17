@@ -384,18 +384,19 @@ export class GodService {
   }
 
   public updateUserCredentials(data: any){
-    this.socket.emit('updateUserCredentials', data);
+    this.socket.emit('changeODCredentials', data);
 
-    this.socket.on('updateUserCredentialsResult', result =>
+    this.socket.on('changeODCredentialsResult', result =>
     {
+      console.log('Credentials changed');
       return result;
     });
   }
 
   public deleteUserAccount(data){
-    this.socket.emit('deleteUserAccount', data);
+    this.socket.emit('deleteOD', data);
 
-    this.socket.on('deleteUserAccountResult', result =>
+    this.socket.on('deleteODResult', result =>
     {
       return result;
     });
