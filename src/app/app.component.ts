@@ -249,4 +249,13 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.language = language;
   }
+
+  public userCredentials(){
+    this.router.navigate(['changecred']).then( () =>
+      {
+        this.utilitiesService.sendToNative('User Credentials', 'print');
+      }
+    );
+  }
+
 }
