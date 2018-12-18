@@ -395,11 +395,6 @@ export class GodService {
 
   public deleteUserAccount(data){
     this.socket.emit('deleteOD', data);
-
-    this.socket.on('deleteODResult', result =>
-    {
-      return result;
-    });
   }
 
   public updateUserLanguage(lang: number): any

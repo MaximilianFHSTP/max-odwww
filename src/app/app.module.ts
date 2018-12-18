@@ -73,7 +73,8 @@ export const appStore = createStore(
     LoginComponent,
     StartViewComponent,
     ChangeCredentialsComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    ChangeCredentialsComponent
   ],
   imports: [
     BrowserModule,

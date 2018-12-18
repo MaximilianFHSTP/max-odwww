@@ -5,8 +5,7 @@ import { WindowRef } from '../WindowRef';
 import {UserActions} from '../actions/UserActions';
 import { UtilitiesService } from '../services/utilities.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
-import { MatDialog, MatDialogConfig} from '@angular/material';
-import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({

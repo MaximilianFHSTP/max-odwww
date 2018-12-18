@@ -93,9 +93,14 @@ export class ExhibitService {
     this.socket.connection.on('connectODResult', result =>
     {
       this.utilitiesService.sendToNative(result, 'print');
-      this.socket.connection.removeAllListeners('connectODResult');
-      this.startAutoResponder();
-      // this.nativeCommunicationService.transmitShowUnity();
+      if(result === 'SUCCESS')
+      {
+        this.socket.connection.removeAllListeners('connectODResult');
+        this.startAutoResponder();
+      }
+      else {
+        this.socket.connection.disconnect();
+      }
     });
   }
 

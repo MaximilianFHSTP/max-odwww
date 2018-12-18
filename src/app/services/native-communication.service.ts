@@ -160,6 +160,7 @@ export class NativeCommunicationService implements OnInit {
     const state = this.appStore.getState();
     // const data = {username: state.user.name, email: state.user.email};
     this.godService.deleteUserAccount(state.user.id);
+    this.logout();
   }
 
   public transmitTimelineUpdate(result: any) {
