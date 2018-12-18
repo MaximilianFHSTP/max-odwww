@@ -48,7 +48,10 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       this.updateLocationStatus(state.locationStatus);
-      this.updateJoinButtonStatus(state.closestExhibit);
+      if(state.closestExhibit)
+      {
+        this.updateJoinButtonStatus(state.closestExhibit);
+      }
       this.locationSocketStatus = state.locationSocketStatus;
     });
 
