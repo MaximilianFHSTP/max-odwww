@@ -1,51 +1,57 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NgZone } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+// Material Design
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
   MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule, MatBadgeModule,
-  MatListModule} from '@angular/material';
+  MatListModule, MatDialogModule} from '@angular/material';
 
+// Services
 import { SocketIoModule} from 'ngx-socket-io';
-import {GodSocketService} from './services/god-socket.service';
-import {ExhibitSocketService} from './services/exhibit-socket.service';
-
-import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
-
-import {NativeCommunicationService} from './services/native-communication.service';
-import {GodService} from './services/god.service';
-import {ExhibitService} from './services/exhibit.service';
-import { WindowRef } from './WindowRef';
-import { UtilitiesService } from './services/utilities.service';
-
-import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { MainViewComponent } from './main-view/main-view.component';
-import { ContentTableAtComponent } from './content-table-at/content-table-at.component';
-import { ContentTableOnComponent } from './content-table-on/content-table-on.component';
-import { ContentPassiveComponent } from './content-passive/content-passive.component';
-import {LocationService} from './services/location.service';
-
-import { applyMiddleware, createStore } from 'redux';
-import { rootReducer } from './reducers/rootReducer';
-import { LocationActions } from './actions/LocationActions';
-import { UserActions } from './actions/UserActions';
-import { StatusActions } from './actions/StatusActions';
-import logger from 'redux-logger';
-
-import { MatDialogModule } from '@angular/material';
-import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
-import { NativeSettingDialogComponent } from './native-setting-dialog/native-setting-dialog.component';
-import {StartViewComponent} from './start-view/start-view.component';
-import { ChangeCredentialsComponent } from './change-credentials/change-credentials.component';
-import {DeleteDialogComponent} from './delete-dialog/delete-dialog.component';
-
+import {GodSocketService} from './services/god/god-socket.service';
+import {ExhibitSocketService} from './services/exhibit/exhibit-socket.service';
+import {UtilityService} from './services/utility.service';
+import {NativeResponseService} from './services/native/native-response.service';
+import {GodService} from './services/god/god.service';
+import {ExhibitService} from './services/exhibit/exhibit.service';
+import { NativeCommunicationService } from './services/native/native-communication.service';
 import {AlertService} from './services/alert.service';
+import {LocationService} from './services/location.service';
+import {TransmissionService} from './services/transmission.service';
 
-import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+// Routing
+import { AppRoutingModule } from './app-routing.module';
 import { Router } from '@angular/router';
+
+// Forms
+import { FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+
+import { WindowRef } from './WindowRef';
+
+// Components
+import { AppComponent } from './app.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { MainViewComponent } from './components/main-view/main-view.component';
+import { ContentTableAtComponent } from './components/content-table-at/content-table-at.component';
+import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
+import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { NativeSettingDialogComponent } from './components/native-setting-dialog/native-setting-dialog.component';
+import {StartViewComponent} from './components/start-view/start-view.component';
+import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
+import {DeleteDialogComponent} from './components/delete-dialog/delete-dialog.component';
+
+// Redux
+import { applyMiddleware, createStore } from 'redux';
+import { rootReducer } from './store/reducers/rootReducer';
+import { LocationActions } from './store/actions/LocationActions';
+import { UserActions } from './store/actions/UserActions';
+import { StatusActions } from './store/actions/StatusActions';
+import logger from 'redux-logger';
 
 // import ngx-translate and the http loader
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -108,7 +114,7 @@ export const appStore = createStore(
   providers: [
     GodSocketService,
     ExhibitSocketService,
-    NativeCommunicationService,
+    NativeResponseService,
     WindowRef,
     GodService,
     ExhibitService,
@@ -117,9 +123,11 @@ export const appStore = createStore(
     LocationActions,
     UserActions,
     StatusActions,
-    UtilitiesService,
+    NativeCommunicationService,
     AlertService,
-    FormBuilder
+    FormBuilder,
+    UtilityService,
+    TransmissionService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -132,9 +140,8 @@ export class AppModule {
   constructor(
     private winRef: WindowRef,
     private zone: NgZone,
+    private nativeResponseService: NativeResponseService,
     private nativeCommunicationService: NativeCommunicationService,
-    private utilitiesService: UtilitiesService,
-    private godService: GodService,
     public router: Router
   ) {
 
@@ -147,41 +154,41 @@ export class AppModule {
 
   callFromOutside(message, value) {
       // console.log('calledFromOutside ' + message);
-      this.utilitiesService.sendToNative('calledFromOutside ' + message, 'print');
+      this.nativeCommunicationService.sendToNative('calledFromOutside ' + message, 'print');
 
     switch (message) {
        case 'update_location': {
-         this.utilitiesService.sendToNative('Received Location Register ' + value.minor, 'print');
-          this.nativeCommunicationService.transmitTimelineUpdate(value);
+         this.nativeCommunicationService.sendToNative('Received Location Register ' + value.minor, 'print');
+          this.nativeResponseService.timelineUpdate(value);
           break;
        }
        case 'send_device_infos': {
-          this.nativeCommunicationService.transmitODRegister(value);
+          this.nativeResponseService.odRegister(value);
           break;
        }
       case 'logout_success': {
-        this.nativeCommunicationService.logoutSuccess();
+        this.nativeResponseService.logoutSuccess();
         break;
       }
       case 'send_token': {
-        this.nativeCommunicationService.autoLogin(value);
+        this.nativeResponseService.autoLogin(value);
         break;
       }
       case 'send_wifi_ssid': {
-        this.nativeCommunicationService.checkWifi(value);
+        this.nativeResponseService.checkWifi(value);
         break;
       }
       case 'send_bluetooth_check': {
-        this.nativeCommunicationService.checkBluetooth();
+        this.nativeResponseService.checkBluetooth();
         break;
       }
       case 'back_button_pressed': {
         if(this.router.url === '/register' || this.router.url === '/login' || this.router.url === ''){
-          // this.nativeCommunicationService.redirectToStart();
+          // this.nativeResponseService.redirectToStart();
           const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
           elm.click();
         }else{
-          // this.nativeCommunicationService.redirectToTimeline();
+          // this.nativeResponseService.redirectToTimeline();
           const elm: HTMLElement = document.getElementById('redirectTimeline') as HTMLElement;
           elm.click();
         }

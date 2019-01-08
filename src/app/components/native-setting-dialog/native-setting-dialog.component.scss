@@ -1,0 +1,11 @@
+@import "../../../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+@mixin theme-color-grabber($theme) {
+  $primary: map-get($theme, $primary);
+
+  button.mat-raised-button{
+
+    background-color: mat-color($primary);
+    /*display: none;*/
+  }
+}
