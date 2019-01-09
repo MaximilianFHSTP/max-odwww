@@ -78,7 +78,7 @@ export class MainViewComponent implements OnInit, OnDestroy {
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
     this.closestExhibit = state.closestExhibit;
-    console.log('ClosestExhibit: ' + this.closestExhibit);
+    // console.log('ClosestExhibit: ' + this.closestExhibit);
 
     this.isWeb = this.nativeCommunicationService.isWeb;
   }

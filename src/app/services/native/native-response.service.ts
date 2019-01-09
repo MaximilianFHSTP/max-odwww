@@ -9,6 +9,7 @@ import {StatusActions} from '../../store/actions/StatusActions';
 import {MatDialog} from '@angular/material';
 import {AlertService} from '../alert.service';
 import {TransmissionService} from '../transmission.service';
+import * as LocationTypes from '../../config/LocationTypes';
 
 @Injectable()
 export class NativeResponseService implements OnInit
@@ -48,17 +49,18 @@ export class NativeResponseService implements OnInit
     // if the location is not the same as before
     if (!this.locationService.sameAsCurrentLocation(location.id)) {
       // update the closestExhibit if the location is not already the closest one
-      if (location.id !== this.appStore.getState().closestExhibit && location.locationTypeId !== 2) {
+      if (location.id !== this.appStore.getState().closestExhibit && location.locationTypeId !== LocationTypes.ACTIVE_EXHIBIT_ON) {
         this.appStore.dispatch(this.locationActions.changeClosestExhibit(location.id));
       }
       // If the current location is from type activeExhibitOn the redirection should be disabled
-      if (currLoc && currLoc.locationTypeId === 2) {
+      if (currLoc && currLoc.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON) {
         this.nativeCommunicationService.sendToNative('this is not a valid location - type 2', 'print');
         return;
       }
 
       // If the new location is a tableOn beacon and the user is currently tableat transmit location register directly
-      if (currLoc && currLoc.locationTypeId === 3 && location.locationTypeId === 2 && location.parentId === currLoc.id) {
+      if (currLoc && currLoc.locationTypeId === LocationTypes.ACTIVE_EXHIBBIT_AT &&
+        location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON && location.parentId === currLoc.id) {
         this.transmissionService.transmitLocationRegister({minor: location.id, major: location.parentId});
       }
 

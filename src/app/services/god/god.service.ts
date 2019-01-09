@@ -8,8 +8,8 @@ import {UserActions} from '../../store/actions/UserActions';
 import {StatusActions} from '../../store/actions/StatusActions';
 import { NativeCommunicationService } from '../native/native-communication.service';
 import { AlertService } from '../alert.service';
-import * as ErrorTypes from '../../config/ErrorTypes';
-import * as SuccessTypes from '../../config/SuccessTypes';
+import * as ErrorTypes from '../../config/ErrorMessageTypes';
+import * as SuccessTypes from '../../config/SuccessMessageTypes';
 
 @Injectable()
 export class GodService {

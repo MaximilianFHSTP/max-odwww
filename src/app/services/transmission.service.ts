@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material';
 import {AlertService} from './alert.service';
 import {UtilityService} from './utility.service';
 import {Subscription} from 'rxjs';
+import * as LocationTypes from '../config/LocationTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -99,11 +100,11 @@ export class TransmissionService
       const isUsernameExisting = this.godService.checkUsernameExists(this.registerName);
       const isEmailExisting = this.godService.checkEmailExists(this.registerEmail);
       if (!isUsernameExisting && !isEmailExisting) {
-        console.log('transmitRegisterOD ' + data.identifier + ' ' + data.email);
+        // console.log('transmitRegisterOD ' + data.identifier + ' ' + data.email);
         this.godService.registerOD(data);
       } else {
         // TODO: Alert with error message of existing username
-        console.log('ERROR: username already exists');
+        // console.log('ERROR: username already exists');
       }
     }
   }
@@ -175,8 +176,10 @@ export class TransmissionService
     const exhibitParentId = state.atExhibitParentId;
     const onExhibit = state.onExhibit;
 
-    if ((location.locationTypeId !== 2 && !onExhibit) || (location.locationTypeId === 2 && exhibitParentId === location.parentId)) {
-      if (location.locationTypeId === 2) {
+    if ((location.locationTypeId !== LocationTypes.ACTIVE_EXHIBIT_ON && !onExhibit) ||
+      (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON && exhibitParentId === location.parentId))
+    {
+      if (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON) {
         this.godService.checkLocationStatus(location.id, res => {
           if (res === 'FREE') {
             this.godService.registerLocation(location.id, false);
@@ -215,7 +218,7 @@ export class TransmissionService
 
       this.nativeCommunicationService.sendToNative('new valid location found - check and registerLocation at GoD', 'print');
 
-      if (location.locationTypeId === 7 && exhibitParentId === location.parentId) {
+      if (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_ON && exhibitParentId === location.parentId) {
         this.godService.registerLocation(location.id, false);
       }
     }

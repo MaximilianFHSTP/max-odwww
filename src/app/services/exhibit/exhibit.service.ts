@@ -8,8 +8,8 @@ import {LocationActions} from '../../store/actions/LocationActions';
 import {UserActions} from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../native/native-communication.service';
 import {StatusActions} from '../../store/actions/StatusActions';
-import * as SuccessTypes from '../../config/SuccessTypes';
-import * as ErrorTypes from '../../config/ErrorTypes';
+import * as SuccessTypes from '../../config/SuccessMessageTypes';
+import * as ErrorTypes from '../../config/ErrorMessageTypes';
 
 @Injectable()
 export class ExhibitService {
