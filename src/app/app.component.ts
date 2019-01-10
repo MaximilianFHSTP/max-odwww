@@ -58,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     public router: Router,
     private translate: TranslateService,
-    private languageService: LanguageService
+    public languageService: LanguageService
   )
   {
     translate.setDefaultLang('en');
@@ -239,9 +239,8 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  public useLanguage(language: string) {
-    this.translate.use(language);
-
+  public useLanguage(language: string)
+  {
     if(language === 'de')
     {
       this.languageService.transmitChangeUserLanguage(languageTypes.DE);

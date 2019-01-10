@@ -273,6 +273,7 @@ export class GodService {
       this.store.dispatch(this.userActions.changeLookupTable(data.locations));
       this.store.dispatch(this.userActions.changeToken(data.token));
       this.store.dispatch(this.statusActions.changeLoggedIn(true));
+      this.store.dispatch(this.statusActions.changeLanguage(data.user.contentLanguageId));
 
       this.locationService.setToStartPoint();
 
@@ -306,6 +307,7 @@ export class GodService {
       this.store.dispatch(this.userActions.changeLookupTable(data.locations));
       this.store.dispatch(this.userActions.changeToken(data.token));
       this.store.dispatch(this.statusActions.changeLoggedIn(true));
+      this.store.dispatch(this.statusActions.changeLanguage(data.user.contentLanguageId));
 
       this.locationService.setToStartPoint();
 

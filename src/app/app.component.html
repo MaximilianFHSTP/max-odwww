@@ -17,11 +17,11 @@
       <mat-icon>settings</mat-icon>
       <span>Change User Credentials</span>
     </button>
-    <button mat-menu-item *ngIf="language === 'en'" (click)="useLanguage('de')">
+    <button mat-menu-item *ngIf="languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">
       <mat-icon>language</mat-icon>
       <span>German</span>
     </button>
-    <button mat-menu-item *ngIf="language === 'de'" (click)="useLanguage('en')">
+    <button mat-menu-item *ngIf="languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">
       <mat-icon>language</mat-icon>
       <span>Englisch</span>
     </button>
