@@ -1,6 +1,6 @@
 <mat-toolbar id="header" color="primary">
-  <a mat-button id="redirectTimeline" (click)="redirectToTimeline()" *ngIf="router.url === '/passive' || router.url === '/tableat' || router.url ==='/changecred'">{{ 'app.backButton' | translate }}</a>
-  <a mat-button id="redirectStart" (click)="redirectToStart()" *ngIf="router.url === '/register' || router.url === '/login' || router.url === '/testscroll'">{{ 'app.backButton' | translate }}</a>
+  <a mat-button id="redirectTimeline" (click)="redirectToTimeline()" *ngIf="router.url === '/passive' || router.url === '/tableat' || router.url ==='/changecred' || router.url === '/registerRealUser'">{{ 'app.backButton' | translate }}</a>
+  <a mat-button id="redirectStart" (click)="redirectToStart()" *ngIf="router.url === '/register' || router.url === '/login' || router.url === '/testscroll' || router.url === '/changeLanguageStart'">{{ 'app.backButton' | translate }}</a>
   <span class="example-fill-remaining-space"></span>
   <span>MEETeUX</span>
 
@@ -13,7 +13,11 @@
       <mat-icon>exit_to_app</mat-icon>
       <span>Logout</span>
     </button>
-    <button mat-menu-item (click)="userCredentials()">
+    <button mat-menu-item *ngIf="guest == 1" (click)="registerRealuserRouting()">
+      <mat-icon>person_add</mat-icon>
+      <span>Register as full user</span>
+    </button>
+    <button mat-menu-item *ngIf="guest == 0" (click)="userCredentials()">
       <mat-icon>settings</mat-icon>
       <span>Change User Credentials</span>
     </button>

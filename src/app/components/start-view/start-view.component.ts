@@ -35,6 +35,10 @@ export class StartViewComponent implements OnInit
     this.router.navigate(['/login']);
   }
 
+  forwardToLanguage(){
+    this.router.navigate(['/changeLanguageStart']);
+  }
+
   loginAsGuest(){
     this.transmissionService.registerIsGuest = true;
     const state = this.appStore.getState();

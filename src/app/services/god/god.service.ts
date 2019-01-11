@@ -108,6 +108,40 @@ export class GodService {
     });
   }
 
+  public registerODGuestToReal(data: any): any
+  {
+    console.log('ODGuestToReal before emit');
+    this.socket.emit('makeToRealUser', data);
+
+    this.socket.on('makeToRealUserResult', result =>
+    {
+      this.utilitiesService.sendToNative(result, 'print');
+      const res = result.data;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+      this.store.dispatch(this.userActions.changeUser(res.user));
+      // this.store.dispatch(this.userActions.changeLookupTable(res.locations));
+      this.store.dispatch(this.userActions.changeToken(res.token));
+      // this.store.dispatch(this.statusActions.changeLoggedIn(true));
+
+      this.locationService.setToStartPoint();
+
+      this.router.navigate(['/mainview']).then( () =>
+        {
+          // send success to native & start beacon scan
+          this.utilitiesService.sendToNative('success', 'registerOD');
+        }
+      );
+
+      this.socket.removeAllListeners('registerODResult');
+    });
+  }
+
   public registerLocation(id: number, dismissed: boolean): any
   {
     const state = this.store.getState();
@@ -295,9 +329,11 @@ export class GodService {
       const data = result.data;
       const message = result.message;
 
+      console.log('loginOD onResult ' + message);
       if (message.code > 299)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        console.log('loginOD wrong');
         this.alertService.setMessageWrongLoginCheck(true);
         return;
       }

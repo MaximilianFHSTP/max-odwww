@@ -13,6 +13,8 @@ export class AlertService {
   private subjectNativeBackbuttonTimeline = new Subject<any>();
   private subjectNativeBackbuttonStart = new Subject<any>();
   private subjectWrongLoginCheck = new Subject<any>();
+  private subjectLocationBackId = new Subject<any>();
+  private subjectExistingCredentials = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -85,4 +87,20 @@ export class AlertService {
   getMessageWrongLoginCheck(): Observable<any>{
     return this.subjectWrongLoginCheck.asObservable();
   }
+
+  sendMessageExistingCredentials(message: any) {
+    this.subjectExistingCredentials.next(message);
+  }
+
+  getMessageExistingCredentials(): Observable<any>{
+    return this.subjectExistingCredentials.asObservable();
+  }
+
+  /*setMessageLocationBackid(message: any) {
+    this.subjectLocationBackId.next(message);
+  }
+
+  getMessageLocationBackid(): Observable<any>{
+    return this.subjectLocationBackId.asObservable();
+  }*/
 }

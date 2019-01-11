@@ -96,7 +96,8 @@ export class ChangeCredentialsComponent implements OnInit
   getPasswordErrorMessage() {
     return this.newPasswordFormControl.hasError('required') ? 'You must enter a value' :
     this.newPasswordFormControl.hasError('pattern') ?
-    'Please use at least 6 characters and 1 special character! Example: ! $ § % & / ( ) = ?' : '';
+    'Please use at least 6 characters with at least 1 upper case, 1 lower case, ' +
+    '1 number and 1 special character! Example: ! $ § % & / ( ) = ?' : '';
   }
   getConfirmPasswordErrorMessage() {
 
