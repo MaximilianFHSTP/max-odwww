@@ -187,7 +187,8 @@ export class AppModule {
         break;
       }
       case 'back_button_pressed': {
-        if(this.router.url === '/register' || this.router.url === '/login' || this.router.url === ''){
+        if(this.router.url === '/register' || this.router.url === '/login' || this.router.url === '/changeLanguageStart' ||
+          this.router.url === '/login'){
           // this.nativeResponseService.redirectToStart();
           const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
           elm.click();

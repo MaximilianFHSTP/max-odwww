@@ -357,20 +357,25 @@ export class GodService {
 
   public checkUsernameExists(username: String): void
   {
+    console.log('checkUsername');
     this.socket.emit('checkUsernameExists', username);
 
     this.socket.on('checkUsernameExistsResult', result =>
     {
+      console.log('Username exits' + result);
+      this.alertService.sendUsernameRegisterCheckResult(result);
       return result;
     });
   }
 
   public checkEmailExists(email: String): void
   {
+    console.log('checkEmail');
     this.socket.emit('checkEmailExists', email);
 
     this.socket.on('checkEmailExistsResult', result =>
     {
+      console.log('Email exits' + result);
       return result;
     });
   }

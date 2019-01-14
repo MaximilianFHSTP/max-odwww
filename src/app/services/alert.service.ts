@@ -15,6 +15,8 @@ export class AlertService {
   private subjectWrongLoginCheck = new Subject<any>();
   private subjectLocationBackId = new Subject<any>();
   private subjectExistingCredentials = new Subject<any>();
+  private subjectUsernameRegisterCheckResult = new Subject<any>();
+  private subjectEmailRegisterCheckResult = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -96,6 +98,21 @@ export class AlertService {
     return this.subjectExistingCredentials.asObservable();
   }
 
+  sendUsernameRegisterCheckResult(message: any) {
+    this.subjectUsernameRegisterCheckResult.next(message);
+  }
+
+  getUsernameRegisterCheckResult(): Observable<any>{
+    return this.subjectUsernameRegisterCheckResult.asObservable();
+  }
+
+  sendEmailRegisterCheckResult(message: any) {
+    this.subjectEmailRegisterCheckResult.next(message);
+  }
+
+  getEmailRegisterCheckResult(): Observable<any>{
+    return this.subjectEmailRegisterCheckResult.asObservable();
+  }
   /*setMessageLocationBackid(message: any) {
     this.subjectLocationBackId.next(message);
   }

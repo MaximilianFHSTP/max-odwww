@@ -22,6 +22,10 @@ export class MainViewComponent implements OnInit, OnDestroy {
   private registerLocationmessage: any;
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
+  private comingBack: boolean;
+  // private subscriptionLocationBackId: Subscription;
+
+  // private locationBackId: string;
 
   public user: any;
   public timelineLocations: any;
@@ -50,8 +54,13 @@ export class MainViewComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
+      // console.log(message.location + 'mainview');
       this.registerLocationmessage = message;
     });
+    /*this.subscriptionLocationBackId = this.alertService.getMessageLocationBackid().subscribe(message => {
+      console.log(message + 'mainview');
+      this.locationBackId = message;
+    });*/
   }
 
   ngOnDestroy() {
@@ -72,14 +81,12 @@ export class MainViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     const state = this.appStore.getState();
     this.user = state.user;
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
     this.closestExhibit = state.closestExhibit;
     // console.log('ClosestExhibit: ' + this.closestExhibit);
-
     this.isWeb = this.nativeCommunicationService.isWeb;
   }
 
@@ -104,11 +111,18 @@ export class MainViewComponent implements OnInit, OnDestroy {
   scroll() {
     // console.log(this.registerLocationmessage.location);
     const id = this.registerLocationmessage.location;
-    // console.log(id + ` scrolling to ${id}`);
+    console.log(id + ` scrolling to ${id}`);
     const el = document.getElementById(id);
     el.scrollIntoView({behavior:'smooth'});
     // el.scrollIntoView({behavior:'smooth'});*/
   }
+
+  /*scrollBack() {
+    const locationId = this.locationBackId;
+    console.log(locationId + ` scrolling to ${locationId}`);
+    const el = document.getElementById(locationId);
+    el.scrollIntoView({behavior:'smooth'});
+  }*/
 
   /*
   ------------------------------------------------------------

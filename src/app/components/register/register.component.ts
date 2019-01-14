@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit
     this.subscriptionExistingCred = this.alertService.getMessageExistingCredentials().subscribe(message => {
       this.existingUser = message.user;
       this.existingEmail = message.email;
-      console.log('RegComp user' + message.user + ' email' + message.email);
+      // console.log('RegComp user' + message.user + ' email' + message.email);
     });
   }
 
@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit
     this.transmissionService.registerEmail = this.emailFormControl.value;
     this.transmissionService.registerPassword = this.passwordFormControl.value;
     this.transmissionService.registerIsGuest = isGuest;
-    console.log(this.registerEmail + ' ' + this.registerName + ' ' + this.registerPassword);
+    // console.log(this.registerEmail + ' ' + this.registerName + ' ' + this.registerPassword);
 
     const state = this.appStore.getState();
     const platform = state.platform;
@@ -115,7 +115,7 @@ export class RegisterComponent implements OnInit
         notMatching = true;
       }
       // const matching = String(fieldToCompare.value) === String(control.value);
-      console.log('matchingpassword ' + notMatching + ' ' + String(control.value) + ' ' + String(fieldToCompare.value));
+      // console.log('matchingpassword ' + notMatching + ' ' + String(control.value) + ' ' + String(fieldToCompare.value));
       return notMatching ? {'matching': {value: control.value}} : null;
     };
   }
@@ -127,7 +127,7 @@ export class RegisterComponent implements OnInit
     if(this.existingUser === null || this.existingUser === undefined){
       this.existingUser = false;
     }
-    console.log('user ' + this.existingUser + ' email '+ this.existingEmail);
+    // console.log('user ' + this.existingUser + ' email '+ this.existingEmail);
     if(this.existingUser && this.existingEmail){
       console.log('ERROR: username and email already exists');
       this.wrongCred = false;
