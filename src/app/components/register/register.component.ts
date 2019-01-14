@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { NativeResponseService } from '../../services/native/native-response.service';
 import { WindowRef } from '../../WindowRef';
 import {UserActions} from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
@@ -49,7 +48,7 @@ export class RegisterComponent implements OnInit
     this.transmissionService.registerEmail = this.emailFormControl.value;
     this.transmissionService.registerPassword = this.passwordFormControl.value;
     this.transmissionService.registerIsGuest = isGuest;
-    console.log(this.registerEmail + ' ' + this.registerName + ' ' + this.registerPassword);
+    // console.log(this.registerEmail + ' ' + this.registerName + ' ' + this.registerPassword);
 
     const state = this.appStore.getState();
     const platform = state.platform;

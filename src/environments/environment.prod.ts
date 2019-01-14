@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  godURL: 'https://god.meeteux.fhstp.ac.at:3000'
 };
