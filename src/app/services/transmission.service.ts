@@ -35,7 +35,11 @@ export class TransmissionService
   private subscriptionEmailRegister: Subscription;
   public isUsernameNotExisting: boolean;
   public isEmailNotExisting: boolean;
-
+  public deviceAddress: string;
+  public deviceOS: string;
+  public deviceVersion: string;
+  public deviceModel: string;
+  public language: string;
 
   constructor(
     private router: Router,
@@ -87,14 +91,15 @@ export class TransmissionService
       if (this.isUsernameNotExisting && this.isEmailNotExisting) {
         const data = {
           identifier: this.registerName, password: this.registerPassword, email: this.registerEmail,
-          deviceAddress, deviceOS, deviceVersion, deviceModel, language
+          deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,
+          deviceModel: this.deviceModel, language: this.language
         };
         this.godService.registerOD(data);
       } else {
         // console.log('Transmissionservice send existing');
-        console.log('after user ' + isUsernameNotExisting + ' email ' + isEmailNotExisting);
+        console.log('after user ' + this.isUsernameNotExisting + ' email ' + this.isEmailNotExisting);
         const checks = {
-          user: isUsernameNotExisting, email: isEmailNotExisting
+          user: this.isUsernameNotExisting, email: this.isEmailNotExisting
         };
         this.alertService.sendMessageExistingCredentials(checks);
         // TODO: Alert with error message of existing username
@@ -111,16 +116,17 @@ export class TransmissionService
   public transmitODRegister(result: any): void
   {
     console.log('transmitODRegister start');
-    const deviceAddress: string = result.deviceAddress;
-    const deviceOS: string = result.deviceOS;
-    const deviceVersion: string = result.deviceVersion;
-    const deviceModel: string = result.deviceModel;
+    this.deviceAddress = result.deviceAddress;
+    this.deviceOS = result.deviceOS;
+    this.deviceVersion = result.deviceVersion;
+    this.deviceModel = result.deviceModel;
 
     const state = this.appStore.getState();
-    const language = state.language;
+    this.language = state.language;
 
     if (this.registerIsGuest) {
-      const data = {deviceAddress, deviceOS, deviceVersion, deviceModel, language};
+      const data = {deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,
+        deviceModel: this.deviceModel, language: this.language};
       this.godService.registerODGuest(data);
     }
     else {

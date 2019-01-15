@@ -376,6 +376,7 @@ export class GodService {
     this.socket.on('checkEmailExistsResult', result =>
     {
       console.log('Email exits' + result);
+      this.alertService.sendEmailRegisterCheckResult(result);
       return result;
     });
   }
