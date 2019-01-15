@@ -28,10 +28,25 @@ export class LanguageService {
     });
   }
 
+  /**
+   * Method changes the language of the app and stores it for the user
+   * Should be called if the user is already logged in
+   * @param lang
+   */
   public transmitChangeUserLanguage(lang: number)
   {
     this.updateTranslateService(lang);
     this.godService.updateUserLanguage(lang);
+  }
+
+  /**
+   * Method changes the language of the app
+   * Should be called if the user is NOT logged in
+   * @param lang
+   */
+  public transmitChangeAppLanguage(lang: number)
+  {
+    this.updateTranslateService(lang);
   }
 
   public getCurrentLanguageAsString(): string
