@@ -27,10 +27,10 @@ export class LanguageStartComponent implements OnInit
   }
 
   changeLanguageToGerman(){
-    // this.languageService.transmitChangeUserLanguage(languageTypes.DE);
+    this.languageService.transmitChangeAppLanguage(languageTypes.DE);
   }
 
   changeLanguageToEnglish(){
-    // this.languageService.transmitChangeUserLanguage(languageTypes.ENG);
+    this.languageService.transmitChangeAppLanguage(languageTypes.ENG);
   }
 }
