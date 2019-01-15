@@ -406,6 +406,20 @@ export class GodService {
 
     this.socket.on('changeODCredentialsResult', result =>
     {
+      const res = result.data;
+      const message = result.message;
+      console.log(message);
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        this.alertService.sendMessageChangedCred(false);
+        return;
+      }
+      this.alertService.sendMessageChangedCred(true);
+      this.store.dispatch(this.userActions.changeUser(res.user));
+      this.store.dispatch(this.userActions.changeToken(res.token));
+
       return result;
     });
   }

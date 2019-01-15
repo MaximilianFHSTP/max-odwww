@@ -33,8 +33,8 @@ export class TransmissionService
   private subscriptionBluetooth: Subscription;
   private subscriptionUsernameRegister: Subscription;
   private subscriptionEmailRegister: Subscription;
-  public isUsernameNotExisting: boolean;
-  public isEmailNotExisting: boolean;
+  public isUsernameExisting: boolean;
+  public isEmailExisting: boolean;
   public deviceAddress: string;
   public deviceOS: string;
   public deviceVersion: string;
@@ -69,7 +69,6 @@ export class TransmissionService
       if (message.result === 'confirm') {
         this.nativeCommunicationService.sendToNative('turnOnBluetooth', 'activateBluetooth');
       } else if (message.result === 'cancel') {
-        // TODO: when alert for turning on Bluetooth was canceled
       }
     });
     this.subscriptionWifi = this.alertService.getMessageNativeWifiSettingCheckResult().subscribe(message => {
@@ -78,19 +77,17 @@ export class TransmissionService
         this.nativeCommunicationService.sendToNative('bluetoothCheck', 'activateBluetoothCheck');
       } else if (message.result === 'cancel') {
         this.nativeCommunicationService.sendToNative('bluetoothCheck', 'activateBluetoothCheck');
-        // TODO: when alert for switching to correct wifi was canceled
       }
     });
     this.subscriptionUsernameRegister = this.alertService.getUsernameRegisterCheckResult().subscribe(message => {
-      this.isUsernameNotExisting = message;
+      this.isUsernameExisting = message;
       this.godService.checkEmailExists(this.registerEmail);
     });
     this.subscriptionEmailRegister = this.alertService.getEmailRegisterCheckResult().subscribe(message => {
-      this.isEmailNotExisting = message;
+      this.isEmailExisting = message;
 
-      // console.log('username ' + this.isUsernameNotExisting + ' email '+ this.isEmailNotExisting);
       if(this.registerNew){
-        if (this.isUsernameNotExisting && this.isEmailNotExisting) {
+        if (!this.isUsernameExisting && !this.isEmailExisting) {
           const data = {
             identifier: this.registerName, password: this.registerPassword, email: this.registerEmail,
             deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,
@@ -98,31 +95,25 @@ export class TransmissionService
           };
           this.godService.registerOD(data);
         } else {
-          // console.log('Transmissionservice send existing');
-          console.log('user ' + this.isUsernameNotExisting + ' email ' + this.isEmailNotExisting);
+          console.log('reg user ' + this.isUsernameExisting + ' email ' + this.isEmailExisting);
           const checks = {
-            user: this.isUsernameNotExisting, email: this.isEmailNotExisting
+            user: this.isUsernameExisting, email: this.isEmailExisting
           };
           this.alertService.sendMessageExistingCredentials(checks);
-          // TODO: Alert with error message of existing username
-          // console.log('ERROR: username already exists');
         }
       }else{
         const state = this.appStore.getState();
         const data = {
           username: this.registerName, email: this.registerEmail, password: this.registerPassword, id: state.user.id
         };
-        if (this.isUsernameNotExisting && this.isEmailNotExisting) {
-          // console.log('transmitRegisterOD ' + data.identifier + ' ' + data.email);
+        if (!this.isUsernameExisting && !this.isEmailExisting) {
           this.godService.registerODGuestToReal(data);
         } else {
-          console.log('user ' + this.isUsernameNotExisting + ' email ' + this.isEmailNotExisting);
+          console.log('real user ' + this.isUsernameExisting + ' email ' + this.isEmailExisting);
           const checks = {
-            user: this.isUsernameNotExisting, email: this.isEmailNotExisting
+            user: this.isUsernameExisting, email: this.isEmailExisting
           };
           this.alertService.sendMessageExistingCredentialsRealUser(checks);
-          // TODO: Alert with error message of existing username
-          // console.log('ERROR: username already exists');
         }
       }
       this.registerNew = null;
@@ -177,7 +168,7 @@ export class TransmissionService
 
   public transmitUserCredentialChange(){
     const state = this.appStore.getState();
-    const data = {id: state.user.id, username: this.changeName, email: this.changeName, password: this.changeOldPassword,
+    const data = {id: state.user.id, username: this.changeName, email: this.changeEmail, password: this.changeOldPassword,
       newPassword: this.changeNewPassword};
     this.godService.updateUserCredentials(data);
   }

@@ -18,6 +18,7 @@ export class AlertService {
   private subjectUsernameRegisterCheckResult = new Subject<any>();
   private subjectEmailRegisterCheckResult = new Subject<any>();
   private subjectExistingCredentialsRealUser = new Subject<any>();
+  private subjectChangedCred = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -115,19 +116,19 @@ export class AlertService {
     return this.subjectEmailRegisterCheckResult.asObservable();
   }
 
-  sendMessageExistingCredentialsRealUser(message: any): Observable<any>{
-    return this.subjectExistingCredentialsRealUser.asObservable();
+  sendMessageExistingCredentialsRealUser(message: any) {
+    this.subjectExistingCredentialsRealUser.next(message);
   }
 
   getMessageExistingCredentialsRealUser(): Observable<any>{
     return this.subjectExistingCredentialsRealUser.asObservable();
   }
 
-  /*setMessageLocationBackid(message: any) {
-    this.subjectLocationBackId.next(message);
+  sendMessageChangedCred(message: any) {
+    this.subjectChangedCred.next(message);
   }
 
-  getMessageLocationBackid(): Observable<any>{
-    return this.subjectLocationBackId.asObservable();
-  }*/
+  getMessageChangedCred(): Observable<any>{
+    return this.subjectChangedCred.asObservable();
+  }
 }

@@ -221,9 +221,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public redirectToTimeline()
   {
-    const state = this.appStore.getState();
-    const id = state.currentLocation.id;
-    const data = {location: id};
+    // const state = this.appStore.getState();
+    // const id = state.currentLocation.id;
+    // const data = {location: id};
 
 
     this.locationService.setToStartPoint();

@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit
   public registerEmail: string;
   public registerPassword: string;
   public confirmPassword_: string;
+  private errorCredentialMessage: string;
 
   public subscriptionExistingCred: Subscription;
   private existingEmail: boolean;
@@ -53,7 +54,19 @@ export class RegisterComponent implements OnInit
     this.subscriptionExistingCred = this.alertService.getMessageExistingCredentials().subscribe(message => {
       this.existingUser = message.user;
       this.existingEmail = message.email;
-      // console.log('RegComp user' + message.user + ' email' + message.email);
+      if(this.existingUser && this.existingEmail){
+        this.wrongCred = true;
+        this.errorCredentialMessage = 'These username and email already exists';
+      }else if(this.existingUser){
+        this.wrongCred = true;
+        this.errorCredentialMessage = 'This username already exists';
+      }else if(this.existingEmail){
+        this.wrongCred = true;
+        this.errorCredentialMessage = 'This email already exists';
+      }else{
+        this.wrongCred = true;
+        this.errorCredentialMessage = 'These credentials don\'t match';
+      }
     });
   }
 
@@ -63,7 +76,6 @@ export class RegisterComponent implements OnInit
     this.transmissionService.registerEmail = this.emailFormControl.value;
     this.transmissionService.registerPassword = this.passwordFormControl.value;
     this.transmissionService.registerIsGuest = isGuest;
-    // console.log(this.registerEmail + ' ' + this.registerName + ' ' + this.registerPassword);
 
     const state = this.appStore.getState();
     const platform = state.platform;
@@ -95,7 +107,7 @@ export class RegisterComponent implements OnInit
   getConfirmPasswordErrorMessage() {
 
     return this.confirmPasswordFormControl.hasError('required') ? 'You must enter a value' :
-      this.confirmPasswordFormControl.hasError('matchingpassword') ? 'The password is not the same' : '';
+      this.confirmPasswordFormControl.hasError('matchingpassword') ? 'The password is not the same' : 'The password is not the same';
   }
   getRequiredErrorMessage(field) {
     return this.signupForm.get(field).hasError('required') ? 'You must enter a value' : '';
@@ -114,34 +126,12 @@ export class RegisterComponent implements OnInit
       }else{
         notMatching = true;
       }
-      // const matching = String(fieldToCompare.value) === String(control.value);
-      // console.log('matchingpassword ' + notMatching + ' ' + String(control.value) + ' ' + String(fieldToCompare.value));
       return notMatching ? {'matching': {value: control.value}} : null;
     };
   }
 
   getExistsErrorMessage(){
-    if(this.existingEmail === null || this.existingEmail === undefined){
-      this.existingEmail = false;
-    }
-    if(this.existingUser === null || this.existingUser === undefined){
-      this.existingUser = false;
-    }
-    // console.log('user ' + this.existingUser + ' email '+ this.existingEmail);
-    if(this.existingUser && this.existingEmail){
-      console.log('ERROR: username and email already exists');
-      this.wrongCred = false;
-      return 'These username and email already exists';
-    }else if(this.existingUser){
-      console.log('ERROR: username already exists');
-      this.wrongCred = false;
-      return 'This username already exists';
-    }else if(this.existingEmail){
-      console.log('ERROR: email already exists');
-      this.wrongCred = false;
-      return 'This email already exists';
-    }
-    return 'These credentials don\'t match';
+    return this.errorCredentialMessage;
   }
 
 }
