@@ -24,5 +24,11 @@
   },
   "passiveExhibit": {
     "welcomeText": "Welcome at"
+  },
+  "alertDialog": {
+    "title": "Exhibit",
+    "description": "Do you want to go to exhibit:",
+    "yesOption": "Yes",
+    "noOption": "No"
   }
 }

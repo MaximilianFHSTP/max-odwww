@@ -24,5 +24,11 @@
   },
   "passiveExhibit": {
     "welcomeText": "Willkommen bei"
+  },
+  "alertDialog": {
+    "title": "Ausstellungsstück",
+    "description": "Wollt ihr zum Austellungsstück wechseln:",
+    "yesOption": "Ja",
+    "noOption": "Nein"
   }
 }
