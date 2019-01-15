@@ -108,6 +108,40 @@ export class GodService {
     });
   }
 
+  public registerODGuestToReal(data: any): any
+  {
+    console.log('ODGuestToReal before emit');
+    this.socket.emit('makeToRealUser', data);
+
+    this.socket.on('makeToRealUserResult', result =>
+    {
+      this.utilitiesService.sendToNative(result, 'print');
+      const res = result.data;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+      this.store.dispatch(this.userActions.changeUser(res.user));
+      // this.store.dispatch(this.userActions.changeLookupTable(res.locations));
+      this.store.dispatch(this.userActions.changeToken(res.token));
+      // this.store.dispatch(this.statusActions.changeLoggedIn(true));
+
+      this.locationService.setToStartPoint();
+
+      this.router.navigate(['/mainview']).then( () =>
+        {
+          // send success to native & start beacon scan
+          this.utilitiesService.sendToNative('success', 'registerOD');
+        }
+      );
+
+      this.socket.removeAllListeners('registerODResult');
+    });
+  }
+
   public registerLocation(id: number, dismissed: boolean): any
   {
     const state = this.store.getState();
@@ -296,9 +330,11 @@ export class GodService {
       const data = result.data;
       const message = result.message;
 
+      console.log('loginOD onResult ' + message);
       if (message.code > 299)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        console.log('loginOD wrong');
         this.alertService.setMessageWrongLoginCheck(true);
         return;
       }
@@ -323,20 +359,26 @@ export class GodService {
 
   public checkUsernameExists(username: String): void
   {
+    console.log('checkUsername');
     this.socket.emit('checkUsernameExists', username);
 
     this.socket.on('checkUsernameExistsResult', result =>
     {
+      console.log('Username exits' + result);
+      this.alertService.sendUsernameRegisterCheckResult(result);
       return result;
     });
   }
 
   public checkEmailExists(email: String): void
   {
+    console.log('checkEmail');
     this.socket.emit('checkEmailExists', email);
 
     this.socket.on('checkEmailExistsResult', result =>
     {
+      console.log('Email exits' + result);
+      this.alertService.sendEmailRegisterCheckResult(result);
       return result;
     });
   }
@@ -366,6 +408,20 @@ export class GodService {
 
     this.socket.on('changeODCredentialsResult', result =>
     {
+      const res = result.data;
+      const message = result.message;
+      console.log(message);
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        this.alertService.sendMessageChangedCred(false);
+        return;
+      }
+      this.alertService.sendMessageChangedCred(true);
+      this.store.dispatch(this.userActions.changeUser(res.user));
+      this.store.dispatch(this.userActions.changeToken(res.token));
+
       return result;
     });
   }

@@ -18,6 +18,8 @@ import {TransmissionService} from './services/transmission.service';
 import {LanguageService} from './services/language.service';
 import * as languageTypes from './config/LanguageTypes';
 import {TranslateService} from '@ngx-translate/core';
+import { MainViewComponent } from './components/main-view/main-view.component';
+import { UtilityService } from './services/utility.service';
 
 @Component({
   selector: 'app-root',
@@ -42,6 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private registerLocationmessage: any;
   public nativeSettingType: any;
   public language: string;
+  public guest: boolean;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -58,7 +61,8 @@ export class AppComponent implements OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     public router: Router,
     private translate: TranslateService,
-    public languageService: LanguageService
+    private languageService: LanguageService,
+    private utilityService: UtilityService
   )
   {
     translate.setDefaultLang('en');
@@ -67,6 +71,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       const token = state.token;
+
+      if(state.user !== undefined){
+        this.guest = state.user.isGuest;
+        console.log('Guest '+state.user.isGuest);
+      }
 
       const errorMessage = state.errorMessage;
       const successMessage = state.successMessage;
@@ -212,10 +221,16 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public redirectToTimeline()
   {
+    // const state = this.appStore.getState();
+    // const id = state.currentLocation.id;
+    // const data = {location: id};
+
+
     this.locationService.setToStartPoint();
     this.router.navigate(['/mainview']).then( () =>
       {
-        // send success to native & start beacon scan
+        // this.alertService.setMessageLocationBackid('1007');
+        // this.utilityService.triggerJumpTimeline(data);
         this.nativeCommunicationService.sendToNative('success', 'redirectToTimeline');
       }
     );
@@ -231,6 +246,14 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
+  public registerRealuserRouting(){
+    this.router.navigate(['registerRealUser']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Register as real user', 'print');
+      }
+    );
+  }
+
   public logoutRouting(){
     this.router.navigate(['']).then( () =>
       {
@@ -239,8 +262,9 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  public useLanguage(language: string)
-  {
+  public useLanguage(language: string) {
+    this.translate.use(language);
+
     if(language === 'de')
     {
       this.languageService.transmitChangeUserLanguage(languageTypes.DE);

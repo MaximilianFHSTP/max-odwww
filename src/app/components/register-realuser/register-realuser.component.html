@@ -1,9 +1,9 @@
 <div class="wrapper">
-  <mat-card class="registerForm">
-    <h1>Registration</h1>
-    <h2>Please enter a username</h2>
+  <mat-card class="registerRealForm">
+    <h1>Register as real user</h1>
+    <h2>You can fully register now</h2>
 
-    <form name="registerForm" [formGroup]="signupForm">
+    <form name="registerRealForm" [formGroup]="registerRealUserForm">
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field">
           <input matInput placeholder="Username" required [(ngModel)]="name" [formControl]="nameFormControl">
@@ -33,7 +33,7 @@
       </div>
       <br />
       <mat-error *ngIf="wrongCred">{{getExistsErrorMessage()}}</mat-error>
-      <button mat-raised-button [disabled]="signupForm.invalid" color="primary" (click)="requestDeviceInfos(false)">Confirm</button>
+      <button mat-raised-button [disabled]="registerRealUserForm.invalid" color="primary" (click)="registerAsRealuser()">Confirm</button>
     </form>
   </mat-card>
 </div>

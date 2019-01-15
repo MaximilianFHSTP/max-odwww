@@ -31,6 +31,16 @@ export class TransmissionService
   private subscription: Subscription;
   private subscriptionWifi: Subscription;
   private subscriptionBluetooth: Subscription;
+  private subscriptionUsernameRegister: Subscription;
+  private subscriptionEmailRegister: Subscription;
+  public isUsernameExisting: boolean;
+  public isEmailExisting: boolean;
+  public deviceAddress: string;
+  public deviceOS: string;
+  public deviceVersion: string;
+  public deviceModel: string;
+  public language: string;
+  private registerNew: boolean;
 
   constructor(
     private router: Router,
@@ -59,7 +69,6 @@ export class TransmissionService
       if (message.result === 'confirm') {
         this.nativeCommunicationService.sendToNative('turnOnBluetooth', 'activateBluetooth');
       } else if (message.result === 'cancel') {
-        // TODO: when alert for turning on Bluetooth was canceled
       }
     });
     this.subscriptionWifi = this.alertService.getMessageNativeWifiSettingCheckResult().subscribe(message => {
@@ -68,8 +77,46 @@ export class TransmissionService
         this.nativeCommunicationService.sendToNative('bluetoothCheck', 'activateBluetoothCheck');
       } else if (message.result === 'cancel') {
         this.nativeCommunicationService.sendToNative('bluetoothCheck', 'activateBluetoothCheck');
-        // TODO: when alert for switching to correct wifi was canceled
       }
+    });
+    this.subscriptionUsernameRegister = this.alertService.getUsernameRegisterCheckResult().subscribe(message => {
+      this.isUsernameExisting = message;
+      this.godService.checkEmailExists(this.registerEmail);
+    });
+    this.subscriptionEmailRegister = this.alertService.getEmailRegisterCheckResult().subscribe(message => {
+      this.isEmailExisting = message;
+
+      if(this.registerNew){
+        if (!this.isUsernameExisting && !this.isEmailExisting) {
+          const data = {
+            identifier: this.registerName, password: this.registerPassword, email: this.registerEmail,
+            deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,
+            deviceModel: this.deviceModel, language: this.language
+          };
+          this.godService.registerOD(data);
+        } else {
+          console.log('reg user ' + this.isUsernameExisting + ' email ' + this.isEmailExisting);
+          const checks = {
+            user: this.isUsernameExisting, email: this.isEmailExisting
+          };
+          this.alertService.sendMessageExistingCredentials(checks);
+        }
+      }else{
+        const state = this.appStore.getState();
+        const data = {
+          username: this.registerName, email: this.registerEmail, password: this.registerPassword, id: state.user.id
+        };
+        if (!this.isUsernameExisting && !this.isEmailExisting) {
+          this.godService.registerODGuestToReal(data);
+        } else {
+          console.log('real user ' + this.isUsernameExisting + ' email ' + this.isEmailExisting);
+          const checks = {
+            user: this.isUsernameExisting, email: this.isEmailExisting
+          };
+          this.alertService.sendMessageExistingCredentialsRealUser(checks);
+        }
+      }
+      this.registerNew = null;
     });
   }
 
@@ -80,37 +127,30 @@ export class TransmissionService
 
   public transmitODRegister(result: any): void
   {
-    const deviceAddress: string = result.deviceAddress;
-    const deviceOS: string = result.deviceOS;
-    const deviceVersion: string = result.deviceVersion;
-    const deviceModel: string = result.deviceModel;
+    console.log('transmitODRegister start');
+    this.deviceAddress = result.deviceAddress;
+    this.deviceOS = result.deviceOS;
+    this.deviceVersion = result.deviceVersion;
+    this.deviceModel = result.deviceModel;
 
     const state = this.appStore.getState();
-    const language = state.language;
+    this.language = state.language;
 
     if (this.registerIsGuest) {
-      const data = {deviceAddress, deviceOS, deviceVersion, deviceModel, language};
+      const data = {deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,
+        deviceModel: this.deviceModel, language: this.language};
       this.godService.registerODGuest(data);
     }
     else {
-      const data = {
-        identifier: this.registerName, password: this.registerPassword, email: this.registerEmail,
-        deviceAddress, deviceOS, deviceVersion, deviceModel, language
-      };
-      const isUsernameExisting = this.godService.checkUsernameExists(this.registerName);
-      const isEmailExisting = this.godService.checkEmailExists(this.registerEmail);
-      if (!isUsernameExisting && !isEmailExisting) {
-        // console.log('transmitRegisterOD ' + data.identifier + ' ' + data.email);
-        this.godService.registerOD(data);
-      } else {
-        // TODO: Alert with error message of existing username
-        // console.log('ERROR: username already exists');
-      }
+      this.registerNew = true;
+      this.godService.checkUsernameExists(this.registerName);
+
     }
   }
 
   public transmitODLogin(): void {
     const isEmail = this.utilityService.checkIfEmail(this.loginName);
+    console.log('login ' + isEmail);
     if (isEmail) {
       const data = {user: undefined, email: this.loginName, password: this.loginPassword};
       this.godService.loginOD(data);
@@ -120,16 +160,21 @@ export class TransmissionService
     }
   }
 
+  public transmitODGuestToRealRegister(): void{
+    this.godService.checkUsernameExists(this.registerName);
+    this.registerNew = false;
+
+  }
+
   public transmitUserCredentialChange(){
     const state = this.appStore.getState();
-    const data = {id: state.user.id, username: this.changeName, email: this.loginName, password: this.changeOldPassword,
+    const data = {id: state.user.id, username: this.changeName, email: this.changeEmail, password: this.changeOldPassword,
       newPassword: this.changeNewPassword};
     this.godService.updateUserCredentials(data);
   }
 
   public deleteUserAccount(){
     const state = this.appStore.getState();
-    // const data = {username: state.user.name, email: state.user.email};
     this.godService.deleteUserAccount(state.user.id);
     this.logout();
   }

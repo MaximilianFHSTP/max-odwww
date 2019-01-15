@@ -4,28 +4,29 @@ import { WindowRef } from '../../WindowRef';
 import {UserActions} from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import {TransmissionService} from '../../services/transmission.service';
-import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-register-realuser',
+  templateUrl: './register-realuser.component.html',
+  styleUrls: ['./register-realuser.component.css']
 })
 @Injectable()
-export class RegisterComponent implements OnInit
+export class RegisterRealuserComponent implements OnInit
 {
   public registerName: string;
   public registerEmail: string;
   public registerPassword: string;
   public confirmPassword_: string;
-  private errorCredentialMessage: string;
-
-  public subscriptionExistingCred: Subscription;
-  private existingEmail: boolean;
+  private subscriptionExistingCred: Subscription;
   private existingUser: boolean;
+  private existingEmail: boolean;
   private wrongCred: boolean;
+  private errorCredentialMessage: string;
 
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required]);
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit
     Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
-  signupForm: FormGroup = new FormGroup({
+  registerRealUserForm: FormGroup = new FormGroup({
     name: this.nameFormControl,
     email: this.emailFormControl,
     password: this.passwordFormControl,
@@ -50,7 +51,7 @@ export class RegisterComponent implements OnInit
     private fb: FormBuilder,
     private alertService: AlertService
   ) {
-    this.subscriptionExistingCred = this.alertService.getMessageExistingCredentials().subscribe(message => {
+    this.subscriptionExistingCred = this.alertService.getMessageExistingCredentialsRealUser().subscribe(message => {
       this.existingUser = message.user;
       this.existingEmail = message.email;
       if(this.existingUser && this.existingEmail){
@@ -69,24 +70,16 @@ export class RegisterComponent implements OnInit
     });
   }
 
-  public requestDeviceInfos(isGuest: boolean)
+  public registerAsRealuser()
   {
     this.transmissionService.registerName = this.nameFormControl.value;
     this.transmissionService.registerEmail = this.emailFormControl.value;
     this.transmissionService.registerPassword = this.passwordFormControl.value;
-    this.transmissionService.registerIsGuest = isGuest;
-    // console.log(this.registerEmail + ' ' + this.registerName + ' ' + this.registerPassword);
 
     const state = this.appStore.getState();
     const platform = state.platform;
 
-    this.nativeCommunicationService.sendToNative('getDeviceInfos', 'getDeviceInfos');
-
-    if (platform !== 'IOS' && platform !== 'Android')
-    {
-      const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
-      this.transmissionService.transmitODRegister(data);
-    }
+    this.transmissionService.transmitODGuestToRealRegister();
   }
 
   ngOnInit()
@@ -95,7 +88,7 @@ export class RegisterComponent implements OnInit
     this.registerPassword = '';
     this.registerEmail = '';
 
-    this.signupForm.get('confirmPassword').setValidators(this.matchingpassword('password'));
+    this.registerRealUserForm.get('confirmPassword').setValidators(this.matchingpassword('password'));
   }
 
   getPasswordErrorMessage() {
@@ -110,7 +103,7 @@ export class RegisterComponent implements OnInit
       this.confirmPasswordFormControl.hasError('matchingpassword') ? 'The password is not the same' : 'The password is not the same';
   }
   getRequiredErrorMessage(field) {
-    return this.signupForm.get(field).hasError('required') ? 'You must enter a value' : '';
+    return this.registerRealUserForm.get(field).hasError('required') ? 'You must enter a value' : '';
   }
 
 

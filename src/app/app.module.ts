@@ -44,6 +44,8 @@ import { NativeSettingDialogComponent } from './components/native-setting-dialog
 import {StartViewComponent} from './components/start-view/start-view.component';
 import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import {DeleteDialogComponent} from './components/delete-dialog/delete-dialog.component';
+import {RegisterRealuserComponent} from './components/register-realuser/register-realuser.component';
+import {LanguageStartComponent} from './components/language-start/language-start.component';
 
 // Redux
 import { applyMiddleware, createStore } from 'redux';
@@ -80,7 +82,9 @@ export const appStore = createStore(
     StartViewComponent,
     ChangeCredentialsComponent,
     DeleteDialogComponent,
-    ChangeCredentialsComponent
+    ChangeCredentialsComponent,
+    RegisterRealuserComponent,
+    LanguageStartComponent
   ],
   imports: [
     BrowserModule,
@@ -183,7 +187,8 @@ export class AppModule {
         break;
       }
       case 'back_button_pressed': {
-        if(this.router.url === '/register' || this.router.url === '/login' || this.router.url === ''){
+        if(this.router.url === '/register' || this.router.url === '/login' || this.router.url === '/changeLanguageStart' ||
+          this.router.url === '/login'){
           // this.nativeResponseService.redirectToStart();
           const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
           elm.click();

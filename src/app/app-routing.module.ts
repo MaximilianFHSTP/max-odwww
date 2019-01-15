@@ -10,6 +10,8 @@ import { ContentTableAtComponent } from './components/content-table-at/content-t
 import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
 import { StartViewComponent } from './components/start-view/start-view.component';
 import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
+import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
+import { LanguageStartComponent } from './components/language-start/language-start.component';
 
 
 
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'mainview', component: MainViewComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'registerRealUser', component: RegisterRealuserComponent},
+  { path: 'changeLanguageStart', component: LanguageStartComponent},
   { path: 'changecred', component: ChangeCredentialsComponent },
   { path: 'passive', component: ContentPassiveComponent },
   { path: 'tableat', component: ContentTableAtComponent, runGuardsAndResolvers: 'always'},

@@ -13,6 +13,12 @@ export class AlertService {
   private subjectNativeBackbuttonTimeline = new Subject<any>();
   private subjectNativeBackbuttonStart = new Subject<any>();
   private subjectWrongLoginCheck = new Subject<any>();
+  private subjectLocationBackId = new Subject<any>();
+  private subjectExistingCredentials = new Subject<any>();
+  private subjectUsernameRegisterCheckResult = new Subject<any>();
+  private subjectEmailRegisterCheckResult = new Subject<any>();
+  private subjectExistingCredentialsRealUser = new Subject<any>();
+  private subjectChangedCred = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -84,5 +90,45 @@ export class AlertService {
 
   getMessageWrongLoginCheck(): Observable<any>{
     return this.subjectWrongLoginCheck.asObservable();
+  }
+
+  sendMessageExistingCredentials(message: any) {
+    this.subjectExistingCredentials.next(message);
+  }
+
+  getMessageExistingCredentials(): Observable<any>{
+    return this.subjectExistingCredentials.asObservable();
+  }
+
+  sendUsernameRegisterCheckResult(message: any) {
+    this.subjectUsernameRegisterCheckResult.next(message);
+  }
+
+  getUsernameRegisterCheckResult(): Observable<any>{
+    return this.subjectUsernameRegisterCheckResult.asObservable();
+  }
+
+  sendEmailRegisterCheckResult(message: any) {
+    this.subjectEmailRegisterCheckResult.next(message);
+  }
+
+  getEmailRegisterCheckResult(): Observable<any>{
+    return this.subjectEmailRegisterCheckResult.asObservable();
+  }
+
+  sendMessageExistingCredentialsRealUser(message: any) {
+    this.subjectExistingCredentialsRealUser.next(message);
+  }
+
+  getMessageExistingCredentialsRealUser(): Observable<any>{
+    return this.subjectExistingCredentialsRealUser.asObservable();
+  }
+
+  sendMessageChangedCred(message: any) {
+    this.subjectChangedCred.next(message);
+  }
+
+  getMessageChangedCred(): Observable<any>{
+    return this.subjectChangedCred.asObservable();
   }
 }

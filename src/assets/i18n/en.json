@@ -9,6 +9,9 @@
     "registerGuestButton": "Register as guest",
     "registerButton": "Register"
   },
+  "languageStart": {
+    "helpmessage": "Please choose a language!"
+  },
   "main": {
     "welcomeText": "Welcome",
     "goToExhibitButton": "Go to Exhibit"

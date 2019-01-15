@@ -7,6 +7,9 @@ import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@a
 import { MatDialog } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import {TransmissionService} from '../../services/transmission.service';
+import {AlertService} from '../../services/alert.service';
+import { Subscription } from 'rxjs';
+import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 
 @Component({
   selector: 'app-change-credentials',
@@ -20,21 +23,14 @@ export class ChangeCredentialsComponent implements OnInit
   public changeEmail: string;
   public oldPassword: string;
   public newPassword_: string;
-
-  nameFormControl = new FormControl('', /*[Validators.required]*/);
-  emailFormControl = new FormControl('', /*[Validators.required]*/);
-  passwordFormControl = new FormControl('', /*[Validators.required]*/);
-  newPasswordFormControl = new FormControl('', [/*[Validators.required]*/
-    Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
-  newConfirmPasswordFormControl = new FormControl('', /*[Validators.required]*/);
-
-  changeForm: FormGroup = new FormGroup({
-    name: this.nameFormControl,
-    email: this.emailFormControl,
-    password: this.passwordFormControl,
-    newPassword: this.newPasswordFormControl,
-    newConfirmPassword: this.newConfirmPasswordFormControl
-  });
+  private subscriptionChangeCred: Subscription;
+  private wrongCredChange: boolean;
+  private changeForm: FormGroup;
+  private nameFormControl: FormControl;
+  private emailFormControl: FormControl;
+  private passwordFormControl: FormControl;
+  private newPasswordFormControl: FormControl;
+  private newConfirmPasswordFormControl: FormControl;
 
   constructor(
     private router: Router,
@@ -44,8 +40,22 @@ export class ChangeCredentialsComponent implements OnInit
     private userActions: UserActions,
     private utilitiesService: NativeCommunicationService,
     private fb: FormBuilder,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private alertService: AlertService,
+    private snackBar: MatSnackBar
+
+  ) {
+    this.subscriptionChangeCred = this.alertService.getMessageChangedCred().subscribe(message => {
+      if (message){
+        const config = new MatSnackBarConfig();
+        config.duration = 3000;
+        config.panelClass = ['success-snackbar'];
+        this.snackBar.open('You changed your credentials successfully', 'OK', config);
+      }else{
+        this.wrongCredChange = true;
+      }
+    });
+  }
 
   public submitCredentialsChange()
   {
@@ -70,11 +80,6 @@ export class ChangeCredentialsComponent implements OnInit
       this.transmissionService.changeNewPassword = this.newPasswordFormControl.value;
     }
 
-    // console.log(this.changeEmail + ' ' + this.changeName + ' ' + this.oldPassword + ' ' + this.newPassword_);
-
-    const state = this.appStore.getState();
-    const platform = state.platform;
-
     this.transmissionService.transmitUserCredentialChange();
   }
 
@@ -85,10 +90,22 @@ export class ChangeCredentialsComponent implements OnInit
     this.changeName = state.user.name;
     this.oldPassword = '';
     this.changeEmail = state.user.email;
+    console.log('cred name ' + this.changeName + ' email ' + this.changeEmail);
 
-    // console.log(state.user.email + ' ' + state.user.name);
-    // this.nameFormControl.value = state.user.name;
-    // this.emailFormControl.value = state.user.email;
+    this.nameFormControl = new FormControl('', /*[Validators.required]*/);
+    this.emailFormControl = new FormControl('', /*[Validators.required]*/);
+    this.passwordFormControl = new FormControl('', /*[Validators.required]*/);
+    this.newPasswordFormControl = new FormControl('', [/*[Validators.required]*/
+      Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
+    this.newConfirmPasswordFormControl = new FormControl('', /*[Validators.required]*/);
+
+    this.changeForm = new FormGroup({
+      name: this.nameFormControl,
+      email: this.emailFormControl,
+      password: this.passwordFormControl,
+      newPassword: this.newPasswordFormControl,
+      newConfirmPassword: this.newConfirmPasswordFormControl
+    });
 
     this.changeForm.get('newConfirmPassword').setValidators(this.matchingpassword('newPassword'));
   }
@@ -96,12 +113,13 @@ export class ChangeCredentialsComponent implements OnInit
   getPasswordErrorMessage() {
     return this.newPasswordFormControl.hasError('required') ? 'You must enter a value' :
     this.newPasswordFormControl.hasError('pattern') ?
-    'Please use at least 6 characters and 1 special character! Example: ! $ § % & / ( ) = ?' : '';
+    'Please use at least 6 characters with at least 1 upper case, 1 lower case, ' +
+    '1 number and 1 special character! Example: ! $ § % & / ( ) = ?' : '';
   }
   getConfirmPasswordErrorMessage() {
 
     return this.newConfirmPasswordFormControl.hasError('required') ? 'You must enter a value' :
-    this.newConfirmPasswordFormControl.hasError('matchingpassword') ? 'The password is not the same' : '';
+    this.newConfirmPasswordFormControl.hasError('matchingpassword') ? 'The password is not the same' : 'The password is not the same';
   }
   getRequiredErrorMessage(field) {
     return this.changeForm.get(field).hasError('required') ? 'You must enter a value' : '';
@@ -117,7 +135,6 @@ export class ChangeCredentialsComponent implements OnInit
 
       notMatching = !(String(fieldToCompare.value) === String(control.value) && String(control.value) !== '');
 
-      // console.log('matchingpassword ' + notMatching + ' ' + String(control.value) + ' ' + String(fieldToCompare.value));
       return notMatching ? {'matching': {value: control.value}} : null;
     };
   }
@@ -135,6 +152,10 @@ export class ChangeCredentialsComponent implements OnInit
         console.log('Account NOT deleted!');
       }
     });
+  }
+
+  getCredChangeErrorMessage(field) {
+    return 'The credentials were not changed correctly.';
   }
 
 }
