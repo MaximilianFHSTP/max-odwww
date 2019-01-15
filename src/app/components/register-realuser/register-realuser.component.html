@@ -32,6 +32,7 @@
         </mat-form-field>
       </div>
       <br />
+      <mat-error *ngIf="wrongCred">{{getExistsErrorMessage()}}</mat-error>
       <button mat-raised-button [disabled]="registerRealUserForm.invalid" color="primary" (click)="registerAsRealuser()">Confirm</button>
     </form>
   </mat-card>
