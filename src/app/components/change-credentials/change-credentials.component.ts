@@ -25,6 +25,8 @@ export class ChangeCredentialsComponent implements OnInit
   public newPassword_: string;
   private subscriptionChangeCred: Subscription;
   private wrongCredChange: boolean;
+  private subscriptionExistingChangeCred: Subscription;
+  private existingCred: boolean;
   private changeForm: FormGroup;
   private nameFormControl: FormControl;
   private emailFormControl: FormControl;
@@ -54,6 +56,9 @@ export class ChangeCredentialsComponent implements OnInit
       }else{
         this.wrongCredChange = true;
       }
+    });
+    this.subscriptionExistingChangeCred = this.alertService.getMessageExistingCredentialsOnChange().subscribe(message =>{
+      this.existingCred = message;
     });
   }
 
@@ -92,8 +97,8 @@ export class ChangeCredentialsComponent implements OnInit
     this.changeEmail = state.user.email;
     console.log('cred name ' + this.changeName + ' email ' + this.changeEmail);
 
-    this.nameFormControl = new FormControl('', /*[Validators.required]*/);
-    this.emailFormControl = new FormControl('', /*[Validators.required]*/);
+    this.nameFormControl = new FormControl(this.changeName, /*[Validators.required]*/);
+    this.emailFormControl = new FormControl(this.changeEmail, /*[Validators.required]*/);
     this.passwordFormControl = new FormControl('', /*[Validators.required]*/);
     this.newPasswordFormControl = new FormControl('', [/*[Validators.required]*/
       Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
@@ -156,6 +161,10 @@ export class ChangeCredentialsComponent implements OnInit
 
   getCredChangeErrorMessage(field) {
     return 'The credentials were not changed correctly.';
+  }
+
+  getCredChangeExistingCred(field) {
+    return 'These credentials are already taken.';
   }
 
 }

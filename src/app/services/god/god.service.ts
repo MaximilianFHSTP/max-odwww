@@ -80,7 +80,7 @@ export class GodService {
   {
     this.socket.emit('registerODGuest', data);
 
-    this.socket.on('registerODResult', result =>
+    this.socket.on('registerODGuestResult', result =>
     {
       const res = result.data;
       const message = result.message;
@@ -104,7 +104,7 @@ export class GodService {
         }
       );
 
-      this.socket.removeAllListeners('registerODResult');
+      this.socket.removeAllListeners('registerODGuestResult');
     });
   }
 
@@ -133,12 +133,10 @@ export class GodService {
 
       this.router.navigate(['/mainview']).then( () =>
         {
-          // send success to native & start beacon scan
-          this.utilitiesService.sendToNative('success', 'registerOD');
         }
       );
 
-      this.socket.removeAllListeners('registerODResult');
+      this.socket.removeAllListeners('makeToRealUserResult');
     });
   }
 
@@ -202,7 +200,7 @@ export class GodService {
       this.utilitiesService.sendToNative('success', 'triggerSignal');
       this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
-      this.socket.removeAllListeners('registerLocationResult');
+      this.socket.removeAllListeners('registerTimelineUpdateResult');
     });
   }
 
@@ -330,11 +328,9 @@ export class GodService {
       const data = result.data;
       const message = result.message;
 
-      console.log('loginOD onResult ' + message);
       if (message.code > 299)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
-        console.log('loginOD wrong');
         this.alertService.setMessageWrongLoginCheck(true);
         return;
       }
@@ -364,8 +360,9 @@ export class GodService {
 
     this.socket.on('checkUsernameExistsResult', result =>
     {
-      console.log('Username exits' + result);
-      this.alertService.sendUsernameRegisterCheckResult(result);
+      // const data = {result: result, bothChecked: bothChecked};
+      // this.alertService.sendUsernameRegisterCheckResult(data);
+      this.socket.removeAllListeners('checkUsernameExistsResult');
       return result;
     });
   }
@@ -377,8 +374,20 @@ export class GodService {
 
     this.socket.on('checkEmailExistsResult', result =>
     {
-      console.log('Email exits' + result);
-      this.alertService.sendEmailRegisterCheckResult(result);
+      // this.alertService.sendEmailRegisterCheckResult(result);
+      this.socket.removeAllListeners('checkEmailExistsResult');
+      return result;
+    });
+  }
+
+  public checkUserOrEmailExists(data: any): void
+  {
+    this.socket.emit('checkNameOrEmailExists', data);
+
+    this.socket.on('checkNameOrEmailExistsResult', result =>
+    {
+      this.alertService.sendMessageUserOrEmailRegisterCheck(result);
+      this.socket.removeAllListeners('checkNameOrEmailExistsResult');
       return result;
     });
   }
@@ -400,6 +409,7 @@ export class GodService {
       {
         this.utilitiesService.sendToNative('openWifiDialogNative','openWifiDialogNative');
       }
+    this.socket.removeAllListeners('checkWifiSSIDResult');
     });
   }
 
@@ -419,6 +429,7 @@ export class GodService {
         return;
       }
       this.alertService.sendMessageChangedCred(true);
+      this.alertService.sendMessageExistingCredentialsOnChange(false);
       this.store.dispatch(this.userActions.changeUser(res.user));
       this.store.dispatch(this.userActions.changeToken(res.token));
 

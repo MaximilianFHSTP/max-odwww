@@ -32,7 +32,7 @@ export class TransmissionService
   private subscriptionWifi: Subscription;
   private subscriptionBluetooth: Subscription;
   private subscriptionUsernameRegister: Subscription;
-  private subscriptionEmailRegister: Subscription;
+  private subscriptionUserEmail: Subscription;
   public isUsernameExisting: boolean;
   public isEmailExisting: boolean;
   public deviceAddress: string;
@@ -41,6 +41,7 @@ export class TransmissionService
   public deviceModel: string;
   public language: string;
   private registerNew: boolean;
+  private credChange: boolean;
 
   constructor(
     private router: Router,
@@ -79,14 +80,47 @@ export class TransmissionService
         this.nativeCommunicationService.sendToNative('bluetoothCheck', 'activateBluetoothCheck');
       }
     });
-    this.subscriptionUsernameRegister = this.alertService.getUsernameRegisterCheckResult().subscribe(message => {
-      this.isUsernameExisting = message;
-      this.godService.checkEmailExists(this.registerEmail);
-    });
-    this.subscriptionEmailRegister = this.alertService.getEmailRegisterCheckResult().subscribe(message => {
-      this.isEmailExisting = message;
-
-      if(this.registerNew){
+    this.subscriptionUserEmail = this.alertService.getMessageUserOrEmailRegisterCheck().subscribe(message => {
+      this.isEmailExisting = message.email;
+      this.isUsernameExisting = message.name;
+      const state = this.appStore.getState();
+      if(this.credChange){
+        if(!this.isUsernameExisting && !this.isEmailExisting && this.changeName !== undefined && this.changeEmail !== undefined &&
+          state.user.name !== this.changeName && state.user.email !== this.changeEmail){
+          const data = {id: state.user.id, username: this.changeName, email: this.changeEmail, password: this.changeOldPassword,
+            newPassword: this.changeNewPassword};
+          this.godService.updateUserCredentials(data);
+        }else if(!this.isUsernameExisting && !this.isEmailExisting && this.changeName !== undefined &&
+          state.user.name !== this.changeName && (state.user.email === this.changeEmail || this.changeEmail === undefined)){
+          const data = {id: state.user.id, username: this.changeName, email: undefined, password: this.changeOldPassword,
+            newPassword: this.changeNewPassword};
+          this.godService.updateUserCredentials(data);
+        }else if(!this.isUsernameExisting && !this.isEmailExisting && state.user.email !== this.changeEmail &&
+          this.changeEmail !== undefined && (state.user.name === this.changeName || this.changeName === undefined)){
+          const data = {id: state.user.id, username: this.changeName, email: this.changeEmail, password: this.changeOldPassword,
+            newPassword: this.changeNewPassword};
+          this.godService.updateUserCredentials(data);
+        }else if((this.isUsernameExisting && state.user.name === this.changeName && !this.isEmailExisting)||
+        (this.isEmailExisting && state.user.email === this.changeEmail && !this.isUsernameExisting)){
+            const data = {id: state.user.id, username: this.changeName, email: this.changeEmail, password: this.changeOldPassword,
+              newPassword: this.changeNewPassword};
+            this.godService.updateUserCredentials(data);
+        }else if(!this.isUsernameExisting && !this.isEmailExisting &&
+          (state.user.email === this.changeEmail || this.changeEmail === undefined) &&
+          (state.user.name === this.changeName || this.changeName === undefined) && this.changeNewPassword !== undefined &&
+          this.changeOldPassword !== undefined){
+          const data = {id: state.user.id, username: undefined, email: undefined, password: this.changeOldPassword,
+            newPassword: this.changeNewPassword};
+          this.godService.updateUserCredentials(data);
+        }else if(this.isUsernameExisting && this.isEmailExisting && state.user.email === this.changeEmail &&
+          state.user.name === this.changeName && this.changeNewPassword !== undefined && this.changeOldPassword !== undefined){
+          const data = {id: state.user.id, username: undefined, email: undefined, password: this.changeOldPassword,
+            newPassword: this.changeNewPassword};
+          this.godService.updateUserCredentials(data);
+        }else{
+          this.alertService.sendMessageExistingCredentialsOnChange(true);
+        }
+      }else if(this.registerNew && !this.credChange){
         if (!this.isUsernameExisting && !this.isEmailExisting) {
           const data = {
             identifier: this.registerName, password: this.registerPassword, email: this.registerEmail,
@@ -95,13 +129,12 @@ export class TransmissionService
           };
           this.godService.registerOD(data);
         } else {
-          console.log('reg user ' + this.isUsernameExisting + ' email ' + this.isEmailExisting);
           const checks = {
             user: this.isUsernameExisting, email: this.isEmailExisting
           };
           this.alertService.sendMessageExistingCredentials(checks);
         }
-      }else{
+      }else if(!this.registerNew && !this.credChange){
         const state = this.appStore.getState();
         const data = {
           username: this.registerName, email: this.registerEmail, password: this.registerPassword, id: state.user.id
@@ -109,7 +142,6 @@ export class TransmissionService
         if (!this.isUsernameExisting && !this.isEmailExisting) {
           this.godService.registerODGuestToReal(data);
         } else {
-          console.log('real user ' + this.isUsernameExisting + ' email ' + this.isEmailExisting);
           const checks = {
             user: this.isUsernameExisting, email: this.isEmailExisting
           };
@@ -117,6 +149,7 @@ export class TransmissionService
         }
       }
       this.registerNew = null;
+      this.credChange = null;
     });
   }
 
@@ -127,7 +160,6 @@ export class TransmissionService
 
   public transmitODRegister(result: any): void
   {
-    console.log('transmitODRegister start');
     this.deviceAddress = result.deviceAddress;
     this.deviceOS = result.deviceOS;
     this.deviceVersion = result.deviceVersion;
@@ -143,8 +175,8 @@ export class TransmissionService
     }
     else {
       this.registerNew = true;
-      this.godService.checkUsernameExists(this.registerName);
-
+      const data = {name: this.registerName, email: this.registerEmail};
+      this.godService.checkUserOrEmailExists(data);
     }
   }
 
@@ -161,16 +193,16 @@ export class TransmissionService
   }
 
   public transmitODGuestToRealRegister(): void{
-    this.godService.checkUsernameExists(this.registerName);
     this.registerNew = false;
-
+    const data = {name: this.registerName, email: this.registerEmail};
+    this.godService.checkUserOrEmailExists(data);
   }
 
-  public transmitUserCredentialChange(){
+  public transmitUserCredentialChange(): void{
+    this.credChange = true;
     const state = this.appStore.getState();
-    const data = {id: state.user.id, username: this.changeName, email: this.changeEmail, password: this.changeOldPassword,
-      newPassword: this.changeNewPassword};
-    this.godService.updateUserCredentials(data);
+    const data = {name: this.changeName, email: this.changeEmail};
+    this.godService.checkUserOrEmailExists(data);
   }
 
   public deleteUserAccount(){

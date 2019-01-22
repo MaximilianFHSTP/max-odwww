@@ -19,6 +19,8 @@ export class AlertService {
   private subjectEmailRegisterCheckResult = new Subject<any>();
   private subjectExistingCredentialsRealUser = new Subject<any>();
   private subjectChangedCred = new Subject<any>();
+  private subjectExistingCredentialsOnChange = new Subject<any>();
+  private subjectUserOrEmailRegisterCheck = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -130,5 +132,21 @@ export class AlertService {
 
   getMessageChangedCred(): Observable<any>{
     return this.subjectChangedCred.asObservable();
+  }
+
+  sendMessageExistingCredentialsOnChange(message: any) {
+    this.subjectExistingCredentialsOnChange.next(message);
+  }
+
+  getMessageExistingCredentialsOnChange(): Observable<any>{
+    return this.subjectExistingCredentialsOnChange.asObservable();
+  }
+
+  sendMessageUserOrEmailRegisterCheck(message: any) {
+    this.subjectUserOrEmailRegisterCheck.next(message);
+  }
+
+  getMessageUserOrEmailRegisterCheck(): Observable<any>{
+    return this.subjectUserOrEmailRegisterCheck.asObservable();
   }
 }
