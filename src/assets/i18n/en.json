@@ -1,0 +1,37 @@
+{
+  "app": {
+    "backButton": "back"
+  },
+  "start": {
+    "welcomeMessage": "Welcome to the exhibition",
+    "name": "The Emperor's New Saint",
+    "loginButton": "Login",
+    "registerGuestButton": "Register as guest",
+    "registerButton": "Register"
+  },
+  "languageStart": {
+    "helpmessage": "Please choose a language!"
+  },
+  "main": {
+    "welcomeText": "Welcome",
+    "goToExhibitButton": "Go to Exhibit"
+  },
+  "tableAt": {
+    "welcomeText": "Welcome at",
+    "tableOfflineText": "Sorry an error occurred. Therefore, the table is currently not available!",
+    "tableFreeText": "The table is free",
+    "tableOccupiedText": "Sorry the table is occupied. Please try again later.",
+    "tableJoinButton": "Join",
+    "beaconPutText": "Please put your phone at the beacon.",
+    "beaconOccupiedText": "This place is currently occupied"
+  },
+  "passiveExhibit": {
+    "welcomeText": "Welcome at"
+  },
+  "alertDialog": {
+    "title": "Exhibit",
+    "description": "Do you want to go to exhibit:",
+    "yesOption": "Yes",
+    "noOption": "No"
+  }
+}

@@ -1,8 +1,11 @@
 <mat-toolbar id="header" color="primary">
+  <a mat-button id="redirectTimeline" (click)="redirectToTimeline()" *ngIf="router.url === '/passive' || router.url === '/tableat' || router.url ==='/changecred' || router.url === '/registerRealUser'">{{ 'app.backButton' | translate }}</a>
+  <a mat-button id="redirectStart" (click)="redirectToStart()" *ngIf="router.url === '/register' || router.url === '/login' || router.url === '/testscroll' || router.url === '/changeLanguageStart'">{{ 'app.backButton' | translate }}</a>
+  <span class="example-fill-remaining-space"></span>
   <span>MEETeUX</span>
 
   <span class="example-fill-remaining-space"></span>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
+  <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="router.url === '/passive' || router.url === '/tableat' || router.url === '/tableon' || router.url === '/mainview' || router.url ==='/changecred'">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
@@ -10,17 +13,28 @@
       <mat-icon>exit_to_app</mat-icon>
       <span>Logout</span>
     </button>
-    <button mat-menu-item (click)="showUnityView()">
-      <mat-icon>whatshot</mat-icon>
-      <span>Unity</span>
+    <button mat-menu-item *ngIf="guest == 1" (click)="registerRealuserRouting()">
+      <mat-icon>person_add</mat-icon>
+      <span>Register as full user</span>
+    </button>
+    <button mat-menu-item *ngIf="guest == 0" (click)="userCredentials()">
+      <mat-icon>settings</mat-icon>
+      <span>Change User Credentials</span>
+    </button>
+    <button mat-menu-item *ngIf="languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">
+      <mat-icon>language</mat-icon>
+      <span>German</span>
+    </button>
+    <button mat-menu-item *ngIf="languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">
+      <mat-icon>language</mat-icon>
+      <span>Englisch</span>
     </button>
   </mat-menu>
 </mat-toolbar>
 
 <router-outlet></router-outlet>
 
-<button id="dismissedButton" *ngIf="dismissedLocation && showDismissed" (click)="openDialogDismissed()" mat-fab color="primary" [matBadge]="dismissedLocation" matBadgePosition="before" matBadgeColor="accent">
-  <mat-icon>room</mat-icon>
-</button>
-
 <button id="ghostButton" class="hiddenbutton" (click)="openDialog()">Ghost</button>
+<button id="ghostButtonWifi" class="hiddenbutton" (click)="openNativeSetting()">GhostSetting</button>
+<button id="ghostButtonBluetooth" class="hiddenbutton" (click)="openNativeSetting()">GhostSetting</button>
+<button id="logout" class="hiddenbutton" (click)="logoutRouting()">GhostLogout</button>

@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <mat-card class="loginForm">
+    <h1>Login</h1>
+    <h2>Please enter a username</h2>
+
+    <form name="loginForm" [formGroup]="loginForm">
+      <div class="fix-mat-form-field">
+        <mat-form-field class="full-with-field">
+          <input matInput placeholder="Username" required [(ngModel)]="name" [formControl]="nameFormControl">
+          <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="fix-mat-form-field">
+        <mat-form-field class="full-with-field">
+          <input matInput placeholder="Password" [(ngModel)]="password" required [formControl]="passwordFormControl">
+          <mat-error *ngIf="passwordFormControl.invalid">{{getRequiredErrorMessage('password')}}</mat-error>
+        </mat-form-field>
+      </div>
+      <br />
+      <mat-error *ngIf="wrongLogin">{{getLoginErrorMessage()}}</mat-error>
+      <button mat-raised-button [disabled]="loginForm.invalid" color="primary" (click)="loginDevice()">Login</button>
+
+    </form>
+  </mat-card>
+</div>

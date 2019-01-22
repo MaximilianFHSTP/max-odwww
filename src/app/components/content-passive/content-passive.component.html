@@ -1,0 +1,18 @@
+<h1>
+  {{ 'passiveExhibit.welcomeText' | translate }} {{location.description}} - {{location.id}}
+</h1>
+
+<div *ngFor="let cont of location.contents">
+  <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>
+  <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
+</div>
+
+<button *ngIf="location.liked; else notLiked" id="unlike" mat-raised-button color="warn" (click)="registerLocationUnlike()">
+  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Unlike
+</button>
+
+<ng-template #notLiked>
+  <button id="like" mat-stroked-button color="warn" (click)="registerLocationLike()">
+    <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Like
+  </button>
+</ng-template>

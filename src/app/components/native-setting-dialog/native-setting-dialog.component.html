@@ -1,0 +1,9 @@
+<h2 matDialogTitle>{{data.settingtype}} deactivated</h2>
+<div mat-dialog-content>
+  <p>To use the app, please turn on {{data.settingtype}}!</p>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (tap)="cancelDialog()">No</button>
+  <button mat-raised-button color="primary" (tap)="confirmDialog()">{{data.confirmDialogText}}</button>
+</mat-dialog-actions>
+

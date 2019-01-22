@@ -1,0 +1,44 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body
+{
+  margin: 0;
+  padding: 0;
+}
+
+#header{
+  padding: 0 20px 0 40px;
+}
+
+
+#like, #unlike {
+  margin: 20px 10px;
+}
+
+.fix-mat-form-field {
+  .mat-form-field {
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+
+      .mat-form-field-underline {
+        position: initial !important;
+        display: block;
+        margin-top: -1px;
+      }
+
+      .mat-form-field-subscript-wrapper,
+      .mat-form-field-ripple {
+        position: initial !important;
+        display: table;
+      }
+
+      .mat-form-field-subscript-wrapper {
+        min-height: calc(1em + 1px);
+      }
+    }
+  }
+}
+
+.full-with-field {
+  width: 100%;
+}

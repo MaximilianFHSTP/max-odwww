@@ -1,0 +1,44 @@
+<h1>
+  {{ 'tableAt.welcomeText' | translate }} {{location.description}}
+</h1>
+
+<div *ngFor="let cont of location.contents">
+  <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>
+  <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
+</div>
+
+
+<div *ngIf="locationStatusFree">
+  <div *ngIf="locationType == 3">
+    <h3>{{ 'tableAt.tableFreeText' | translate }}</h3>
+    <button *ngIf="joinGame" mat-raised-button color="primary" (click)="startOnTableSearch()">{{ 'tableAt.tableJoinButton' | translate }}</button>
+    <p *ngIf="!joinGame">{{ 'tableAt.beaconPutText' | translate }}</p>
+    <h4 *ngIf="locationSocketStatus === 'OCCUPIED'">{{ 'tableAt.beaconOccupiedText' | translate }}</h4>
+
+    <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
+      <button mat-raised-button color="primary" (click)="redirectToOnTable()">Register Location TableOn</button>
+    </div>
+  </div>
+  <div *ngIf="locationType == 6">
+    <h3>{{ 'tableAt.tableFreeText' | translate }}</h3>
+    <button *ngIf="joinGame" ng-disabled="isJoinButtonUnlocked" mat-raised-button color="primary" (click)="redirectToOnTableBehavior()">{{ 'tableAt.tableJoinButton' | translate }}</button>
+  </div>
+</div>
+
+<div *ngIf="locationStatusOccupied">
+  <h3>{{ 'tableAt.tableOccupiedText' | translate }}</h3>
+</div>
+
+<div *ngIf="locationStatusOffline">
+  <h3>{{ 'tableAt.tableOfflineText' | translate }}</h3>
+</div>
+
+<button *ngIf="location.liked; else notLiked" id="unlike" mat-raised-button color="warn" (click)="registerLocationUnlike()">
+  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Unlike
+</button>
+
+<ng-template #notLiked>
+  <button id="like" mat-stroked-button color="warn" (click)="registerLocationLike()">
+    <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Like
+  </button>
+</ng-template>

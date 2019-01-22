@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <mat-card class="startView">
+    <h2>{{ 'start.welcomeMessage' | translate }}</h2>
+    <h1>{{ 'start.name' | translate }}</h1>
+
+      <br />
+      <button mat-raised-button color="primary" (click)="forwardToLogin()">{{ 'start.loginButton' | translate }}</button>
+      <br />
+      <br />
+      <button mat-raised-button color="primary" (click)="loginAsGuest()">{{ 'start.registerGuestButton' | translate }}</button>
+      <br />
+      <br />
+      <button mat-raised-button color="primary" (click)="forwardToRegister()">{{ 'start.registerButton' | translate }}</button>
+      <br />
+      <br />
+      <button mat-raised-button color="primary" (click)="forwardToLanguage()">Choose a language</button>
+  </mat-card>
+</div>

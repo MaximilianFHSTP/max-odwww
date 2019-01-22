@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {LocationActions} from '../actions/LocationActions';
+import {LocationActions} from '../store/actions/LocationActions';
 
 @Injectable()
 export class LocationService
@@ -19,6 +19,26 @@ export class LocationService
     });
 
     this._currentLocation = new BehaviorSubject<any>(undefined);
+  }
+
+  public isActiveLocationInRange(locationId: number): boolean
+  {
+    const nearestLoc = this.findLocation(locationId);
+    return nearestLoc.id === this._currentLocation || nearestLoc.parentId === this._currentLocation;
+  }
+
+  public getTimelineLocations():any
+  {
+    const timelineLocations = [];
+    for (let i = 0; i < this._lookuptable.length; i++)
+    {
+      const location = this._lookuptable[i];
+      if (location.showInTimeline)
+      {
+        timelineLocations.push(location);
+      }
+    }
+    return timelineLocations;
   }
 
   public findLocation(id: Number): any

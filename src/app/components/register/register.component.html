@@ -1,0 +1,39 @@
+<div class="wrapper">
+  <mat-card class="registerForm">
+    <h1>Registration</h1>
+    <h2>Please enter a username</h2>
+
+    <form name="registerForm" [formGroup]="signupForm">
+      <div class="fix-mat-form-field">
+        <mat-form-field class="full-with-field">
+          <input matInput placeholder="Username" required [(ngModel)]="name" [formControl]="nameFormControl">
+          <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="fix-mat-form-field">
+        <mat-form-field class="full-with-field">
+          <input matInput placeholder="Email" [(ngModel)]="email" required [formControl]="emailFormControl">
+          <mat-error *ngIf="emailFormControl.invalid">{{getRequiredErrorMessage('email')}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="fix-mat-form-field">
+        <mat-form-field class="full-with-field">
+          <input matInput placeholder="Password" [(ngModel)]="password" required [formControl]="passwordFormControl">
+          <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="fix-mat-form-field">
+        <mat-form-field class="full-with-field">
+          <input matInput placeholder="Password Confirmation" [(ngModel)]="confirmPassword" required [formControl]="confirmPasswordFormControl">
+          <mat-error *ngIf="confirmPasswordFormControl.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <br />
+      <mat-error *ngIf="wrongCred">{{getExistsErrorMessage()}}</mat-error>
+      <button mat-raised-button [disabled]="signupForm.invalid" color="primary" (click)="requestDeviceInfos(false)">Confirm</button>
+    </form>
+  </mat-card>
+</div>
