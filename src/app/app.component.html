@@ -1,36 +1,25 @@
-<mat-toolbar id="header" color="primary">
-  <a mat-button id="redirectTimeline" (click)="redirectToTimeline()" *ngIf="router.url === '/passive' || router.url === '/tableat' || router.url ==='/changecred' || router.url === '/registerRealUser'">{{ 'app.backButton' | translate }}</a>
-  <a mat-button id="redirectStart" (click)="redirectToStart()" *ngIf="router.url === '/register' || router.url === '/login' || router.url === '/testscroll' || router.url === '/changeLanguageStart'">{{ 'app.backButton' | translate }}</a>
-  <span class="example-fill-remaining-space"></span>
-  <span>MEETeUX</span>
+<a mat-button id="redirectTimeline" (click)="redirectToTimeline()" *ngIf="router.url === '/passive' || router.url === '/tableat' || router.url ==='/changecred' || router.url === '/registerRealUser'">{{ 'app.backButton' | translate }}</a>
+<a mat-button id="redirectStart" (click)="redirectToStart()" *ngIf="router.url === '/register' || router.url === '/login' || router.url === '/testscroll' || router.url === '/changeLanguageStart'">{{ 'app.backButton' | translate }}</a>
 
-  <span class="example-fill-remaining-space"></span>
-  <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="router.url === '/passive' || router.url === '/tableat' || router.url === '/tableon' || router.url === '/mainview' || router.url ==='/changecred'">
+<div class="apptoolbar">
+  <button class="menubutton" (click)="openMenu()"  *ngIf="router.url === '/passive' || router.url === '/tableat' || router.url === '/tableon' || router.url === '/mainview' || router.url ==='/changecred'">
     <mat-icon>menu</mat-icon>
   </button>
-  <mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
-    <button mat-menu-item (click)="logoutUser()">
-      <mat-icon>exit_to_app</mat-icon>
-      <span>Logout</span>
-    </button>
-    <button mat-menu-item *ngIf="guest == 1" (click)="registerRealuserRouting()">
-      <mat-icon>person_add</mat-icon>
-      <span>Register as full user</span>
-    </button>
-    <button mat-menu-item *ngIf="guest == 0" (click)="userCredentials()">
-      <mat-icon>settings</mat-icon>
-      <span>Change User Credentials</span>
-    </button>
-    <button mat-menu-item *ngIf="languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">
-      <mat-icon>language</mat-icon>
-      <span>German</span>
-    </button>
-    <button mat-menu-item *ngIf="languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">
-      <mat-icon>language</mat-icon>
-      <span>Englisch</span>
-    </button>
-  </mat-menu>
-</mat-toolbar>
+</div>
+
+<div class="dismissMenuDiv" *ngIf="menuOpen" (click)="dismissMenu()"></div>
+<div class="menuDiv" *ngIf="menuOpen">
+  <ul>
+    <li *ngIf="guest == 0" (click)="userCredentials()">PROFILE SETTINGS</li>
+    <li *ngIf="guest == 1" (click)="registerRealuserRouting()">SIGN UP</li>
+    <li>ABOUT</li>
+    <li>HELP</li>
+    <li>LEGAL DETAILS</li>
+    <li *ngIf="languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">GERMAN</li>
+    <li *ngIf="languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">ENGLISCH</li>
+    <li (click)="logoutUser()">LOGOUT</li>
+  </ul>
+</div>
 
 <router-outlet></router-outlet>
 

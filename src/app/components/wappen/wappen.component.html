@@ -1,0 +1,138 @@
+<div class="wrapper background">
+  <div class="toolbar">
+      <button class="helpbutton" (click)="displayHelp()"><mat-icon>help</mat-icon></button>
+      <button class="closebutton" (click)="closeWindow()"><mat-icon>close</mat-icon></button>
+  </div> 
+
+  <div class="wappenHelp" *ngIf="showHelp">
+      <mat-icon (click)="closeHelp()">close</mat-icon>
+      <h2>Your Coat of Arms</h2>
+      <p>You can create your personal coat of arms here by selecting from the parts below. You can unlock more parts by solving tasks in the exhibition!</p>
+  </div> 
+  <div  *ngIf="showHelp" (click)="closeHelp()" class="wappenHelpOut"></div> 
+      
+  <h1>Coat of Arms<br/>of Victor</h1>
+
+  <div class="wappen">
+      <div class="wappen_weapon">
+          <img class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setWeapon}}.svg" />
+      </div>
+      <div class="wappen_helmet">
+          <img class="{{setColorSecondary}}" src="./assets/icons/Wappen/{{setHelmet}}.svg" />
+          <img class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setHelmet}}_outline.svg" />
+      </div> 
+      <div class="wappen_shield">
+          <img class="{{setColorPrimary}}" src="./assets/icons/Wappen/{{setShield}}.svg" />
+          <img class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setShield}}_outline.svg" />
+      </div> 
+      <div class="wappen_emblem">
+          <img class="{{setColorSecondary}}" src="./assets/icons/Wappen/{{setEmblem}}.svg" />
+          <img class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setEmblem}}_outline.svg" />
+      </div>
+  </div>
+
+  <div class="wappenSettings" *ngIf="showSettings">
+
+      <div class="wappenSettings_shield" *ngIf="settingsContent == 'shield'">
+          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <h2>Shield</h2>
+          <ul class="options">
+              <ng-container *ngFor="let item of itemsList">
+                  <li *ngIf="item.type == 'shield'" [className]="selectedShield == item.name ? setShield == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setShield == item.name ? 'used ' + item.name : item.name">
+                      <button [className]="isUnlocked(item.name) ? 'unlocked': 'locked'" (click)="selectShield(item.name)"></button>
+                      <div class="locker"></div>
+                  </li>
+              </ng-container>
+          </ul>
+          <ul class="tasks">
+              <ng-container *ngFor="let item of itemsList">
+                  <li *ngIf="item.type == 'shield' && selectedShield == item.name" [className]="isUnlocked(item.name) ? 'item.name done' : 'item.name locked'"><p>{{item.task}}</p></li>
+              </ng-container>
+          </ul>
+      </div>
+
+      <div class="wappenSettings_emblem" *ngIf="settingsContent == 'emblem'">
+          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <h2>Charge</h2>
+          <div class="overflowWrapper">
+              <ul class="options">
+                  <ng-container *ngFor="let item of itemsList">
+                      <li *ngIf="item.type == 'symbol'" [className]="selectedEmblem == item.name ? setEmblem == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setEmblem == item.name ? 'used ' + item.name : item.name">
+                          <button [className]="isUnlocked(item.name) ? 'unlocked' : 'locked'" (click)="selectEmblem(item.name)"></button>
+                          <div class="locker"></div>
+                      </li>
+                  </ng-container> 
+              </ul>
+          </div>
+          <ul class="tasks">
+              <ng-container *ngFor="let item of itemsList">
+                  <li *ngIf="item.type == 'symbol' && selectedEmblem == item.name" [className]="isUnlocked(item.name) ? 'item.name done' : 'item.name locked'"><p>{{item.task}}</p></li>
+              </ng-container>
+          </ul>
+      </div>
+      <div class="wappenSettings_helmet" *ngIf="settingsContent == 'helmet'">
+          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <h2>Helmet</h2>
+          <ul class="options">
+              <ng-container *ngFor="let item of itemsList">
+                  <li *ngIf="item.type == 'helmet'" [className]="selectedHelmet == item.name ? setHelmet == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setHelmet == item.name ? 'used ' + item.name : item.name">
+                      <button [className]="isUnlocked(item.name) ? 'unlocked' : 'locked'" (click)="selectHelmet(item.name)"></button>
+                      <div class="locker"></div>
+                  </li>
+              </ng-container> 
+          </ul>
+          <ul class="tasks">
+              <ng-container *ngFor="let item of itemsList">
+                  <li *ngIf="item.type == 'helmet' && selectedHelmet == item.name" [className]="isUnlocked(item.name) ? 'item.name done' : 'item.name locked'"><p>{{item.task}}</p></li>
+              </ng-container>
+          </ul>
+      </div>
+      <div class="wappenSettings_weapon" *ngIf="settingsContent == 'weapon'">
+          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <h2>Mantle</h2>
+          <ul class="options">
+              <ng-container *ngFor="let item of itemsList">
+                  <li *ngIf="item.type == 'mantling'" [className]="selectedWeapon == item.name ? setWeapon == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setWeapon == item.name ? 'used ' + item.name : item.name">
+                      <button [className]="isUnlocked(item.name) ? 'unlocked' : 'locked'" (click)="selectWeapon(item.name)"></button>
+                      <div class="locker"></div>
+                  </li>
+              </ng-container> 
+          </ul>
+          <ul class="tasks">
+              <ng-container *ngFor="let item of itemsList">
+                  <li *ngIf="item.type == 'mantling' && selectedWeapon == item.name" [className]="isUnlocked(item.name) ? 'item.name done' : 'item.name locked'"><p>{{item.task}}</p></li>
+              </ng-container>
+          </ul>
+      </div>
+      <div class="wappenSettings_color" *ngIf="settingsContent == 'color'">
+          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <h2>Colors</h2>
+          <p>Primary Color</p>
+          <ul class="primary">
+              <li [className]="setColorPrimary == 'Color1' ? 'selected Color1' : 'Color1'"><button (click)="selectPrimaryColor('Color1')"></button></li>
+              <li [className]="setColorPrimary == 'Color2' ? 'selected Color2' : 'Color2'"><button (click)="selectPrimaryColor('Color2')"></button></li>
+              <li [className]="setColorPrimary == 'Color3' ? 'selected Color3' : 'Color3'"><button (click)="selectPrimaryColor('Color3')"></button></li>
+              <li [className]="setColorPrimary == 'Color4' ? 'selected Color4' : 'Color4'"><button (click)="selectPrimaryColor('Color4')"></button></li>
+              <li [className]="setColorPrimary == 'Color5' ? 'selected Color5' : 'Color5'"><button (click)="selectPrimaryColor('Color5')"></button></li>
+          </ul>
+          <p>Secondary Color</p>
+          <ul class="secondary">
+              <li [className]="setColorSecondary == 'Color1' ? 'selected Color1' : 'Color1'"><button (click)="selectSecondaryColor('Color1')"></button></li>
+              <li [className]="setColorSecondary == 'Color2' ? 'selected Color2' : 'Color2'"><button (click)="selectSecondaryColor('Color2')"></button></li>
+              <li [className]="setColorSecondary == 'Color3' ? 'selected Color3' : 'Color3'"><button (click)="selectSecondaryColor('Color3')"></button></li>
+              <li [className]="setColorSecondary == 'Color4' ? 'selected Color4' : 'Color4'"><button (click)="selectSecondaryColor('Color4')"></button></li>
+              <li [className]="setColorSecondary == 'Color5' ? 'selected Color5' : 'Color5'"><button (click)="selectSecondaryColor('Color5')"></button></li>
+          </ul></div>
+  </div>
+
+  <div class="wappenSettingsNav">
+      <ul>
+          <li [className]="showSettings && settingsContent == 'shield' ? 'selected wappenSettingsNav_shield' : 'wappenSettingsNav_shield'"><button (click)="displaySettings('shield')"></button></li>
+          <li [className]="showSettings && settingsContent == 'emblem' ? 'selected wappenSettingsNav_emblem' : 'wappenSettingsNav_emblem'"><button (click)="displaySettings('emblem')"></button></li>
+          <li [className]="showSettings && settingsContent == 'helmet' ? 'selected wappenSettingsNav_helmet' : 'wappenSettingsNav_helmet'"><button (click)="displaySettings('helmet')"></button></li>
+          <li [className]="showSettings && settingsContent == 'weapon' ? 'selected wappenSettingsNav_weapon' : 'wappenSettingsNav_weapon'"><button (click)="displaySettings('weapon')"></button></li>
+          <li [className]="showSettings && settingsContent == 'color' ? 'selected wappenSettingsNav_color' : 'wappenSettingsNav_color'"><button (click)="displaySettings('color')"></button></li>
+      </ul>
+  </div>
+  <div  *ngIf="showSettings" (click)="closeWappenSettings()" class="wappenSettingsNavOut"></div> 
+</div>

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'OpenSans';
+  src: url("assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
 .example-fill-remaining-space
 {
   flex: 1 1 auto;
@@ -13,4 +18,60 @@
 
 .hiddenbutton{
   display: none;
+}
+
+.apptoolbar{
+  width: 65px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.apptoolbar mat-icon{
+  font-size: 35px;
+  margin: 5px 0 0 -11px;
+  color:#ffffff;
+}
+
+.apptoolbar button{
+  float:right;
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  background-color: #494949;
+  margin: 20px 20px 0px 0px;
+}
+
+.menuDiv{
+  position: fixed;
+  height: 100%;
+  width: 60%;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  background-color: #494949;
+}
+
+.menuDiv ul{
+  list-style: none;
+  color: #ffffff;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  margin: 100px auto;
+}
+
+.menuDiv ul li{
+  margin: 20% 0;
+}
+
+.dismissMenuDiv{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 8;
+  background-color: #333333;
+  opacity: 0.5;
 }

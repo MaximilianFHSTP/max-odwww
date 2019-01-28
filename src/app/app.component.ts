@@ -29,6 +29,7 @@ import { UtilityService } from './services/utility.service';
 @Injectable()
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
+  menuOpen = false;
 
   public platform: String;
   private readonly _unsubscribe: Unsubscribe;
@@ -216,6 +217,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public logoutUser()
   {
+    this.dismissMenu();
     this.transmissionService.logout();
   }
 
@@ -247,6 +249,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public registerRealuserRouting(){
+    this.dismissMenu();
     this.router.navigate(['registerRealUser']).then( () =>
       {
         this.nativeCommunicationService.sendToNative('Register as real user', 'print');
@@ -255,6 +258,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public logoutRouting(){
+    this.dismissMenu();
     this.router.navigate(['']).then( () =>
       {
         this.nativeCommunicationService.sendToNative('User Logged out', 'print');
@@ -276,11 +280,28 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public userCredentials(){
+    this.dismissMenu();
     this.router.navigate(['changecred']).then( () =>
       {
         this.nativeCommunicationService.sendToNative('User Credentials', 'print');
       }
     );
+  }
+
+  public userCoA(){
+    this.router.navigate(['wappen']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
+      }
+    );
+  }
+
+  public dismissMenu(){
+    this.menuOpen = false;
+  }
+
+  public openMenu(){
+    this.menuOpen ? this.menuOpen = false : this.menuOpen = true;
   }
 
 }

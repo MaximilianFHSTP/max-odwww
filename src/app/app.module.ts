@@ -59,6 +59,7 @@ import logger from 'redux-logger';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { WappenComponent } from './components/wappen/wappen.component';
 
 
 
@@ -84,7 +85,8 @@ export const appStore = createStore(
     DeleteDialogComponent,
     ChangeCredentialsComponent,
     RegisterRealuserComponent,
-    LanguageStartComponent
+    LanguageStartComponent,
+    WappenComponent
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,62 @@
-<div class="wrapper">
+<div id="woodcut" class="Section{{currentSection}}"></div>
+<div class="toolbar">
+    <!--<button class="menubutton" [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
+      <button mat-menu-item (click)="logoutUser()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>-->
+    <button class="wappenbutton" (click)="userCoA()"></button>
+    <button [className]="closestExhibit ? 'enabled locationbutton' : 'disabled locationbutton'" (click)="openDialogClosestExhibit()"><mat-icon>room</mat-icon></button>
+</div>
+
+<div id="timelineAxis" class="Section{{currentSection}}"></div>
+
+<ng-container  *ngFor="let entrance of currentEntrance" >
+  <div *ngIf="entrance.parentId == currentSection" class="timeline-card title Section{{currentSection}}" id="exh_{{entrance.id}}">
+    <img src="./assets/icons/Timeline/{{getSectionIcon(currentSection)}}.svg" />
+    <h1> {{entrance.description}} {{entrance.id}} </h1>
+  </div>
+</ng-container>
+
+<div id="timeline"></div>
+
+<ng-container  *ngFor="let location of timelineLocations" >
+  <div *ngIf="location.locationTypeId != 5" class="timeline-card exhibit locked{{location.locked}} type{{location.locationTypeId}} Section{{location.parentId}} {{currentSection}}" id="exh_{{location.id}}" (click)="requestRegisterLocation(location.id, location.parentId)">
+    <div class="wrapIcon">
+      <div class="coaIcon" *ngIf="location.unlockCoa"></div>
+      <div class="actIcon" *ngIf="location.locationTypeId == 3 || location.locationTypeId == 6"></div>
+    </div>
+    <p class="timespan">{{location.startDate}} - {{location.endDate}}</p>
+    <h2> {{location.description}} {{location.id}} </h2>
+  </div>
+</ng-container>
+
+<div class="timelineSectionNav selected_Section{{currentSection}}">
+    <ul>
+        <li *ngFor="let section of sectionList" class="Section{{section.code}}">
+            <button (click)="displaySection(section.code)">
+                <img src="./assets/icons/Timeline/{{section.icon}}.svg" />
+            </button>
+        </li>
+    </ul>
+</div> 
+
+<div class="webdevtools" *ngIf="isWeb">
+  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableAt()">Register Location TableAt</button>
+  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableAtBehavior()">Register Location TableAtBehavior</button>
+  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationPassive()">Register Location Passive</button>
+  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableOn()">Register Location TableOn</button>
+  <button mat-raised-button class="control-button" color="secondary" (click)="checkWifiForWeb()">Check Wifi SSID</button>
+</div>
+
+<button id="ghostScrollbutton" class="hiddenbutton" (click)="scroll()">Ghost</button>
+
+<!--<div class="wrapper">
   <h1>{{ 'main.welcomeText' | translate }} {{user.name}}</h1>
   <br />
-  <div class="webdevtools" *ngIf="isWeb">
-    <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableAt()">Register Location TableAt</button>
-    <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableAtBehavior()">Register Location TableAtBehavior</button>
-    <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationPassive()">Register Location Passive</button>
-    <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableOn()">Register Location TableOn</button>
-    <button mat-raised-button class="control-button" color="secondary" (click)="checkWifiForWeb()">Check Wifi SSID</button>
-  </div>
+  
 
     <mat-list>
       <mat-list-item *ngFor="let location of timelineLocations">
@@ -23,9 +72,5 @@
     </mat-list>
   </div>
 
-  <button id="nearestButton" *ngIf="closestExhibit" (click)="openDialogClosestExhibit()" mat-fab color="primary">
-    {{ closestExhibit }}
-  </button>
-
-  <button id="ghostScrollbutton" class="hiddenbutton" (click)="scroll()">Ghost</button>
+  -->
 
