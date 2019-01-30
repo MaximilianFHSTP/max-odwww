@@ -191,15 +191,17 @@ export class GodService {
         return;
       }
 
+      
+
+      this.utilitiesService.sendToNative('success', 'triggerSignal');
+      this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
+
       // TODO: TRIGGER SCROLL HERE
       const data = {location: id};
       this.alertService.sendMessageLocationid(data);
       const elm: HTMLElement = document.getElementById('ghostScrollbutton') as HTMLElement;
       elm.click();
-
-      this.utilitiesService.sendToNative('success', 'triggerSignal');
-      this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
-
+      
       this.socket.removeAllListeners('registerTimelineUpdateResult');
     });
   }

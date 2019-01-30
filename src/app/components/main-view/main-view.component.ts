@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit , Inject, Injectable, OnDestroy} from '@angular/core';
+import {Component, OnInit, AfterViewInit, Inject, AfterViewChecked, Injectable, OnDestroy} from '@angular/core';
 import {NativeResponseService} from '../../services/native/native-response.service';
 import {LocationService} from '../../services/location.service';
 import {UserActions} from '../../store/actions/UserActions';
@@ -20,7 +20,7 @@ import { bypassSanitizationTrustStyle } from '@angular/core/src/sanitization/san
   styleUrls: ['./main-view.component.css']
 })
 @Injectable()
-export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
+export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
   private readonly _unsubscribe: Unsubscribe;
   private registerLocationmessage: any;
   private subscriptionBack: Subscription;
@@ -43,10 +43,18 @@ export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
   private whichY;
 
   currentSection = 10;
-  sectionList = [];
+  sectionList = [
+    {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
+    {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
+    {code: 30, icon: 'Maximilian', primaryColor: '#755300', secondaryColor: '#906e1b'},
+    {code: 40, icon: 'Veil', primaryColor: '#1d635d', secondaryColor: '#3c7f7a'},
+    {code: 50, icon: 'Shrine', primaryColor: '#5c416a', secondaryColor: '#785d86'},
+    {code: 60, icon: 'Tombstone',  primaryColor: '#32633a', secondaryColor: '#4c7d54'}
+  ];
   currentEntrance = [];
   sortedExhbits = [];
   mergedDates = [];
+  cardPositions = [];
 
   constructor(
     private transmissionService: TransmissionService,
@@ -59,10 +67,8 @@ export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
     private dialog: MatDialog,
     public router: Router,
     private alertService: AlertService
-  )
-  {
-    this._unsubscribe = this.appStore.subscribe(() =>
-    {
+  ){
+    this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       this.closestExhibit = state.closestExhibit;
       this.timelineLocations = this.locationService.getTimelineLocations();
@@ -70,30 +76,22 @@ export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
     });
 
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
-      // console.log(message.location + 'mainview');
       this.registerLocationmessage = message;
     });
-    /*this.subscriptionLocationBackId = this.alertService.getMessageLocationBackid().subscribe(message => {
-      console.log(message + 'mainview');
-      this.locationBackId = message;
-    });*/
   }
 
   ngOnDestroy() {
     this._unsubscribe();
-    if (this.subscriptionBack)
-    {
+    if (this.subscriptionBack){
       this.subscriptionBack.unsubscribe();
     }
-    if (this.subscriptionLocationid)
-    {
+    if (this.subscriptionLocationid){
       this.subscriptionLocationid.unsubscribe();
     }
   }
 
-  public requestRegisterLocation(id: number, parentId: number)
-  {
-    (id && parentId) ? this.transmissionService.transmitLocationRegister({minor: id, major: parentId}) : console.log('wat');
+  public requestRegisterLocation(id: number, parentId: number){
+    (id && parentId) ? this.transmissionService.transmitLocationRegister({minor: id, major: parentId}) : console.log('emptyLocation');
   }
 
   ngOnInit() {
@@ -102,29 +100,19 @@ export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
     this.closestExhibit = state.closestExhibit;
-    // console.log('ClosestExhibit: ' + this.closestExhibit);
     this.isWeb = this.nativeCommunicationService.isWeb;
-
-    this.sectionList = [
-      {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
-      {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
-      {code: 30, icon: 'Maximilian', primaryColor: '#755300', secondaryColor: '#906e1b'},
-      {code: 40, icon: 'Veil', primaryColor: '#1d635d', secondaryColor: '#3c7f7a'},
-      {code: 50, icon: 'Shrine', primaryColor: '#5c416a', secondaryColor: '#785d86'},
-      {code: 60, icon: 'Tombstone',  primaryColor: '#32633a', secondaryColor: '#4c7d54'}
-    ];
-
     this.sortLocationData();
-    
+  }
+
+  ngAfterViewChecked(){
+    // If boxes lose position after content update, call reDraw()
+    if (d3.select('#exh_101').style('position') !== 'absolute'){
+      this.reDraw();
+    } 
   }
 
   ngAfterViewInit(){
-    this.drawTimeline();
-  }
-
-  drawTimeline() {
-    
-    /* Draw Timeline */
+    // Draw Timeline
     this.y = d3.scaleTime()
       .domain(d3.extent(this.stringDates, (d: any) => this.parseDate(d)))
       .range([0, this.svgHeight]);
@@ -173,18 +161,16 @@ export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
           }
         }
 
-        // Draw event (line + card)
+        // Draw event line and save card position
         const line = svg.append('line').attr('x1', lineX).attr('x2', lineX)
           .attr('class', 'timespanline line_'+ exh.parentId)
           .attr('y1', this.whichY(exh.startDate)).attr('y2', this.whichY(exh.endDate))
           .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId));
+          
+        this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
 
-        const card = d3.select('#exh_' + exh.id).style('position','absolute')
-          .style('top', (this.whichY(boxY) + 200) +'px').style('left', (lineX + 1) +'px'); 
       });
     });
-
-    this.reDraw();
   }
 
   mergeDate(mDate: number){
@@ -198,6 +184,13 @@ export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
   }
 
   reDraw(){
+    // console.log(this.cardPositions);
+    this.cardPositions.forEach((pos) => {
+      // console.log(d3.select('#exh_' + pos.id).node());
+      const card = d3.select('#exh_' + pos.id).style('position','absolute')
+          .style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 1) +'px');
+    });
+
     // trans().delay(750)
     d3.selectAll('.timeline-card.exhibit').transition().style('display', 'none');
     d3.selectAll('.timespanline').transition().style('opacity', '0');
@@ -233,7 +226,6 @@ export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
     });
 
     this.sortedExhbits.push([sec1Exhibits, sec2Exhibits, sec3Exhibits, sec4Exhibits, sec5Exhibits, sec6Exhibits,]);
-    this.reDraw();
   }
 
 
@@ -347,22 +339,22 @@ export class MainViewComponent implements OnInit, AfterViewInit , OnDestroy {
 
   public requestRegisterLocationTableAt()
   {
-    this.nativeResponseService.timelineUpdate({minor: 101, major: 10});
+    this.nativeResponseService.timelineUpdate({minor: 1000, major: 10});
   }
 
   public requestRegisterLocationTableOn()
   {
-    this.nativeResponseService.timelineUpdate({minor: 1000, major: 100});
+    this.nativeResponseService.timelineUpdate({minor: 2002, major: 20});
   }
 
   public requestRegisterLocationTableAtBehavior()
   {
-    this.nativeResponseService.timelineUpdate({minor: 301, major: 30});
+    this.nativeResponseService.timelineUpdate({minor: 101, major: 10});
   }
 
   public requestRegisterLocationPassive()
   {
-    this.nativeResponseService.timelineUpdate({minor: 2001, major: 20});
+    this.nativeResponseService.timelineUpdate({minor: 102, major: 10});
   }
 
   public checkWifiForWeb()
