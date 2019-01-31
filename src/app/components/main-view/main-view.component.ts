@@ -55,6 +55,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   sortedExhbits = [];
   mergedDates = [];
   cardPositions = [];
+  redirected = false;
 
   constructor(
     private transmissionService: TransmissionService,
@@ -90,8 +91,10 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
   }
 
-  public requestRegisterLocation(id: number, parentId: number){
-    (id && parentId) ? this.transmissionService.transmitLocationRegister({minor: id, major: parentId}) : console.log('emptyLocation');
+  public requestRegisterLocation(id: number, parentId: number, locked: boolean){
+    if(!locked && id && parentId){
+      this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
+    }
   }
 
   ngOnInit() {
@@ -109,6 +112,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     if (d3.select('#exh_101').style('position') !== 'absolute'){
       this.reDraw();
     } 
+
+    if(this.redirected){
+      this.redirected = false;
+      this.goToClosestExhibit();
+    }
   }
 
   ngAfterViewInit(){
@@ -184,18 +192,16 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   reDraw(){
-    // console.log(this.cardPositions);
+    // Get calculated positions and place cards
     this.cardPositions.forEach((pos) => {
-      // console.log(d3.select('#exh_' + pos.id).node());
       const card = d3.select('#exh_' + pos.id).style('position','absolute')
           .style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 1) +'px');
     });
 
-    // trans().delay(750)
-    d3.selectAll('.timeline-card.exhibit').transition().style('display', 'none');
+    // Hide everything then show only selected section
+    d3.selectAll('.card.exhibit').transition().style('display', 'none');
     d3.selectAll('.timespanline').transition().style('opacity', '0');
-
-    d3.selectAll('.timeline-card.Section' + this.currentSection).transition().style('display', 'inline');
+    d3.selectAll('.card.Sec' + this.currentSection).transition().style('display', 'inline');
     d3.selectAll('.line_' + this.currentSection).transition().style('opacity', '1');
   }
 
@@ -281,9 +287,10 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     return color;
   }
 
-  displaySection(sectionId: number){
+  displaySection(sectionId: number, auto: boolean){
     this.currentSection = sectionId;
     this.reDraw();
+    this.redirected = auto;
   }
 
   public userCoA(){
@@ -294,31 +301,36 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     );
   }
 
-  openDialogClosestExhibit() {
+  isClose(exhibit: number){
+    let state = false;
+    (this.closestExhibit === exhibit) ? state = true : state = false; 
+    return state;
+  }
+
+  goToClosestExhibit() {
     if(this.closestExhibit){
-      this.locationService.stopLocationScanning();
-      const dialogConfig = new MatDialogConfig();
-
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = false;
-
-      const dialogRef = this.dialog.open(AlertDialogComponent,
-        {data: { number: this.closestExhibit },
-          disableClose: true,
-          autoFocus: false
-        });
-
-      this.subscriptionBack = dialogRef.afterClosed().subscribe(result => {
-        const data = {result: result, location: this.closestExhibit, resStatus: null};
-        this.alertService.sendMessageResponse(data);
-      });
+      const secCode = (this.closestExhibit).toString().substring(0,2);
+      if(secCode !== this.currentSection.toString()){
+        this.displaySection(+secCode, true);
+      }else{
+        this.scrollTo(this.closestExhibit);
+      }  
     }
   }
 
+  scrollTo(id: number) {
+    console.log('scr to' + id);
+    const el = document.getElementById('exh_'+id);
+    el.scrollIntoView({behavior:'smooth'});
+  }
+
   scroll() {
-    // console.log(this.registerLocationmessage.location);
     const id = this.registerLocationmessage.location;
-    console.log(id + ` scrolling to ${id}`);
+    
+    const secCode = id.toString().substring(0,2);
+    if(secCode !== this.currentSection.toString()){
+      this.displaySection(+secCode, true);
+    }
     const el = document.getElementById('exh_'+id);
     el.scrollIntoView({behavior:'smooth'});
     // el.scrollIntoView({behavior:'smooth'});*/

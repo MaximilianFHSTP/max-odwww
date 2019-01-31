@@ -1,43 +1,38 @@
-<div id="woodcut" class="Section{{currentSection}}"></div>
+<div id="woodcut" class="Sec{{currentSection}}"></div>
 <div class="toolbar">
-    <!--<button class="menubutton" [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
-    <mat-menu #menu="matMenu" [overlapTrigger]="false" yPosition="below" xPosition="before">
-      <button mat-menu-item (click)="logoutUser()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>-->
     <button class="wappenbutton" (click)="userCoA()"></button>
-    <button [className]="closestExhibit ? 'enabled locationbutton' : 'disabled locationbutton'" (click)="openDialogClosestExhibit()"><mat-icon>room</mat-icon></button>
+    <button [className]="closestExhibit ? 'enabled locationbutton' : 'disabled locationbutton'" (click)="goToClosestExhibit()"><mat-icon>room</mat-icon></button>
 </div>
 
-<div id="timelineAxis" class="Section{{currentSection}}"></div>
+<div id="timelineAxis" class="Sec{{currentSection}}"></div>
+<div id="timeline"></div>
 
-<ng-container  *ngFor="let entrance of currentEntrance" >
-  <div *ngIf="entrance.parentId == currentSection" class="timeline-card title Section{{currentSection}}" id="exh_{{entrance.id}}">
+<ng-container  *ngFor="let loc of currentEntrance" >
+  <div *ngIf="loc.parentId == currentSection" [className]="isClose(loc.id) ? 'near card title lck'+loc.locked+' Sec'+loc.parentId : 'card title lck'+loc.locked+' Sec'+loc.parentId" 
+  id="exh_{{loc.id}}" (click)="requestRegisterLocation(loc.id, loc.parentId, loc.locked)">
     <img src="./assets/icons/Timeline/{{getSectionIcon(currentSection)}}.svg" />
-    <h1> {{entrance.description}} {{entrance.id}} </h1>
+    <h1> {{loc.description}} {{loc.id}} </h1>
   </div>
 </ng-container>
 
-<div id="timeline"></div>
-
-<ng-container  *ngFor="let location of timelineLocations" >
-  <div *ngIf="location.locationTypeId != 5" class="timeline-card exhibit locked{{location.locked}} type{{location.locationTypeId}} Section{{location.parentId}} {{currentSection}}" id="exh_{{location.id}}" (click)="requestRegisterLocation(location.id, location.parentId)">
+<ng-container  *ngFor="let loc of timelineLocations" >
+  <div *ngIf="loc.locationTypeId != 5" 
+  [className]="isClose(loc.id) ? 'near card exhibit lck'+loc.locked+' type'+loc.locationTypeId+' Sec'+loc.parentId+' '+currentSection : 'card exhibit lck'+loc.locked+' type'+loc.locationTypeId+' Sec'+loc.parentId+' '+currentSection" 
+  id="exh_{{loc.id}}" (click)="requestRegisterLocation(loc.id, loc.parentId, loc.locked)">
     <div class="wrapIcon">
-      <div class="coaIcon" *ngIf="location.unlockCoa"></div>
-      <div class="actIcon" *ngIf="location.locationTypeId == 3 || location.locationTypeId == 6"></div>
+      <div class="coaIcon" *ngIf="loc.unlockCoa"></div>
+      <div class="actIcon" *ngIf="loc.locationTypeId == 3 || loc.locationTypeId == 6"></div>
     </div>
-    <p class="timespan">{{location.startDate}} - {{location.endDate}}</p>
-    <h2> {{location.description}} {{location.id}} </h2>
+    <p class="timespan">{{loc.startDate}} - {{loc.endDate}}</p>
+    <h2> {{loc.description}} {{loc.id}} </h2>
   </div>
 </ng-container>
 
 <div class="timelineSectionNav selected_Section{{currentSection}}">
     <ul>
-        <li *ngFor="let section of sectionList" class="Section{{section.code}}">
-            <button (click)="displaySection(section.code)">
-                <img src="./assets/icons/Timeline/{{section.icon}}.svg" />
+        <li *ngFor="let section of sectionList" class="Sec{{section.code}}">
+            <button (click)="displaySection(section.code, false)">
+                <img src="./assets/icons/Timeline/{{section.icon}}.png" />
             </button>
         </li>
     </ul>
@@ -52,25 +47,3 @@
 </div>
 
 <button id="ghostScrollbutton" class="hiddenbutton" (click)="scroll()">Ghost</button>
-
-<!--<div class="wrapper">
-  <h1>{{ 'main.welcomeText' | translate }} {{user.name}}</h1>
-  <br />
-  
-
-    <mat-list>
-      <mat-list-item *ngFor="let location of timelineLocations">
-        <mat-card class="timeline-card" id="{{location.id}}">
-          <div class="timeline-card-left">
-            <h3 matLine> {{location.description}} {{location.id}} </h3>
-          </div>
-          <div class="timeline-card-right">
-            <button mat-raised-button [disabled]="location.locked" class="registerLocationButton" color="primary" (click)="requestRegisterLocation(location.id, location.parentId)">{{ 'main.goToExhibitButton' | translate }}</button>
-          </div>
-        </mat-card>
-      </mat-list-item>
-    </mat-list>
-  </div>
-
-  -->
-

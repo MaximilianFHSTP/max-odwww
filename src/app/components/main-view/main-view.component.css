@@ -24,57 +24,58 @@ p{
   top: 0;
   height: 100%;
   width: 100%;
-  opacity: 0.2;
+  /*opacity: 0.2;*/
   z-index: -2;
 }
 
-#woodcut.Section10{
-  background: url("assets/icons/Timeline/woodcuts/01WK_197.jpg") 50% 50% fixed;
-  background-size: 600px;
+#woodcut.Sec10{
+  background: url("../../../assets/img/woodcuts/Section1BG.png") 50% 50% fixed;
+  background-size: 100%;
 }
 
-#woodcut.Section20{
-  background: url("assets/icons/Timeline/woodcuts/02WK_130.jpg") 50% 50% fixed;
-  background-size: 600px;
+#woodcut.Sec20{
+  background: url("/assets/img/woodcuts/Section2BG.png") 50% 50% fixed;
+  background-size: 100%;
 }
 
-#woodcut.Section30{
-  background: url("assets/icons/Timeline/woodcuts/03WK_71.jpg") 50% 50% fixed;
-  background-size: 600px;
+#woodcut.Sec30{
+  background: url("/assets/img/woodcuts/Section3BG.png") 50% 50% fixed;
+  background-size: 100%;
 }
 
-#woodcut.Section40{
-  background: url("assets/icons/Timeline/woodcuts/04WK_35.jpg") 50% 50% fixed;
-  background-size: 600px;
+#woodcut.Sec40{
+  background: url("/assets/img/woodcuts/Section4BG.png") 50% 50% fixed;
+  background-size: 100%;
 }
 
-#woodcut.Section50{
-  background: url("assets/icons/Timeline/woodcuts/05WK_163.jpg") 50% 50% fixed;
-  background-size: 600px;
+#woodcut.Sec50{
+  background: url("/assets/img/woodcuts/Section5BG.png") 50% 50% fixed;
+  background-size: 100%;
 }
 
-#woodcut.Section60{
-  background: url("assets/icons/Timeline/woodcuts/06WK_213.jpg") 50% 50% fixed;
-  background-size: 600px;
+#woodcut.Sec60{
+  background: url("/assets/img/woodcuts/Section6BG.png") 50% 50% fixed;
+  background-size: 100%;
 }
 
-.timeline-card{
+.card{
   background: #ffffff;
 }
 
-.timeline-card:hover{
+.card:hover{
   background: #cacaca;
 }
 
-.timeline-card.lockedtrue{
+.card.lcktrue{
   opacity: 0.5;
 }
 
-.timeline-card.nearest{
+.card.near{
   box-shadow: 5px 0px 18px #888888;
+  z-index: 1;
 }
 
-.timeline-card.title{
+.card.title{
   width: 65%;
   height: 90px;
   position: absolute;
@@ -82,28 +83,25 @@ p{
   left: 32px;
 }
 
-.timeline-card img{
+.card img{
   width: 15%;
   float: left;
   margin: 6% 0 0 5%;
 }
 
-.timeline-card.exhibit{
+.card.exhibit{
   width: 56%;
   height: 90px;
- /* position: absolute;
-  /*top: 220px;
-  left: 52px;*/
 }
 
-.timeline-card h1{
+.card h1{
   width: 70%;
   font-size: 110%;
   float: right;
   margin: 3% 5% 0% 5%;
 }
 
-.timeline-card h2{
+.card h2{
   margin: 0% 5%;
   font-size: 110%;
   word-break: break-all;
@@ -125,7 +123,7 @@ p{
   position: absolute;
   bottom: 33px;
   right: 4.5px;
-  background-image: url("../../../assets/icons/WappenIcons.svg");
+  background-image: url("../../../assets/icons/WappenIcons.png");
   background-position: 27px -28px;
   background-size: 240px;
 }
@@ -134,40 +132,40 @@ p{
   position: absolute;
   bottom: 4.5px;
   right: 4.5px;
-  background-image: url("../../../assets/icons/WappenIcons.svg");
+  background-image: url("../../../assets/icons/WappenIcons.png");
   background-position: -3px -28px;
   background-size: 240px;
 }
 
-.timeline-card .timespan{
+.card .timespan{
   font-size: 80%;
   margin: 5% 5% 0% 5%;
 }
 
-.timeline-card.Section1 img{
+.card.Sec1 img{
   filter: invert(88%) sepia(88%) saturate(6586%) hue-rotate(290deg) brightness(101%) contrast(100%);
 }
 
-.timeline-card.Section10{ border: 2px solid #823a3a; }
-.timeline-card.Section20{ border: 2px solid #305978; }
-.timeline-card.Section30{ border: 2px solid #755300; }
-.timeline-card.Section40{ border: 2px solid #1d635d; }
-.timeline-card.Section50{ border: 2px solid #5c416a; }
-.timeline-card.Section60{ border: 2px solid #32633a; }
+.card.Sec10{ border: 2px solid #823a3a; }
+.card.Sec20{ border: 2px solid #305978; }
+.card.Sec30{ border: 2px solid #755300; }
+.card.Sec40{ border: 2px solid #1d635d; }
+.card.Sec50{ border: 2px solid #5c416a; }
+.card.Sec60{ border: 2px solid #32633a; }
 
-.timeline-card.Section10 .timespan{ color: #823a3a; }
-.timeline-card.Section20 .timespan{ color: #305978; }
-.timeline-card.Section30 .timespan{ color: #755300; }
-.timeline-card.Section40 .timespan{ color: #1d635d; }
-.timeline-card.Section50 .timespan{ color: #5c416a; }
-.timeline-card.Section60 .timespan{ color: #32633a; }
+.card.Sec10 .timespan{ color: #823a3a; }
+.card.Sec20 .timespan{ color: #305978; }
+.card.Sec30 .timespan{ color: #755300; }
+.card.Sec40 .timespan{ color: #1d635d; }
+.card.Sec50 .timespan{ color: #5c416a; }
+.card.Sec60 .timespan{ color: #32633a; }
 
-.timeline-card.Section10 .wrapIcon div, #timelineAxis.Section10{ background-color: #823a3a; }
-.timeline-card.Section20 .wrapIcon div, #timelineAxis.Section20{ background-color: #305978; }
-.timeline-card.Section30 .wrapIcon div, #timelineAxis.Section30{ background-color: #755300; }
-.timeline-card.Section40 .wrapIcon div, #timelineAxis.Section40{ background-color: #1d635d; }
-.timeline-card.Section50 .wrapIcon div, #timelineAxis.Section50{ background-color: #5c416a; }
-.timeline-card.Section60 .wrapIcon div, #timelineAxis.Section60{ background-color: #32633a; }
+.card.Sec10 .wrapIcon div, #timelineAxis.Sec10{ background-color: #823a3a; }
+.card.Sec20 .wrapIcon div, #timelineAxis.Sec20{ background-color: #305978; }
+.card.Sec30 .wrapIcon div, #timelineAxis.Sec30{ background-color: #755300; }
+.card.Sec40 .wrapIcon div, #timelineAxis.Sec40{ background-color: #1d635d; }
+.card.Sec50 .wrapIcon div, #timelineAxis.Sec50{ background-color: #5c416a; }
+.card.Sec60 .wrapIcon div, #timelineAxis.Sec60{ background-color: #32633a; }
 
 #timelineAxis{
   margin: 0;
@@ -211,7 +209,7 @@ p{
 }
 
 .wappenbutton{ 
-  background: url("../../../assets/icons/WappenIcons.svg") 54px 48px;
+  background: url("../../../assets/icons/WappenIcons.png") 54px 48px;
   background-size: 450px;
   margin: 90px 20px 0px 0px;
 }
@@ -256,11 +254,11 @@ p{
   background: #494949;
 }
 
-.timelineSectionNav .Section20,
-.timelineSectionNav .Section30,
-.timelineSectionNav .Section40,
-.timelineSectionNav .Section50,
-.timelineSectionNav .Section60 {
+.timelineSectionNav .Sec20,
+.timelineSectionNav .Sec30,
+.timelineSectionNav .Sec40,
+.timelineSectionNav .Sec50,
+.timelineSectionNav .Sec60 {
   margin-left: 0.8%;
 }
 
@@ -280,50 +278,50 @@ p{
 }
 
 @media (max-width: 320px) {
-  .timeline-card h1{
+  .card h1{
     font-size: 100%;
   }
 }
 
-.selected_Section10 img, .title.Section10 img{
+.selected_Section10 img, .title.Sec10 img{
   filter: invert(30%) sepia(40%) saturate(842%) hue-rotate(314deg) brightness(81%) contrast(88%);
 }
 
-.selected_Section20 img, .title.Section20 img{
+.selected_Section20 img, .title.Sec20 img{
   filter: invert(34%) sepia(18%) saturate(1288%) hue-rotate(163deg) brightness(88%) contrast(93%);
 }
 
-.selected_Section30 img, .title.Section30 img{
+.selected_Section30 img, .title.Sec30 img{
   filter: invert(34%) sepia(7%) saturate(7087%) hue-rotate(11deg) brightness(94%) contrast(101%);
 }
 
-.selected_Section40 img, .title.Section40 img{
+.selected_Section40 img, .title.Sec40 img{
   filter: invert(29%) sepia(81%) saturate(323%) hue-rotate(126deg) brightness(97%) contrast(97%);
 }
 
-.selected_Section50 img, .title.Section50 img{
+.selected_Section50 img, .title.Sec50 img{
   filter: invert(29%) sepia(18%) saturate(1061%) hue-rotate(235deg) brightness(91%) contrast(93%);
 }
 
-.selected_Section60 img, .title.Section60 img{
+.selected_Section60 img, .title.Sec60 img{
   filter: invert(31%) sepia(25%) saturate(876%) hue-rotate(78deg) brightness(95%) contrast(88%);
 }
 
-.timelineSectionNav.selected_Section10 li.Section10 img,
-.timelineSectionNav.selected_Section20 li.Section20 img,
-.timelineSectionNav.selected_Section30 li.Section30 img,
-.timelineSectionNav.selected_Section40 li.Section40 img,
-.timelineSectionNav.selected_Section50 li.Section50 img,
-.timelineSectionNav.selected_Section60 li.Section60 img{
+.timelineSectionNav.selected_Section10 li.Sec10 img,
+.timelineSectionNav.selected_Section20 li.Sec20 img,
+.timelineSectionNav.selected_Section30 li.Sec30 img,
+.timelineSectionNav.selected_Section40 li.Sec40 img,
+.timelineSectionNav.selected_Section50 li.Sec50 img,
+.timelineSectionNav.selected_Section60 li.Sec60 img{
   filter: invert(99%) sepia(7%) saturate(90%) hue-rotate(226deg) brightness(120%) contrast(100%);
 }
 
-.timelineSectionNav.selected_Section10 ul li.Section10, .timelineSectionNav.selected_Section10 ul li.Section10 button,
-.timelineSectionNav.selected_Section20 ul li.Section20, .timelineSectionNav.selected_Section20 ul li.Section20 button,
-.timelineSectionNav.selected_Section30 ul li.Section30, .timelineSectionNav.selected_Section30 ul li.Section30 button,
-.timelineSectionNav.selected_Section40 ul li.Section40, .timelineSectionNav.selected_Section40 ul li.Section40 button,
-.timelineSectionNav.selected_Section50 ul li.Section50, .timelineSectionNav.selected_Section50 ul li.Section50 button,
-.timelineSectionNav.selected_Section60 ul li.Section60, .timelineSectionNav.selected_Section60 ul li.Section60 button{
+.timelineSectionNav.selected_Section10 ul li.Sec10, .timelineSectionNav.selected_Section10 ul li.Sec10 button,
+.timelineSectionNav.selected_Section20 ul li.Sec20, .timelineSectionNav.selected_Section20 ul li.Sec20 button,
+.timelineSectionNav.selected_Section30 ul li.Sec30, .timelineSectionNav.selected_Section30 ul li.Sec30 button,
+.timelineSectionNav.selected_Section40 ul li.Sec40, .timelineSectionNav.selected_Section40 ul li.Sec40 button,
+.timelineSectionNav.selected_Section50 ul li.Sec50, .timelineSectionNav.selected_Section50 ul li.Sec50 button,
+.timelineSectionNav.selected_Section60 ul li.Sec60, .timelineSectionNav.selected_Section60 ul li.Sec60 button{
   background: #494949;
 }
 
