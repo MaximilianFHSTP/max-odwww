@@ -296,6 +296,24 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
+  public openAboutView(){
+    this.dismissMenu();
+    this.router.navigate(['about']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('About', 'print');
+      }
+    );
+  }
+
+  public openLegalView(){
+    this.dismissMenu();
+    this.router.navigate(['legal']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Legal', 'print');
+      }
+    );
+  }
+
   public dismissMenu(){
     this.menuOpen = false;
   }

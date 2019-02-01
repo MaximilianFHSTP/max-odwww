@@ -13,6 +13,8 @@ import { ChangeCredentialsComponent } from './components/change-credentials/chan
 import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { LanguageStartComponent } from './components/language-start/language-start.component';
 import { WappenComponent } from './components/wappen/wappen.component';
+import { AboutComponent } from './components/about/about.component';
+import { LegalComponent } from './components/legal/legal.component';
 
 
 
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'passive', component: ContentPassiveComponent },
   { path: 'tableat', component: ContentTableAtComponent, runGuardsAndResolvers: 'always'},
   { path: 'tableon', component: ContentTableOnComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'legal', component: LegalComponent },
   { path: 'wappen', component: WappenComponent },
   // additional routes here
 

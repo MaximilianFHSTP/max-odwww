@@ -60,6 +60,8 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { WappenComponent } from './components/wappen/wappen.component';
+import { AboutComponent } from './components/about/about.component';
+import { LegalComponent } from './components/legal/legal.component';
 
 
 
@@ -86,7 +88,9 @@ export const appStore = createStore(
     ChangeCredentialsComponent,
     RegisterRealuserComponent,
     LanguageStartComponent,
-    WappenComponent
+    WappenComponent,
+    AboutComponent,
+    LegalComponent
   ],
   imports: [
     BrowserModule,

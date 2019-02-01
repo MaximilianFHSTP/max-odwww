@@ -12,8 +12,8 @@
   <ul>
     <li *ngIf="guest == 0" (click)="userCredentials()">PROFILE SETTINGS</li>
     <li *ngIf="guest == 1" (click)="registerRealuserRouting()">SIGN UP</li>
-    <li>ABOUT</li>
-    <li>LEGAL DETAILS</li>
+    <li (click)="openAboutView()">ABOUT</li>
+    <li (click)="openLegalView()">LEGAL DETAILS</li>
     <li (click)="logoutUser()">LOGOUT</li>
   </ul>
 </div>
