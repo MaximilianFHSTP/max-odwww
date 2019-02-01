@@ -221,6 +221,10 @@ p{
   right: 0;
   bottom: 110px;
   margin: 20px 20px 0px 0px;
+  background-image: url("../../../assets/icons/location.svg");
+  background-position: center;
+  background-size: 40px;
+  background-repeat: no-repeat;
 }
 
 .toolbar button.disabled{

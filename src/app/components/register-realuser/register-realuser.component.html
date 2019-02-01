@@ -1,39 +1,37 @@
 <div class="wrapper">
-  <mat-card class="registerRealForm">
-    <h1>Register as real user</h1>
-    <h2>You can fully register now</h2>
-
+  <h2>Please choose a username and a password.</h2>
+  <div class="loginFormWrapper">
     <form name="registerRealForm" [formGroup]="registerRealUserForm">
       <div class="fix-mat-form-field">
-        <mat-form-field class="full-with-field">
+        <mat-form-field class="full-with-field" appearance="outline">
           <input matInput placeholder="Username" required [(ngModel)]="name" [formControl]="nameFormControl">
           <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
-        <mat-form-field class="full-with-field">
+        <mat-form-field class="full-with-field" appearance="outline">
           <input matInput placeholder="Email" [(ngModel)]="email" required [formControl]="emailFormControl">
           <mat-error *ngIf="emailFormControl.invalid">{{getRequiredErrorMessage('email')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
-        <mat-form-field class="full-with-field">
+        <mat-form-field class="full-with-field" appearance="outline">
           <input matInput placeholder="Password" [(ngModel)]="password" required [formControl]="passwordFormControl">
           <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
-        <mat-form-field class="full-with-field">
+        <mat-form-field class="full-with-field" appearance="outline">
           <input matInput placeholder="Password Confirmation" [(ngModel)]="confirmPassword" required [formControl]="confirmPasswordFormControl">
           <mat-error *ngIf="confirmPasswordFormControl.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
-      <br />
-      <mat-error *ngIf="wrongCred">{{getExistsErrorMessage()}}</mat-error>
-      <button mat-raised-button [disabled]="registerRealUserForm.invalid" color="primary" (click)="registerAsRealuser()">Confirm</button>
+
+      <div class="error"><mat-error *ngIf="wrongCred">{{getExistsErrorMessage()}}</mat-error></div>
+      <button class="btnLogin" [disabled]="registerRealUserForm.invalid" (click)="registerAsRealuser()">Confirm</button>
     </form>
-  </mat-card>
+  </div>
 </div>

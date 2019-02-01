@@ -41,6 +41,10 @@
   height: 50px;
   width: 50px;
   background-color: #494949;
+  background-image: url("assets/icons/menu.svg");
+  background-position: center;
+  background-size: 35px;
+  background-repeat: no-repeat;
   margin: 20px 20px 0px 0px;
 }
 
@@ -65,7 +69,7 @@
   top: 0;
   right: 0;
   z-index: 9;
-  background-color: #494949;
+  background-color: #494949; 
 }
 
 .menuDiv ul{
