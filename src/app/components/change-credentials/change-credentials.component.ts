@@ -10,6 +10,9 @@ import {TransmissionService} from '../../services/transmission.service';
 import {AlertService} from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
+import {TranslateService} from '@ngx-translate/core';
+import * as languageTypes from '../../config/LanguageTypes';
+import {LanguageService} from '../../services/language.service';
 
 @Component({
   selector: 'app-change-credentials',
@@ -33,6 +36,11 @@ export class ChangeCredentialsComponent implements OnInit
   private passwordFormControl: FormControl;
   private newPasswordFormControl: FormControl;
   private newConfirmPasswordFormControl: FormControl;
+  public language: string;
+  changeUsernameEnable = false;
+  changeEmailEnable = false;
+  changePasswordEnable = false;
+  changeLanguageEnable = false;
 
   constructor(
     private router: Router,
@@ -40,10 +48,12 @@ export class ChangeCredentialsComponent implements OnInit
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
-    private utilitiesService: NativeCommunicationService,
+    private nativeCommunicationService: NativeCommunicationService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private alertService: AlertService,
+    private translate: TranslateService,
+    private languageService: LanguageService,
     private snackBar: MatSnackBar
 
   ) {
@@ -68,11 +78,13 @@ export class ChangeCredentialsComponent implements OnInit
       this.transmissionService.changeName = undefined;
     }else{
       this.transmissionService.changeName = this.nameFormControl.value;
+      this.changeName = this.nameFormControl.value;
     }
     if(this.emailFormControl.value === undefined || this.emailFormControl.value === ''){
       this.transmissionService.changeEmail = undefined;
     }else{
       this.transmissionService.changeEmail = this.emailFormControl.value;
+      this.changeEmail = this.emailFormControl.value;
     }
     if(this.passwordFormControl.value === undefined || this.passwordFormControl.value === ''){
       this.transmissionService.changeOldPassword = undefined;
@@ -86,6 +98,11 @@ export class ChangeCredentialsComponent implements OnInit
     }
 
     this.transmissionService.transmitUserCredentialChange();
+    
+    this.changeUsernameEnable = false;
+    this.changeEmailEnable = false;
+    this.changePasswordEnable = false;
+    this.changeLanguageEnable = false;   
   }
 
   ngOnInit()
@@ -113,6 +130,7 @@ export class ChangeCredentialsComponent implements OnInit
     });
 
     this.changeForm.get('newConfirmPassword').setValidators(this.matchingpassword('newPassword'));
+    this.language = this.languageService.getCurrentLanguageAsString();
   }
 
   getPasswordErrorMessage() {
@@ -165,6 +183,66 @@ export class ChangeCredentialsComponent implements OnInit
 
   getCredChangeExistingCred(field) {
     return 'These credentials are already taken.';
+  }
+
+  public useLanguage(language: string) {
+    this.translate.use(language);
+
+    if(language === 'de')
+    {
+      this.languageService.transmitChangeUserLanguage(languageTypes.DE);
+    }
+    else {
+      this.languageService.transmitChangeUserLanguage(languageTypes.ENG);
+    }
+    this.language = language;
+  }
+
+  public closeWindow(){
+    this.router.navigate(['mainview']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Main View', 'print');
+      }
+    );
+  }
+
+  changeUsernamePreview(){
+    this.changeUsernameEnable = true;
+
+    this.changeEmailEnable = false;
+    this.changePasswordEnable = false;
+    this.changeLanguageEnable = false;  
+  }
+
+  changeEmailPreview(){
+    this.changeEmailEnable = true;
+
+    this.changeUsernameEnable = false;
+    this.changePasswordEnable = false;
+    this.changeLanguageEnable = false;  
+  }
+
+  changePasswordPreview(){
+    this.changePasswordEnable = true;
+
+    this.changeUsernameEnable = false;
+    this.changeEmailEnable = false;
+    this.changeLanguageEnable = false;  
+  }
+
+  changeLanguagePreview(){
+    this.changeLanguageEnable = true;
+
+    this.changeUsernameEnable = false;
+    this.changeEmailEnable = false;
+    this.changePasswordEnable = false;
+  }
+
+  cancelCredentialsChange(){
+    this.changeLanguageEnable = false;
+    this.changeUsernameEnable = false;
+    this.changeEmailEnable = false;
+    this.changePasswordEnable = false;
   }
 
 }

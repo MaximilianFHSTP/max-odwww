@@ -1,9 +1,8 @@
-<h2 matDialogTitle>Delete your Account?</h2>
+<mat-icon class="btnCancel" (tap)="cancelDialog()">close</mat-icon>
+<h1 matDialogTitle>Delete Account</h1>
 <div mat-dialog-content>
-  <p>Do you really want to delete your account {{data.username}}?</p>
+  <p>If you delete your account, you will not be able to reactivate it, and all your data will be lost. Do you really want to proceed {{data.username}}?</p>
 </div>
 <mat-dialog-actions align="end">
-  <button mat-raised-button color="primary" (tap)="cancelDialog()">No</button>
-  <button mat-raised-button color="primary" (tap)="confirmDialog()">Yes</button>
+  <button class="btnConfirm" (tap)="confirmDialog()">Delete Account</button>
 </mat-dialog-actions>
-
