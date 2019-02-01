@@ -44,6 +44,20 @@
   margin: 20px 20px 0px 0px;
 }
 
+#redirectTimeline,
+#redirectStart{
+  float:left;
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  background-color: #494949;
+  margin: 20px 20px 0px 20px;
+  background-image: url("assets/icons/back.svg");
+  background-position: center;
+  background-size: 50px;
+}
+
 .menuDiv{
   position: fixed;
   height: 100%;

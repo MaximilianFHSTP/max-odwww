@@ -6,7 +6,7 @@
     "welcomeMessage": "Welcome to the exhibition",
     "name": "The Emperor's New Saint",
     "loginButton": "Login",
-    "registerGuestButton": "Register as guest",
+    "registerGuestButton": "Login as guest",
     "registerButton": "Register"
   },
   "languageStart": {

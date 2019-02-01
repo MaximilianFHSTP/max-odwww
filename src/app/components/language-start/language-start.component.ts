@@ -15,22 +15,32 @@ import * as languageTypes from '../../config/LanguageTypes';
 @Injectable()
 export class LanguageStartComponent implements OnInit
 {
+  public language: string;
+
   constructor(
     private router: Router,
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
     private languageService: LanguageService
-  ) { }
+  ) {
+    this.language = this.languageService.getCurrentLanguageAsString();
+   }
 
-  ngOnInit()
-  {
-  }
+  ngOnInit(){ }
 
   changeLanguageToGerman(){
     this.languageService.transmitChangeAppLanguage(languageTypes.DE);
+    this.language = 'de';
   }
 
   changeLanguageToEnglish(){
     this.languageService.transmitChangeAppLanguage(languageTypes.ENG);
+    this.language = 'en';
+  }
+
+  isSelected(lang: string){
+    let selected = false;
+    (this.language === lang) ? selected = true : selected = false;
+    return selected;
   }
 }
