@@ -1,44 +1,37 @@
-<h1>
-  {{ 'tableAt.welcomeText' | translate }} {{location.description}}
-</h1>
+<div class="btnBack"><img src="./assets/icons/Timeline/{{getSectionIcon(location.parentId)}}.png" /></div>
+<div class="wrapper Sec_{{location.parentId}}">
+  <div class="wrapperContent">
+    <h1>{{location.description}}</h1>
 
-<div *ngFor="let cont of location.contents">
-  <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>
-  <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
-</div>
+    <div *ngFor="let cont of location.contents">
+      <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>
+      <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
+    </div>
 
+    <p class="note">{{ 'tableAt.interactiveExhibitMsg' | translate }}</p>
+  </div> 
 
-<div *ngIf="locationStatusFree">
-  <div *ngIf="locationType == 3">
-    <h3>{{ 'tableAt.tableFreeText' | translate }}</h3>
-    <button *ngIf="joinGame" mat-raised-button color="primary" (click)="startOnTableSearch()">{{ 'tableAt.tableJoinButton' | translate }}</button>
-    <p *ngIf="!joinGame">{{ 'tableAt.beaconPutText' | translate }}</p>
-    <h4 *ngIf="locationSocketStatus === 'OCCUPIED'">{{ 'tableAt.beaconOccupiedText' | translate }}</h4>
+  <div class="btnJoin">
+    <div class="ico"></div>
+    <div class="msg">
+      <div *ngIf="locationStatusFree">
+        <div *ngIf="locationType == 3">
+          <p>{{ 'tableAt.tableFreeText' | translate }}</p>
+          <button *ngIf="joinGame" (click)="startOnTableSearch()">{{ 'tableAt.tableJoinButton' | translate }}</button>
+          <p *ngIf="!joinGame">{{ 'tableAt.beaconPutText' | translate }}</p>
+          <p *ngIf="locationSocketStatus === 'OCCUPIED'">{{ 'tableAt.beaconOccupiedText' | translate }}</p>
 
-    <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
-      <button mat-raised-button color="primary" (click)="redirectToOnTable()">Register Location TableOn</button>
+          <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
+            <button (click)="redirectToOnTable()">Register Location TableOn</button>
+          </div>
+        </div>
+        <div *ngIf="locationType == 6">
+          <button *ngIf="joinGame" ng-disabled="isJoinButtonUnlocked" (click)="redirectToOnTableBehavior()">{{ 'tableAt.tableJoinButton' | translate }}</button>
+        </div>
+      </div>
+      <div *ngIf="locationStatusOccupied"><p>{{ 'tableAt.tableOccupiedText' | translate }}</p></div>
+      <div *ngIf="locationStatusOffline"><p>{{ 'tableAt.tableOfflineText' | translate }}</p></div>
     </div>
   </div>
-  <div *ngIf="locationType == 6">
-    <h3>{{ 'tableAt.tableFreeText' | translate }}</h3>
-    <button *ngIf="joinGame" ng-disabled="isJoinButtonUnlocked" mat-raised-button color="primary" (click)="redirectToOnTableBehavior()">{{ 'tableAt.tableJoinButton' | translate }}</button>
-  </div>
+  <div class="btnJoinDisabled" *ngIf="locationStatusOffline || locationStatusOccupied || !joinGame || locationSocketStatus === 'OCCUPIED'"></div>
 </div>
-
-<div *ngIf="locationStatusOccupied">
-  <h3>{{ 'tableAt.tableOccupiedText' | translate }}</h3>
-</div>
-
-<div *ngIf="locationStatusOffline">
-  <h3>{{ 'tableAt.tableOfflineText' | translate }}</h3>
-</div>
-
-<button *ngIf="location.liked; else notLiked" id="unlike" mat-raised-button color="warn" (click)="registerLocationUnlike()">
-  <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Unlike
-</button>
-
-<ng-template #notLiked>
-  <button id="like" mat-stroked-button color="warn" (click)="registerLocationLike()">
-    <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>&nbsp;Like
-  </button>
-</ng-template>

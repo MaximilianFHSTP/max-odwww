@@ -34,27 +34,27 @@ p{
 }
 
 #woodcut.Sec20{
-  background: url("/assets/img/woodcuts/Section2BG.png") 50% 50% fixed;
+  background: url("../../../assets/img/woodcuts/Section2BG.png") 50% 50% fixed;
   background-size: 100%;
 }
 
 #woodcut.Sec30{
-  background: url("/assets/img/woodcuts/Section3BG.png") 50% 50% fixed;
+  background: url("../../../assets/img/woodcuts/Section3BG.png") 50% 50% fixed;
   background-size: 100%;
 }
 
 #woodcut.Sec40{
-  background: url("/assets/img/woodcuts/Section4BG.png") 50% 50% fixed;
+  background: url("../../../assets/img/woodcuts/Section4BG.png") 50% 50% fixed;
   background-size: 100%;
 }
 
 #woodcut.Sec50{
-  background: url("/assets/img/woodcuts/Section5BG.png") 50% 50% fixed;
+  background: url("../../../assets/img/woodcuts/Section5BG.png") 50% 50% fixed;
   background-size: 100%;
 }
 
 #woodcut.Sec60{
-  background: url("/assets/img/woodcuts/Section6BG.png") 50% 50% fixed;
+  background: url("../../../assets/img/woodcuts/Section6BG.png") 50% 50% fixed;
   background-size: 100%;
 }
 
@@ -340,4 +340,25 @@ p{
 
 .hiddenbutton{
   display: none;
+}
+
+@media (min-width: 550px) {
+  .card img{
+    width: 55px;
+    margin: 15px;
+  }
+  
+  .card .timespan{
+    font-size: 80%;
+    margin: 15px 0px 0px 15px;
+  }
+
+  .card h1{
+    float: left;
+    margin: 15px 0px 0px 0px;
+  }
+  
+  .card h2{
+    margin: 0px 0px 0px 15px;
+  }
 }

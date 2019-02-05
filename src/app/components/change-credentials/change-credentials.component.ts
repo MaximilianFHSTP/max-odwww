@@ -199,11 +199,11 @@ export class ChangeCredentialsComponent implements OnInit
   }
 
   public closeWindow(){
-    this.router.navigate(['mainview']).then( () =>
-      {
+    if(!this.changeUsernameEnable && !this.changeEmailEnable && !this.changePasswordEnable && !this.changeLanguageEnable){
+      this.router.navigate(['mainview']).then( () => {
         this.nativeCommunicationService.sendToNative('Main View', 'print');
-      }
-    );
+      });
+    }  
   }
 
   changeUsernamePreview(){

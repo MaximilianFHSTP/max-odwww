@@ -18,6 +18,7 @@
   },
   "tableAt": {
     "welcomeText": "Willkommen bei",
+    "interactiveExhibitMsg": "Dies ist eine interaktive Ausstellung. Klicken Sie auf die Schaltfläche unten, um zu beginnen!",
     "tableOfflineText": "Beim Table ist leider ein Problem aufgetreten und steht daher zur Zeit nicht zur Verfügung!",
     "tableFreeText": "Der Table ist frei",
     "tableOccupiedText": "Der Table ist gerade nicht frei, probieren Sie es später erneut!",

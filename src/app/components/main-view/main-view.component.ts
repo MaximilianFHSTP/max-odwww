@@ -237,7 +237,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   sortLocationData( ){
     const mtimelineLocations = this.timelineLocations;
-    console.log(this.timelineLocations);
+    // console.log(this.timelineLocations);
 
     this.timelineLocations.forEach((exh, index) => {
       if(this.timelineLocations[index + 1] && exh.locationTypeId !== 5 && exh.parentId === this.timelineLocations[index + 1].parentId){
@@ -319,7 +319,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   scrollTo(id: number) {
-    console.log('scr to' + id);
+    // console.log('scr to' + id);
     const el = document.getElementById('exh_'+id);
     el.scrollIntoView({behavior:'smooth'});
   }

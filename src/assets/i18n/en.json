@@ -13,17 +13,18 @@
     "helpmessage": "Please choose a language!"
   },
   "main": {
-    "welcomeText": "Welcome",
+    "welcomeText": "Welcome at",
     "goToExhibitButton": "Go to Exhibit"
   },
   "tableAt": {
     "welcomeText": "Welcome at",
+    "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
     "tableOfflineText": "Sorry an error occurred. Therefore, the table is currently not available!",
     "tableFreeText": "The table is free",
-    "tableOccupiedText": "Sorry the table is occupied. Please try again later.",
-    "tableJoinButton": "Join",
-    "beaconPutText": "Please put your phone at the beacon.",
-    "beaconOccupiedText": "This place is currently occupied"
+    "tableOccupiedText": "Sorry the table is occupied. Please try again later",
+    "tableJoinButton": "Join interactive exhibit",
+    "beaconPutText": "Please, put your phone at the indicated position",
+    "beaconOccupiedText": "Sorry, but this place is currently occupied by other player"
   },
   "passiveExhibit": {
     "welcomeText": "Welcome at"

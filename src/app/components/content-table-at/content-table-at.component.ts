@@ -36,6 +36,14 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   private _statusTimerSubscription;
   private _curLocSubscribe: Subscription;
   private navigationSubscription: Subscription;
+  sectionList = [
+    {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
+    {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
+    {code: 30, icon: 'Maximilian', primaryColor: '#755300', secondaryColor: '#906e1b'},
+    {code: 40, icon: 'Veil', primaryColor: '#1d635d', secondaryColor: '#3c7f7a'},
+    {code: 50, icon: 'Shrine', primaryColor: '#5c416a', secondaryColor: '#785d86'},
+    {code: 60, icon: 'Tombstone',  primaryColor: '#32633a', secondaryColor: '#4c7d54'}
+  ];
 
   constructor(
     private godService: GodService,
@@ -60,6 +68,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
     {
       this.location = value;
+      console.log(this.location);
     });
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
@@ -125,20 +134,23 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     }
   }
 
+  getSectionIcon(sectionId: number){
+    let icon = '';
+    this.sectionList.forEach((section) => {
+      if(section.code === sectionId){
+        icon = section.icon;
+      }
+    });
+
+    return icon;
+  }
+
   // saves ID of current exhibit in localstorage
   startOnTableSearch(){
     this.joinGame = false;
     this.locationService.stopLocationScanning();
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
     // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
-  }
-
-  registerLocationLike() {
-    this.transmissionService.transmitLocationLike(true);
-  }
-
-  registerLocationUnlike() {
-    this.transmissionService.transmitLocationLike(false);
   }
 
   /*
