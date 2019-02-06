@@ -1,6 +1,10 @@
 {
   "app": {
-    "backButton": "back"
+    "backButton": "back",
+    "menuSettings": "PROFILE SETTINGS",
+    "menuSignup": "SIGN UP",
+    "menuAbout": "ABOUT",
+    "menuLogout": "LOGOUT"
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",
@@ -11,6 +15,19 @@
   },
   "languageStart": {
     "helpmessage": "Please choose a language!"
+  },
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "btnSave": "Continue"
+  },
+  "register": {
+    "title": "Please choose a username and a password.",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Password Confirmation",
+    "btnSave": "Continue"
   },
   "main": {
     "welcomeText": "Welcome at",
@@ -28,6 +45,45 @@
   },
   "passiveExhibit": {
     "welcomeText": "Welcome at"
+  },
+  "interactiveExhibit": {
+    "quizQuestion": "What is the name of the student appearing here?",
+    "quizRight": "Correct Answer!",
+    "quizWrong": "Wrong Answer."
+  },
+  "coa": {
+    "title": "Coat of Arms of",
+    "helpTitle": "Your Coat of Arms",
+    "helpText": "You can create your personal coat of arms here by selecting from the parts below. You can unlock more parts by solving tasks in the exhibition!",
+    "shield": "Shield",
+    "charge": "Charge",
+    "helmet": "Helmet",
+    "mantle": "Mantling",
+    "colors": "Colors",
+    "primColor": "Primary Color",
+    "secColor": "Secondary Color"
+  },
+  "changeCredentials": {
+    "title": "Profile Settings",
+    "username": "Username",
+    "email": "E-Mail",
+    "password": "Password",
+    "passwordOld": "Old Password",
+    "passwordNew": "New Password",
+    "passwordConfirm": "Confirm Password",
+    "language": "Language",
+    "btnUsername": "Change Username",
+    "btnEmail": "Change E-Mail",
+    "btnPassword": "Change Password",
+    "btnLanguage": "Change Language",
+    "btnDelete": "Delete Account",
+    "btnSave": "Save Credentials",
+    "btnCancel": "Cancel"
+  },
+  "deleteDialog": {
+    "title": "Delete Account",
+    "text": "If you delete your account, you will not be able to reactivate it, and all your data will be lost. Do you really want to proceed",
+    "yesOption": "Delete Account"
   },
   "alertDialog": {
     "title": "Exhibit",

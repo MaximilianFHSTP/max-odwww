@@ -4,21 +4,21 @@
     <form name="loginForm" [formGroup]="loginForm">
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="Username" required [(ngModel)]="name" [formControl]="nameFormControl">
+          <input matInput placeholder="{{ 'login.username' | translate }}" required [(ngModel)]="name" [formControl]="nameFormControl">
           <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="Password" [(ngModel)]="password" required [formControl]="passwordFormControl">
+          <input matInput placeholder="{{ 'login.password' | translate }}" [(ngModel)]="password" required [formControl]="passwordFormControl">
           <mat-error *ngIf="passwordFormControl.invalid">{{getRequiredErrorMessage('password')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="error"><mat-error *ngIf="wrongLogin">{{getLoginErrorMessage()}}</mat-error></div>
 
-      <button class="btnLogin" [disabled]="loginForm.invalid" (click)="loginDevice()">Continue</button>
+      <button class="btnLogin" [disabled]="loginForm.invalid" (click)="loginDevice()">{{ 'login.btnSave' | translate }}</button>
     </form>
   </div>
 </div>

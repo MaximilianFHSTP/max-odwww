@@ -62,6 +62,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { WappenComponent } from './components/wappen/wappen.component';
 import { AboutComponent } from './components/about/about.component';
 import { LegalComponent } from './components/legal/legal.component';
+import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
 
 
 
@@ -90,7 +91,8 @@ export const appStore = createStore(
     LanguageStartComponent,
     WappenComponent,
     AboutComponent,
-    LegalComponent
+    LegalComponent,
+    EducationQuizComponent
   ],
   imports: [
     BrowserModule,

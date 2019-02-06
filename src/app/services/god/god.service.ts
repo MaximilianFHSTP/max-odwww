@@ -162,8 +162,11 @@ export class GodService {
       if (dis === false)
       {
         this.locationService.updateCurrentLocation(loc);
+        console.log(loc);
         this.utilitiesService.sendToNative('New Location is ' + this.locationService.currentLocation, 'print');
+        
         const currLoc = this.locationService.currentLocation.value;
+        console.log(currLoc);
 
         this.router.navigate([currLoc.contentURL]).then(() => { });
       }
@@ -466,7 +469,77 @@ export class GodService {
       this.store.dispatch(this.statusActions.changeLanguage(language));
       this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
-      this.socket.removeAllListeners('registerLocationResult');
+      this.socket.removeAllListeners('updateUserLanguageResult');
+    });
+  }
+
+    public getCoaColors(): void
+  {
+    this.socket.emit('getCoaColors');
+
+    this.socket.on('getCoaColorsResult', result =>
+    {
+      this.alertService.sendMessageCoaColors(result);
+      this.socket.removeAllListeners('getCoaColorsResult');
+      return result;
+    });
+  }
+
+  public getUserCoaColors(data: any): void
+  {
+    this.socket.emit('getUserCoaColors', data);
+
+    this.socket.on('getUserCoaColorsResult', result =>
+    {
+      this.alertService.sendMessageUserCoaColors(result);
+      this.socket.removeAllListeners('getUserCoaColorsResult');
+      return;
+    });
+  }
+
+  public changeUserCoaColors(data: any): void
+  {
+    this.socket.emit('changeUserCoaColors', data);
+
+    this.socket.on('changeUserCoaColorsResult', result =>
+    {
+      this.socket.removeAllListeners('changeUserCoaColorsResult');
+      return;
+    });
+  }
+
+  public unlockCoaPart(data: any): void
+  {
+    this.socket.emit('unlockCoaPart', data);
+
+    this.socket.on('unlockCoaPartResult', result =>
+    {
+      this.socket.removeAllListeners('unlockCoaPartResult');
+      return;
+    });
+  }
+
+  public getUserCoaParts(data: any): void
+  {
+    this.socket.emit('getUserCoaParts', data);
+
+    this.socket.on('getUserCoaPartsResult', result =>
+    {
+      this.alertService.sendMessageUserCoaParts(result);
+      this.socket.removeAllListeners('getUserCoaPartsResult');
+      return result;
+    });
+  }
+
+  public getCoaParts(): void
+  {
+    this.socket.emit('getCoaParts');
+
+    this.socket.on('getCoaPartsResult', result =>
+    {
+      this.alertService.sendMessageCoaParts(result);
+      this.socket.removeAllListeners('getCoaPartsResult');
+      return;
     });
   }
 }

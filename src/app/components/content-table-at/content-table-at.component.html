@@ -11,6 +11,8 @@
     <p class="note">{{ 'tableAt.interactiveExhibitMsg' | translate }}</p>
   </div> 
 
+  <button *ngIf="location.id == 102" (click)="playEducationQuiz()">Start Quiz</button>
+
   <div class="btnJoin">
     <div class="ico"></div>
     <div class="msg">

@@ -6,12 +6,12 @@
 
   <div class="wappenHelp" *ngIf="showHelp">
       <mat-icon (click)="closeHelp()">close</mat-icon>
-      <h2>Your Coat of Arms</h2>
-      <p>You can create your personal coat of arms here by selecting from the parts below. You can unlock more parts by solving tasks in the exhibition!</p>
+      <h2>{{ 'coa.helpTitle' | translate }}</h2>
+      <p>{{ 'coa.helpText' | translate }}</p>
   </div> 
   <div  *ngIf="showHelp" (click)="closeHelp()" class="wappenHelpOut"></div> 
       
-  <h1>Coat of Arms<br/>of Victor</h1>
+  <h1>{{ 'coa.title' | translate }}<br/>{{user.name}}</h1>
 
   <div class="wappen">
       <div class="wappen_weapon">
@@ -35,7 +35,7 @@
 
       <div class="wappenSettings_shield" *ngIf="settingsContent == 'shield'">
           <mat-icon (click)="closeWappenSettings()">close</mat-icon>
-          <h2>Shield</h2>
+          <h2>{{ 'coa.shield' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
                   <li *ngIf="item.type == 'shield'" [className]="selectedShield == item.name ? setShield == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setShield == item.name ? 'used ' + item.name : item.name">
@@ -53,7 +53,7 @@
 
       <div class="wappenSettings_emblem" *ngIf="settingsContent == 'emblem'">
           <mat-icon (click)="closeWappenSettings()">close</mat-icon>
-          <h2>Charge</h2>
+          <h2>{{ 'coa.charge' | translate }}</h2>
           <div class="overflowWrapper">
               <ul class="options">
                   <ng-container *ngFor="let item of itemsList">
@@ -72,7 +72,7 @@
       </div>
       <div class="wappenSettings_helmet" *ngIf="settingsContent == 'helmet'">
           <mat-icon (click)="closeWappenSettings()">close</mat-icon>
-          <h2>Helmet</h2>
+          <h2>{{ 'coa.helmet' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
                   <li *ngIf="item.type == 'helmet'" [className]="selectedHelmet == item.name ? setHelmet == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setHelmet == item.name ? 'used ' + item.name : item.name">
@@ -89,7 +89,7 @@
       </div>
       <div class="wappenSettings_weapon" *ngIf="settingsContent == 'weapon'">
           <mat-icon (click)="closeWappenSettings()">close</mat-icon>
-          <h2>Mantle</h2>
+          <h2>{{ 'coa.mantle' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
                   <li *ngIf="item.type == 'mantling'" [className]="selectedWeapon == item.name ? setWeapon == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setWeapon == item.name ? 'used ' + item.name : item.name">
@@ -106,8 +106,8 @@
       </div>
       <div class="wappenSettings_color" *ngIf="settingsContent == 'color'">
           <mat-icon (click)="closeWappenSettings()">close</mat-icon>
-          <h2>Colors</h2>
-          <p>Primary Color</p>
+          <h2>{{ 'coa.colors' | translate }}</h2>
+          <p>{{ 'coa.primColor' | translate }}</p>
           <ul class="primary">
               <li [className]="setColorPrimary == 'Color1' ? 'selected Color1' : 'Color1'"><button (click)="selectPrimaryColor('Color1')"></button></li>
               <li [className]="setColorPrimary == 'Color2' ? 'selected Color2' : 'Color2'"><button (click)="selectPrimaryColor('Color2')"></button></li>
@@ -115,7 +115,7 @@
               <li [className]="setColorPrimary == 'Color4' ? 'selected Color4' : 'Color4'"><button (click)="selectPrimaryColor('Color4')"></button></li>
               <li [className]="setColorPrimary == 'Color5' ? 'selected Color5' : 'Color5'"><button (click)="selectPrimaryColor('Color5')"></button></li>
           </ul>
-          <p>Secondary Color</p>
+          <p>{{ 'coa.secColor' | translate }}</p>
           <ul class="secondary">
               <li [className]="setColorSecondary == 'Color1' ? 'selected Color1' : 'Color1'"><button (click)="selectSecondaryColor('Color1')"></button></li>
               <li [className]="setColorSecondary == 'Color2' ? 'selected Color2' : 'Color2'"><button (click)="selectSecondaryColor('Color2')"></button></li>

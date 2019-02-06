@@ -15,6 +15,7 @@ import { LanguageStartComponent } from './components/language-start/language-sta
 import { WappenComponent } from './components/wappen/wappen.component';
 import { AboutComponent } from './components/about/about.component';
 import { LegalComponent } from './components/legal/legal.component';
+import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
 
 
 
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'tableon', component: ContentTableOnComponent },
   { path: 'about', component: AboutComponent },
   { path: 'legal', component: LegalComponent },
+  { path: 'educationQuiz', component: EducationQuizComponent },
   { path: 'wappen', component: WappenComponent },
   // additional routes here
 

@@ -1,0 +1,98 @@
+@font-face {
+    font-family: 'OpenSans';
+    src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
+.wrapper h2{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 20px 50px;
+    text-align: center;
+    font-size: 1em;
+}
+  
+.wrapper {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    top: 90px;
+  }
+
+.optionsWrapper img{
+    width: 200px;
+    display: block;
+    position: relative;
+    margin: 1.5em auto;
+}
+  
+.optionsWrapper{
+    width: 70%;
+    margin: 20px auto;
+}
+  
+.btnOptions{
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    display: block;
+    margin: 1em auto 10px auto;
+    background: #494949;
+    color: #ffffff;
+    min-width: 180px;
+    padding: 0.8em;
+}
+
+.btnOptions.answer{
+    background: #93272c;
+}
+
+.btnOptions.Bernhardinus{
+    background: #1B5E20;
+}
+  
+.success,
+  .error{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    height: 2em;
+    font-size: 0.9em;
+  }
+
+  .error{
+    color: #93272c;
+  }
+
+  .success{
+    color: #1B5E20;
+  }
+  
+  .toolbar button{
+      border: none;
+      outline: none;
+      height: 50px;
+      width: 50px;
+      margin: 20px 20px 0px 20px; 
+      background: #ffffff;
+  }
+  
+  .toolbar .closebutton{
+      float: right; 
+      background: #494949;
+      color:#ffffff;
+  }
+  
+  .toolbar .closebutton mat-icon{
+      margin: 4px 0 0 -15px;
+      font-size: 40px;
+  }
+  
+  
+  @media (max-height: 650px) {
+    .wrapper h2{
+      font-size: 0.8em;
+      margin: 10px 40px;
+    }
+  }
+  

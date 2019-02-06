@@ -1,8 +1,8 @@
 <mat-icon class="btnCancel" (tap)="cancelDialog()">close</mat-icon>
-<h1 matDialogTitle>Delete Account</h1>
+<h1 matDialogTitle>{{ 'deleteDialog.title' | translate }}</h1>
 <div mat-dialog-content>
-  <p>If you delete your account, you will not be able to reactivate it, and all your data will be lost. Do you really want to proceed {{data.username}}?</p>
+  <p>{{ 'deleteDialog.text' | translate }} {{data.username}}?</p>
 </div>
 <mat-dialog-actions align="end">
-  <button class="btnConfirm" (tap)="confirmDialog()">Delete Account</button>
+  <button class="btnConfirm" (tap)="confirmDialog()">{{ 'deleteDialog.yesOption' | translate }}</button>
 </mat-dialog-actions>

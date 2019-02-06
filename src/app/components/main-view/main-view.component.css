@@ -62,7 +62,7 @@ p{
   background: #ffffff;
 }
 
-.card:hover{
+.card.lckfalse:hover{
   background: #cacaca;
 }
 

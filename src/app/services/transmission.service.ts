@@ -252,7 +252,7 @@ export class TransmissionService
 
     const exhibitParentId = state.atExhibitParentId;
     const onExhibit = state.onExhibit;
-
+    
     if ((location.locationTypeId !== LocationTypes.ACTIVE_EXHIBIT_ON && !onExhibit) ||
       (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON && exhibitParentId === location.parentId))
     {
@@ -271,9 +271,12 @@ export class TransmissionService
         this.locationService.stopLocationScanning();
         const data = {location: location.id, resStatus: null};
 
-        this.alertService.sendMessageLocationid(data);
+        this.godService.registerLocation(location.id, false);
+        this.locationService.startLocationScanning();
+        
+        /*this.alertService.sendMessageLocationid(data);
         const elm: HTMLElement = document.getElementById('ghostButton') as HTMLElement;
-        elm.click();
+        elm.click();*/
       }
     }
 
@@ -319,4 +322,35 @@ export class TransmissionService
 
     this.godService.registerLocationLike(currLoc, like);
   }
+
+  /*************************************************************************
+   ****                           COA Methods                           ****
+   *************************************************************************/
+  public getCoaColors(): void{
+    this.godService.getCoaColors();
+  }
+
+  public changeUserCoaColors(primColor: any, secColor: any): void{
+    const state = this.appStore.getState();
+    const data = {userId: state.user.id, prim: primColor, sec: secColor};
+    this.godService.changeUserCoaColors(data);
+  }
+
+  public unlockCoaPart(coaPartId: any): void{
+    const state = this.appStore.getState();
+    const data = {userId: state.user.id, coaId: coaPartId};
+    this.godService.unlockCoaPart(data);
+  }
+
+  public getUserCoaParts(): void{
+    const state = this.appStore.getState();
+    const data = {userId: state.user.id};
+    this.godService.getUserCoaParts(data);
+  }
+
+  public getCoaParts(): void{
+    this.godService.getCoaParts();
+  }
 }
+
+

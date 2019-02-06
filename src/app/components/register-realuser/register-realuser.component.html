@@ -1,37 +1,37 @@
 <div class="wrapper">
-  <h2>Please choose a username and a password.</h2>
+  <h2>{{ 'register.title' | translate }}</h2>
   <div class="loginFormWrapper">
     <form name="registerRealForm" [formGroup]="registerRealUserForm">
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="Username" required [(ngModel)]="name" [formControl]="nameFormControl">
+          <input matInput placeholder="{{ 'register.username' | translate }}" required [(ngModel)]="name" [formControl]="nameFormControl">
           <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="Email" [(ngModel)]="email" required [formControl]="emailFormControl">
+          <input matInput placeholder="{{ 'register.email' | translate }}" [(ngModel)]="email" required [formControl]="emailFormControl">
           <mat-error *ngIf="emailFormControl.invalid">{{getRequiredErrorMessage('email')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="Password" [(ngModel)]="password" required [formControl]="passwordFormControl">
+          <input matInput placeholder="{{ 'register.password' | translate }}" [(ngModel)]="password" required [formControl]="passwordFormControl">
           <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="Password Confirmation" [(ngModel)]="confirmPassword" required [formControl]="confirmPasswordFormControl">
+          <input matInput placeholder="{{ 'register.passwordConfirm' | translate }}" [(ngModel)]="confirmPassword" required [formControl]="confirmPasswordFormControl">
           <mat-error *ngIf="confirmPasswordFormControl.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="error"><mat-error *ngIf="wrongCred">{{getExistsErrorMessage()}}</mat-error></div>
-      <button class="btnLogin" [disabled]="registerRealUserForm.invalid" (click)="registerAsRealuser()">Confirm</button>
+      <button class="btnLogin" [disabled]="registerRealUserForm.invalid" (click)="registerAsRealuser()">{{ 'register.btnSave' | translate }}</button>
     </form>
   </div>
 </div>

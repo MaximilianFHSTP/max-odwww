@@ -1,16 +1,33 @@
 {
   "app": {
-    "backButton": "zurück"
+    "backButton": "zurück",
+    "menuSettings": "EINSTELLUNGEN",
+    "menuSignup": "ANMELDEN",
+    "menuAbout": "ÜBER",
+    "menuLogout": "AUSLOGGEN"
   },
   "start": {
     "welcomeMessage": "Willkommen bei der Ausstellung",
     "name": "The Emperor's New Saint",
     "loginButton": "Login",
     "registerGuestButton": "Als Gast login",
-    "registerGuestButton": "Registrieren"
+    "registerButton": "Registrieren"
   },
   "languageStart": {
     "helpmessage": "Bitte wählen Sie eine Sprache aus!"
+  },
+  "login": {
+    "username": "Nutzername",
+    "password": "Passwort",
+    "btnSave": "Weiter"
+  },
+  "register": {
+    "title": "Bitte wählen Sie einen Benutzernamen und ein Passwort.",
+    "username": "Nutzername",
+    "email": "Email",
+    "password": "Passwort",
+    "passwordConfirm": "Passwort Bestätigen",
+    "btnSave": "Weiter"
   },
   "main": {
     "welcomeText": "Willkommen",
@@ -28,6 +45,45 @@
   },
   "passiveExhibit": {
     "welcomeText": "Willkommen bei"
+  },
+  "interactiveExhibit": {
+    "quizQuestion": "Wie heißt der hier aufscheinende Student mit Vornamen?",
+    "quizRight": "Korrekte Antwort!",
+    "quizWrong": "Falsche Antwort."
+  },
+  "coa": {
+    "title": "Wappen von",
+    "helpTitle": "Dein Wappen",
+    "helpText": "Sie können hier Ihr persönliches Wappen erstellen, indem Sie aus den folgenden Teilen auswählen. Sie können weitere Teile freischalten, indem Sie Aufgaben in der Ausstellung lösen!",
+    "shield": "Schild",
+    "charge": "Gemeinen Figur",
+    "helmet": "Helm",
+    "mantle": "Helmdecke",
+    "colors": "Farben",
+    "primColor": "Primärfarbe",
+    "secColor": "Sekundärfarbe"
+  },
+  "changeCredentials": {
+    "title": "Profileinstellungen",
+    "username": "Nutzername",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordOld": "Altes Passwort",
+    "passwordNew": "Neues Passwort",
+    "passwordConfirm": "Passwort Bestätigen",
+    "language": "Sprache",
+    "btnUsername": "Ändern Nutzername",
+    "btnEmail": "Ändern E-Mail",
+    "btnPassword": "Ändern Passwort",
+    "btnLanguage": "Ändern Sprache",
+    "btnDelete": "Konto löschen",
+    "btnSave": "Speichern",
+    "btnCancel": "Abbrechen"
+  },
+  "deleteDialog": {
+    "title": "Konto Löschen",
+    "text": "Wenn Sie Ihr Konto löschen, können Sie es nicht erneut aktivieren, und alle Ihre Daten gehen verloren. Möchten Sie wirklich fortfahren,",
+    "yesOption": "Konto Löschen"
   },
   "alertDialog": {
     "title": "Ausstellungsstück",

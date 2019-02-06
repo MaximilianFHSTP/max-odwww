@@ -27,6 +27,15 @@ export class WappenComponent implements OnInit {
   public timelineLocations: any;
   public isWeb: boolean;
   public closestExhibit: number;
+  
+  allCoaParts: any;
+  subscriptionCoaParts: Subscription;
+  userCoaParts: any;
+  subscriptionUserCoaParts: Subscription;
+  allCoaColors: any;
+  subscriptionCoaColors: Subscription;
+  userCoaColors: any;
+  subscriptionUserCoaColors: Subscription;
 
   public locationId: string;
 
@@ -45,10 +54,8 @@ export class WappenComponent implements OnInit {
   selectedWeapon = 'Mantle1';
   unlockedItems: string[] = ['Shield1','Shield2','Shield3','Shield4','Emblem2','Emblem3','Emblem4','Emblem5',
   'Emblem6','Helmet1','Helmet2','Helmet3','Mantle1','Mantle3'];
-  /* unlockedItems: string[] = ['Shield1','Shield2','Shield3','Shield4','Emblem1','Emblem2','Emblem3','Emblem4','Emblem5',
-  'Emblem6','Helmet1','Helmet2','Helmet3','Helmet4','Mantle1','Mantle2', 'Mantle3','Mantle4']; */
   itemsList: any[];
-/* {{user.name}} */
+
   constructor(
     private transmissionService: TransmissionService,
     private locationService: LocationService,
@@ -60,13 +67,27 @@ export class WappenComponent implements OnInit {
     private dialog: MatDialog,
     public router: Router,
     private alertService: AlertService
-  )
-  {
-    this._unsubscribe = this.appStore.subscribe(() =>
-    {
+  ){
+    this._unsubscribe = this.appStore.subscribe(() =>{
       const state = this.appStore.getState();
       this.closestExhibit = state.closestExhibit;
       this.timelineLocations = this.locationService.getTimelineLocations();
+    });
+
+    this.subscriptionCoaParts = this.alertService.getMessageCoaParts().subscribe(message => {
+      this.allCoaParts = message;
+    });
+
+    this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
+      this.userCoaParts = message;
+    });
+
+    this.subscriptionCoaColors = this.alertService.getMessageCoaColors().subscribe(message => {
+      this.allCoaColors = message;
+    });
+
+    this.subscriptionUserCoaColors = this.alertService.getMessageUserCoaColors().subscribe(message => {
+      this.userCoaColors = message;
     });
 
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
@@ -83,6 +104,11 @@ export class WappenComponent implements OnInit {
     console.log('ClosestExhibit: ' + this.closestExhibit);
 
     this.isWeb = this.nativeCommunicationService.isWeb;
+
+    // get parts
+    this.transmissionService.getCoaParts();
+    // if first time: unlock some. if not, get userCoaParts
+    this.transmissionService.getUserCoaParts();
 
     this.getItemsWappen();
   }
