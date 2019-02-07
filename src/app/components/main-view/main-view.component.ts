@@ -102,6 +102,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.user = state.user;
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
+    console.log(this.timelineLocations);
     this.closestExhibit = state.closestExhibit;
     this.isWeb = this.nativeCommunicationService.isWeb;
     this.sortLocationData();

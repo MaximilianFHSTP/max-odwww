@@ -134,14 +134,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     }
   }
 
-  playEducationQuiz(){
-    this.router.navigate(['educationQuiz']).then( () =>
-      {
-        this.nativeCommunicationService.sendToNative('Education Quiz', 'print');
-      }
-    );
-  }
-
   getSectionIcon(sectionId: number){
     let icon = '';
     this.sectionList.forEach((section) => {

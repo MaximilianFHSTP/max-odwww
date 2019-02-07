@@ -47,6 +47,9 @@
     "welcomeText": "Willkommen bei"
   },
   "interactiveExhibit": {
+    "interactiveExhibitMsg": "Dies ist eine interaktive Ausstellung. Klicken Sie auf die Schaltfläche unten, um zu beginnen!",
+    "startButton": "Starten",
+    "notAtLocation": "Gehen Sie zur Ausstellung, um den interaktiven Inhalt zu starten!",
     "quizQuestion": "Wie heißt der hier aufscheinende Student mit Vornamen?",
     "quizRight": "Korrekte Antwort!",
     "quizWrong": "Falsche Antwort."

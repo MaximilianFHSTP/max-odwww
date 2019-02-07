@@ -1,3 +1,25 @@
-<p>
-  content-interactive works!
-</p>
+<div class="btnBack"><img src="./assets/icons/Timeline/{{getSectionIcon(location.parentId)}}.png" /></div>
+<div class="wrapper Sec_{{location.parentId}}">
+  <div class="wrapperContent">
+    <h1>{{location.description}}</h1>
+
+    <div *ngFor="let cont of location.contents">
+      <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>
+      <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
+    </div>
+
+    <p class="note">{{ 'interactiveExhibit.interactiveExhibitMsg' | translate }}</p>
+  </div> 
+
+  <div class="btnJoin">
+    <div class="ico"></div>
+    <div class="msg">
+      <div *ngIf="!locationStatusNotAtLocation">
+        <button *ngIf="location.id == 102" (click)="playEducationQuiz()">{{ 'interactiveExhibit.startButton' | translate }}</button>
+        <div *ngIf="location.id != 102"><p>This exhibit is<br/>not available yet</p></div>
+      </div>
+      <div *ngIf="locationStatusNotAtLocation"><p>{{ 'interactiveExhibit.notAtLocation' | translate }}</p></div>
+    </div>
+  </div>
+  <div class="btnJoinDisabled" *ngIf="locationStatusNotAtLocation"></div>
+</div>

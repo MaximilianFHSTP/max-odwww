@@ -70,6 +70,7 @@ export class WappenComponent implements OnInit {
   ){
     this._unsubscribe = this.appStore.subscribe(() =>{
       const state = this.appStore.getState();
+      console.log(state.user);
       this.closestExhibit = state.closestExhibit;
       this.timelineLocations = this.locationService.getTimelineLocations();
     });
@@ -98,6 +99,7 @@ export class WappenComponent implements OnInit {
   ngOnInit() {
     const state = this.appStore.getState();
     this.user = state.user;
+    console.log(this.user);
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
     this.closestExhibit = state.closestExhibit;

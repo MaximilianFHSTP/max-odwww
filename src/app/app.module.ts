@@ -39,6 +39,7 @@ import { MainViewComponent } from './components/main-view/main-view.component';
 import { ContentTableAtComponent } from './components/content-table-at/content-table-at.component';
 import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
+import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { NativeSettingDialogComponent } from './components/native-setting-dialog/native-setting-dialog.component';
 import {StartViewComponent} from './components/start-view/start-view.component';
@@ -80,6 +81,7 @@ export const appStore = createStore(
     ContentTableAtComponent,
     ContentTableOnComponent,
     ContentPassiveComponent,
+    ContentInteractiveComponent,
     AlertDialogComponent,
     NativeSettingDialogComponent,
     LoginComponent,

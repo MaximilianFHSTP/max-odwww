@@ -20,8 +20,8 @@ export class EducationQuizComponent implements OnInit {
   }
 
   public closeWindow(){
-    this.router.navigate(['tableat']).then( () => {
-      this.nativeCommunicationService.sendToNative('Table at', 'print');
+    this.router.navigate(['interactive']).then( () => {
+      this.nativeCommunicationService.sendToNative('Interactive', 'print');
     }); 
   }
 
