@@ -46,6 +46,7 @@ import { ChangeCredentialsComponent } from './components/change-credentials/chan
 import {DeleteDialogComponent} from './components/delete-dialog/delete-dialog.component';
 import {RegisterRealuserComponent} from './components/register-realuser/register-realuser.component';
 import {LanguageStartComponent} from './components/language-start/language-start.component';
+import { QuizComponent } from './components/quiz/quiz.component';
 
 // Redux
 import { applyMiddleware, createStore } from 'redux';
@@ -84,7 +85,8 @@ export const appStore = createStore(
     DeleteDialogComponent,
     ChangeCredentialsComponent,
     RegisterRealuserComponent,
-    LanguageStartComponent
+    LanguageStartComponent,
+    QuizComponent
   ],
   imports: [
     BrowserModule,

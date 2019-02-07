@@ -12,6 +12,7 @@ import { StartViewComponent } from './components/start-view/start-view.component
 import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { LanguageStartComponent } from './components/language-start/language-start.component';
+import { QuizComponent } from './components/quiz/quiz.component';
 
 
 
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'passive', component: ContentPassiveComponent },
   { path: 'tableat', component: ContentTableAtComponent, runGuardsAndResolvers: 'always'},
   { path: 'tableon', component: ContentTableOnComponent },
+  { path: 'quiz', component: QuizComponent},
   // additional routes here
 
   { path: '**', component: PageNotFoundComponent }

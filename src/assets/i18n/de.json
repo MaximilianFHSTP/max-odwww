@@ -25,6 +25,9 @@
     "beaconPutText": "Bitte lege Dein Handy auf ein Beacon am Table",
     "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei!"
   },
+  "quiz": {
+    "pleaseWait" : "Bitte warte, bis die Frage aufgelöst wird!"
+  },
   "passiveExhibit": {
     "welcomeText": "Willkommen bei"
   },

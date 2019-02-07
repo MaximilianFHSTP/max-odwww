@@ -25,6 +25,9 @@
     "beaconPutText": "Please put your phone at the beacon.",
     "beaconOccupiedText": "This place is currently occupied"
   },
+  "quiz": {
+    "pleaseWait" : "Please wait, until the question is resolved!"
+  },
   "passiveExhibit": {
     "welcomeText": "Welcome at"
   },
