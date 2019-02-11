@@ -1,0 +1,81 @@
+<div class="wrapper">
+  <div *ngIf="locationId==301 && connectionSuccess">
+    <div *ngIf="waitingToStart; else elseQuestion">
+      <h2>
+        Bitte warte auf die nächste Frage!
+      </h2>
+    </div>
+    <ng-template #elseQuestion>
+      <h2>
+        {{question}}
+      </h2>
+    </ng-template>
+      <div id='progressbar'></div>
+    <div *ngIf="!waitingToStart">
+      <br />
+      <br />
+      <div *ngIf="notAnswered; else elseAnswered">
+        <button mat-raised-button color="primary" (click)="sendAnswerA()">{{answerA}}</button>
+        <br />
+        <br />
+        <button mat-raised-button color="primary" (click)="sendAnswerB()">{{answerB}}</button>
+        <br />
+        <br />
+        <button mat-raised-button color="primary" (click)="sendAnswerC()">{{answerC}}</button>
+        <br />
+        <br />
+        <button mat-raised-button color="primary" (click)="sendAnswerD()">{{answerD}}</button>
+      </div>
+      <ng-template #elseAnswered>
+        <div class="answertext">{{yourAnswer}}</div>
+        <div *ngIf="noResponse; else answerResponse" class="answertext">{{'quiz.pleaseWait' | translate}}</div>
+        <ng-template #answerResponse>
+          <div class="answertext">{{correctAnswer}}</div>
+          <div class="answertext">{{elaboration}}</div>
+        </ng-template>
+      </ng-template>
+    </div>
+
+    <br />
+    <br />
+    <div>
+      <div class='points'>
+          <div class='pointstext'>{{yourPoints}}</div>
+          <div id='pointsbar'></div>
+      </div>
+      <div class='status'>
+          <div class='statusimage'></div>
+          <div class='statustext'>{{yourStatus}}</div>
+      </div>
+    </div>
+    <br />
+    <br />
+  </div>
+
+
+  <div *ngIf="connectionSuccess && locationId!=301; else elseBlock">
+
+  <h1>
+    Willkommen bei {{locationName}}
+  </h1>
+    <h3>
+      <mat-icon style="color:green; width: 80px; font-size: 80px;">check_circle</mat-icon>
+      Verbindung zum Table erfolgreich aufgebaut.
+      <br />
+      <br />
+      <button mat-raised-button color="primary" (click)="sendMessageToExhibit()">Send Message</button>
+    </h3>
+  </div>
+  <ng-template #elseBlock>
+    <div *ngIf="locationId!=301 && !connectionSuccess">
+      <mat-spinner></mat-spinner>
+      <h3>
+        Verbindung zum Table wird aufgebaut.
+      </h3>
+    </div>
+  </ng-template>
+
+
+
+  <button mat-raised-button color="primary" (click)="disconnectFromExhibit()">Disconnect Exhibit</button>
+</div>

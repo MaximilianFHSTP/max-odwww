@@ -1,0 +1,28 @@
+.wrapper {
+  padding: 50px 40px 0 40px;
+}
+
+.progressbar {
+  width: 100%;
+  margin: auto;
+}
+::ng-deep .inner {
+  height: 30px;
+  animation: progressbar-countdown;
+  animation-duration: 40s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  animation-timing-function: linear;
+}
+
+@keyframes progressbar-countdown {
+  0% {
+      width: 100%;
+      background: #0F0;
+  }
+  100% {
+      width: 0%;
+      background: #F00;
+  }
+}

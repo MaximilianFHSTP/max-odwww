@@ -17,6 +17,7 @@ import { WappenComponent } from './components/wappen/wappen.component';
 import { AboutComponent } from './components/about/about.component';
 import { LegalComponent } from './components/legal/legal.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
+import { QuizComponent } from './components/quiz/quiz.component';
 
 
 
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'legal', component: LegalComponent },
   { path: 'educationQuiz', component: EducationQuizComponent },
   { path: 'wappen', component: WappenComponent },
+  { path: 'quiz', component: QuizComponent},
   // additional routes here
 
   { path: '**', component: PageNotFoundComponent }
