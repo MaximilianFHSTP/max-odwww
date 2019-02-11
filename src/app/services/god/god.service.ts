@@ -180,26 +180,26 @@ export class GodService {
 
     this.socket.on('registerTimelineUpdateResult', result =>
     {
-      const lookuptable = result.data.locations;
-      const message = result.message;
+      if(result.data){
+        const lookuptable = result.data.locations;
+        const message = result.message;
 
-      if (message.code > 299)
-      {
-        this.store.dispatch(this.statusActions.changeErrorMessage(message));
-        this.utilitiesService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
-        return;
+        if (message.code > 299)
+        {
+          this.store.dispatch(this.statusActions.changeErrorMessage(message));
+          this.utilitiesService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
+          return;
+        }
+
+        this.utilitiesService.sendToNative('success', 'triggerSignal');
+        this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
+
+        // TODO: TRIGGER SCROLL HERE
+        const data = {location: id};
+        this.alertService.sendMessageLocationid(data);
+        const elm: HTMLElement = document.getElementById('ghostScrollbutton') as HTMLElement;
+        elm.click();
       }
-
-      
-
-      this.utilitiesService.sendToNative('success', 'triggerSignal');
-      this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
-
-      // TODO: TRIGGER SCROLL HERE
-      const data = {location: id};
-      this.alertService.sendMessageLocationid(data);
-      const elm: HTMLElement = document.getElementById('ghostScrollbutton') as HTMLElement;
-      elm.click();
       
       this.socket.removeAllListeners('registerTimelineUpdateResult');
     });

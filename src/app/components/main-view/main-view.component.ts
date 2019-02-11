@@ -104,6 +104,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.timelineLocations = this.locationService.getTimelineLocations();
     console.log(this.timelineLocations);
     this.closestExhibit = state.closestExhibit;
+    this.startSection(this.closestExhibit);
     this.isWeb = this.nativeCommunicationService.isWeb;
     this.sortLocationData();
   }
@@ -112,12 +113,17 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     // If boxes lose position after content update, call reDraw()
     if (d3.select('#exh_101').style('position') !== 'absolute'){
       this.reDraw();
+      this.goToClosestExhibit();
     } 
 
     if(this.redirected){
       this.redirected = false;
       this.goToClosestExhibit();
     }
+  }
+
+  startSection(closestExhibit: number){
+    closestExhibit ? this.currentSection = +((closestExhibit).toString().substring(0,2)) : this.currentSection = 10;
   }
 
   ngAfterViewInit(){

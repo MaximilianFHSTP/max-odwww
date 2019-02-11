@@ -321,7 +321,7 @@ h1{
 }
 
 .wappenSettings_emblem .options .Emblem1 button{ 
-    background: url("../../../assets/icons/Wappen/Emblem1.png");
+    background: url("~./../../../assets/icons/Wappen/Emblem1.png");
     background-size: 70px 70px;
 }
 

@@ -70,7 +70,7 @@ p{
   opacity: 0.5;
 }
 
-.card.near{
+.card.lckfalse.near{
   box-shadow: 5px 0px 18px #888888;
   z-index: 1;
 }

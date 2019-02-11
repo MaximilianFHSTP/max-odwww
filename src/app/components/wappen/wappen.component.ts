@@ -77,6 +77,7 @@ export class WappenComponent implements OnInit {
 
     this.subscriptionCoaParts = this.alertService.getMessageCoaParts().subscribe(message => {
       this.allCoaParts = message;
+      console.log(this.allCoaParts);
     });
 
     this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
