@@ -1,0 +1,125 @@
+@font-face {
+  font-family: 'Vollkorn';
+  src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+  /*font-weight: bold;*/
+}
+
+.wrapper h2{
+  font-family: 'Vollkorn', Times, serif;
+  margin: 20px auto;
+  text-align: center;
+}
+
+p, button{
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  margin: 0;
+}
+
+.option{
+  font-family: 'Vollkorn', Times, serif;
+  margin: 0;
+  color: #755300;
+}
+
+.wrapper {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  top: 90px;
+}
+
+.toolbar button{
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  margin: 20px 20px 0px 20px; 
+  background: #ffffff;
+}
+
+.toolbar .closebutton{
+  float: right; 
+  background: #494949;
+  color:#ffffff;
+}
+
+.toolbar .closebutton mat-icon{
+  margin: 4px 0 0 -15px;
+  font-size: 40px;
+}
+
+.progressbar {
+  width: 100%;
+  margin: auto;
+  border: 2px solid #755300;
+}
+::ng-deep .inner {
+  height: 30px;
+  animation: progressbar-countdown;
+  animation-duration: 40s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  animation-timing-function: linear;
+}
+
+@keyframes progressbar-countdown {
+  0% {
+      width: 100%;
+      background: #ddd;
+  }
+  100% {
+      width: 0%;
+      background: #755300;
+  }
+}
+
+.quizContent{
+  background: #d3c5a4;
+  height: 100%;
+}
+
+.quizContent button{
+  border: 1px solid #755300;
+  outline: none;
+  display: block;
+  margin: 1em auto 10px auto;
+  background: #fff;
+  color: #000;
+  min-width: 90%;
+  padding: 0.8em;
+}
+
+.bottomBar{
+  position: fixed;
+  bottom: 0;
+  z-index: 5;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 80px;
+  border-top: 15px solid #494949;
+  background: #494949;
+}
+
+.connectionMsg{
+  margin: 50px auto;
+}
+
+.connectionMsgSpinner{
+  margin: 10px auto;
+  width: fit-content;
+}
+
+/* 
+primary: #755300 
+secondary: #906e1b
+*/
+
+

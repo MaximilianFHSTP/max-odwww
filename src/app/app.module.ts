@@ -19,6 +19,7 @@ import { NativeCommunicationService } from './services/native/native-communicati
 import {AlertService} from './services/alert.service';
 import {LocationService} from './services/location.service';
 import {TransmissionService} from './services/transmission.service';
+import {CoaService} from './services/coa.service';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +48,7 @@ import { ChangeCredentialsComponent } from './components/change-credentials/chan
 import {DeleteDialogComponent} from './components/delete-dialog/delete-dialog.component';
 import {RegisterRealuserComponent} from './components/register-realuser/register-realuser.component';
 import {LanguageStartComponent} from './components/language-start/language-start.component';
+import { QuizComponent } from './components/quiz/quiz.component';
 
 // Redux
 import { applyMiddleware, createStore } from 'redux';
@@ -92,10 +94,12 @@ export const appStore = createStore(
     DeleteDialogComponent,
     ChangeCredentialsComponent,
     RegisterRealuserComponent,
-    LanguageStartComponent,
     WappenComponent,
     AboutComponent,
     LegalComponent,
+    EducationQuizComponent,
+    LanguageStartComponent,
+    QuizComponent,
     EducationQuizComponent,
     ContentTableNotifyAtComponent,
     ContentTableNotifyOnComponent
@@ -145,7 +149,8 @@ export const appStore = createStore(
     AlertService,
     FormBuilder,
     UtilityService,
-    TransmissionService
+    TransmissionService,
+    CoaService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

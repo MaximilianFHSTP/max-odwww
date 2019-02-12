@@ -12,6 +12,8 @@ import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
 import * as d3 from 'd3';
+import { bypassSanitizationTrustStyle } from '@angular/core/src/sanitization/sanitization';
+import { CoaService } from '../../services/coa.service';
 
 @Component({
   selector: 'app-main-view',
@@ -25,8 +27,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
   private comingBack: boolean;
-  // private subscriptionLocationBackId: Subscription;
-  // private locationBackId: string;
+  private subscriptionCoaParts: Subscription;
+  private subscriptionUserCoaParts: Subscription;
   public user: any;
   public timelineLocations: any;
   public isWeb: boolean;
@@ -66,7 +68,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     private nativeResponseService: NativeResponseService,
     private dialog: MatDialog,
     public router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private coaService: CoaService
   ){
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
@@ -74,9 +77,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       this.timelineLocations = this.locationService.getTimelineLocations();
       this.sortLocationData();
     });
-
-    this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
-      this.registerLocationmessage = message;
+    this.subscriptionCoaParts = this.alertService.getMessageCoaParts().subscribe(message => {
+      coaService.setCoaParts(message.data);
+    });
+    this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
+      coaService.setUserCoaParts(message.data);
     });
   }
 
@@ -105,6 +110,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.startSection(this.closestExhibit);
     this.isWeb = this.nativeCommunicationService.isWeb;
     this.sortLocationData();
+
+    this.transmissionService.getCoaParts();
+    this.transmissionService.getUserCoaParts();
   }
 
   ngAfterViewChecked(){
@@ -373,6 +381,14 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   {
     this.nativeResponseService.timelineUpdate({minor: 102, major: 10});
   }
+
+  public requestRegisterLocationQuiz()
+  {
+    this.nativeResponseService.timelineUpdate({minor: 301, major: 30});
+  }
+
+
+  
 
   public requestRegisterNotifyLocation()
   {

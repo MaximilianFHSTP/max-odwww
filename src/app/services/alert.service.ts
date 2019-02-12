@@ -24,6 +24,9 @@ export class AlertService {
   private subjectUserCoaParts = new Subject<any>();
   private subjectCoaColors = new Subject<any>();
   private subjectUserCoaColors = new Subject<any>();
+  private subjectQuizQuestion = new Subject<any>();
+  private subjectUpdateUserData = new Subject<any>();
+  private subjectCorrectPoints = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -183,5 +186,29 @@ export class AlertService {
 
   getMessageUserCoaColors(): Observable<any>{
     return this.subjectUserCoaColors.asObservable();
+  }
+
+  sendQuizQuestion(message: any) {
+    this.subjectQuizQuestion.next(message);
+  }
+
+  getQuizQuestion(): Observable<any>{
+    return this.subjectQuizQuestion.asObservable();
+  }
+
+  sendUpdateUserData(message: any) {
+    this.subjectUpdateUserData.next(message);
+  }
+
+  getUpdateUserData(): Observable<any>{
+    return this.subjectUpdateUserData.asObservable();
+  }
+
+  sendCorrectPoints(message: any) {
+    this.subjectCorrectPoints.next(message);
+  }
+
+  getCorrectPoints(): Observable<any>{
+    return this.subjectCorrectPoints.asObservable();
   }
 }

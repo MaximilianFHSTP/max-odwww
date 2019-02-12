@@ -43,6 +43,14 @@
     "beaconPutText": "Bitte lege Dein Handy auf ein Beacon am Table",
     "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei!"
   },
+  "quiz": {
+    "pleaseWait" : "Bitte warte, bis die Frage aufgelöst wird!",
+    "waitNext" : "Bitte warte auf die nächste Frage!"
+  },
+  "tableOn": {
+    "connecting" : "Verbindung zum Table wird aufgebaut.",
+    "connected" : "Verbindung zum Table erfolgreich aufgebaut."
+  },
   "passiveExhibit": {
     "welcomeText": "Willkommen bei"
   },

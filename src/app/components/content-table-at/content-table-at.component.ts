@@ -144,6 +144,14 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     return icon;
   }
 
+  enterQuiz(){
+    this.router.navigate(['quiz']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Quiz', 'print');
+      }
+    );
+  }
+
   // saves ID of current exhibit in localstorage
   startOnTableSearch(){
     this.joinGame = false;

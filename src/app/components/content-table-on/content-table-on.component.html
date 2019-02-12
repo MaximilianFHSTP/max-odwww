@@ -1,22 +1,27 @@
 <div class="wrapper">
-    <h1>
-      Willkommen bei {{locationName}}
-    </h1>
-    <div *ngIf="connectionSuccess; else elseBlock">
-      <h3>
-        <mat-icon style="color:green; width: 80px; font-size: 80px;">check_circle</mat-icon>
-        Verbindung zum Table erfolgreich aufgebaut.
-        <br />
-        <br />
-        <button mat-raised-button color="primary" (click)="sendMessageToExhibit()">Send Message</button>
-      </h3>
-    </div>
-    <ng-template #elseBlock>
+  <div *ngIf="connectionSuccess && locationId!=301; else elseBlock">
+
+  <h1>
+    Willkommen bei {{locationName}}
+  </h1>
+    <h3>
+      <mat-icon style="color:green; width: 80px; font-size: 80px;">check_circle</mat-icon>
+      Verbindung zum Table erfolgreich aufgebaut.
+      <br />
+      <br />
+      <button mat-raised-button color="primary" (click)="sendMessageToExhibit()">Send Message</button>
+    </h3>
+  </div>
+  <ng-template #elseBlock>
+    <div *ngIf="locationId!=301 && !connectionSuccess">
       <mat-spinner></mat-spinner>
       <h3>
         Verbindung zum Table wird aufgebaut.
       </h3>
-    </ng-template>
+    </div>
+  </ng-template>
 
-    <button mat-raised-button color="primary" (click)="disconnectFromExhibit()">Disconnect Exhibit</button>
+
+
+  <button mat-raised-button color="primary" (click)="disconnectFromExhibit()">Disconnect Exhibit</button>
 </div>

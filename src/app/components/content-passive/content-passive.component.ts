@@ -3,6 +3,7 @@ import { LocationService } from '../../services/location.service';
 import {Unsubscribe} from 'redux';
 import {Subscription} from 'rxjs';
 import {TransmissionService} from '../../services/transmission.service';
+import {CoaService} from '../../services/coa.service';
 import * as ContentTypes from '../../config/ContentTypes';
 import * as d3 from 'd3';
 
@@ -39,6 +40,7 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     private locationService: LocationService,
     private transmissionService: TransmissionService,
+    private coaService: CoaService,
     @Inject('AppStore') private appStore
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
@@ -125,6 +127,13 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, OnDestroy
 
   displayVersion(sectionId: string){
     this.currentSection = sectionId;
+
+    if(sectionId === 'sunthaym'){
+      this.coaService.tryUnlock(20);
+    } else if(sectionId === 'till'){
+      this.coaService.tryUnlock(41);
+    }
+    
   }
 
   getSectionIcon(sectionId: number){

@@ -178,12 +178,13 @@ h1{
     color: #047f0d;
  }
 
+ /*
 .wappenSettings_emblem .done p:after,
 .wappenSettings_helmet .done p:after,
 .wappenSettings_weapon .done p:after {
     content: " Done!";
     color: #047f0d;
- }
+ }*/
 
 .hidden{
     display: none;
@@ -321,7 +322,7 @@ h1{
 }
 
 .wappenSettings_emblem .options .Emblem1 button{ 
-    background: url("~./../../../assets/icons/Wappen/Emblem1.png");
+    background: url("../../../assets/icons/Wappen/Emblem1.png");
     background-size: 70px 70px;
 }
 
@@ -528,7 +529,7 @@ div::-webkit-scrollbar-thumb {
 
     .wappenHelp p,
     .wappenSettings p{
-        font-size: 0.9em;
+        font-size: 0.8em;
     }
 
     .wappen{

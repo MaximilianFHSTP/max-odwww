@@ -10,6 +10,7 @@ import { NativeCommunicationService } from '../native/native-communication.servi
 import {StatusActions} from '../../store/actions/StatusActions';
 import * as SuccessTypes from '../../config/SuccessMessageTypes';
 import * as ErrorTypes from '../../config/ErrorMessageTypes';
+import { AlertService } from '../alert.service';
 
 @Injectable()
 export class ExhibitService {
@@ -24,7 +25,8 @@ export class ExhibitService {
     private locationActions: LocationActions,
     private userActions: UserActions,
     private statusActions: StatusActions,
-    private utilitiesService: NativeCommunicationService
+    private utilitiesService: NativeCommunicationService,
+    private alertSerivce: AlertService
   )
   {}
 
@@ -124,6 +126,55 @@ export class ExhibitService {
   {
     const user = this.appStore.getState().user;
     this.socket.connection.emit('sendMessage', {user, message: 'Na'});
+  }
+
+  public sendQuizAnswer(answer)
+  {
+    this.socket.connection.emit('sendAnswer', answer);
+  }
+
+
+  public getQuestion()
+  {
+    // const user = this.appStore.getState().user;
+    this.socket.connection.on('getQuestionResult', (result) =>
+    {
+      // TODO: Here to forward also the ids if needed for thesis
+      this.alertSerivce.sendQuizQuestion(result);
+    });
+  }
+
+  public updateUserAnswerTable(result){
+
+    const user = this.appStore.getState().user;
+    const data = {userId: user.id, correctAnswer: result};
+    this.socket.connection.emit('updateUserAnswerTable', data);
+  }
+
+  public getUserCorrectPoints(){
+    this.socket.connection.on('updateUserCorrectPoints', (data) =>{
+      this.alertSerivce.sendCorrectPoints(data);
+    });
+  }
+
+  public getUpdateUserData()
+  {
+    this.socket.connection.on('updateUserOD', (result) =>
+    {
+      this.alertSerivce.sendUpdateUserData(result);
+    });
+  }
+
+  public sendQuizTime(result){
+    const user = this.appStore.getState().user;
+    const data = {userId: user.id, participationQuizTime: result};
+    this.socket.connection.emit('updateQuizParticipationTime', (data));
+  }
+
+  public sendAnswerTime(result){
+    const user = this.appStore.getState().user;
+    const data = {userId: user.id, quizAnswerTime: result.answerTime, questionId: result.questionId, correctAnswer: result.correctAnswer};
+    this.socket.connection.emit('updateQuizAnswerTime', (data));
   }
 
   public disconnect()

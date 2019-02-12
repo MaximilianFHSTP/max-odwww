@@ -43,6 +43,14 @@
     "beaconPutText": "Please, put your phone at the indicated position",
     "beaconOccupiedText": "Sorry, but this place is currently occupied by other player"
   },
+  "quiz": {
+    "pleaseWait" : "Please wait, until the question is resolved!",
+    "waitNext" : "Please wait for the next question!"
+  },
+  "tableOn": {
+    "connecting" : "Connecting to the table.",
+    "connected" : "Connection to the table successfully established."
+  },
   "passiveExhibit": {
     "welcomeText": "Welcome at"
   },

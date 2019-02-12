@@ -15,19 +15,19 @@
 
   <div class="wappen">
       <div class="wappen_weapon">
-          <img class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setWeapon}}.png" />
+          <img *ngIf="setWeapon != ''" class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setWeapon}}.png" />
       </div>
       <div class="wappen_helmet">
-          <img class="{{setColorSecondary}}" src="./assets/icons/Wappen/{{setHelmet}}.png" />
-          <img class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setHelmet}}_outline.png" />
+          <img *ngIf="setHelmet != ''" class="{{setColorSecondary}}" src="./assets/icons/Wappen/{{setHelmet}}.png" />
+          <img *ngIf="setHelmet != ''" class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setHelmet}}_outline.png" />
       </div> 
       <div class="wappen_shield">
-          <img class="{{setColorPrimary}}" src="./assets/icons/Wappen/{{setShield}}.png" />
-          <img class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setShield}}_outline.png" />
+          <img *ngIf="setShield != ''" class="{{setColorPrimary}}" src="./assets/icons/Wappen/{{setShield}}.png" />
+          <img *ngIf="setShield != ''" class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setShield}}_outline.png" />
       </div> 
       <div class="wappen_emblem">
-          <img class="{{setColorSecondary}}" src="./assets/icons/Wappen/{{setEmblem}}.png" />
-          <img class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setEmblem}}_outline.png" />
+          <img *ngIf="setEmblem != ''" class="{{setColorSecondary}}" src="./assets/icons/Wappen/{{setEmblem}}.png" />
+          <img *ngIf="setEmblem != ''" class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setEmblem}}_outline.png" />
       </div>
   </div>
 
@@ -38,15 +38,17 @@
           <h2>{{ 'coa.shield' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
-                  <li *ngIf="item.type == 'shield'" [className]="selectedShield == item.name ? setShield == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setShield == item.name ? 'used ' + item.name : item.name">
-                      <button [className]="isUnlocked(item.name) ? 'unlocked': 'locked'" (click)="selectShield(item.name)"></button>
-                      <div class="locker"></div>
+                  <li *ngIf="item.coaTypeId === 1" [className]="selectedShield == item.image ? setShield == item.image ? 'selected used ' + item.image : 'selected ' + item.image : setShield == item.image ? 'used ' + item.image : item.image">
+                      <button [className]="isUnlocked(item.image) ? 'unlocked': 'locked'" (click)="selectShield(item.image)"></button><div class="locker"></div>
                   </li>
               </ng-container>
           </ul>
           <ul class="tasks">
               <ng-container *ngFor="let item of itemsList">
-                  <li *ngIf="item.type == 'shield' && selectedShield == item.name" [className]="isUnlocked(item.name) ? 'item.name done' : 'item.name locked'"><p>{{item.task}}</p></li>
+                  <li *ngIf="item.coaTypeId === 1 && selectedShield == item.image" [className]="isUnlocked(item.image) ? 'item.image done' : 'item.image locked'">
+                    <p *ngIf="languageService.getCurrentLanguageAsString() === 'en'">{{item.taskENG}}</p>
+                    <p *ngIf="languageService.getCurrentLanguageAsString() === 'de'">{{item.taskGER}}</p>
+                </li>
               </ng-container>
           </ul>
       </div>
@@ -57,16 +59,18 @@
           <div class="overflowWrapper">
               <ul class="options">
                   <ng-container *ngFor="let item of itemsList">
-                      <li *ngIf="item.type == 'symbol'" [className]="selectedEmblem == item.name ? setEmblem == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setEmblem == item.name ? 'used ' + item.name : item.name">
-                          <button [className]="isUnlocked(item.name) ? 'unlocked' : 'locked'" (click)="selectEmblem(item.name)"></button>
-                          <div class="locker"></div>
+                      <li *ngIf="item.coaTypeId === 2" [className]="selectedEmblem == item.image ? setEmblem == item.image ? 'selected used ' + item.image : 'selected ' + item.image : setEmblem == item.image ? 'used ' + item.image : item.image">
+                          <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectEmblem(item.image)"></button><div class="locker"></div>
                       </li>
                   </ng-container> 
               </ul>
           </div>
           <ul class="tasks">
               <ng-container *ngFor="let item of itemsList">
-                  <li *ngIf="item.type == 'symbol' && selectedEmblem == item.name" [className]="isUnlocked(item.name) ? 'item.name done' : 'item.name locked'"><p>{{item.task}}</p></li>
+                  <li *ngIf="item.coaTypeId === 2 && selectedEmblem == item.image" [className]="isUnlocked(item.image) ? 'item.image done' : 'item.image locked'">
+                    <p *ngIf="languageService.getCurrentLanguageAsString() === 'en'">{{item.taskENG}}</p>
+                    <p *ngIf="languageService.getCurrentLanguageAsString() === 'de'">{{item.taskGER}}</p>
+                </li>
               </ng-container>
           </ul>
       </div>
@@ -75,15 +79,18 @@
           <h2>{{ 'coa.helmet' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
-                  <li *ngIf="item.type == 'helmet'" [className]="selectedHelmet == item.name ? setHelmet == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setHelmet == item.name ? 'used ' + item.name : item.name">
-                      <button [className]="isUnlocked(item.name) ? 'unlocked' : 'locked'" (click)="selectHelmet(item.name)"></button>
+                  <li *ngIf="item.coaTypeId === 3" [className]="selectedHelmet == item.image ? setHelmet == item.image ? 'selected used ' + item.image : 'selected ' + item.image : setHelmet == item.image ? 'used ' + item.image : item.image">
+                      <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectHelmet(item.image)"></button>
                       <div class="locker"></div>
                   </li>
               </ng-container> 
           </ul>
           <ul class="tasks">
               <ng-container *ngFor="let item of itemsList">
-                  <li *ngIf="item.type == 'helmet' && selectedHelmet == item.name" [className]="isUnlocked(item.name) ? 'item.name done' : 'item.name locked'"><p>{{item.task}}</p></li>
+                  <li *ngIf="item.coaTypeId === 3 && selectedHelmet == item.image" [className]="isUnlocked(item.image) ? 'item.image done' : 'item.image locked'">
+                    <p *ngIf="languageService.getCurrentLanguageAsString() === 'en'">{{item.taskENG}}</p>
+                    <p *ngIf="languageService.getCurrentLanguageAsString() === 'de'">{{item.taskGER}}</p>
+                </li>
               </ng-container>
           </ul>
       </div>
@@ -92,15 +99,18 @@
           <h2>{{ 'coa.mantle' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
-                  <li *ngIf="item.type == 'mantling'" [className]="selectedWeapon == item.name ? setWeapon == item.name ? 'selected used ' + item.name : 'selected ' + item.name : setWeapon == item.name ? 'used ' + item.name : item.name">
-                      <button [className]="isUnlocked(item.name) ? 'unlocked' : 'locked'" (click)="selectWeapon(item.name)"></button>
+                  <li *ngIf="item.coaTypeId === 4" [className]="selectedWeapon == item.image ? setWeapon == item.image ? 'selected used ' + item.image : 'selected ' + item.image : setWeapon == item.image ? 'used ' + item.image : item.image">
+                      <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectWeapon(item.image)"></button>
                       <div class="locker"></div>
                   </li>
               </ng-container> 
           </ul>
           <ul class="tasks">
               <ng-container *ngFor="let item of itemsList">
-                  <li *ngIf="item.type == 'mantling' && selectedWeapon == item.name" [className]="isUnlocked(item.name) ? 'item.name done' : 'item.name locked'"><p>{{item.task}}</p></li>
+                  <li *ngIf="item.coaTypeId === 4 && selectedWeapon == item.image" [className]="isUnlocked(item.image) ? 'item.image done' : 'item.image locked'">
+                        <p *ngIf="languageService.getCurrentLanguageAsString() === 'en'">{{item.taskENG}}</p>
+                        <p *ngIf="languageService.getCurrentLanguageAsString() === 'de'">{{item.taskGER}}</p>
+                    </li>
               </ng-container>
           </ul>
       </div>
