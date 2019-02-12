@@ -33,7 +33,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   private answerChar: string;
   public yourAnswer: string;
   public yourPoints: string;
-  public yourStatus: string;
+  public yourPointsBar: number;
+  public yourStatus = 'Bettelvolk';
   public correctAnswer: string;
   public elaboration: string;
 
@@ -82,6 +83,7 @@ export class QuizComponent implements OnInit, OnDestroy {
         progressbar.remove();
       }
       this.createProgressbar();
+      console.log(message);
       this.question = message.question;
       this.answerA = message.answerA;
       this.answerB = message.answerB;
@@ -108,13 +110,16 @@ export class QuizComponent implements OnInit, OnDestroy {
       const points = message;
       if(points<7){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '7 Punkte';
-        this.yourStatus = 'Status: Bettelvolk';
+        this.yourStatus = 'Bettelvolk';
+        this.yourPointsBar = (points*100)/7;
       }else if(points>=7 && points <13){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '13 Punkte';
-        this.yourStatus = 'Status: Bürgertum';
+        this.yourStatus = 'Buergertum';
+        this.yourPointsBar = (points*100)/13;
       }else if(points>=13){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '13 Punkte';
-        this.yourStatus = 'Status: Adel';
+        this.yourStatus = 'Adel';
+        this.yourPointsBar = 100;
       }
     });
   }

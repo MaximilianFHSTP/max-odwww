@@ -5,7 +5,7 @@
 <div class="wrapper">
   <div *ngIf="locationId==301 && connectionSuccess">
     <div *ngIf="waitingToStart; else elseQuestion"><h2>{{'quiz.waitNext' | translate}}</h2></div>
-    <ng-template #elseQuestion><h2>{{question}}</h2></ng-template>
+    <ng-template #elseQuestion><h2>lsdfkhdskfh{{question}}</h2></ng-template>
     
     <div id='progressbar'></div>
 
@@ -18,11 +18,11 @@
           <button (click)="sendAnswerD()"><div class="option">D</div> answerD</button>
         </div>
         <ng-template #elseAnswered>
-          <div class="answertext">{{yourAnswer}}</div>
-          <div *ngIf="noResponse; else answerResponse" class="answertext">{{'quiz.pleaseWait' | translate}}</div>
+          <div class="answertext"><h3>{{yourAnswer}}</h3></div>
+          <div *ngIf="noResponse; else answerResponse" class="answertext wait"><p>{{'quiz.pleaseWait' | translate}}</p></div>
           <ng-template #answerResponse>
-            <div class="answertext">{{correctAnswer}}</div>
-            <div class="answertext">{{elaboration}}</div>
+            <div class="answertext"><h3>{{correctAnswer}}</h3></div>
+            <div class="answertext elaboration"><p>{{elaboration}}</p></div>
           </ng-template>
         </ng-template>
       </div>
@@ -30,12 +30,12 @@
 
     <div class="bottomBar">
       <div class='points'>
-          <div class='pointstext'>{{yourPoints}}</div>
+          <div class='pointstext'><p>{{yourPoints}}</p></div>
           <div id='pointsbar'></div>
       </div>
       <div class='status'>
-          <div class='statusimage'></div>
-          <div class='statustext'>{{yourStatus}}</div>
+          <div class='statusimage'><img src="./assets/icons/{{yourStatus}}.png" /></div>
+          <div class='statustext'><p>Status:<br/>{{yourStatus}}</p></div>
       </div>
     </div>
   </div>
