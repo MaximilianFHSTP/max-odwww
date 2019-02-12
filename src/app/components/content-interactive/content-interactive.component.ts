@@ -3,7 +3,7 @@ import { LocationService } from '../../services/location.service';
 import { Unsubscribe } from 'redux';
 import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { TransmissionService } from '../../services/transmission.service';
 
 @Component({

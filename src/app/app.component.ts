@@ -6,7 +6,7 @@ import { NativeCommunicationService } from './services/native/native-communicati
 import {Unsubscribe} from 'redux';
 import {NativeResponseService} from './services/native/native-response.service';
 import {WindowRef} from './WindowRef';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogConfig} from '@angular/material';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import {NativeSettingDialogComponent} from './components/native-setting-dialog/native-setting-dialog.component';
@@ -75,7 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
       if(state.user !== undefined){
         this.guest = state.user.isGuest;
-        console.log('Guest '+state.user.isGuest);
+        // console.log('Guest '+state.user.isGuest);
       }
 
       const errorMessage = state.errorMessage;

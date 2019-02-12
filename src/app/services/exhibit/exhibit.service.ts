@@ -71,12 +71,18 @@ export class ExhibitService {
 
       if(currLoc)
       {
-        this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
-        this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
-        this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
-        this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+        this.transmitGodDisconnect(currLoc);
       }
     });
+  }
+
+  public transmitGodDisconnect(location)
+  {
+    this.socketGod.disconnectedFromExhibit(location.parentId, location.id);
+    this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
+    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
+    this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+    this.appStore.dispatch(this.locationActions.changeClosestExhibit(location.parentId));
   }
 
   public connectOD(): any

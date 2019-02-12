@@ -253,10 +253,12 @@ export class TransmissionService
     const exhibitParentId = state.atExhibitParentId;
     const onExhibit = state.onExhibit;
     
-    if ((location.locationTypeId !== LocationTypes.ACTIVE_EXHIBIT_ON && !onExhibit) ||
-      (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON && exhibitParentId === location.parentId))
+    if (((location.locationTypeId !== LocationTypes.ACTIVE_EXHIBIT_ON ||
+      location.locationTypeId !== LocationTypes.NOTIFY_EXHIBIT_ON) && !onExhibit) ||
+      ((location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON || location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON)
+        && exhibitParentId === location.parentId))
     {
-      if (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON) {
+      if (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON || location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON) {
         this.godService.checkLocationStatus(location.id, res => {
           if (res === 'FREE') {
             this.godService.registerLocation(location.id, false);
@@ -269,14 +271,9 @@ export class TransmissionService
       }
       else {
         this.locationService.stopLocationScanning();
-        const data = {location: location.id, resStatus: null};
 
         this.godService.registerLocation(location.id, false);
         this.locationService.startLocationScanning();
-        
-        /*this.alertService.sendMessageLocationid(data);
-        const elm: HTMLElement = document.getElementById('ghostButton') as HTMLElement;
-        elm.click();*/
       }
     }
 

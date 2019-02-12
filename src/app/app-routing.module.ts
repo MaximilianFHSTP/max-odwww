@@ -18,6 +18,8 @@ import { AboutComponent } from './components/about/about.component';
 import { LegalComponent } from './components/legal/legal.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
 import { QuizComponent } from './components/quiz/quiz.component';
+import {ContentTableNotifyAtComponent} from './components/content-table-notify-at/content-table-notify-at.component';
+import {ContentTableNotifyOnComponent} from './components/content-table-notify-on/content-table-notify-on.component';
 
 
 
@@ -39,6 +41,8 @@ const routes: Routes = [
   { path: 'wappen', component: WappenComponent },
   { path: 'quiz', component: QuizComponent},
   // additional routes here
+  { path: 'tableNotifyAt', component: ContentTableNotifyAtComponent},
+  { path: 'tableNotifyOn', component: ContentTableNotifyOnComponent},
 
   { path: '**', component: PageNotFoundComponent }
   // don't touch this
