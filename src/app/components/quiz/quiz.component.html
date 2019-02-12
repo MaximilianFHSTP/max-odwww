@@ -1,21 +1,21 @@
 <div class="toolbar">
   <button class="closebutton" (click)="disconnectFromExhibit()"><mat-icon>close</mat-icon></button>
-</div> 
+</div>
 
 <div class="wrapper">
   <div *ngIf="locationId==301 && connectionSuccess">
     <div *ngIf="waitingToStart; else elseQuestion"><h2>{{'quiz.waitNext' | translate}}</h2></div>
-    <ng-template #elseQuestion><h2>lsdfkhdskfh{{question}}</h2></ng-template>
-    
+    <ng-template #elseQuestion><h2>{{question}}</h2></ng-template>
+
     <div id='progressbar'></div>
 
     <div class="quizContent">
       <div *ngIf="!waitingToStart">
         <div *ngIf="notAnswered; else elseAnswered">
-          <button (click)="sendAnswerA()"><div class="option">A</div> answerA</button>
-          <button (click)="sendAnswerB()"><div class="option">B</div> answerB</button>
-          <button (click)="sendAnswerC()"><div class="option">C</div> answerC</button>
-          <button (click)="sendAnswerD()"><div class="option">D</div> answerD</button>
+          <button (click)="sendAnswerA()"><div class="option">A</div> {{answerA}}</button>
+          <button (click)="sendAnswerB()"><div class="option">B</div> {{answerB}}</button>
+          <button (click)="sendAnswerC()"><div class="option">C</div> {{answerC}}</button>
+          <button (click)="sendAnswerD()"><div class="option">D</div> {{answerD}}</button>
         </div>
         <ng-template #elseAnswered>
           <div class="answertext"><h3>{{yourAnswer}}</h3></div>

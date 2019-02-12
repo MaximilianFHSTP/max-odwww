@@ -36,7 +36,6 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
   private readonly _unsubscribe: Unsubscribe;
   private _statusTimerSubscription;
   private _curLocSubscribe: Subscription;
-  private navigationSubscription: Subscription;
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
     {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
@@ -70,13 +69,6 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
     {
       this.location = value;
     });
-
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
-      }
-    });
   }
 
   ngOnInit() {
@@ -108,7 +100,6 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
     this._statusTimerSubscription.unsubscribe();
     this._unsubscribe();
     this._curLocSubscribe.unsubscribe();
-    this.navigationSubscription.unsubscribe();
   }
 
   updateJoinButtonStatus(locationId: number)

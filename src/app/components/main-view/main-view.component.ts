@@ -12,7 +12,6 @@ import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
 import * as d3 from 'd3';
-import { bypassSanitizationTrustStyle } from '@angular/core/src/sanitization/sanitization';
 import { CoaService } from '../../services/coa.service';
 
 @Component({
