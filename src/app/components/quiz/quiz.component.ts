@@ -66,6 +66,8 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.connectionSuccess = state.connectedToExhibit;
     });
     this.subscriptionQuestion = this.alertService.getQuizQuestion().subscribe(message => {
+      const state = this.appStore.getState();
+      const language = state.language;
       this.questionId = message.questionId;
       this.correctAns = message.correctAnswer;
       if(!this.firstQuestionOfRun){
@@ -82,11 +84,22 @@ export class QuizComponent implements OnInit, OnDestroy {
         progressbar.remove();
       }
       this.createProgressbar();
-      this.question = message.question;
-      this.answerA = message.answerA;
-      this.answerB = message.answerB;
-      this.answerC = message.answerC;
-      this.answerD = message.answerD;
+      if(language===0){
+        console.log('languagequest', 'gerquest');
+        this.question = message.questionGer;
+        this.answerA = message.answerAGer;
+        this.answerB = message.answerBGer;
+        this.answerC = message.answerCGer;
+        this.answerD = message.answerDGer;
+      }else if(language===1){
+        console.log('languagequest', 'engquest ' + message);
+        this.question = message.questionEng;
+        this.answerA = message.answerAEng;
+        this.answerB = message.answerBEng;
+        this.answerC = message.answerCEng;
+        this.answerD = message.answerDEng;
+      }
+
     });
     this.subscriptionAnswer = this.alertService.getUpdateUserData().subscribe(message => {
       if(this.answerChar !== undefined){
@@ -101,7 +114,15 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.yourAnswer = 'Deine Antwort: keine';
       }
       this.noResponse = false;
-      this.elaboration = message.elaboration;
+      const state = this.appStore.getState();
+      const language = state.language;
+      if(language===0){
+        console.log('languageelo', 'gerelo');
+        this.elaboration = message.elaborationGer;
+      }else if(language===1){
+        console.log('languageelo', message);
+        this.elaboration = message.elaborationEng;
+      }
       this.correctAnswer = 'Richtige Antwort ' + message.correctAnswer;
     });
     this.subscriptionPoints = this.alertService.getCorrectPoints().subscribe(message => {
