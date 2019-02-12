@@ -69,6 +69,13 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
     {
       this.location = value;
     });
+
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.initialiseInvites();
+      }
+    });
   }
 
   ngOnInit() {
