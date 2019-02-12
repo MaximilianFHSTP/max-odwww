@@ -9,9 +9,10 @@
     </div>
 
     <p class="note">{{ 'notifiyExhibit.interactiveExhibitMsg' | translate }}</p>
-    <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
-      <button (click)="redirectToOnTable()">Register Location TableOn</button>
-    </div>
+  </div>
+
+  <div class="webdevtools" *ngIf="isWeb" style="margin-top:20px">
+    <button (click)="redirectToOnTable()">Register Location TableOn</button>
   </div>
 
   <div class="btnJoin">

@@ -252,13 +252,16 @@ export class TransmissionService
 
     const exhibitParentId = state.atExhibitParentId;
     const onExhibit = state.onExhibit;
+
+    const isExhibitOnType = location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON ||
+      location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON;
+
+    console.log('exhibitParentId: ' + exhibitParentId + ' onExhibit: ' + onExhibit + ' isExhibitOnType: ' + isExhibitOnType);
     
-    if (((location.locationTypeId !== LocationTypes.ACTIVE_EXHIBIT_ON ||
-      location.locationTypeId !== LocationTypes.NOTIFY_EXHIBIT_ON) && !onExhibit) ||
-      ((location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON || location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON)
-        && exhibitParentId === location.parentId))
+    if (isExhibitOnType)
     {
-      if (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON || location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON) {
+      if(!onExhibit && exhibitParentId === location.parentId)
+      {
         this.godService.checkLocationStatus(location.id, res => {
           if (res === 'FREE') {
             this.godService.registerLocation(location.id, false);
@@ -269,14 +272,14 @@ export class TransmissionService
           }
         });
       }
-      else {
-        this.locationService.stopLocationScanning();
-
-        this.godService.registerLocation(location.id, false);
-        this.locationService.startLocationScanning();
-      }
     }
+    else
+    {
+      this.locationService.stopLocationScanning();
 
+      this.godService.registerLocation(location.id, false);
+      this.locationService.startLocationScanning();
+    }
   }
 
   public transmitLocationRegisterTableBehavior(): void {
