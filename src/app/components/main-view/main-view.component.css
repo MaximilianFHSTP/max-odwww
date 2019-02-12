@@ -29,33 +29,39 @@ p{
 }
 
 #woodcut.Sec10{
-  background: url("../../../assets/img/woodcuts/Section1BG.png") 50% 50% fixed;
-  background-size: 100%;
+  background: url("../../../assets/img/woodcuts/Section1BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #woodcut.Sec20{
-  background: url("../../../assets/img/woodcuts/Section2BG.png") 50% 50% fixed;
-  background-size: 100%;
+  background: url("../../../assets/img/woodcuts/Section2BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #woodcut.Sec30{
-  background: url("../../../assets/img/woodcuts/Section3BG.png") 50% 50% fixed;
-  background-size: 100%;
+  background: url("../../../assets/img/woodcuts/Section3BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #woodcut.Sec40{
-  background: url("../../../assets/img/woodcuts/Section4BG.png") 50% 50% fixed;
-  background-size: 100%;
+  background: url("../../../assets/img/woodcuts/Section4BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #woodcut.Sec50{
-  background: url("../../../assets/img/woodcuts/Section5BG.png") 50% 50% fixed;
-  background-size: 100%;
+  background: url("../../../assets/img/woodcuts/Section5BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #woodcut.Sec60{
-  background: url("../../../assets/img/woodcuts/Section6BG.png") 50% 50% fixed;
-  background-size: 100%;
+  background: url("../../../assets/img/woodcuts/Section6BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .card{
