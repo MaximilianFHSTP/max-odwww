@@ -1,95 +1,71 @@
-import {Component, OnInit, Inject, Injectable, OnDestroy} from '@angular/core';
-import {NativeResponseService} from '../../services/native/native-response.service';
-import {LocationService} from '../../services/location.service';
-import {UserActions} from '../../store/actions/UserActions';
-import {LocationActions} from '../../store/actions/LocationActions';
+import { Component, OnInit, Inject, Injectable, OnDestroy } from '@angular/core';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
-import {Unsubscribe} from 'redux';
-import {MatIconRegistry, MatDialog, MatDialogConfig} from '@angular/material';
-import {AlertDialogComponent} from '../alert-dialog/alert-dialog.component';
-import {AlertService} from '../../services/alert.service';
-import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
-import {TransmissionService} from '../../services/transmission.service';
+import { Unsubscribe} from 'redux';
+import { AlertService } from '../../services/alert.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { TransmissionService } from '../../services/transmission.service';
+import { LanguageService } from '../../services/language.service';
+import * as coaTypes from '../../config/COATypes';
+import { CoaService } from '../../services/coa.service';
 
 @Component({
   selector: 'app-wappen',
   templateUrl: './wappen.component.html',
   styleUrls: ['./wappen.component.css']
 })
-export class WappenComponent implements OnInit {
+export class WappenComponent implements OnInit, OnDestroy {
   private readonly _unsubscribe: Unsubscribe;
   private registerLocationmessage: any;
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
 
   public user: any;
-  public timelineLocations: any;
-  public isWeb: boolean;
-  public closestExhibit: number;
-  
-  allCoaParts: any;
   subscriptionCoaParts: Subscription;
   userCoaParts: any;
   subscriptionUserCoaParts: Subscription;
   allCoaColors: any;
   subscriptionCoaColors: Subscription;
-  userCoaColors: any;
-  subscriptionUserCoaColors: Subscription;
 
   public locationId: string;
 
   showSettings = false;
   showHelp = false;
   settingsContent = 'shield';
-  setShield = 'Shield1';
-  setEmblem = 'Emblem2';
-  setHelmet = 'Helmet2';
-  setWeapon = 'Mantle1';
-  setColorPrimary = 'Color2';
-  setColorSecondary = 'Color4';
-  selectedShield = 'Shield1';
-  selectedEmblem = 'Emblem2';
-  selectedHelmet = 'Helmet2';
-  selectedWeapon = 'Mantle1';
-  unlockedItems: string[] = ['Shield1','Shield2','Shield3','Shield4','Emblem2','Emblem3','Emblem4','Emblem5',
-  'Emblem6','Helmet1','Helmet2','Helmet3','Mantle1','Mantle3'];
+  setShield = '';
+  setEmblem = '';
+  setHelmet = '';
+  setWeapon = '';
+  setColorPrimary = '';
+  setColorSecondary = '';
+  selectedShield = '';
+  selectedEmblem = '';
+  selectedHelmet = '';
+  selectedWeapon = '';
+  unlockedItems: any[];
   itemsList: any[];
 
   constructor(
     private transmissionService: TransmissionService,
-    private locationService: LocationService,
     @Inject('AppStore') private appStore,
-    private userActions: UserActions,
-    private locationActions: LocationActions,
     private nativeCommunicationService: NativeCommunicationService,
-    private nativeResponseService: NativeResponseService,
-    private dialog: MatDialog,
     public router: Router,
-    private alertService: AlertService
+    private languageService: LanguageService,
+    private alertService: AlertService,
+    private coaService: CoaService
   ){
     this._unsubscribe = this.appStore.subscribe(() =>{
       const state = this.appStore.getState();
       console.log(state.user);
-      this.closestExhibit = state.closestExhibit;
-      this.timelineLocations = this.locationService.getTimelineLocations();
-    });
-
-    this.subscriptionCoaParts = this.alertService.getMessageCoaParts().subscribe(message => {
-      this.allCoaParts = message;
-      console.log(this.allCoaParts);
     });
 
     this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
-      this.userCoaParts = message;
+      coaService.setUserCoaParts(message.data);
+      this.unlockedItems = coaService.unlockedItems;
     });
 
     this.subscriptionCoaColors = this.alertService.getMessageCoaColors().subscribe(message => {
       this.allCoaColors = message;
-    });
-
-    this.subscriptionUserCoaColors = this.alertService.getMessageUserCoaColors().subscribe(message => {
-      this.userCoaColors = message;
     });
 
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
@@ -100,46 +76,38 @@ export class WappenComponent implements OnInit {
   ngOnInit() {
     const state = this.appStore.getState();
     this.user = state.user;
-    console.log(this.user);
-    this.locationService.lookuptable = state.lookupTable;
-    this.timelineLocations = this.locationService.getTimelineLocations();
-    this.closestExhibit = state.closestExhibit;
-    console.log('ClosestExhibit: ' + this.closestExhibit);
 
-    this.isWeb = this.nativeCommunicationService.isWeb;
-
-    // get parts
-    this.transmissionService.getCoaParts();
-    // if first time: unlock some. if not, get userCoaParts
+    this.itemsList = this.coaService.allCoaParts;  
+    console.log(this.itemsList); 
     this.transmissionService.getUserCoaParts();
-
-    this.getItemsWappen();
+    this.setShield = this.coaService.getActive(coaTypes.SHIELD);
+    this.selectedShield = this.setShield;
+    this.setEmblem = this.coaService.getActive(coaTypes.SYMBOL);
+    this.selectedEmblem = this.setEmblem;
+    this.setHelmet = this.coaService.getActive(coaTypes.HELMET);
+    this.selectedHelmet = this.setHelmet;
+    this.setWeapon = this.coaService.getActive(coaTypes.MANTLING);
+    this.selectedWeapon = this.setWeapon;
+    this.setColorPrimary = 'Color' + this.user.primaryColor;
+    this.setColorSecondary = 'Color' + this.user.secondaryColor;
+    this.coaService.setColorPrimary = this.user.primaryColor;
+    this.coaService.setColorSecondary = this.user.secondaryColor;
   }
 
-  getItemsWappen(){
-    this.itemsList = [];
-    // Escutcheon 
-    this.itemsList.push({id:  1, type: 'shield', name: 'Shield1', task: ''});
-    this.itemsList.push({id:  2, type: 'shield', name: 'Shield2', task: ''});
-    this.itemsList.push({id:  3, type: 'shield', name: 'Shield3', task: ''});
-    this.itemsList.push({id:  4, type: 'shield', name: 'Shield4', task: ''});
-    // Charge
-    this.itemsList.push({id:  5, type: 'symbol', name: 'Emblem2', task: 'Switch to Sunthaym’s perspective on any exhibit.'});
-    this.itemsList.push({id:  6, type: 'symbol', name: 'Emblem5', task: 'Have 5 questions right in the Weißkunig game.'});
-    this.itemsList.push({id:  7, type: 'symbol', name: 'Emblem6', task: 'Participate in the Legend Game.'});
-    this.itemsList.push({id:  8, type: 'symbol', name: 'Emblem1', task: 'Create the legend of Klosterneuburg in the Legend Game.'});
-    this.itemsList.push({id:  9, type: 'symbol', name: 'Emblem3', task: 'Attend the audience (unlock all exhibits until throne).'});
-    this.itemsList.push({id: 10, type: 'symbol', name: 'Emblem4', task: 'Participate in the GenVis'});
-    // Helmet 
-    this.itemsList.push({id: 11, type: 'helmet', name: 'Helmet1', task: 'Explore the Sunthaym Panels with AR.'});
-    this.itemsList.push({id: 12, type: 'helmet', name: 'Helmet2', task: 'Create any legend in the Legend Game.'});
-    this.itemsList.push({id: 13, type: 'helmet', name: 'Helmet3', task: 'Have 10 questions right in the Weißkunig game.'});
-    this.itemsList.push({id: 14, type: 'helmet', name: 'Helmet4', task: 'Learn more about Maximilian’s death on the upper floor.'});
-    // Mantling 
-    this.itemsList.push({id: 15, type: 'mantling', name: 'Mantle1', task: 'Explore the shrine with AR.'});
-    this.itemsList.push({id: 16, type: 'mantling', name: 'Mantle2', task: 'Switch to Till’s perspective on any exhibit.'});
-    this.itemsList.push({id: 15, type: 'mantling', name: 'Mantle3', task: 'Participating in the Weißkunig game.'});
-    this.itemsList.push({id: 16, type: 'mantling', name: 'Mantle4', task: 'Find one special person in the GenVis.'});
+  ngOnDestroy() {
+    this._unsubscribe();
+    if (this.subscriptionBack){
+      this.subscriptionBack.unsubscribe();
+    }
+    if (this.subscriptionCoaParts){
+      this.subscriptionCoaParts.unsubscribe();
+    }
+    if (this.subscriptionUserCoaParts){
+      this.subscriptionUserCoaParts.unsubscribe();
+    }
+    if (this.subscriptionCoaColors){
+      this.subscriptionCoaColors.unsubscribe();
+    }
   }
 
   // Check if item is unlocked
@@ -217,6 +185,8 @@ export class WappenComponent implements OnInit {
   }
 
   public closeWindow(){
+    this.coaService.saveMyCoa(this.setShield, this.setEmblem, this.setHelmet, this.setWeapon, this.setColorPrimary, this.setColorSecondary);
+
     this.router.navigate(['mainview']).then( () =>
       {
         this.nativeCommunicationService.sendToNative('Main View', 'print');

@@ -7,6 +7,8 @@ import {LocationActions} from '../../store/actions/LocationActions';
 import {NativeCommunicationService} from '../../services/native/native-communication.service';
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import {TransmissionService} from '../../services/transmission.service';
 
 @Component({
   selector: 'app-quiz',
@@ -49,6 +51,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   private subscriptionPoints: Subscription;
 
   constructor(
+    private router: Router,
+    private transmissionService: TransmissionService,
     private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
@@ -79,10 +83,10 @@ export class QuizComponent implements OnInit, OnDestroy {
       }
       this.createProgressbar();
       this.question = message.question;
-      this.answerA = 'A ' + message.answerA;
-      this.answerB = 'B ' + message.answerB;
-      this.answerC = 'C ' + message.answerC;
-      this.answerD = 'D ' + message.answerD;
+      this.answerA = message.answerA;
+      this.answerB = message.answerB;
+      this.answerC = message.answerC;
+      this.answerD = message.answerD;
     });
     this.subscriptionAnswer = this.alertService.getUpdateUserData().subscribe(message => {
       if(this.answerChar !== undefined){
@@ -161,13 +165,17 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   public disconnectFromExhibit()
   {
-    // Send quizendtime here
-    const endQuizTime = new Date().getTime();
-    this.quizTime = endQuizTime - this.startQuizTime;
-    console.log('DisconnectQuiz', this.quizTime);
-    this.exhibitService.sendQuizTime(this.quizTime);
-    this.firstQuestionOfRun = false;
-    this.exhibitService.disconnect();
+    if(this.nativeCommunicationService.isWeb){
+      this.transmissionService.transmitLocationRegister({minor: 301, major: 30});
+    } else {
+      // Send quizendtime here
+      const endQuizTime = new Date().getTime();
+      this.quizTime = endQuizTime - this.startQuizTime;
+      console.log('DisconnectQuiz', this.quizTime);
+      this.exhibitService.sendQuizTime(this.quizTime);
+      this.firstQuestionOfRun = false;
+      this.exhibitService.disconnect();
+    }
   }
 
   public sendMessageToExhibit()

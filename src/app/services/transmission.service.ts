@@ -332,20 +332,32 @@ export class TransmissionService
 
   public changeUserCoaColors(primColor: any, secColor: any): void{
     const state = this.appStore.getState();
-    const data = {userId: state.user.id, prim: primColor, sec: secColor};
+    const data = {userId: state.user.id, primary: primColor, secondary: secColor};
     this.godService.changeUserCoaColors(data);
   }
 
   public unlockCoaPart(coaPartId: any): void{
     const state = this.appStore.getState();
-    const data = {userId: state.user.id, coaId: coaPartId};
-    this.godService.unlockCoaPart(data);
+    if(state.user){
+      const data = {userId: state.user.id, coaId: coaPartId};
+      this.godService.unlockCoaPart(data);
+    }
+  }
+
+  public changeUserCoaPart(coaTypeId: any, coaPartId: any): void{
+    const state = this.appStore.getState();
+    if(state.user){
+      const data = {userId: state.user.id, coaType: coaTypeId, coaId: coaPartId};
+      this.godService.changeUserCoaPart(data);
+    }
   }
 
   public getUserCoaParts(): void{
     const state = this.appStore.getState();
-    const data = {userId: state.user.id};
-    this.godService.getUserCoaParts(data);
+    if(state.user){
+      const data = {userId: state.user.id};
+      this.godService.getUserCoaParts(data);
+    }
   }
 
   public getCoaParts(): void{

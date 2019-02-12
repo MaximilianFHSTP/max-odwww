@@ -19,6 +19,7 @@ import { NativeCommunicationService } from './services/native/native-communicati
 import {AlertService} from './services/alert.service';
 import {LocationService} from './services/location.service';
 import {TransmissionService} from './services/transmission.service';
+import {CoaService} from './services/coa.service';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -94,7 +95,7 @@ export const appStore = createStore(
     WappenComponent,
     AboutComponent,
     LegalComponent,
-    EducationQuizComponent
+    EducationQuizComponent,
     LanguageStartComponent,
     QuizComponent
   ],
@@ -143,7 +144,8 @@ export const appStore = createStore(
     AlertService,
     FormBuilder,
     UtilityService,
-    TransmissionService
+    TransmissionService,
+    CoaService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

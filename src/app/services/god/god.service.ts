@@ -481,24 +481,22 @@ export class GodService {
     });
   }
 
-  public getUserCoaColors(data: any): void
-  {
-    this.socket.emit('getUserCoaColors', data);
-
-    this.socket.on('getUserCoaColorsResult', result =>
-    {
-      this.alertService.sendMessageUserCoaColors(result);
-      this.socket.removeAllListeners('getUserCoaColorsResult');
-      return;
-    });
-  }
-
   public changeUserCoaColors(data: any): void
   {
+    console.log(data);
     this.socket.emit('changeUserCoaColors', data);
 
     this.socket.on('changeUserCoaColorsResult', result =>
     {
+      const data = result.data;
+      const message = result.message;
+
+      if (message.code > 299)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        return;
+      }
+      this.store.dispatch(this.userActions.changeUser(data));
       this.socket.removeAllListeners('changeUserCoaColorsResult');
       return;
     });
@@ -523,6 +521,17 @@ export class GodService {
     {
       this.alertService.sendMessageUserCoaParts(result);
       this.socket.removeAllListeners('getUserCoaPartsResult');
+      return result;
+    });
+  }
+
+  public changeUserCoaPart(data: any): void
+  {
+    this.socket.emit('changeUserCoaPart', data);
+
+    this.socket.on('changeUserCoaPartResult', result =>
+    {
+      this.socket.removeAllListeners('changeUserCoaPartResult');
       return result;
     });
   }
