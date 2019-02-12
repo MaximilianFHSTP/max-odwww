@@ -1,21 +1,22 @@
-import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
-import { GodService } from '../../services/god/god.service';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {LocationService} from '../../services/location.service';
-import { Router, NavigationEnd } from '@angular/router';
-import {NativeResponseService} from '../../services/native/native-response.service';
-import {Unsubscribe} from 'redux';
-import {TimerObservable} from 'rxjs/observable/TimerObservable';
-import {LocationActions} from '../../store/actions/LocationActions';
-import { NativeCommunicationService } from '../../services/native/native-communication.service';
-import {Subscription} from 'rxjs';
+import {NavigationEnd, Router} from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
+import {NativeCommunicationService} from '../../services/native/native-communication.service';
+import {Unsubscribe} from 'redux';
+import {Subscription} from 'rxjs';
+import {GodService} from '../../services/god/god.service';
+import {NativeResponseService} from '../../services/native/native-response.service';
+import {LocationActions} from '../../store/actions/LocationActions';
+import {TimerObservable} from 'rxjs-compat/observable/TimerObservable';
+import * as locationTypes from '../../config/LocationTypes';
 
 @Component({
-  selector: 'app-content-table-at',
-  templateUrl: './content-table-at.component.html',
-  styleUrls: ['./content-table-at.component.css']
+  selector: 'app-content-table-notify-at',
+  templateUrl: './content-table-notify-at.component.html',
+  styleUrls: ['./content-table-notify-at.component.css']
 })
-export class ContentTableAtComponent implements OnInit, OnDestroy {
+export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
 
   // location data
   public location: any;
@@ -35,7 +36,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   private readonly _unsubscribe: Unsubscribe;
   private _statusTimerSubscription;
   private _curLocSubscribe: Subscription;
-  private navigationSubscription: Subscription;
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
     {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
@@ -69,12 +69,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     {
       this.location = value;
     });
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
-      }
-    });
   }
 
   ngOnInit() {
@@ -82,7 +76,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   }
 
   initialiseInvites() {
-    this.nativeCommunicationService.sendToNative('TABLE-AT', 'print');
 
     this.location = this.locationService.currentLocation.value;
     this.locationName = this.location.description;
@@ -96,7 +89,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.isWeb = this.nativeCommunicationService.isWeb;
 
     // Timer starts after 1sec, repeats every 5sec
-    this.checkStatusTimer = TimerObservable.create(100, 50000);
+    this.checkStatusTimer = TimerObservable.create(100, 5000);
     this._statusTimerSubscription = this.checkStatusTimer.subscribe(() => {
       this.godService.checkLocationStatus(this.locationId);
     });
@@ -149,7 +142,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.joinGame = false;
     this.locationService.stopLocationScanning();
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
-    // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
   }
 
   /*
@@ -160,13 +152,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   redirectToOnTable()
   {
-    this.responseService.timelineUpdate({minor: 1000, major: 100});
-  }
-
-  redirectToOnTableBehavior()
-  {
-    this.nativeCommunicationService.sendToNative('REDIRECT-TO-TABLE-ON-Behavior', 'print');
-    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
-    this.transmissionService.transmitLocationRegisterTableBehavior();
+    this.responseService.timelineUpdate({minor: 5021, major: 502});
   }
 }

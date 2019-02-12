@@ -12,7 +12,6 @@ import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
 import * as d3 from 'd3';
-import { bypassSanitizationTrustStyle } from '@angular/core/src/sanitization/sanitization';
 
 @Component({
   selector: 'app-main-view',
@@ -102,7 +101,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.user = state.user;
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
-    console.log(this.timelineLocations);
     this.closestExhibit = state.closestExhibit;
     this.startSection(this.closestExhibit);
     this.isWeb = this.nativeCommunicationService.isWeb;
@@ -368,12 +366,17 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   public requestRegisterLocationTableAtBehavior()
   {
-    this.nativeResponseService.timelineUpdate({minor: 101, major: 10});
+    this.nativeResponseService.timelineUpdate({minor: 301, major: 30});
   }
 
   public requestRegisterLocationPassive()
   {
     this.nativeResponseService.timelineUpdate({minor: 102, major: 10});
+  }
+
+  public requestRegisterNotifyLocation()
+  {
+    this.nativeResponseService.timelineUpdate({minor: 502, major: 50});
   }
 
   public checkWifiForWeb()

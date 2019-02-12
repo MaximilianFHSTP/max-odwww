@@ -54,6 +54,20 @@
     "quizRight": "Korrekte Antwort!",
     "quizWrong": "Falsche Antwort."
   },
+  "notifiyExhibit": {
+    "interactiveExhibitMsg": "Dies ist eine interaktive Ausstellung. Klicken Sie auf die Schaltfläche unten, um zu beginnen!",
+    "tableOfflineText": "Die interaktive Ausstellung steht zur Zeit nicht zur Verfügung!",
+    "tableOccupiedText": "Der interaktive Ausstellung ist gerade nicht frei, probieren Sie es später erneut!",
+    "tableJoinButton": "Mitspielen",
+    "beaconPutText": "Bitte lege Dein Handy auf ein Beacon am Table",
+    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei!"
+  },
+  "notifiyExhibitOn": {
+    "disconnectButton": "Zum Beenden drücken",
+    "connectedMsg": "Verbunden",
+    "connectionMsg": "Nutzen Sie nun das Tablets um mit dem Ausstellungsstück zu interagieren.",
+    "disconnectInfo": "Um die interaktive Exploration zu beenden drücken sie unten den Button."
+  },
   "coa": {
     "title": "Wappen von",
     "helpTitle": "Dein Wappen",

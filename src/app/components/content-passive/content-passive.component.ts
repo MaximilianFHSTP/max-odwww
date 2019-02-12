@@ -1,7 +1,7 @@
 import {Component, OnInit, AfterViewInit, OnDestroy, Inject} from '@angular/core';
 import { LocationService } from '../../services/location.service';
 import {Unsubscribe} from 'redux';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {TransmissionService} from '../../services/transmission.service';
 import * as ContentTypes from '../../config/ContentTypes';
 import * as d3 from 'd3';

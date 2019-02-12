@@ -15,7 +15,7 @@
     <div class="ico"></div>
     <div class="msg">
       <div *ngIf="locationStatusFree">
-        <div *ngIf="locationType == 3">
+        <div *ngIf="locationType === 3">
           <p>{{ 'tableAt.tableFreeText' | translate }}</p>
           <button *ngIf="joinGame" (click)="startOnTableSearch()">{{ 'tableAt.tableJoinButton' | translate }}</button>
           <p *ngIf="!joinGame">{{ 'tableAt.beaconPutText' | translate }}</p>

@@ -64,6 +64,12 @@ export class NativeResponseService implements OnInit
         this.transmissionService.transmitLocationRegister({minor: location.id, major: location.parentId});
       }
 
+      // If the new location is a tableOn beacon and the user is currently tableat transmit location register directly
+      if (currLoc && currLoc.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_AT &&
+        location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON && location.parentId === currLoc.id) {
+        this.transmissionService.transmitLocationRegister({minor: location.id, major: location.parentId});
+      }
+
       // check if the location is still locked. If so unlock it
       if (location.locked && state.locationScanning === true) {
         this.transmissionService.transmitTimelineUpdate(location.id);
