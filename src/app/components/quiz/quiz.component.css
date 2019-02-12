@@ -11,15 +11,15 @@
 
 .wrapper h2{
   font-family: 'Vollkorn', Times, serif;
-  margin: 0px auto 20px auto;
+  margin: 0px 5px 1em 5px;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 p, button, h3{
   font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 h3{
@@ -45,7 +45,7 @@ h3{
   margin: 0px 5px;
   color: #755300;
   display: inline;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .wrapper {
@@ -99,7 +99,7 @@ h3{
   }
   100% {
       width: 0%;
-      background: #ddd;
+      background: #906e1b;
   }
 }
 
@@ -116,7 +116,7 @@ h3{
   border: 2px solid #755300;
   outline: none;
   display: block;
-  margin: 1.5em auto 10px auto;
+  margin: 1em auto;
   background: #fff;
   color: #000;
   min-width: 90%;
@@ -185,13 +185,27 @@ h3{
   font-size: 0.9em;
 }
 
+#pointsbar{
+  border: 1px solid #755300;
+  width: 80%;
+  height: 25px;
+  margin: 5px auto;
+}
+
+#pointsbar div{
+  background: #755300;
+  width: 0%;
+  height: 26px;
+  margin: 0px;
+}
+
 @media (max-height: 650px) {
   .wrapper h2{
-      font-size: 1.2em;
+      font-size: 1em;
     }
 
   .quizContent button{
-      margin: 1em auto 10px auto;
+      margin: 0.8em auto;
   }
 
   p, button, h3{

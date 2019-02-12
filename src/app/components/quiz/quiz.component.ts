@@ -9,6 +9,7 @@ import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
+import * as languageTypes from '../../config/LanguageTypes';
 
 @Component({
   selector: 'app-quiz',
@@ -32,9 +33,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   public answerD: string;
   private answerChar: string;
   public yourAnswer: string;
-  public yourPoints: string;
-  public yourPointsBar: number;
-  public yourStatus = 'Bettelvolk';
+  public yourPoints = 'Fortschritt: ...';
+  public yourStatus = '...';
   public correctAnswer: string;
   public elaboration: string;
 
@@ -85,15 +85,13 @@ export class QuizComponent implements OnInit, OnDestroy {
         progressbar.remove();
       }
       this.createProgressbar();
-      if(language===0){
-        console.log('languagequest', 'gerquest');
+      if(language === languageTypes.DE){
         this.question = message.questionGer;
         this.answerA = message.answerAGer;
         this.answerB = message.answerBGer;
         this.answerC = message.answerCGer;
         this.answerD = message.answerDGer;
-      }else if(language===1){
-        console.log('languagequest', 'engquest ' + message);
+      } else if(language === languageTypes.ENG){
         this.question = message.questionEng;
         this.answerA = message.answerAEng;
         this.answerB = message.answerBEng;
@@ -117,11 +115,9 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.noResponse = false;
       const state = this.appStore.getState();
       const language = state.language;
-      if(language===0){
-        console.log('languageelo', 'gerelo');
+      if(language === languageTypes.DE){
         this.elaboration = message.elaborationGer;
-      }else if(language===1){
-        console.log('languageelo', message);
+      }else if(language === languageTypes.ENG){
         this.elaboration = message.elaborationEng;
       }
       this.correctAnswer = 'Richtige Antwort ' + message.correctAnswer;
@@ -131,15 +127,18 @@ export class QuizComponent implements OnInit, OnDestroy {
       if(points<7){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '7 Punkte';
         this.yourStatus = 'Bettelvolk';
-        this.yourPointsBar = (points*100)/7;
+        const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
+        progressbar.style.width = ((points*100)/7) + '%';
       }else if(points>=7 && points <13){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '13 Punkte';
         this.yourStatus = 'Buergertum';
-        this.yourPointsBar = (points*100)/13;
+        const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
+        progressbar.style.width = ((points*100)/13) + '%';
       }else if(points>=13){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '13 Punkte';
         this.yourStatus = 'Adel';
-        this.yourPointsBar = 100;
+        const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
+        progressbar.style.width = '100%';
       }
     });
   }

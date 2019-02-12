@@ -31,10 +31,10 @@
     <div class="bottomBar">
       <div class='points'>
           <div class='pointstext'><p>{{yourPoints}}</p></div>
-          <div id='pointsbar'></div>
+          <div id='pointsbar'><div id='pointsbarinner'></div></div>
       </div>
       <div class='status'>
-          <div class='statusimage'><img src="./assets/icons/{{yourStatus}}.png" /></div>
+          <div class='statusimage'><img *ngIf="yourStatus !== '...'" src="./assets/icons/{{yourStatus}}.png" /></div>
           <div class='statustext'><p>Status:<br/>{{yourStatus}}</p></div>
       </div>
     </div>
