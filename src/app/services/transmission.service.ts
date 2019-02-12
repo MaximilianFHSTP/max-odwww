@@ -256,7 +256,7 @@ export class TransmissionService
     const isExhibitOnType = location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON ||
       location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON;
 
-    console.log('exhibitParentId: ' + exhibitParentId + ' onExhibit: ' + onExhibit + ' isExhibitOnType: ' + isExhibitOnType);
+    // console.log('exhibitParentId: ' + exhibitParentId + ' onExhibit: ' + onExhibit + ' isExhibitOnType: ' + isExhibitOnType);
     
     if (isExhibitOnType)
     {

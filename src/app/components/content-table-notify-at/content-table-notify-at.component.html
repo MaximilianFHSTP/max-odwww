@@ -20,7 +20,7 @@
     <div class="msg">
       <div *ngIf="locationStatusFree">
         <button *ngIf="joinGame" (click)="startOnTableSearch()">{{ 'notifiyExhibit.tableJoinButton' | translate }}</button>
-        <p *ngIf="!joinGame">{{ 'notifiyExhibit.beaconPutText' | translate }}</p>
+        <p *ngIf="!joinGame && locationSocketStatus !== 'OCCUPIED'">{{ 'notifiyExhibit.beaconPutText' | translate }}</p>
         <p *ngIf="locationSocketStatus === 'OCCUPIED'">{{ 'notifiyExhibit.beaconOccupiedText' | translate }}</p>
 
       </div>

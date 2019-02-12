@@ -10,6 +10,7 @@ import { NativeCommunicationService } from '../native/native-communication.servi
 import { AlertService } from '../alert.service';
 import * as ErrorTypes from '../../config/ErrorMessageTypes';
 import * as SuccessTypes from '../../config/SuccessMessageTypes';
+import * as LocationTypes from '../../config/LocationTypes';
 
 @Injectable()
 export class GodService {
@@ -248,7 +249,7 @@ export class GodService {
 
       const location = this.locationService.findLocation(res.location);
 
-      if (location.locationTypeId !== 2) {
+      if (location.locationTypeId !== LocationTypes.ACTIVE_EXHIBIT_ON || location.locationTypeId !== LocationTypes.NOTIFY_EXHIBIT_ON) {
         this.store.dispatch(this.locationActions.changeLocationStatus(res.status));
       }
 
