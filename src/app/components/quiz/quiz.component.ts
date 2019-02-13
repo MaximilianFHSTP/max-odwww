@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
 import * as languageTypes from '../../config/LanguageTypes';
+import {CoaService} from '../../services/coa.service';
 
 @Component({
   selector: 'app-quiz',
@@ -60,6 +61,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
+    private coaService: CoaService,
     private alertService: AlertService
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
@@ -139,6 +141,15 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.yourStatus = 'Adel';
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = '100%';
+      }
+
+      // COA
+      if(points < 5) {
+        this.coaService.tryUnlock(42);
+      } else if(points >= 5 && points < 10) {
+        this.coaService.tryUnlock(21);
+      } else if(points >= 10) {
+        this.coaService.tryUnlock(32);
       }
     });
   }
@@ -282,7 +293,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   private createProgressbar() {
     const progressbar: HTMLElement = document.getElementById('progressbar') as HTMLElement;
     console.log('createProgressbar', progressbar);
-    const durationTime = '15s';
+    const durationTime = '30s';
     progressbar.className = 'progressbar';
 
     const progressbarinner: HTMLElement = document.createElement('div');
