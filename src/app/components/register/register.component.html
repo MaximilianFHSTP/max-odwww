@@ -18,14 +18,14 @@
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="{{ 'register.password' | translate }}" [(ngModel)]="password" required [formControl]="passwordFormControl">
+          <input matInput placeholder="{{ 'register.password' | translate }}" type="password" [(ngModel)]="password" required [formControl]="passwordFormControl">
           <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="{{ 'register.passwordConfirm' | translate }}" [(ngModel)]="confirmPassword" required [formControl]="confirmPasswordFormControl">
+          <input matInput placeholder="{{ 'register.passwordConfirm' | translate }}" type="password" [(ngModel)]="confirmPassword" required [formControl]="confirmPasswordFormControl">
           <mat-error *ngIf="confirmPasswordFormControl.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
