@@ -36,6 +36,23 @@ export class GodService {
     this.socket.on('disconnect', () => {
       const error: Message = {code: ErrorTypes.LOST_CONNECTION_TO_GOD, message: 'Lost connection to Server'};
       this.store.dispatch(this.statusActions.changeErrorMessage(error));
+
+      const state = this.store.getState();
+      const location = state.currentLocation;
+
+      const currLocType = location.locationTypeId;
+
+      if(currLocType === LocationTypes.ACTIVE_EXHIBIT_ON || currLocType === LocationTypes.NOTIFY_EXHIBIT_ON
+        || currLocType === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_ON)
+      {
+          this.store.dispatch(this.locationActions.changeConnectedExhibit(false));
+          this.store.dispatch(this.locationActions.changeAtExhibitParentId(0));
+          this.store.dispatch(this.locationActions.changeOnExhibit(false));
+          this.store.dispatch(this.locationActions.changeClosestExhibit(location.parentId));
+
+          this.locationService.updateCurrentLocation(location.parentId);
+          this.router.navigate(['/mainview']).then(() => { });
+      }
     });
 
     this.socket.on('reconnect', () => {
@@ -459,7 +476,7 @@ export class GodService {
       if (message.code > 299)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
-        this.utilitiesService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
+        this.utilitiesService.sendToNative('RegisterUserLanguageUpdate: FAILED', 'print');
         return;
       }
 

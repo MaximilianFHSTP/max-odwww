@@ -155,7 +155,7 @@ export class AppComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = false;
     if(this.nativeSettingType === 'wifi'){
 
-      console.log('openNativeSetting ' + this.nativeSettingType);
+      // console.log('openNativeSetting ' + this.nativeSettingType);
       let platformSpecificConfirm;
       if(this.nativeCommunicationService.checkPlatform() === 'Android'){
         platformSpecificConfirm = 'To the Settings';
