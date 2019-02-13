@@ -501,7 +501,6 @@ export class GodService {
 
   public changeUserCoaColors(data: any): void
   {
-    console.log(data);
     this.socket.emit('changeUserCoaColors', data);
 
     this.socket.on('changeUserCoaColorsResult', result =>
@@ -537,6 +536,7 @@ export class GodService {
 
     this.socket.on('getUserCoaPartsResult', result =>
     {
+      console.log(result);
       this.alertService.sendMessageUserCoaParts(result);
       this.socket.removeAllListeners('getUserCoaPartsResult');
       return result;
@@ -545,10 +545,13 @@ export class GodService {
 
   public changeUserCoaPart(data: any): void
   {
+    console.log(data);
     this.socket.emit('changeUserCoaPart', data);
 
     this.socket.on('changeUserCoaPartResult', result =>
     {
+      console.log(result);
+      this.alertService.sendMessageUserCoaParts(result);
       this.socket.removeAllListeners('changeUserCoaPartResult');
       return result;
     });

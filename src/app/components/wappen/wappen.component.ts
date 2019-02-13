@@ -78,7 +78,7 @@ export class WappenComponent implements OnInit, OnDestroy {
     this.user = state.user;
 
     this.itemsList = this.coaService.allCoaParts;  
-    console.log(this.itemsList); 
+    // console.log(this.itemsList); 
     this.transmissionService.getUserCoaParts();
     this.setShield = this.coaService.getActive(coaTypes.SHIELD);
     this.selectedShield = this.setShield;

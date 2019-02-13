@@ -100,20 +100,14 @@ export class CoaService {
   }
 
   setUserCoaParts(coaParts: any[]){
+    console.log(coaParts);
     this.userCoaParts = coaParts;
     this.setUnlockedItems();
-
-    if(this.userCoaParts.length === 0){
-      this.startUserCoaParts();
-    } 
   }
 
   setUnlockedItems(){
     this.unlockedItemsId = [];
     this.unlockedItems = [];
-    let setAutoEmblem = false;
-    let setAutoHelmet = false;
-    let setAutoWeapon = false;
 
     this.userCoaParts.forEach(part => {
       this.unlockedItemsId.push(part.id);
@@ -121,39 +115,21 @@ export class CoaService {
 
       // Get active parts
       if(part.coaTypeId === coaTypes.SYMBOL){ 
-        if(!this.thereIsEmblem){
-          this.thereIsEmblem = true; 
-          this.setEmblem = part.id;
-          setAutoEmblem = true;
-        }
-        
+        this.thereIsEmblem = true; 
         if(part.UserCoaPart.isActive){
           this.setEmblem = part.id;
-          setAutoEmblem = false;
         }
       }
       else if(part.coaTypeId === coaTypes.HELMET){ 
-        if(!this.thereIsHelmet){
-          this.thereIsHelmet = true; 
-          this.setHelmet = part.id;
-          setAutoHelmet = true;
-        }
-
+        this.thereIsHelmet = true; 
         if(part.UserCoaPart.isActive){
           this.setHelmet = part.id;
-          setAutoHelmet = false;
         }
       }
       else if(part.coaTypeId === coaTypes.MANTLING){ 
-        if(!this.thereIsWeapon){
-          this.thereIsWeapon = true; 
-          this.setWeapon = part.id;
-          setAutoWeapon = true;
-        }
-
+        this.thereIsWeapon = true; 
         if(part.UserCoaPart.isActive){
           this.setWeapon = part.id;
-          setAutoWeapon = false;
         }
       } else if(part.coaTypeId === coaTypes.SHIELD){ 
         if(part.UserCoaPart.isActive){
@@ -161,30 +137,14 @@ export class CoaService {
         }
       }
     });
-
-
-    if(setAutoEmblem){this.transmissionService.changeUserCoaPart(coaTypes.SYMBOL, this.setEmblem);}
-    if(setAutoHelmet){this.transmissionService.changeUserCoaPart(coaTypes.HELMET, this.setHelmet);}
-    if(setAutoWeapon){this.transmissionService.changeUserCoaPart(coaTypes.MANTLING, this.setWeapon);}
   }
 
   saveMyCoa(shield: string, symbol: string, helmet: string, mantling: string, primColor: string, secColor: string){
+    console.log(mantling);
     this.transmissionService.changeUserCoaColors(this.getColorId(primColor), this.getColorId(secColor));
     this.transmissionService.changeUserCoaPart(coaTypes.SHIELD, this.getPartId(shield));
-    this.transmissionService.changeUserCoaPart(coaTypes.SYMBOL, this.getPartId(symbol));
-    this.transmissionService.changeUserCoaPart(coaTypes.HELMET, this.getPartId(helmet));
-    this.transmissionService.changeUserCoaPart(coaTypes.MANTLING, this.getPartId(mantling));
-  }
-
-  startUserCoaParts(){
-    this.transmissionService.unlockCoaPart(10);
-    this.transmissionService.unlockCoaPart(11);
-    this.transmissionService.unlockCoaPart(12);
-    this.transmissionService.unlockCoaPart(13);
-    this.unlockedItemsId = [10,11,12,13];
-
-    // default: red shield
-    this.transmissionService.changeUserCoaColors(this.setColorPrimary, this.setColorSecondary);
-    this.transmissionService.changeUserCoaPart(coaTypes.SHIELD, this.setShield);
+    // this.transmissionService.changeUserCoaPart(coaTypes.SYMBOL, this.getPartId(symbol));
+    // this.transmissionService.changeUserCoaPart(coaTypes.HELMET, this.getPartId(helmet));
+    // this.transmissionService.changeUserCoaPart(coaTypes.MANTLING, this.getPartId(mantling));
   }
 }
