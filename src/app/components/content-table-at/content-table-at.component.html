@@ -1,7 +1,8 @@
 <div class="btnBack"><img src="./assets/icons/Timeline/{{getSectionIcon(location.parentId)}}.png" /></div>
 <div class="wrapper Sec_{{location.parentId}}">
   <div class="wrapperContent">
-    <h1>{{location.description}}</h1>
+      <h1 *ngIf="languageService.getCurrentLanguageAsString() === 'en'">{{location.titleENG}}</h1>
+      <h1 *ngIf="languageService.getCurrentLanguageAsString() === 'de'">{{location.titleGER}}</h1>
 
     <div *ngFor="let cont of location.contents">
       <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>

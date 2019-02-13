@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { Subscription } from 'rxjs';
 import { TransmissionService } from '../../services/transmission.service';
+import {LanguageService} from '../../services/language.service';
 
 @Component({
   selector: 'app-content-interactive',
@@ -31,6 +32,7 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
     private locationService: LocationService,
     private router: Router,
     private transmissionService: TransmissionService,
+    private languageService: LanguageService,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore)
   {

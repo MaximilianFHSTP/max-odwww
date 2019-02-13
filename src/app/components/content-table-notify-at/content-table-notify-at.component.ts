@@ -10,6 +10,7 @@ import {NativeResponseService} from '../../services/native/native-response.servi
 import {LocationActions} from '../../store/actions/LocationActions';
 import {TimerObservable} from 'rxjs-compat/observable/TimerObservable';
 import * as locationTypes from '../../config/LocationTypes';
+import {LanguageService} from '../../services/language.service';
 
 @Component({
   selector: 'app-content-table-notify-at',
@@ -50,6 +51,7 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
     private router: Router,
     private locationService: LocationService,
     private transmissionService: TransmissionService,
+    private languageService: LanguageService,
     private responseService: NativeResponseService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,

@@ -31,7 +31,7 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   ];
   mContent = [];
   changeVersion = false;
-  pMargin = 20;
+  pMargin = 0;
   textContent: string;
 
   constructor(
@@ -57,7 +57,7 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   {
     const state = this.appStore.getState();
     this.updateLocationInformation(state.currentLocation);
-    console.log(this.location);
+    // console.log(this.location);
   }
 
   ngAfterViewInit(){
