@@ -139,7 +139,6 @@ export class ExhibitService {
     // const user = this.appStore.getState().user;
     this.socket.connection.on('getQuestionResult', (result) =>
     {
-      // TODO: Here to forward also the ids if needed for thesis
       this.alertSerivce.sendQuizQuestion(result);
     });
   }

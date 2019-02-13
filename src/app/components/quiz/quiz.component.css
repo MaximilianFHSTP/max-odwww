@@ -11,19 +11,41 @@
 
 .wrapper h2{
   font-family: 'Vollkorn', Times, serif;
-  margin: 20px auto;
+  margin: 0px 5px 1em 5px;
   text-align: center;
+  font-size: 1.3em;
 }
 
-p, button{
+p, button, h3{
   font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
   margin: 0;
+  font-size: 1em;
 }
+
+h3{
+  text-align: center;
+  padding-top: 0.5em;
+}
+
+.elaboration{
+  width: 90%;
+  margin: 1em auto;
+  }
+
+.elaboration p{
+    text-align: left;
+}
+
+.wait p{
+  text-align: center;
+  }
 
 .option{
   font-family: 'Vollkorn', Times, serif;
-  margin: 0;
+  margin: 0px 5px;
   color: #755300;
+  display: inline;
+  font-size: 1.3em;
 }
 
 .wrapper {
@@ -56,8 +78,9 @@ p, button{
 
 .progressbar {
   width: 100%;
-  margin: auto;
-  border: 2px solid #755300;
+  margin: 0px;
+  border-top: 2px solid #755300;
+  border-bottom: 2px solid #755300;
 }
 ::ng-deep .inner {
   height: 30px;
@@ -72,28 +95,33 @@ p, button{
 @keyframes progressbar-countdown {
   0% {
       width: 100%;
-      background: #ddd;
+      background: #755300;
   }
   100% {
       width: 0%;
-      background: #755300;
+      background: #906e1b;
   }
 }
 
 .quizContent{
   background: #d3c5a4;
-  height: 100%;
+  height: -webkit-fill-available;
+}
+
+.quizContent div{
+  padding-top:0.1em;
 }
 
 .quizContent button{
-  border: 1px solid #755300;
+  border: 2px solid #755300;
   outline: none;
   display: block;
-  margin: 1em auto 10px auto;
+  margin: 1em auto;
   background: #fff;
   color: #000;
   min-width: 90%;
   padding: 0.8em;
+  text-align: left;
 }
 
 .bottomBar{
@@ -115,6 +143,78 @@ p, button{
 .connectionMsgSpinner{
   margin: 10px auto;
   width: fit-content;
+}
+
+.bottomBar .points{
+  float: left;
+  width: 60%;
+  height: 80px;
+  background: #ffffff;
+}
+
+.bottomBar .status{
+  float: right;
+  width: 39%;
+  height: 80px;
+  background: #ffffff;
+}
+
+.statusimage{
+  height: 50px;
+  width: 50px;
+  margin: 15px 5px;
+  background: #906e1b;
+  border-radius: 25px;
+  float: left;
+}
+
+.statusimage img{
+  height: 30px;
+  margin: 10px;
+}
+
+.statustext{
+  margin: 15px 0px;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+.pointstext{
+  margin: 15px 0px 0px 0px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+#pointsbar{
+  border: 1px solid #755300;
+  width: 80%;
+  height: 25px;
+  margin: 5px auto;
+}
+
+#pointsbar div{
+  background: #755300;
+  width: 0%;
+  height: 26px;
+  margin: 0px;
+}
+
+@media (max-height: 650px) {
+  .wrapper h2{
+      font-size: 1em;
+    }
+
+  .quizContent button{
+      margin: 0.8em auto;
+  }
+
+  p, button, h3{
+      font-size: 0.9em;
+    }
+    
+    .option{
+      font-size: 1.5em;
+    }
 }
 
 /* 

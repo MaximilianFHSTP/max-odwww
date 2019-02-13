@@ -9,6 +9,7 @@ import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
+import * as languageTypes from '../../config/LanguageTypes';
 
 @Component({
   selector: 'app-quiz',
@@ -32,8 +33,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   public answerD: string;
   private answerChar: string;
   public yourAnswer: string;
-  public yourPoints: string;
-  public yourStatus: string;
+  public yourPoints = 'Fortschritt: ...';
+  public yourStatus = '...';
   public correctAnswer: string;
   public elaboration: string;
 
@@ -66,6 +67,8 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.connectionSuccess = state.connectedToExhibit;
     });
     this.subscriptionQuestion = this.alertService.getQuizQuestion().subscribe(message => {
+      const state = this.appStore.getState();
+      const language = state.language;
       this.questionId = message.questionId;
       this.correctAns = message.correctAnswer;
       if(!this.firstQuestionOfRun){
@@ -82,11 +85,20 @@ export class QuizComponent implements OnInit, OnDestroy {
         progressbar.remove();
       }
       this.createProgressbar();
-      this.question = message.question;
-      this.answerA = message.answerA;
-      this.answerB = message.answerB;
-      this.answerC = message.answerC;
-      this.answerD = message.answerD;
+      if(language === languageTypes.DE){
+        this.question = message.questionGer;
+        this.answerA = message.answerAGer;
+        this.answerB = message.answerBGer;
+        this.answerC = message.answerCGer;
+        this.answerD = message.answerDGer;
+      } else if(language === languageTypes.ENG){
+        this.question = message.questionEng;
+        this.answerA = message.answerAEng;
+        this.answerB = message.answerBEng;
+        this.answerC = message.answerCEng;
+        this.answerD = message.answerDEng;
+      }
+
     });
     this.subscriptionAnswer = this.alertService.getUpdateUserData().subscribe(message => {
       if(this.answerChar !== undefined){
@@ -101,20 +113,32 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.yourAnswer = 'Deine Antwort: keine';
       }
       this.noResponse = false;
-      this.elaboration = message.elaboration;
+      const state = this.appStore.getState();
+      const language = state.language;
+      if(language === languageTypes.DE){
+        this.elaboration = message.elaborationGer;
+      }else if(language === languageTypes.ENG){
+        this.elaboration = message.elaborationEng;
+      }
       this.correctAnswer = 'Richtige Antwort ' + message.correctAnswer;
     });
     this.subscriptionPoints = this.alertService.getCorrectPoints().subscribe(message => {
       const points = message;
       if(points<7){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '7 Punkte';
-        this.yourStatus = 'Status: Bettelvolk';
+        this.yourStatus = 'Bettelvolk';
+        const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
+        progressbar.style.width = ((points*100)/7) + '%';
       }else if(points>=7 && points <13){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '13 Punkte';
-        this.yourStatus = 'Status: Bürgertum';
+        this.yourStatus = 'Buergertum';
+        const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
+        progressbar.style.width = ((points*100)/13) + '%';
       }else if(points>=13){
         this.yourPoints = 'Fortschritt: ' + points + '/' + '13 Punkte';
-        this.yourStatus = 'Status: Adel';
+        this.yourStatus = 'Adel';
+        const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
+        progressbar.style.width = '100%';
       }
     });
   }
