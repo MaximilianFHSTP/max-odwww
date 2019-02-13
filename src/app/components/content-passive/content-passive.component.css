@@ -31,6 +31,7 @@ a{
     position: absolute;
     width: 100%;
     top: 90px;
+    height: -webkit-fill-available;
 }
 
 .wrapperContent{
@@ -50,6 +51,10 @@ a{
     background-position: 10%;
     background-repeat: no-repeat;
     z-index: -1;
+  }
+  
+  #timeline{
+      margin-top:20px;
   }
   
   .btnBack img{
@@ -106,6 +111,12 @@ a{
         font-size: 0.85em;
       }
 
+      .wrapperContent.maximilian p.cont2, .wrapperContent.maximilian p.cont3,
+      .wrapperContent.sunthaym p.cont1, .wrapperContent.sunthaym p.cont3,
+      .wrapperContent.till p.cont1, .wrapperContent.till p.cont2{
+        display: none;
+      }
+
 .Sec_10 .timelineSectionNav ul li button p { color: #823a3a; }
 .Sec_20 .timelineSectionNav ul li button p { color: #305978; }
 .Sec_30 .timelineSectionNav ul li button p { color: #755300; }
@@ -127,13 +138,27 @@ a{
     color: #ffffff !important;
 }
 
-      @media (max-width: 370px) {
-        .timelineSectionNav ul li button p{
-            font-size: 0.7em;
-          }
+@media (max-width: 370px) {
+    .timelineSectionNav ul li button p{
+        font-size: 0.7em;
+    }
 
-          .timelineSectionNav ul li button img{
-            width: 35px; 
-            height: 35px;
-          }
-      }
+    .timelineSectionNav ul li button img{
+        width: 35px; 
+        height: 35px;
+    }
+
+    h1{
+        font-size: 1.4em;
+    }
+
+    p{
+        font-size: 0.8em;
+    }
+}
+
+@media (min-height: 800px) {
+    .btnBack{
+        margin: 35px 20px 0px 20px;
+    }
+}

@@ -92,7 +92,7 @@ p{
 .card img{
   width: 15%;
   float: left;
-  margin: 6% 0 0 5%;
+  margin: 1.5em 0 0 5%;
 }
 
 .card.exhibit{
@@ -102,15 +102,16 @@ p{
 
 .card h1{
   width: 70%;
-  font-size: 110%;
+  font-size: 1.1em;
   float: right;
-  margin: 3% 5% 0% 5%;
+  margin: 1em 5% 0% 5%;
+  white-space: normal;
 }
 
 .card h2{
   margin: 0% 5%;
-  font-size: 110%;
-  word-break: break-all;
+  font-size: 1em;
+  white-space: normal;
 }
 
 .wrapIcon{
@@ -145,7 +146,7 @@ p{
 
 .card .timespan{
   font-size: 80%;
-  margin: 5% 5% 0% 5%;
+  margin: 0.9em 5% 0% 5%;
 }
 
 .card.Sec1 img{
@@ -287,12 +288,6 @@ p{
   height: 45px;
 }
 
-@media (max-width: 320px) {
-  .card h1{
-    font-size: 100%;
-  }
-}
-
 .selected_Section10 img, .title.Sec10 img{
   filter: invert(30%) sepia(40%) saturate(842%) hue-rotate(314deg) brightness(81%) contrast(88%);
 }
@@ -348,6 +343,13 @@ p{
   display: none;
 }
 
+@media (max-width: 350px) {
+  .timelineSectionNav ul li button img{
+    width: 35px; 
+    height: 35px;
+  }
+}
+
 @media (min-width: 550px) {
   .card img{
     width: 55px;
@@ -361,10 +363,22 @@ p{
 
   .card h1{
     float: left;
+    font-size: 1.2em;
     margin: 15px 0px 0px 0px;
   }
   
   .card h2{
+    font-size: 1em;
     margin: 0px 0px 0px 15px;
+  }
+}
+
+@media (min-height: 800px) {
+  .card.title{
+    top: 40px;
+  }
+
+  .wappenbutton{ 
+    margin: 105px 20px 0px 0px;
   }
 }

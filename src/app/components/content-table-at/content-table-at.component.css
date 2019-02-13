@@ -137,3 +137,9 @@ a{
         font-size: 0.8em;
     }
   }
+
+  @media (min-height: 800px) {
+    .btnBack{
+        margin: 35px 20px 0px 20px;
+      }
+  }

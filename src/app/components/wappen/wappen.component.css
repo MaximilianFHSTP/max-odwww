@@ -549,3 +549,9 @@ div::-webkit-scrollbar-thumb {
         top: -22px;
     }
 }
+
+@media (min-height: 800px) {
+    .toolbar button{
+        margin: 35px 20px 0px 20px; 
+    }
+}

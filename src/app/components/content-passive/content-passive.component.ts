@@ -1,10 +1,11 @@
-import {Component, OnInit, AfterViewInit, OnDestroy, Inject} from '@angular/core';
+import {Component, OnInit, AfterViewInit, AfterViewChecked, OnDestroy, Inject} from '@angular/core';
 import { LocationService } from '../../services/location.service';
 import {Unsubscribe} from 'redux';
 import {Subscription} from 'rxjs';
 import {TransmissionService} from '../../services/transmission.service';
 import {CoaService} from '../../services/coa.service';
 import * as ContentTypes from '../../config/ContentTypes';
+import {LanguageService} from '../../services/language.service';
 import * as d3 from 'd3';
 
 @Component(
@@ -14,7 +15,7 @@ import * as d3 from 'd3';
   styleUrls: ['./content-passive.component.css']
   }
 )
-export class ContentPassiveComponent implements OnInit, AfterViewInit, OnDestroy
+export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy
 {
   public location: any;
   private readonly _unsubscribe: Unsubscribe;
@@ -28,18 +29,15 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, OnDestroy
     {code: 50, icon: 'Shrine', primaryColor: '#5c416a', secondaryColor: '#785d86'},
     {code: 60, icon: 'Tombstone',  primaryColor: '#32633a', secondaryColor: '#4c7d54'}
   ];
-  mContent = [
-    {id: 10, content: 'Event 1', type: 3, year: 1468},
-    {id: 20, content: 'DocumentSword', type: 1, year: 0},
-    {id: 30, content: 'Vorlesungen der Chorherren Wolfgang Winthager und Johannes Swarcz an der Universität Wien', type: 3, year: 1469},
-    {id: 40, content: 'Veil', type: 1, year: 0},
-    {id: 50, content: 'Event 3', type: 3, year: 1470},
-    {id: 60, content: 'Tombstone',  type: 1, year: 0}
-  ];
+  mContent = [];
+  changeVersion = false;
+  pMargin = 20;
+  textContent: string;
 
   constructor(
     private locationService: LocationService,
     private transmissionService: TransmissionService,
+    private languageService: LanguageService,
     private coaService: CoaService,
     @Inject('AppStore') private appStore
   ) {
@@ -59,12 +57,30 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, OnDestroy
   {
     const state = this.appStore.getState();
     this.updateLocationInformation(state.currentLocation);
+    console.log(this.location);
   }
 
   ngAfterViewInit(){
     // if(there are events)
-    this.drawEventTimeline();
-    
+    this.mContent = [];
+    this.location.contents.forEach(content => {
+      if(content.contentTypeId === ContentTypes.EVENT){
+        this.mContent.push({id: content.id, content: content.content, type: content.contentTypeId, year: content.year, top: 0});
+      }
+    });
+
+    if(this.mContent.length > 0){
+      this.drawEventTimeline();
+    }
+  }
+
+  ngAfterViewChecked(){
+    // If boxes lose position after content update, call reDraw()
+    if (this.changeVersion){
+      this.changeVersion = false;
+      this.pMargin = 0;
+      this.drawText();
+    } 
   }
 
   drawEventTimeline(){
@@ -92,19 +108,27 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, OnDestroy
     const whichY = d3.scaleLinear().domain([start, end]).range([0, svgHeight]);
 
     this.mContent.forEach((content, index) => {
-      if(content.type === ContentTypes.EVENT){
+      const point = svg.append('line').attr('x1', 50).attr('x2', 50)
+        .attr('y1', whichY(content.year)).attr('y2', whichY(content.year + 0.18))
+        .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(this.location.parentId));
 
-        const point = svg.append('line').attr('x1', 50).attr('x2', 50)
-          .attr('y1', whichY(content.year)).attr('y2', whichY(content.year + 0.18))
-          .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(this.location.parentId));
-          
-        const text = d3.select('#timeline').append('p').text(content.content).style('position', 'absolute')
-        .style('left', '50px').style('top', whichY(content.year) +'px').style('font-family', 'sans-serif')
-        .style('margin', '75px 20px 0px 75px')
-        .style('font-size', '0.8em').style('color', this.getSectionPrimaryColor(this.location.parentId));
-      }
+        content.top = whichY(content.year);
     });
     
+    this.drawText();
+  }
+
+  drawText(){
+    const progressbar: HTMLElement = document.getElementById('timeline') as HTMLElement;
+    // console.log(progressbar.offsetTop);
+    d3.select('#timeline').selectAll('p').remove();
+
+    this.mContent.forEach((content, index) => {
+      const text = d3.select('#timeline').append('p').text(content.content).style('position', 'absolute')
+      .style('left', '50px').style('top', (content.top + progressbar.offsetTop) +'px').style('font-family', 'sans-serif')
+      .style('margin', this.pMargin + 'px 20px 0px 75px')
+      .style('font-size', '0.8em').style('color', this.getSectionPrimaryColor(this.location.parentId));
+    });  
   }
 
   updateLocationInformation(value)
@@ -127,6 +151,7 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, OnDestroy
 
   displayVersion(sectionId: string){
     this.currentSection = sectionId;
+    this.changeVersion = true;
 
     if(sectionId === 'sunthaym'){
       this.coaService.tryUnlock(20);

@@ -101,3 +101,15 @@
   background-color: #333333;
   opacity: 0.5;
 }
+
+@media (min-height: 800px) {
+  .apptoolbar button{
+    margin: 35px 20px 0px 0px;
+  }
+  
+  #redirectTimelineLong,
+  #redirectTimeline,
+  #redirectStart{
+    margin: 35px 20px 0px 20px;
+  }
+}

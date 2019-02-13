@@ -76,6 +76,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       this.timelineLocations = this.locationService.getTimelineLocations();
       this.sortLocationData();
     });
+    this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
+      this.registerLocationmessage = message;
+    });
     this.subscriptionCoaParts = this.alertService.getMessageCoaParts().subscribe(message => {
       coaService.setCoaParts(message.data);
     });
@@ -105,6 +108,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.user = state.user;
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
+    // console.log(this.timelineLocations);
     this.closestExhibit = state.closestExhibit;
     this.startSection(this.closestExhibit);
     this.isWeb = this.nativeCommunicationService.isWeb;
@@ -345,15 +349,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
     const el = document.getElementById('exh_'+id);
     el.scrollIntoView({behavior:'smooth'});
-    // el.scrollIntoView({behavior:'smooth'});*/
   }
-
-  /*scrollBack() {
-    const locationId = this.locationBackId;
-    console.log(locationId + ` scrolling to ${locationId}`);
-    const el = document.getElementById(locationId);
-    el.scrollIntoView({behavior:'smooth'});
-  }*/
 
   /*
   ------------------------------------------------------------
