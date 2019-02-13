@@ -1,3 +1,5 @@
 .wrapper {
   padding: 50px 40px 0 40px;
+  min-height: -webkit-fill-available;
+  margin-bottom: 100px;
 }
