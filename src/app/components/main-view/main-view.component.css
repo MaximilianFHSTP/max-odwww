@@ -348,6 +348,10 @@ p{
     width: 35px; 
     height: 35px;
   }
+
+  .card h2{
+    font-size: 0.8em;
+  }
 }
 
 @media (min-width: 550px) {
