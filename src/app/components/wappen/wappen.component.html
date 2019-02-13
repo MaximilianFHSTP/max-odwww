@@ -1,6 +1,7 @@
-<div class="wrapper background">
+<div class="wrapper">
   <div class="toolbar">
       <button class="helpbutton" (click)="displayHelp()"><mat-icon>help</mat-icon></button>
+      <button [className]="saveBtnActive ? 'savebutton active' : 'savebutton'" (click)="saveCoa()">{{ 'coa.save' | translate }}</button>
       <button class="closebutton" (click)="closeWindow()"><mat-icon>close</mat-icon></button>
   </div> 
 
@@ -15,19 +16,19 @@
 
   <div class="wappen">
       <div class="wappen_weapon">
-          <img *ngIf="setWeapon != ''" class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setWeapon}}.png" />
+          <img *ngIf="setWeapon != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setWeapon}}.png" />
       </div>
       <div class="wappen_helmet">
-          <img *ngIf="setHelmet != ''" class="{{setColorSecondary}}" src="./assets/icons/Wappen/{{setHelmet}}.png" />
-          <img *ngIf="setHelmet != ''" class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setHelmet}}_outline.png" />
+          <img *ngIf="setHelmet != ''" class="{{setColorSecondary}}" src="assets/icons/Wappen/{{setHelmet}}.png" />
+          <img *ngIf="setHelmet != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setHelmet}}_outline.png" />
       </div> 
       <div class="wappen_shield">
-          <img *ngIf="setShield != ''" class="{{setColorPrimary}}" src="./assets/icons/Wappen/{{setShield}}.png" />
-          <img *ngIf="setShield != ''" class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setShield}}_outline.png" />
+          <img *ngIf="setShield != ''" class="{{setColorPrimary}}" src="assets/icons/Wappen/{{setShield}}.png" />
+          <img *ngIf="setShield != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setShield}}_outline.png" />
       </div> 
       <div class="wappen_emblem">
-          <img *ngIf="setEmblem != ''" class="{{setColorSecondary}}" src="./assets/icons/Wappen/{{setEmblem}}.png" />
-          <img *ngIf="setEmblem != ''" class="{{setColorPrimary}}dark" src="./assets/icons/Wappen/{{setEmblem}}_outline.png" />
+          <img *ngIf="setEmblem != ''" class="{{setColorSecondary}}" src="assets/icons/Wappen/{{setEmblem}}.png" />
+          <img *ngIf="setEmblem != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setEmblem}}_outline.png" />
       </div>
   </div>
 

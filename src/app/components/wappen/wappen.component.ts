@@ -44,6 +44,7 @@ export class WappenComponent implements OnInit, OnDestroy {
   selectedWeapon = '';
   unlockedItems: any[];
   itemsList: any[];
+  saveBtnActive = false;
 
   constructor(
     private transmissionService: TransmissionService,
@@ -122,13 +123,15 @@ export class WappenComponent implements OnInit, OnDestroy {
     this.selectedShield = id.toString();
     if (this.isUnlocked(this.selectedShield)){
       this.setShield = id.toString();
-    }
+      this.saveBtnActive = true;
+    } 
   }
 
   selectEmblem(id: string){
     this.selectedEmblem = id.toString();
     if (this.isUnlocked(this.selectedEmblem)){
       this.setEmblem = id.toString();
+      this.saveBtnActive = true;
     }
   }
 
@@ -136,6 +139,7 @@ export class WappenComponent implements OnInit, OnDestroy {
     this.selectedHelmet = id.toString();
     if (this.isUnlocked(this.selectedHelmet)){
       this.setHelmet = id.toString();
+      this.saveBtnActive = true;
     }
   }
 
@@ -143,15 +147,18 @@ export class WappenComponent implements OnInit, OnDestroy {
     this.selectedWeapon = id.toString();
     if (this.isUnlocked(this.selectedWeapon)){
       this.setWeapon = id.toString();
+      this.saveBtnActive = true;
     }
   }
 
   selectPrimaryColor(color: string){
     this.setColorPrimary = color.toString();
+    this.saveBtnActive = true;
   }
 
   selectSecondaryColor(color: string){
     this.setColorSecondary = color.toString();
+    this.saveBtnActive = true;
   }
 
   displaySettings(id: string){
@@ -184,9 +191,12 @@ export class WappenComponent implements OnInit, OnDestroy {
     this.showHelp = false;
   }
 
-  public closeWindow(){
+  public saveCoa(){
     this.coaService.saveMyCoa(this.setShield, this.setEmblem, this.setHelmet, this.setWeapon, this.setColorPrimary, this.setColorSecondary);
+    this.saveBtnActive = false;
+  }
 
+  public closeWindow(){
     this.router.navigate(['mainview']).then( () =>
       {
         this.nativeCommunicationService.sendToNative('Main View', 'print');

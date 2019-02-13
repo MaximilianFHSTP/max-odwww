@@ -1,4 +1,4 @@
-<div class="btnBack"><img src="./assets/icons/Timeline/{{getSectionIcon(location.parentId)}}.png" /></div>
+<div class="btnBack"><img src="assets/icons/Timeline/{{getSectionIcon(location.parentId)}}.png" /></div>
 <div class="wrapper Sec_{{location.parentId}}">
   <div class="wrapperContent {{currentSection}}">
     <h1 *ngIf="languageService.getCurrentLanguageAsString() === 'en'">{{location.titleENG}}</h1>
@@ -15,13 +15,13 @@
   <div class="timelineSectionNav selected_Section{{currentSection}}">
       <ul>
           <li class="till">
-              <button (click)="displayVersion('till')"><img src="./assets/icons/Till.png" /><p>Till<br/>Eulenspiegel</p></button>
+              <button (click)="displayVersion('till')"><img src="assets/icons/Till.png" /><p>Till<br/>Eulenspiegel</p></button>
           </li>
           <li class="maximilian">
-              <button (click)="displayVersion('maximilian')"><img src="./assets/icons/Maximilian.png" /><p>Kaiser<br/>Maximilian</p></button>
+              <button (click)="displayVersion('maximilian')"><img src="assets/icons/Maximilian.png" /><p>Kaiser<br/>Maximilian</p></button>
           </li>
           <li class="sunthaym">
-              <button (click)="displayVersion('sunthaym')"><img src="./assets/icons/Sunthaym.png" /><p>Ladislaus<br/>Sunthaym</p></button>
+              <button (click)="displayVersion('sunthaym')"><img src="assets/icons/Sunthaym.png" /><p>Ladislaus<br/>Sunthaym</p></button>
           </li>
       </ul>
   </div> 

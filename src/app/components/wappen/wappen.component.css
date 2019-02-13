@@ -13,6 +13,7 @@ h1, h2, h3, h4, h5, h6{
     font-family: 'Vollkorn', Times, serif;
 }
 
+.toolbar .savebutton,
 .wappenHelp p,
 .wappenSettings p{
     font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
@@ -49,6 +50,23 @@ h1, h2, h3, h4, h5, h6{
 .toolbar .closebutton mat-icon{
     margin: 4px 0 0 -15px;
     font-size: 40px;
+}
+
+.toolbar .savebutton{
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -23%;
+    width: 46%;
+    border: 2px solid #cccccc;
+    color:#cccccc;
+    background:#ffffff;
+}
+
+.toolbar .savebutton.active{
+    background:#93272c;
+    color:#ffffff;
+    border: 2px solid #93272c;
 }
 
 h1{
@@ -555,8 +573,12 @@ div::-webkit-scrollbar-thumb {
     }
 }
 
-@media (min-height: 800px) {
+@media (min-height: 730px) {
     .toolbar button{
         margin: 35px 20px 0px 20px; 
+    }
+
+    .toolbar .savebutton{
+        top: 35px;
     }
 }

@@ -96,7 +96,7 @@
     }
   }
 
-  @media (min-height: 800px) {
+  @media (min-height: 730px) {
     .toolbar button{
         margin: 35px 20px 0px 20px; 
     }

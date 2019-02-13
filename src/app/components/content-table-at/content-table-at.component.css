@@ -148,7 +148,7 @@ a{
     }
   }
 
-  @media (min-height: 800px) {
+  @media (min-height: 730px) {
     .btnBack{
         margin: 35px 20px 0px 20px;
       }

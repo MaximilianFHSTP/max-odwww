@@ -14,7 +14,7 @@ export class CoaService {
   thereIsEmblem = false;
   thereIsHelmet = false;
   thereIsWeapon = false;
-  setShield = 10;
+  setShield = 0;
   setEmblem = 0;
   setHelmet = 0;
   setWeapon = 0;
@@ -100,7 +100,6 @@ export class CoaService {
   }
 
   setUserCoaParts(coaParts: any[]){
-    console.log(coaParts);
     this.userCoaParts = coaParts;
     this.setUnlockedItems();
   }
@@ -140,11 +139,10 @@ export class CoaService {
   }
 
   saveMyCoa(shield: string, symbol: string, helmet: string, mantling: string, primColor: string, secColor: string){
-    console.log(mantling);
     this.transmissionService.changeUserCoaColors(this.getColorId(primColor), this.getColorId(secColor));
-    this.transmissionService.changeUserCoaPart(coaTypes.SHIELD, this.getPartId(shield));
-    // this.transmissionService.changeUserCoaPart(coaTypes.SYMBOL, this.getPartId(symbol));
-    // this.transmissionService.changeUserCoaPart(coaTypes.HELMET, this.getPartId(helmet));
-    // this.transmissionService.changeUserCoaPart(coaTypes.MANTLING, this.getPartId(mantling));
+    if(this.getPartId(shield) !== 0){ this.transmissionService.changeUserCoaPart(coaTypes.SHIELD, this.getPartId(shield));}
+    if(this.getPartId(symbol) !== 0){ this.transmissionService.changeUserCoaPart(coaTypes.SYMBOL, this.getPartId(symbol));}
+    if(this.getPartId(helmet) !== 0){ this.transmissionService.changeUserCoaPart(coaTypes.HELMET, this.getPartId(helmet));}
+    if(this.getPartId(mantling) !== 0){ this.transmissionService.changeUserCoaPart(coaTypes.MANTLING, this.getPartId(mantling));}
   }
 }
