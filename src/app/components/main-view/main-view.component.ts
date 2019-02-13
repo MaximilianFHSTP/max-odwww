@@ -26,6 +26,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private subscriptionLocationid: Subscription;
   private comingBack: boolean;
   private subscriptionCoaParts: Subscription;
+  private subscriptionUserCoaParts: Subscription;
   public user: any;
   public timelineLocations: any;
   public isWeb: boolean;
@@ -78,7 +79,10 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       this.registerLocationmessage = message;
     });
     this.subscriptionCoaParts = this.alertService.getMessageCoaParts().subscribe(message => {
-      coaService.setCoaParts(message.data);
+      this.coaService.setCoaParts(message.data);
+    });
+    this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
+      this.coaService.setUserCoaParts(message.data);
     });
   }
 
@@ -110,6 +114,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.sortLocationData();
 
     this.transmissionService.getCoaParts();
+    this.transmissionService.getUserCoaParts();
   }
 
   ngAfterViewChecked(){

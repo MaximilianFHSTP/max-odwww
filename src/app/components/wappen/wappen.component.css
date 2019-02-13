@@ -19,6 +19,11 @@ h1, h2, h3, h4, h5, h6{
     margin: 0;
 }
 
+.wrapper{
+    min-height: -webkit-fill-available;
+    margin-bottom: 100px;
+}
+
 .toolbar button{
     border: none;
     outline: none;

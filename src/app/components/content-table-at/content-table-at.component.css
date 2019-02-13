@@ -35,7 +35,7 @@ a{
     width: 100%;
     top: 90px;
     min-height: -webkit-fill-available;
-    padding-bottom: 100px;
+    margin-bottom: 100px;
 }
 
 .wrapperContent{
@@ -137,6 +137,14 @@ a{
 
     .btnJoin p{
         font-size: 0.8em;
+    }
+
+    h1{
+        font-size: 1.5em;
+    }
+
+    p{
+        font-size: 0.9em;
     }
   }
 

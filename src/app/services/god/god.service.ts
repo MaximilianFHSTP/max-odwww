@@ -182,7 +182,9 @@ export class GodService {
         this.locationService.updateCurrentLocation(loc);
         this.utilitiesService.sendToNative('New Location is ' + this.locationService.currentLocation, 'print');
         const currLoc = this.locationService.currentLocation.value;
-        this.router.navigate([currLoc.contentURL]).then(() => { });
+        this.router.navigate([currLoc.contentURL]).then(() => {
+          window.scrollTo(0, 0);
+         });
       }
 
       this.socket.removeAllListeners('registerLocationResult');
@@ -536,7 +538,7 @@ export class GodService {
 
     this.socket.on('getUserCoaPartsResult', result =>
     {
-      console.log(result);
+      // console.log(result);
       this.alertService.sendMessageUserCoaParts(result);
       this.socket.removeAllListeners('getUserCoaPartsResult');
       return result;
@@ -545,12 +547,12 @@ export class GodService {
 
   public changeUserCoaPart(data: any): void
   {
-    console.log(data);
+    // console.log(data);
     this.socket.emit('changeUserCoaPart', data);
 
     this.socket.on('changeUserCoaPartResult', result =>
     {
-      console.log(result);
+      // console.log(result);
       this.alertService.sendMessageUserCoaParts(result);
       this.socket.removeAllListeners('changeUserCoaPartResult');
       return result;
