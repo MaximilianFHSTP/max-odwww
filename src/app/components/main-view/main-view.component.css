@@ -377,7 +377,7 @@ p{
   }
 }
 
-@media (min-height: 800px) {
+@media (min-height: 730px) {
   .card.title{
     top: 40px;
   }
