@@ -18,11 +18,17 @@ p{
     font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
     margin: 10px 0;
     font-size: 1em;
+    line-height: 1.5em;
 }
 
 a{
     color: #0057a3;
     text-decoration: underline;
+}
+
+.infoWrapper img{
+    width: 40%;
+    margin: 20px 5%;
 }
 
 a:after {
@@ -49,9 +55,9 @@ a:after {
     color:#ffffff;
 }
 
-.toolbar .closebutton mat-icon{
-    margin: 4px 0 0 -15px;
-    font-size: 40px;
+.toolbar .closebutton img{
+    margin: 4px 0 0 -1px;
+    height: 40px;
 }
 
 .wrapper {
@@ -70,5 +76,15 @@ a:after {
 @media (min-height: 730px) {
     .toolbar button{
         margin: 35px 20px 0px 20px; 
+    }
+}
+
+@media (max-width: 370px) {
+    h1{
+        font-size: 1.5em;
+    }
+
+    p{
+        font-size: 0.9em;
     }
 }

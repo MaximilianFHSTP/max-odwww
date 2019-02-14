@@ -9,7 +9,7 @@
   </div> 
 
   <div class="wappenHelp" *ngIf="showHelp">
-      <mat-icon (click)="closeHelp()">close</mat-icon>
+        <img (click)="closeHelp()" src="assets/icons/close.svg">
       <h2>{{ 'coa.helpTitle' | translate }}</h2>
       <p>{{ 'coa.helpText' | translate }}</p>
   </div> 
@@ -38,7 +38,7 @@
   <div class="wappenSettings" *ngIf="showSettings">
 
       <div class="wappenSettings_shield" *ngIf="settingsContent == 'shield'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.shield' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
@@ -58,7 +58,7 @@
       </div>
 
       <div class="wappenSettings_emblem" *ngIf="settingsContent == 'emblem'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.charge' | translate }}</h2>
           <div class="overflowWrapper">
               <ul class="options">
@@ -79,7 +79,7 @@
           </ul>
       </div>
       <div class="wappenSettings_helmet" *ngIf="settingsContent == 'helmet'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.helmet' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
@@ -99,7 +99,7 @@
           </ul>
       </div>
       <div class="wappenSettings_weapon" *ngIf="settingsContent == 'weapon'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.mantle' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
@@ -119,7 +119,7 @@
           </ul>
       </div>
       <div class="wappenSettings_color" *ngIf="settingsContent == 'color'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.colors' | translate }}</h2>
           <p>{{ 'coa.primColor' | translate }}</p>
           <ul class="primary">

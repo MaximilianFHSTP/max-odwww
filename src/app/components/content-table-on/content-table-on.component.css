@@ -3,3 +3,7 @@
   min-height: -webkit-fill-available;
   margin-bottom: 100px;
 }
+
+.wrapperContent p{
+  line-height: 1.5em;
+}

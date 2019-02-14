@@ -1,19 +1,59 @@
 <div class="toolbar">
-  <button class="closebutton" (click)="closeWindow()"><mat-icon>close</mat-icon></button>
+  <button class="closebutton" (click)="closeWindow()"><img src="assets/icons/closewhite.svg"></button>
 </div> 
 
 <div class="wrapper">
-  <div class="infoWrapper">
-    <h1>About the exhibition</h1>
-    <p>Resolution possession discovered surrounded advantages has but few add. Yet walls times spoil put. Be it reserved contempt rendered smallest. Studied to passage it mention calling believe an. Get ten horrible remember pleasure two vicinity. Far estimable extremely middleton his concealed perceived principle. Any nay pleasure entrance prepared her.</p>
+  <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
+    <h1>Des Kaisers neuer Heiliger</h1>
     
-    <p>This application is a part of the MEETeUX project at the St. Pölten University of Applied Sciences. <br/><a src="">Visit the website</a></p>
+    <p>Die Ausstellung „Des Kaisers neuer Heiliger. Maximilian I. und Markgraf Leopold III. in Zeiten des Medienwandels“ ist von 9. März bis 17. 
+      November 2019 im niederösterreichischen Stift Klosterneuburg (Stiftsplatz 1, 3400 Klosterneuburg) zu sehen. 
+      Auf der Website <a src="https://www.stift-klosterneuburg.at/">www.stift-klosterneuburg.at</a> erhalten Interessierte mehr Informationen zur Ausstellung sowie zu Öffnungszeiten, Führungen und Anreise.</p>
+      
+    <p>Mit Hilfe einfallsreicher interaktiver Stationen erzählt die Ausstellung „Des Kaisers neuer Heiliger“, welche Rolle Klosterneuburg zur Zeit Maximilians spielte, 
+      wie und warum der heiliggesprochene Babenberger-Markgraf und Stiftsgründer Leopold III. von Maximilian I. verehrt wurde, warum Stammbäume und Familiengeschichten 
+      bedeutsam waren, wie der Buchdruck langsam als neues Medium aufkam und wie Maximilian nach seinem Tod erinnert werden wollte. Drei frei wählbare Erzählstränge innerhalb 
+      der App bieten unterschiedliche Sichtweisen auf das historische Geschehen.</p>
+      
+    <h1>Das Forschungsprojekt MEETeUX</h1>
 
-    <h1>Background info</h1>
-    <p>The backgrounds of the different sections feature medieval woodcuts.</p>
+    <p>Die interaktiven Elemente dieser Ausstellung wurden im Rahmen des Forschungsprojektes MEETeUX (<a src="http://meeteux.fhstp.ac.at">http://meeteux.fhstp.ac.at</a>) von einem Team des 
+      Institutes für Creative \ Media / Technologies der Fachhochschule St. Pölten entwickelt. MEETeUX (Multi-Device Ecologies Towards Elaborate User Experience) 
+      beschäftigt sich mit Fragestellungen in den Bereichen Interaction Design und User Experience Design für den integrierten Einsatz von medientechnischen Endgeräten 
+      in Multi-Device Ecologies. <br/>
+      Im Rahmen des Ausstellung können wir durch Ihre Beteiligung umfangreiche Evaluierungen im Bereich der User Experience durchführen.</p>
+        
+      <p>Das Projekt wird durch die Österreichischen Forschungsförderungsgesellschaft FFG  im Rahmen der Programmlinie COIN Aufbau gefördert.</p>
 
-    <p>Section 1:<br/>By spite about do of do allow blush. Additions in conveying or collected objection in. Suffer few desire wonder her object hardly nearer.</p>
+      <img src="assets/img/logoFH.png">
 
-    <p>Section 2:<br/>On insensible possession oh particular attachment at excellence in. The books arose but miles happy she. It building contempt or interest children mistress of unlocked no.</p>
+      <img src="assets/img/logoMeeteux.png">
+  </div>
+
+  <div *ngIf="languageService.getCurrentLanguageAsString() === 'en'" class="infoWrapper">
+    <h1>The Emperor's New Saint</h1>
+  
+    <p>The exhibition “The Emperor’s new Saint. Maximilian I and Margrave Leopold III in times of media shift“ can be visited from the 9th of March to the 17th of 
+      November 2019 at Klosterneuburg monastery (Stiftsplatz 1, 3400 Klosterneuburg, Austria). You can find more information on the website <a src="https://www.stift-klosterneuburg.at/">www.stift-klosterneuburg.at</a> 
+      about the exhibition, opening hours and guided tours.</p>
+      
+    <p>Using interactive stations the exhibition “The Emperor’s new Saint” tells the story of the importance of Klosterneuburg monastery during the reign of Maximilian I. 
+      How and why venerated the monarch the canonized Babenberg-Margrave and founder of Klosterneuburg monastery Leopold III, why were family trees 
+      and genealogies important in the 15th century, what changed when print was invented and how wanted Emperor Maximilian I. to be remembered? Three eligible 
+      storytellers give insights to different aspects of the same story.</p>
+      
+    <h1>The Research Project MEETeUX</h1>
+
+    <p>All interactive elements of this exhibition were developed during research project MEETeUX (<a src="http://meeteux.fhstp.ac.at">http://meeteux.fhstp.ac.at</a>) by a team of 
+      the Institute of Creative \ Media / Technologies at St. Pölten University of Applied Sciences. MEETeUX (Multi-Device Ecologies Towards Elaborate User Experience) 
+      discusses issues of relevance regarding interaction design and user experience design and aims at an integrated use of media technology devices such as mobile devices, 
+      multi-touch tabletops or large surfaces in multi-device ecologies.<br/>
+      Through your participation, we can carry out extensive evaluations in the field of user experience  as part of the exhibition.</p>
+        
+      <p>The project is funded by Austrian Research Promotion Agency (FFG) within the funding line COIN Aufbau (capacity building).</p>
+
+      <img src="assets/img/logoFH.png">
+
+      <img src="assets/img/logoMeeteux.png">
   </div>
 </div>

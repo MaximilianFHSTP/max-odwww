@@ -255,9 +255,9 @@ h1{
     margin: 20px 0px 0px 20px;
 }
 
-.wappenHelp mat-icon,
-.wappenSettings mat-icon{
-    margin: 20px 20px 0px 0px;
+.wappenHelp img,
+.wappenSettings img{
+    margin: 20px 10px 0px 0px;
 }
 
 .wappenHelp p{
@@ -269,11 +269,11 @@ h1{
     display: inline-block;
 }
 
-.wappenHelp mat-icon,
-.wappenSettings mat-icon{
+.wappenHelp img,
+.wappenSettings img{
     float: right;
     cursor: pointer;
-    font-size: 35px;
+    width: 35px;
     margin-top: 15px; 
 }
 

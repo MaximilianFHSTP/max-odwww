@@ -21,7 +21,9 @@ p{
     font-size: 1em;
 }
 
-
+.wrapperContent p{
+    line-height: 1.5em;
+  }
 
 a{
     color: #0057a3;

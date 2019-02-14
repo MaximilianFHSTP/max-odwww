@@ -83,10 +83,10 @@
       color:#ffffff;
   }
   
-  .toolbar .closebutton mat-icon{
-      margin: 4px 0 0 -15px;
-      font-size: 40px;
-  }
+  .toolbar .closebutton img{
+    margin: 4px 0 0 -1px;
+    height: 40px;
+}
   
   
   @media (max-height: 650px) {
