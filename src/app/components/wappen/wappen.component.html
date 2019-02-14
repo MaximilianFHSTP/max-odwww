@@ -1,8 +1,11 @@
 <div class="wrapper">
   <div class="toolbar">
-      <button class="helpbutton" (click)="displayHelp()"><mat-icon>help</mat-icon></button>
-      <button [className]="saveBtnActive ? 'savebutton active' : 'savebutton'" (click)="saveCoa()">{{ 'coa.save' | translate }}</button>
-      <button class="closebutton" (click)="closeWindow()"><mat-icon>close</mat-icon></button>
+      <button class="helpbutton" (click)="displayHelp()"><img src="assets/icons/help.svg"></button>
+      <button [className]="saveBtnActive ? 'savebutton active' : 'savebutton'" (click)="saveCoa()">
+            <div><img src="assets/icons/save.svg"></div>
+            <p>{{ 'coa.save' | translate }}</p>
+        </button>
+      <button class="closebutton" (click)="closeWindow()"><img src="assets/icons/closewhite.svg"></button>
   </div> 
 
   <div class="wappenHelp" *ngIf="showHelp">

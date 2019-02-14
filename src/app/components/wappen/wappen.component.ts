@@ -192,8 +192,11 @@ export class WappenComponent implements OnInit, OnDestroy {
   }
 
   public saveCoa(){
+    if(this.saveBtnActive)
+    {
     this.coaService.saveMyCoa(this.setShield, this.setEmblem, this.setHelmet, this.setWeapon, this.setColorPrimary, this.setColorSecondary);
     this.saveBtnActive = false;
+    } 
   }
 
   public closeWindow(){

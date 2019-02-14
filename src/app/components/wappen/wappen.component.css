@@ -34,11 +34,9 @@ h1, h2, h3, h4, h5, h6{
     background: #ffffff;
 }
 
-.helpbutton mat-icon{
-    border-radius: 25px;
-    color:#494949;
-    font-size: 60px;
-    margin: -5px 0 0 -35px;
+.helpbutton img{
+    height: 60px;
+    margin: -5px 0 0 -5px;
 }
 
 .toolbar .closebutton{
@@ -47,26 +45,45 @@ h1, h2, h3, h4, h5, h6{
     color:#ffffff;
 }
 
-.toolbar .closebutton mat-icon{
-    margin: 4px 0 0 -15px;
-    font-size: 40px;
+.toolbar .closebutton img{
+    margin: 4px 0 0 -1px;
+    height: 40px;
 }
 
 .toolbar .savebutton{
     position: absolute;
     top: 20px;
-    left: 50%;
-    margin-left: -23%;
-    width: 46%;
-    border: 2px solid #cccccc;
+    right: 80px;
+    width: min-content;
     color:#cccccc;
     background:#ffffff;
+    padding: 0;
+    text-align: right;
 }
 
-.toolbar .savebutton.active{
-    background:#93272c;
+.toolbar .savebutton p{
+    float: right;
     color:#ffffff;
-    border: 2px solid #93272c;
+    margin: -45px 50px 0 0;
+    padding-left: 15px;
+}
+
+.toolbar .savebutton div{
+    width: 50px;
+    height: 50px;
+    background:#cccccc;
+    float: right;
+}
+
+.toolbar .savebutton div img{
+    margin: 4px;
+    height: 40px;
+}
+
+.toolbar .savebutton.active div,
+.toolbar .savebutton.active{
+    background:#494949;
+    color:#ffffff;
 }
 
 h1{
@@ -534,6 +551,12 @@ div::-webkit-scrollbar {
 div::-webkit-scrollbar-thumb {
     border-radius: 25px;
     background: #CCC;
+}
+
+@media (max-width: 350px) {
+    .toolbar .savebutton p{
+        display: none;
+    }
 }
 
 @media (min-height: 750px) {
