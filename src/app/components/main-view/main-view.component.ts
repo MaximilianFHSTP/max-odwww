@@ -325,6 +325,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public userCoA(){
     this.router.navigate(['wappen']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
       }
     );

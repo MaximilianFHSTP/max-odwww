@@ -245,6 +245,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dismissMenu();
     this.router.navigate(['registerRealUser']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Register as real user', 'print');
       }
     );
@@ -276,6 +277,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dismissMenu();
     this.router.navigate(['changecred']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('User Credentials', 'print');
       }
     );
@@ -284,6 +286,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public userCoA(){
     this.router.navigate(['wappen']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
       }
     );
@@ -293,6 +296,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dismissMenu();
     this.router.navigate(['about']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('About', 'print');
       }
     );
@@ -302,6 +306,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dismissMenu();
     this.router.navigate(['legal']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Legal', 'print');
       }
     );
