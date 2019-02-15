@@ -66,6 +66,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
+      this.updateLocationStatus(state.locationStatus);
       this.connectionSuccess = state.connectedToExhibit;
     });
     this.subscriptionQuestion = this.alertService.getQuizQuestion().subscribe(message => {
@@ -181,6 +182,14 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.locationService.stopLocationScanning();
   }
 
+  updateLocationStatus(status: string){
+    // When not free, disconnect and redirect back
+    if (status !== 'FREE'){
+      this.disconnectFromExhibit();
+      this.closeWindow();
+    }
+  }
+
   ngOnDestroy()
   {
     // Send quizendtime here
@@ -200,17 +209,14 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   public disconnectFromExhibit()
   {
-    if(this.nativeCommunicationService.isWeb){
-      this.transmissionService.transmitLocationRegister({minor: 301, major: 30});
-    } else {
-      // Send quizendtime here
-      const endQuizTime = new Date().getTime();
-      this.quizTime = endQuizTime - this.startQuizTime;
-      console.log('DisconnectQuiz', this.quizTime);
-      this.exhibitService.sendQuizTime(this.quizTime);
-      this.firstQuestionOfRun = false;
-      this.exhibitService.disconnect();
-    }
+    //  this.transmissionService.transmitLocationRegister({minor: 301, major: 30});
+    // Send quizendtime here
+    const endQuizTime = new Date().getTime();
+    this.quizTime = endQuizTime - this.startQuizTime;
+    console.log('DisconnectQuiz', this.quizTime);
+    this.exhibitService.sendQuizTime(this.quizTime);
+    this.firstQuestionOfRun = false;
+    this.exhibitService.disconnect();
   }
 
   public sendMessageToExhibit()
@@ -305,5 +311,13 @@ export class QuizComponent implements OnInit, OnDestroy {
     progressbar.appendChild(progressbarinner);
 
     progressbarinner.style.animationPlayState = 'running';
+  }
+
+  public closeWindow(){
+    this.router.navigate(['tableat']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Table at', 'print');
+      }
+    );
   }
 }
