@@ -21,7 +21,7 @@
   id="exh_{{loc.id}}" (click)="requestRegisterLocation(loc.id, loc.parentId, loc.locked)">
     <div class="wrapIcon">
       <div class="coaIcon" *ngIf="loc.unlockCoa"></div>
-      <div class="actIcon" *ngIf="loc.locationTypeId == 3 || loc.locationTypeId == 6"></div>
+      <div class="actIcon" *ngIf="loc.locationTypeId == 3 || loc.locationTypeId == 6 || loc.locationTypeId == 8 || loc.locationTypeId == 9"></div>
     </div>
     <p class="timespan">{{loc.startDate}} - {{loc.endDate}}</p>
     <h2>{{loc.titleGER }}</h2>
