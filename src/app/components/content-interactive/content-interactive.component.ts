@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { Subscription } from 'rxjs';
 import { TransmissionService } from '../../services/transmission.service';
-import {LanguageService} from '../../services/language.service';
+import { LanguageService } from '../../services/language.service';
+import { CoaService } from '../../services/coa.service';
 
 @Component({
   selector: 'app-content-interactive',
@@ -31,6 +32,7 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
   constructor(
     private locationService: LocationService,
     private router: Router,
+    private coaService: CoaService,
     private transmissionService: TransmissionService,
     private languageService: LanguageService,
     private nativeCommunicationService: NativeCommunicationService,
@@ -65,6 +67,20 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
         this.nativeCommunicationService.sendToNative('Education Quiz', 'print');
       }
     );
+  }
+
+  playARBooks(){
+    // Call AR for accounting books
+  }
+
+  playARPanels(){
+    this.coaService.tryUnlock(30);
+    // Call AR for sunthaym panels
+  }
+
+  playARShrine(){
+    this.coaService.tryUnlock(40);
+    // Call AR for shrine
   }
 
   ngOnDestroy() {

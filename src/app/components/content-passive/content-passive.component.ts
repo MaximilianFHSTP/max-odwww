@@ -62,6 +62,10 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     const state = this.appStore.getState();
     this.updateLocationInformation(state.currentLocation);
     // console.log(this.location);
+
+    if(this.location.id === 6000){
+      this.coaService.tryUnlock(33);
+    }
   }
 
   ngAfterViewInit(){

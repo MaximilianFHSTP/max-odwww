@@ -98,7 +98,21 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   public requestRegisterLocation(id: number, parentId: number, locked: boolean){
     if(!locked && id && parentId){
+      if(id === 5001){ this.checkCoaUnlock(); }
       this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
+    }
+  }
+
+  checkCoaUnlock(){
+    let allUnlocked = true;
+    this.timelineLocations.forEach(loc => {
+      if(loc.id !== 502 && loc.id !== 6000 && loc.locked){
+        allUnlocked = false;
+      }
+    });
+   
+    if(allUnlocked){
+      this.coaService.tryUnlock(24);
     }
   }
 
