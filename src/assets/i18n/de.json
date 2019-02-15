@@ -52,7 +52,8 @@
     "connected" : "Verbindung zum Table erfolgreich aufgebaut."
   },
   "passiveExhibit": {
-    "welcomeText": "Willkommen bei"
+    "welcomeText": "Willkommen bei",
+    "buttonCoa": "Dein Wappen"
   },
   "interactiveExhibit": {
     "interactiveExhibitMsg": "Dies ist eine interaktive Ausstellung. Klicken Sie auf die Schaltfläche unten, um zu beginnen!",
