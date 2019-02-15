@@ -356,37 +356,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   ------------------------------------------------------------
   */
 
-  public requestRegisterLocationTableAt()
+  public requestRegisterLocationTest(id: number, parentId: number)
   {
-    this.nativeResponseService.timelineUpdate({minor: 1000, major: 10});
-  }
-
-  public requestRegisterLocationTableOn()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 2002, major: 20});
-  }
-
-  public requestRegisterLocationTableAtBehavior()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 301, major: 30});
-  }
-
-  public requestRegisterLocationPassive()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 102, major: 10});
-  }
-
-  public requestRegisterLocationQuiz()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 301, major: 30});
-  }
-
-
-  
-
-  public requestRegisterNotifyLocation()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 502, major: 50});
+    this.nativeResponseService.timelineUpdate({minor: id, major: parentId});
   }
 
   public checkWifiForWeb()
