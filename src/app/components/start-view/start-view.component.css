@@ -158,3 +158,8 @@
   }
 }
 
+@media (min-height: 730px) {
+  .wrapper{
+    top: env(safe-area-inset-top); /* iPhone X safe */
+  }
+}
