@@ -261,10 +261,6 @@ p{
   height: 100%;
 }
 
-.timelineSectionNav ul li.selected{
-  background: #494949;
-}
-
 .timelineSectionNav .Sec20,
 .timelineSectionNav .Sec30,
 .timelineSectionNav .Sec40,
@@ -280,7 +276,9 @@ p{
   height: 70px;
   border: none;
   outline: none;
-  background: #fff;
+  background-repeat: no-repeat;
+  background-size: 60%;
+  background-position: center;
 }
 
 .timelineSectionNav ul li button img{
@@ -288,45 +286,71 @@ p{
   height: 45px;
 }
 
-.selected_Section10 img, .title.Sec10 img{
-  filter: invert(30%) sepia(40%) saturate(842%) hue-rotate(314deg) brightness(81%) contrast(88%);
+.timelineSectionNav li.Sec10 button{
+  background: url("assets/icons/Timeline/Trumpet.png");
 }
 
-.selected_Section20 img, .title.Sec20 img{
-  filter: invert(34%) sepia(18%) saturate(1288%) hue-rotate(163deg) brightness(88%) contrast(93%);
+.timelineSectionNav li.Sec20 button{
+  background: url("assets/icons/Timeline/DocumentSword.png");
 }
 
-.selected_Section30 img, .title.Sec30 img{
-  filter: invert(34%) sepia(7%) saturate(7087%) hue-rotate(11deg) brightness(94%) contrast(101%);
+.timelineSectionNav li.Sec30 button{
+  background: url("assets/icons/Timeline/Maximilian.png");
 }
 
-.selected_Section40 img, .title.Sec40 img{
-  filter: invert(29%) sepia(81%) saturate(323%) hue-rotate(126deg) brightness(97%) contrast(97%);
+.timelineSectionNav li.Sec40 button{
+  background: url("assets/icons/Timeline/Veil.png");
 }
 
-.selected_Section50 img, .title.Sec50 img{
-  filter: invert(29%) sepia(18%) saturate(1061%) hue-rotate(235deg) brightness(91%) contrast(93%);
+.timelineSectionNav li.Sec50 button{
+  background: url("assets/icons/Timeline/Shrine.png");
 }
 
-.selected_Section60 img, .title.Sec60 img{
-  filter: invert(31%) sepia(25%) saturate(876%) hue-rotate(78deg) brightness(95%) contrast(88%);
+.timelineSectionNav li.Sec60 button{
+  background: url("assets/icons/Timeline/Tombstone.png");
 }
 
-.timelineSectionNav.selected_Section10 li.Sec10 img,
-.timelineSectionNav.selected_Section20 li.Sec20 img,
-.timelineSectionNav.selected_Section30 li.Sec30 img,
-.timelineSectionNav.selected_Section40 li.Sec40 img,
-.timelineSectionNav.selected_Section50 li.Sec50 img,
-.timelineSectionNav.selected_Section60 li.Sec60 img{
+
+.timelineSectionNav.selected_Section10 li.Sec10 button,
+.timelineSectionNav.selected_Section20 li.Sec20 button,
+.timelineSectionNav.selected_Section30 li.Sec30 button,
+.timelineSectionNav.selected_Section40 li.Sec40 button,
+.timelineSectionNav.selected_Section50 li.Sec50 button,
+.timelineSectionNav.selected_Section60 li.Sec60 button{
   filter: invert(99%) sepia(7%) saturate(90%) hue-rotate(226deg) brightness(120%) contrast(100%);
 }
 
-.timelineSectionNav.selected_Section10 ul li.Sec10, .timelineSectionNav.selected_Section10 ul li.Sec10 button,
-.timelineSectionNav.selected_Section20 ul li.Sec20, .timelineSectionNav.selected_Section20 ul li.Sec20 button,
-.timelineSectionNav.selected_Section30 ul li.Sec30, .timelineSectionNav.selected_Section30 ul li.Sec30 button,
-.timelineSectionNav.selected_Section40 ul li.Sec40, .timelineSectionNav.selected_Section40 ul li.Sec40 button,
-.timelineSectionNav.selected_Section50 ul li.Sec50, .timelineSectionNav.selected_Section50 ul li.Sec50 button,
-.timelineSectionNav.selected_Section60 ul li.Sec60, .timelineSectionNav.selected_Section60 ul li.Sec60 button{
+.selected_Section10 button, .title.Sec10 img{
+  filter: invert(30%) sepia(40%) saturate(842%) hue-rotate(314deg) brightness(81%) contrast(88%);
+}
+
+.selected_Section20 button, .title.Sec20 img{
+  filter: invert(34%) sepia(18%) saturate(1288%) hue-rotate(163deg) brightness(88%) contrast(93%);
+}
+
+.selected_Section30 button, .title.Sec30 img{
+  filter: invert(34%) sepia(7%) saturate(7087%) hue-rotate(11deg) brightness(94%) contrast(101%);
+}
+
+.selected_Section40 button, .title.Sec40 img{
+  filter: invert(29%) sepia(81%) saturate(323%) hue-rotate(126deg) brightness(97%) contrast(97%);
+}
+
+.selected_Section50 button, .title.Sec50 img{
+  filter: invert(29%) sepia(18%) saturate(1061%) hue-rotate(235deg) brightness(91%) contrast(93%);
+}
+
+.selected_Section60 button, .title.Sec60 img{
+  filter: invert(31%) sepia(25%) saturate(876%) hue-rotate(78deg) brightness(95%) contrast(88%);
+}
+
+
+.timelineSectionNav.selected_Section10 ul li.Sec10, .timelineSectionNav.selected_Section10 ul li.Sec10,
+.timelineSectionNav.selected_Section20 ul li.Sec20, .timelineSectionNav.selected_Section20 ul li.Sec20,
+.timelineSectionNav.selected_Section30 ul li.Sec30, .timelineSectionNav.selected_Section30 ul li.Sec30,
+.timelineSectionNav.selected_Section40 ul li.Sec40, .timelineSectionNav.selected_Section40 ul li.Sec40,
+.timelineSectionNav.selected_Section50 ul li.Sec50, .timelineSectionNav.selected_Section50 ul li.Sec50,
+.timelineSectionNav.selected_Section60 ul li.Sec60, .timelineSectionNav.selected_Section60 ul li.Sec60{
   background: #494949;
 }
 
