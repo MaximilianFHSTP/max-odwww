@@ -103,9 +103,10 @@ p{
 .card h1{
   width: 70%;
   font-size: 1.1em;
-  float: right;
   margin: 1em 5% 0% 5%;
   white-space: normal;
+  min-height: 50px;
+  float: left;
 }
 
 .card h2{
@@ -238,6 +239,14 @@ p{
   background-color: #aaaaaa;
 }
 
+.title .image{
+  width: 15%;
+  max-width: 50px;
+  height: 50px;
+  float: left;
+  margin: 1.2em 0 0% 5%;
+}
+
 .timelineSectionNav{
   position: fixed;
   bottom: 0;
@@ -286,30 +295,41 @@ p{
   height: 45px;
 }
 
-.timelineSectionNav li.Sec10 button{
+.timelineSectionNav li.Sec10 button, .title.Sec10 .image{
   background: url("assets/icons/Timeline/Trumpet.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
-.timelineSectionNav li.Sec20 button{
+.timelineSectionNav li.Sec20 button, .title.Sec20 .image{
   background: url("assets/icons/Timeline/DocumentSword.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
-.timelineSectionNav li.Sec30 button{
+.timelineSectionNav li.Sec30 button, .title.Sec30 .image{
   background: url("assets/icons/Timeline/Maximilian.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
-.timelineSectionNav li.Sec40 button{
+.timelineSectionNav li.Sec40 button, .title.Sec40 .image{
   background: url("assets/icons/Timeline/Veil.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
-.timelineSectionNav li.Sec50 button{
+.timelineSectionNav li.Sec50 button, .title.Sec50 .image{
   background: url("assets/icons/Timeline/Shrine.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
-.timelineSectionNav li.Sec60 button{
+.timelineSectionNav li.Sec60 button, .title.Sec60 .image{
   background: url("assets/icons/Timeline/Tombstone.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
-
 
 .timelineSectionNav.selected_Section10 li.Sec10 button,
 .timelineSectionNav.selected_Section20 li.Sec20 button,
@@ -320,37 +340,37 @@ p{
   filter: invert(99%) sepia(7%) saturate(90%) hue-rotate(226deg) brightness(120%) contrast(100%);
 }
 
-.selected_Section10 button, .title.Sec10 img{
+.selected_Section10 button, .title.Sec10 .image{
   filter: invert(30%) sepia(40%) saturate(842%) hue-rotate(314deg) brightness(81%) contrast(88%);
 }
 
-.selected_Section20 button, .title.Sec20 img{
+.selected_Section20 button, .title.Sec20 .image{
   filter: invert(34%) sepia(18%) saturate(1288%) hue-rotate(163deg) brightness(88%) contrast(93%);
 }
 
-.selected_Section30 button, .title.Sec30 img{
+.selected_Section30 button, .title.Sec30 .image{
   filter: invert(34%) sepia(7%) saturate(7087%) hue-rotate(11deg) brightness(94%) contrast(101%);
 }
 
-.selected_Section40 button, .title.Sec40 img{
+.selected_Section40 button, .title.Sec40 .image{
   filter: invert(29%) sepia(81%) saturate(323%) hue-rotate(126deg) brightness(97%) contrast(97%);
 }
 
-.selected_Section50 button, .title.Sec50 img{
+.selected_Section50 button, .title.Sec50 .image{
   filter: invert(29%) sepia(18%) saturate(1061%) hue-rotate(235deg) brightness(91%) contrast(93%);
 }
 
-.selected_Section60 button, .title.Sec60 img{
+.selected_Section60 button, .title.Sec60 .image{
   filter: invert(31%) sepia(25%) saturate(876%) hue-rotate(78deg) brightness(95%) contrast(88%);
 }
 
 
-.timelineSectionNav.selected_Section10 ul li.Sec10, .timelineSectionNav.selected_Section10 ul li.Sec10,
-.timelineSectionNav.selected_Section20 ul li.Sec20, .timelineSectionNav.selected_Section20 ul li.Sec20,
-.timelineSectionNav.selected_Section30 ul li.Sec30, .timelineSectionNav.selected_Section30 ul li.Sec30,
-.timelineSectionNav.selected_Section40 ul li.Sec40, .timelineSectionNav.selected_Section40 ul li.Sec40,
-.timelineSectionNav.selected_Section50 ul li.Sec50, .timelineSectionNav.selected_Section50 ul li.Sec50,
-.timelineSectionNav.selected_Section60 ul li.Sec60, .timelineSectionNav.selected_Section60 ul li.Sec60{
+.timelineSectionNav.selected_Section10 ul li.Sec10,
+.timelineSectionNav.selected_Section20 ul li.Sec20,
+.timelineSectionNav.selected_Section30 ul li.Sec30,
+.timelineSectionNav.selected_Section40 ul li.Sec40,
+.timelineSectionNav.selected_Section50 ul li.Sec50,
+.timelineSectionNav.selected_Section60 ul li.Sec60{
   background: #494949;
 }
 
@@ -389,12 +409,6 @@ p{
     margin: 15px 0px 0px 15px;
   }
 
-  .card h1{
-    float: left;
-    font-size: 1.2em;
-    margin: 15px 0px 0px 0px;
-  }
-  
   .card h2{
     font-size: 1em;
     margin: 0px 0px 0px 15px;

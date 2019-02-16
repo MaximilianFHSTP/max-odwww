@@ -10,7 +10,7 @@
 <ng-container  *ngFor="let loc of currentEntrance" >
   <div *ngIf="loc.parentId == currentSection" [className]="isClose(loc.id) ? 'near card title lck'+loc.locked+' Sec'+loc.parentId : 'card title lck'+loc.locked+' Sec'+loc.parentId" 
   id="exh_{{loc.id}}" (click)="requestRegisterLocation(loc.id, loc.parentId, loc.locked)">
-    <img src="assets/icons/Timeline/{{getSectionIcon(currentSection)}}.png" />
+    <div class="image"></div>
     <h1>{{loc.titleGER }}</h1>
   </div>
 </ng-container>
