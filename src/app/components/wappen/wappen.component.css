@@ -34,9 +34,14 @@ h1, h2, h3, h4, h5, h6{
     background: #ffffff;
 }
 
+
+.helpbutton{
+    padding: 0;
+}
+
 .helpbutton img{
-    height: 60px;
-    margin: -5px 0 0 -5px;
+    height: 100%;
+    padding:0;
 }
 
 .toolbar .closebutton{
