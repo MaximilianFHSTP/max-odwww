@@ -47,6 +47,7 @@ a:after {
     float: right; 
     background: #494949;
     color:#ffffff;
+    padding: 0;
 }
 
 .toolbar .closebutton img{
