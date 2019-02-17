@@ -80,6 +80,11 @@ a:after {
     margin: 20px auto;
   }
 
+ul li{
+    font-family: 'OpenSans';
+    font-size: 1em;
+}
+
 @media (min-height: 730px) {
     .toolbar button{
         margin: 35px 20px 0px 20px; 
