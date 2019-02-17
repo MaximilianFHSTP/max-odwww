@@ -7,7 +7,7 @@
     "menuLogout": "AUSLOGGEN"
   },
   "start": {
-    "welcomeMessage": "Willkommen bei der Ausstellung",
+    "welcomeMessage": "Willkommen in der Ausstellung",
     "name": "Des Kaisers neuer Heiliger",
     "loginButton": "Einloggen",
     "registerGuestButton": "Als Gast einloggen",
@@ -81,9 +81,9 @@
     "exhibitNotAvailable": "Das Ausstellungsstück ist<br/>noch nicht verfügbar."
   },
   "notifiyExhibit": {
-    "interactiveExhibitMsg": "Dies ist eine interaktive Ausstellung. Klicke auf die Schaltfläche unten, um zu beginnen!",
-    "tableOfflineText": "Die interaktive Ausstellung steht zur Zeit nicht zur Verfügung!",
-    "tableOccupiedText": "Die interaktive Ausstellung ist gerade nicht frei, probiere es später erneut!",
+    "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche unten, um zu beginnen!",
+    "tableOfflineText": "Das interaktive Ausstellungsstück steht zur Zeit nicht zur Verfügung!",
+    "tableOccupiedText": "Das interaktive Ausstellungsstück ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",
     "beaconPutText": "Bitte lege Dein Handy auf ein Beacon am Display.",
     "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei!"
