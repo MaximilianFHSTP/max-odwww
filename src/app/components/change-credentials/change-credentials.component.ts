@@ -136,16 +136,17 @@ export class ChangeCredentialsComponent implements OnInit
   getPasswordErrorMessage() {
     return this.newPasswordFormControl.hasError('required') ? 'You must enter a value' :
     this.newPasswordFormControl.hasError('pattern') ?
-    'Please use at least 6 characters with at least 1 upper case, 1 lower case, ' +
-    '1 number and 1 special character! Example: ! $ § % & / ( ) = ?' : '';
+    this.translate.instant('changeCredentials.infoPassword1') + 
+    this.translate.instant('changeCredentials.infoPassword2') : '';
   }
   getConfirmPasswordErrorMessage() {
 
-    return this.newConfirmPasswordFormControl.hasError('required') ? 'You must enter a value' :
-    this.newConfirmPasswordFormControl.hasError('matchingpassword') ? 'The password is not the same' : 'The password is not the same';
+    return this.newConfirmPasswordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
+    this.newConfirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') : 
+    this.translate.instant('changeCredentials.notSamePassword');
   }
   getRequiredErrorMessage(field) {
-    return this.changeForm.get(field).hasError('required') ? 'You must enter a value' : '';
+    return this.changeForm.get(field).hasError('required') ? this.translate.instant('changeCredentials.enterValue') : '';
   }
 
 
@@ -178,11 +179,11 @@ export class ChangeCredentialsComponent implements OnInit
   }
 
   getCredChangeErrorMessage(field) {
-    return 'The credentials were not changed correctly.';
+    return this.translate.instant('changeCredentials.credentialsNotChanged');
   }
 
   getCredChangeExistingCred(field) {
-    return 'These credentials are already taken.';
+    return this.translate.instant('changeCredentials.credentialsTaken');
   }
 
   public useLanguage(language: string) {
