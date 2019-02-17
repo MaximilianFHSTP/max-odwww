@@ -16,10 +16,10 @@
     <div class="ico"></div>
     <div class="msg">
       <div *ngIf="!locationStatusNotAtLocation">
-        <button *ngIf="location.id == 101" (click)="playARBooks()">This exhibit is<br/>not available yet</button>
+        <button *ngIf="location.id == 101" (click)="playARBooks()">{{ 'interactiveExhibit.exhibitNotAvailable' | translate }}</button>
         <button *ngIf="location.id == 102" (click)="playEducationQuiz()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-        <button *ngIf="location.id == 402" (click)="playARPanels()">This exhibit is<br/>not available yet</button>
-        <button *ngIf="location.id == 501" (click)="playARShrine()">This exhibit is<br/>not available yet</button>
+        <button *ngIf="location.id == 402" (click)="playARPanels()">{{ 'interactiveExhibit.exhibitNotAvailable' | translate }}</button>
+        <button *ngIf="location.id == 501" (click)="playARShrine()">{{ 'interactiveExhibit.exhibitNotAvailable' | translate }}</button>
       </div>
       <div *ngIf="locationStatusNotAtLocation"><p>{{ 'interactiveExhibit.notAtLocation' | translate }}</p></div>
     </div>

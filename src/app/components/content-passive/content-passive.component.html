@@ -15,7 +15,7 @@
   <div *ngIf="location.id != 6000 && location.id != 5001" class="timelineSectionNav selected_Section{{currentSection}}">
       <ul>
           <li class="till"><button (click)="displayVersion('till')"><img src="assets/icons/Till.png" /><p>Till<br/>Eulenspiegel</p></button></li>
-          <li class="maximilian"><button (click)="displayVersion('maximilian')"><img src="assets/icons/Maximilian.png" /><p>Kaiser<br/>Maximilian</p></button></li>
+          <li class="maximilian"><button (click)="displayVersion('maximilian')"><img src="assets/icons/Maximilian.png" /><p>{{ 'passiveExhibit.emperor' | translate }}<br/>Maximilian</p></button></li>
           <li class="sunthaym"><button (click)="displayVersion('sunthaym')"><img src="assets/icons/Sunthaym.png" /><p>Ladislaus<br/>Sunthaym</p></button></li>
       </ul>
   </div> 

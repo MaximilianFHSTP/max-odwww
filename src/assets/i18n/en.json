@@ -19,7 +19,9 @@
   "login": {
     "username": "Username",
     "password": "Password",
-    "btnSave": "Continue"
+    "btnSave": "Continue",
+    "enterValue": "You must enter a value.",
+    "credentialsNotMatch": "These credentials do not match."
   },
   "register": {
     "title": "Please choose a username and a password.",
@@ -27,7 +29,11 @@
     "email": "Email",
     "password": "Password",
     "passwordConfirm": "Password Confirmation",
-    "btnSave": "Continue"
+    "btnSave": "Continue",
+    "userEmailAlreadyExists": "These username and email already exists.",
+    "userAlreadyExists": "This username already exists.",
+    "emailAlreadyExists": "This email already exists.",
+    "credentialsNotMatch": "These credentials do not match."
   },
   "main": {
     "welcomeText": "Welcome at",
@@ -61,7 +67,8 @@
   },
   "passiveExhibit": {
     "welcomeText": "Welcome at",
-    "buttonCoa": "Your Coat of Arms"
+    "buttonCoa": "Your Coat of Arms",
+    "emperor": "Emperor"
   },
   "interactiveExhibit": {
     "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
@@ -69,7 +76,8 @@
     "notAtLocation": "Walk to the exhibit to start the interactive content!",
     "quizQuestion": "What is the name of the student appearing here?",
     "quizRight": "Correct Answer!",
-    "quizWrong": "Wrong Answer."
+    "quizWrong": "Wrong Answer.",
+    "exhibitNotAvailable": "This exhibit is<br/>not available yet."
   },
   "notifiyExhibit": {
     "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
