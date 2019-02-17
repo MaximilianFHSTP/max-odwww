@@ -53,7 +53,7 @@
     "beggars": "Bettelvolk",
     "bourgeoisie": "Bürgertum",
     "noble": "Adel",
-    "yourAnswer": "Deine Antwort:"
+    "yourAnswer": "Deine Antwort: "
 
   },
   "tableOn": {
@@ -118,9 +118,9 @@
     "credentialsChanged": "Du hast Deine Anmeldeinformationen erfolgreich geändert.",
     "OK": "OK",
     "enterValue": "Bitte gib einen Wert ein.",
-    "infoPassword1": "Bitte verwende mindestens 6 Zeichen mit mindestend 1 Großbuchstaben, 1 Kleinbuchstaben, ",
+    "infoPassword1": "Bitte verwende mindestens 6 Zeichen mit mindestens 1 Großbuchstaben, 1 Kleinbuchstaben, ",
     "infoPassword2": "1 Ziffer und 1 Sonderzeichen! Beispiel: ! $ § % & / ( ) = ?",
-    "notSamePassword": "Das Passowrt ist nicht dasselbe.",
+    "notSamePassword": "Das Passwort ist nicht dasselbe.",
     "credentialsNotChanged": "Die Anmeldeinformationen wurden nicht korrekt geändert.",
     "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben."
   },
