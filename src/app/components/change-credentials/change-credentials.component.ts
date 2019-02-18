@@ -62,7 +62,7 @@ export class ChangeCredentialsComponent implements OnInit
         const config = new MatSnackBarConfig();
         config.duration = 3000;
         config.panelClass = ['success-snackbar'];
-        this.snackBar.open('You changed your credentials successfully', 'OK', config);
+        this.snackBar.open(this.translate.instant('changeCredentials.credentialsChanged'), 'OK', config);
       }else{
         this.wrongCredChange = true;
       }

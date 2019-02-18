@@ -4,7 +4,9 @@
     "menuSettings": "PROFILE SETTINGS",
     "menuSignup": "SIGN UP",
     "menuAbout": "ABOUT",
-    "menuLogout": "LOGOUT"
+    "menuLogout": "LOGOUT",
+    "cancel": "cancel",
+    "confirm": "confirm"
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",

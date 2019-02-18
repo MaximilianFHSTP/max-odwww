@@ -4,7 +4,9 @@
     "menuSettings": "EINSTELLUNGEN",
     "menuSignup": "ANMELDEN",
     "menuAbout": "ÜBER",
-    "menuLogout": "AUSLOGGEN"
+    "menuLogout": "AUSLOGGEN",
+    "cancel": "abbrechen",
+    "confirm": "bestätigen"
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",
