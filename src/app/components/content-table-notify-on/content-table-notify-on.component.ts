@@ -5,6 +5,7 @@ import {ExhibitService} from '../../services/exhibit/exhibit.service';
 import {LocationService} from '../../services/location.service';
 import {NativeCommunicationService} from '../../services/native/native-communication.service';
 import {LocationActions} from '../../store/actions/LocationActions';
+import {CoaService} from '../../services/coa.service';
 
 @Component({
   selector: 'app-content-table-notify-on',
@@ -21,6 +22,7 @@ export class ContentTableNotifyOnComponent implements OnInit, OnDestroy
     private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
+    private coaService: CoaService,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions
@@ -32,6 +34,14 @@ export class ContentTableNotifyOnComponent implements OnInit, OnDestroy
 
     this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
     this.locationService.stopLocationScanning();
+
+    if(this.location.parentId === 502){
+      // participate in the genvis
+      this.coaService.tryUnlock(25);
+    }else if(this.location.parentId === 403){
+      // participate in the legend game
+      this.coaService.tryUnlock(23);
+    }
   }
 
   public disconnectFromExhibit()

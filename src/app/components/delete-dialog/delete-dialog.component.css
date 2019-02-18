@@ -40,9 +40,9 @@ p{
   padding: 0.8em;
 }
 
-.btnCancel{
-    margin: -10px 0px 0px 0px;
+  .btnCancel{
+    margin: 0px;
     float: right;
     cursor: pointer;
-    font-size: 35px;
+    height: 35px;
 }

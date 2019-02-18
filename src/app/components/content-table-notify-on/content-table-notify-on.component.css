@@ -21,7 +21,9 @@ p{
   font-size: 1em;
 }
 
-
+.wrapperContent p{
+  line-height: 1.5em;
+}
 
 a{
   color: #0057a3;
@@ -34,6 +36,8 @@ a{
   position: absolute;
   width: 100%;
   top: 90px;
+  min-height: -webkit-fill-available;
+  margin-bottom: 100px;
 }
 
 .wrapperContent{

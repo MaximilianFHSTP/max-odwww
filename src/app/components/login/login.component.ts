@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
 import {TransmissionService} from '../../services/transmission.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,8 @@ export class LoginComponent implements OnInit
     private userActions: UserActions,
     private nativeCommunicationService: NativeCommunicationService,
     private fb: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private translate: TranslateService
   ) {
     this.subscriptionWrongLogin = this.alertService.getMessageWrongLoginCheck().subscribe(message => {
       this.wrongLogin = message;
@@ -66,11 +68,11 @@ export class LoginComponent implements OnInit
   }
 
   getRequiredErrorMessage(field) {
-    return this.loginForm.get(field).hasError('required') ? 'You must enter a value' : '';
+    return this.loginForm.get(field).hasError('required') ? this.translate.instant('login.enterValue') : '';
   }
 
   getLoginErrorMessage(){
-    return 'These credentials don\'t match';
+    return this.translate.instant('login.credentialsNotMatch');
   }
 
 }

@@ -26,7 +26,9 @@ export class EducationQuizComponent implements OnInit {
   }
 
   answer(option: string){
-    (option === this.correctAnswer) ? this.trialSuccess = true : this.trialError = true;
+    if(!this.trialSuccess && !this.trialError){
+      (option === this.correctAnswer) ? this.trialSuccess = true : this.trialError = true;
+    } 
   }
 
   shuffle(array) {

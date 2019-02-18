@@ -8,6 +8,7 @@ import {NativeCommunicationService} from '../../services/native/native-communica
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 import {TransmissionService} from '../../services/transmission.service';
 import * as languageTypes from '../../config/LanguageTypes';
 import {CoaService} from '../../services/coa.service';
@@ -34,7 +35,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   public answerD: string;
   private answerChar: string;
   public yourAnswer: string;
-  public yourPoints = 'Fortschritt: ...';
+  
+  public yourPoints = this.translate.instant('quiz.progress')+' ...';
   public yourStatus = '...';
   public correctAnswer: string;
   public elaboration: string;
@@ -62,10 +64,12 @@ export class QuizComponent implements OnInit, OnDestroy {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private coaService: CoaService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private translate: TranslateService
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
+      this.updateLocationStatus(state.locationStatus);
       this.connectionSuccess = state.connectedToExhibit;
     });
     this.subscriptionQuestion = this.alertService.getQuizQuestion().subscribe(message => {
@@ -112,7 +116,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       }
       if(this.yourAnswer === undefined || this.yourAnswer === null){
         this.notAnswered = false;
-        this.yourAnswer = 'Deine Antwort: keine';
+        this.yourAnswer = this.translate.instant('quiz.yourAnswer') + ' ' + this.translate.instant('quiz.none');
       }
       this.noResponse = false;
       const state = this.appStore.getState();
@@ -122,23 +126,24 @@ export class QuizComponent implements OnInit, OnDestroy {
       }else if(language === languageTypes.ENG){
         this.elaboration = message.elaborationEng;
       }
-      this.correctAnswer = 'Richtige Antwort ' + message.correctAnswer;
+      this.correctAnswer = this.translate.instant('quiz.rightAnswer') + message.correctAnswer;
     });
     this.subscriptionPoints = this.alertService.getCorrectPoints().subscribe(message => {
+      console.log('subscription points');
       const points = message;
       if(points<7){
-        this.yourPoints = 'Fortschritt: ' + points + '/' + '7 Punkte';
-        this.yourStatus = 'Bettelvolk';
+        this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '7 ' + this.translate.instant('quiz.points');
+        this.yourStatus = this.translate.instant('quiz.beggars');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = ((points*100)/7) + '%';
       }else if(points>=7 && points <13){
-        this.yourPoints = 'Fortschritt: ' + points + '/' + '13 Punkte';
-        this.yourStatus = 'Buergertum';
+        this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '13 ' + this.translate.instant('quiz.points');
+        this.yourStatus = this.translate.instant('quiz.bourgeoisie');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = ((points*100)/13) + '%';
       }else if(points>=13){
-        this.yourPoints = 'Fortschritt: ' + points + '/' + '13 Punkte';
-        this.yourStatus = 'Adel';
+        this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '13 ' + this.translate.instant('quiz.points');
+        this.yourStatus = this.translate.instant('quiz.noble');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = '100%';
       }
@@ -181,6 +186,14 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.locationService.stopLocationScanning();
   }
 
+  updateLocationStatus(status: string){
+    // When not free, disconnect and redirect back
+    if (status !== 'FREE'){
+      this.disconnectFromExhibit();
+      this.closeWindow();
+    }
+  }
+
   ngOnDestroy()
   {
     // Send quizendtime here
@@ -200,17 +213,14 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   public disconnectFromExhibit()
   {
-    if(this.nativeCommunicationService.isWeb){
-      this.transmissionService.transmitLocationRegister({minor: 301, major: 30});
-    } else {
-      // Send quizendtime here
-      const endQuizTime = new Date().getTime();
-      this.quizTime = endQuizTime - this.startQuizTime;
-      console.log('DisconnectQuiz', this.quizTime);
-      this.exhibitService.sendQuizTime(this.quizTime);
-      this.firstQuestionOfRun = false;
-      this.exhibitService.disconnect();
-    }
+    //  this.transmissionService.transmitLocationRegister({minor: 301, major: 30});
+    // Send quizendtime here
+    const endQuizTime = new Date().getTime();
+    this.quizTime = endQuizTime - this.startQuizTime;
+    console.log('DisconnectQuiz', this.quizTime);
+    this.exhibitService.sendQuizTime(this.quizTime);
+    this.firstQuestionOfRun = false;
+    this.exhibitService.disconnect();
   }
 
   public sendMessageToExhibit()
@@ -222,7 +232,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   {
     const answer = {answerA: true, answerB: false, answerC: false, answerD: false };
     this.answerChar = 'A';
-    this.yourAnswer = 'Deine Antwort: A';
+    this.yourAnswer = this.translate.instant('quiz.yourAnswer') + 'A';
     this.notAnswered = false;
     this.noResponse = true;
     const answerDateTime = new Date().getTime();
@@ -240,7 +250,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   {
     const answer = {answerA: false, answerB: true, answerC: false, answerD: false };
     this.answerChar = 'B';
-    this.yourAnswer = 'Deine Antwort: B';
+    this.yourAnswer = this.translate.instant('quiz.yourAnswer') + 'B';
     this.notAnswered = false;
     this.noResponse = true;
     const answerDateTime = new Date().getTime();
@@ -258,7 +268,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   {
     const answer = {answerA: false, answerB: false, answerC: true, answerD: false };
     this.answerChar = 'C';
-    this.yourAnswer = 'Deine Antwort: C';
+    this.yourAnswer = this.translate.instant('quiz.yourAnswer') + 'C';
     this.notAnswered = false;
     this.noResponse = true;
     const answerDateTime = new Date().getTime();
@@ -276,7 +286,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   {
     const answer = {answerA: false, answerB: false, answerC: false, answerD: true };
     this.answerChar = 'D';
-    this.yourAnswer = 'Deine Antwort: D';
+    this.yourAnswer = this.translate.instant('quiz.yourAnswer') + 'D';
     this.notAnswered = false;
     this.noResponse = true;
     const answerDateTime = new Date().getTime();
@@ -305,5 +315,13 @@ export class QuizComponent implements OnInit, OnDestroy {
     progressbar.appendChild(progressbarinner);
 
     progressbarinner.style.animationPlayState = 'running';
+  }
+
+  public closeWindow(){
+    this.router.navigate(['tableat']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Table at', 'print');
+      }
+    );
   }
 }

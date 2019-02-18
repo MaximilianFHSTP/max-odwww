@@ -4,6 +4,8 @@ import {Unsubscribe} from 'redux';
 import {Subscription} from 'rxjs';
 import {TransmissionService} from '../../services/transmission.service';
 import {CoaService} from '../../services/coa.service';
+import {Router} from '@angular/router';
+import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import * as ContentTypes from '../../config/ContentTypes';
 import {LanguageService} from '../../services/language.service';
 import * as d3 from 'd3';
@@ -39,6 +41,8 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     private transmissionService: TransmissionService,
     private languageService: LanguageService,
     private coaService: CoaService,
+    public router: Router,
+    private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
@@ -58,6 +62,10 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     const state = this.appStore.getState();
     this.updateLocationInformation(state.currentLocation);
     // console.log(this.location);
+
+    if(this.location.id === 6000){
+      this.coaService.tryUnlock(33);
+    }
   }
 
   ngAfterViewInit(){
@@ -181,5 +189,13 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     });
 
     return color;
+  }
+
+  public userCoA(){
+    this.router.navigate(['wappen']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
+      }
+    );
   }
 }

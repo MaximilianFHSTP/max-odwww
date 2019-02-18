@@ -12,6 +12,7 @@ import {Router} from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
 import * as d3 from 'd3';
 import { CoaService } from '../../services/coa.service';
+import { JsonpCallbackContext } from '@angular/common/http/src/jsonp';
 
 @Component({
   selector: 'app-main-view',
@@ -26,6 +27,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private subscriptionLocationid: Subscription;
   private comingBack: boolean;
   private subscriptionCoaParts: Subscription;
+  private subscriptionUserCoaParts: Subscription;
   public user: any;
   public timelineLocations: any;
   public isWeb: boolean;
@@ -78,7 +80,10 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       this.registerLocationmessage = message;
     });
     this.subscriptionCoaParts = this.alertService.getMessageCoaParts().subscribe(message => {
-      coaService.setCoaParts(message.data);
+      this.coaService.setCoaParts(message.data);
+    });
+    this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
+      this.coaService.setUserCoaParts(message.data);
     });
   }
 
@@ -94,7 +99,21 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   public requestRegisterLocation(id: number, parentId: number, locked: boolean){
     if(!locked && id && parentId){
+      if(id === 5001){ this.checkCoaUnlock(); }
       this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
+    }
+  }
+
+  checkCoaUnlock(){
+    let allUnlocked = true;
+    this.timelineLocations.forEach(loc => {
+      if(loc.id !== 502 && loc.id !== 6000 && loc.locked){
+        allUnlocked = false;
+      }
+    });
+   
+    if(allUnlocked){
+      this.coaService.tryUnlock(24);
     }
   }
 
@@ -110,6 +129,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.sortLocationData();
 
     this.transmissionService.getCoaParts();
+    this.transmissionService.getUserCoaParts();
   }
 
   ngAfterViewChecked(){
@@ -306,6 +326,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public userCoA(){
     this.router.navigate(['wappen']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
       }
     );
@@ -328,12 +349,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
   }
 
-  scrollTo(id: number) {
-    // console.log('scr to' + id);
-    const el = document.getElementById('exh_'+id);
-    el.scrollIntoView({behavior:'smooth'});
-  }
-
   scroll() {
     const id = this.registerLocationmessage.location;
     
@@ -341,8 +356,68 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     if(secCode !== this.currentSection.toString()){
       this.displaySection(+secCode, true);
     }
-    const el = document.getElementById('exh_'+id);
-    el.scrollIntoView({behavior:'smooth'});
+    scrollTo(id);
+
+    // const el = document.getElementById('exh_'+id);
+    // el.scrollIntoView({behavior:'smooth'});
+  }
+
+  scrollTo(id: number) {
+    // console.log('scr to' + id);
+    // const el = document.getElementById('exh_'+id);
+    // el.scrollIntoView({behavior:'smooth'});
+
+    this.smoothScroll(id);
+  }
+  // sets timeout for scrolling
+  scrollToTimeout(yPoint: number, duration: number) {
+    setTimeout(() => {
+        window.scrollTo(0, yPoint);
+    }, duration);
+    return;
+  }
+  /*
+  ---------------------------------------------------------------------------
+    Scroll functions to implement smooth scrolling as well for Safari / iOS
+  ---------------------------------------------------------------------------
+  */
+  smoothScroll(eID) {
+    const startY = currentYPosition();
+    const stopY = elmYPosition(eID) - 100;
+    const distance = stopY > startY ? stopY - startY : startY - stopY;
+    if (distance < 20) {
+        window.scrollTo(0, stopY); return;
+    }
+
+    // test with other values for steps and speed
+    let speed = Math.round(distance / 100);
+    if (speed >= 20) {
+      speed = 20;
+    }
+    const step = Math.round(distance / 100);
+
+    let leapY = stopY > startY ? startY + step : startY - step;
+
+    let timer = 0;
+    if (stopY > startY) {
+        for (let i = startY; i < stopY; i += step) {
+            this.scrollToTimeout(leapY, timer * speed);
+            leapY += step; 
+            if (leapY > stopY) {
+              leapY = stopY; 
+              timer++;
+            }
+        } return;
+    }
+
+    for (let i = startY; i > stopY; i -= step) {
+        this.scrollToTimeout(leapY, timer * speed);
+        leapY -= step; 
+        if (leapY < stopY) {
+          leapY = stopY; 
+          timer++;
+        } 
+    }
   }
 
   /*
@@ -351,41 +426,40 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   ------------------------------------------------------------
   */
 
-  public requestRegisterLocationTableAt()
+  public requestRegisterLocationTest(id: number, parentId: number)
   {
-    this.nativeResponseService.timelineUpdate({minor: 1000, major: 10});
-  }
-
-  public requestRegisterLocationTableOn()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 2002, major: 20});
-  }
-
-  public requestRegisterLocationTableAtBehavior()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 301, major: 30});
-  }
-
-  public requestRegisterLocationPassive()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 102, major: 10});
-  }
-
-  public requestRegisterLocationQuiz()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 301, major: 30});
-  }
-
-
-  
-
-  public requestRegisterNotifyLocation()
-  {
-    this.nativeResponseService.timelineUpdate({minor: 502, major: 50});
+    this.nativeResponseService.timelineUpdate({minor: id, major: parentId});
   }
 
   public checkWifiForWeb()
   {
     this.nativeResponseService.checkWifi({ssid: 'FH_STP_WLAN'});
   }
+}
+
+function currentYPosition() {
+  // Firefox, Chrome, Opera, Safari
+  if (self.pageYOffset) {
+    return self.pageYOffset;
+  } 
+  // Internet Explorer 6 - standards mode
+  if (document.documentElement && document.documentElement.scrollTop) {
+    return document.documentElement.scrollTop;
+  }
+  // Internet Explorer 6, 7 and 8
+  if (document.body.scrollTop) {
+    return document.body.scrollTop;
+  }
+  return 0;
+}
+
+function elmYPosition(eID) {
+  const elm = document.getElementById('exh_'+eID);
+  const y = elm.offsetTop;
+  // let node  = elm;
+  /*while (node.offsetParent && node.offsetParent !== document.body) {
+      node = node.offsetParent;
+      y += elm.offsetTop;
+  }*/
+  return y;
 }

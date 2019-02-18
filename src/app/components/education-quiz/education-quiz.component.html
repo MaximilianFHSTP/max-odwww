@@ -1,11 +1,11 @@
 <div class="toolbar">
-  <button class="closebutton" (click)="closeWindow()"><mat-icon>close</mat-icon></button>
+  <button class="closebutton" (click)="closeWindow()"><img src="assets/icons/closewhite.svg"></button>
 </div> 
 <div class="wrapper">
   <h2>{{ 'interactiveExhibit.quizQuestion' | translate }}</h2>
 
   <div class="optionsWrapper">
-    <img src="./assets/img/educationQuiz.png" />
+    <img src="assets/img/educationQuiz.png" />
     <button *ngFor="let option of options" [className]="(trialSuccess || trialError) ? 'answer '+ option +' btnOptions' : 'btnOptions'" (click)="answer(option)" >{{option}}</button>
     
     <p *ngIf="trialSuccess" class="success">{{ 'interactiveExhibit.quizRight' | translate }}</p> 
