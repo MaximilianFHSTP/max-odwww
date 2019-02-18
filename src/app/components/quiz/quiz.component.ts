@@ -129,7 +129,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.correctAnswer = this.translate.instant('quiz.rightAnswer') + message.correctAnswer;
     });
     this.subscriptionPoints = this.alertService.getCorrectPoints().subscribe(message => {
-      // console.log('subscription points');
+      console.log('subscription points');
       const points = message;
       if(points<7){
         this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '7 ' + this.translate.instant('quiz.points');
