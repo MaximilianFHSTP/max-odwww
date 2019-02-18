@@ -46,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public nativeSettingType: any;
   public language: string;
   public guest: boolean;
+  public isConnectedToGod: boolean;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -72,6 +73,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       const token = state.token;
+
+      this.isConnectedToGod = state.isConnectedToGod;
 
       if(state.user !== undefined){
         this.guest = state.user.isGuest;

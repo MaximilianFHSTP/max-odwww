@@ -3,6 +3,28 @@
   src: url("assets/fonts/Open_Sans/OpenSans-Regular.ttf");
 }
 
+#notConnectedToGod
+{
+  height: 100%;
+  width: 100%;
+  text-align:center;
+  position: absolute;
+  display: table;
+  top: 0;
+  left: 0;
+  color: white;
+  background-color: #333333;
+  opacity: 0.95;
+  filter:alpha(opacity=90); /* For IE8 and earlier */
+  z-index: 999;
+}
+
+#notConnectedToGod section
+{
+  display:table-cell;
+  vertical-align: middle;
+}
+
 .example-fill-remaining-space
 {
   flex: 1 1 auto;

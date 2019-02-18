@@ -31,11 +31,13 @@ export class GodService {
     this.socket.on('news', msg =>
     {
       this.utilitiesService.sendToNative(msg, 'print');
+      this.store.dispatch(this.statusActions.changeIsConnectedToGod(true));
     });
 
     this.socket.on('disconnect', () => {
       const error: Message = {code: ErrorTypes.LOST_CONNECTION_TO_GOD, message: 'Lost connection to Server'};
       this.store.dispatch(this.statusActions.changeErrorMessage(error));
+      this.store.dispatch(this.statusActions.changeIsConnectedToGod(false));
 
       const state = this.store.getState();
       const location = state.currentLocation;
@@ -55,9 +57,32 @@ export class GodService {
       }
     });
 
-    this.socket.on('reconnect', () => {
+    this.socket.on('reconnect', () =>
+    {
+      const state = this.store.getState();
+      this.socket.emit('addTokenToSocket', state.token);
+
+      this.socket.on('addTokenToSocketResult', () =>
+      {
+        this.store.dispatch(this.statusActions.changeIsConnectedToGod(true));
+      });
+
       const success: Message = {code: SuccessTypes.SUCCESS_RECONNECTED_TO_GOD, message: 'Reconnected to Server'};
       this.store.dispatch(this.statusActions.changeSuccessMessage(success));
+    });
+
+    this.socket.on('userKickedFromExhibit', result =>
+    {
+      if(!result.data) {return;}
+
+      const parentLoc = result.data.parentId;
+
+      this.store.dispatch(this.locationActions.changeConnectedExhibit(false));
+      this.store.dispatch(this.locationActions.changeAtExhibitParentId(0));
+      this.store.dispatch(this.locationActions.changeOnExhibit(false));
+      this.store.dispatch(this.locationActions.changeClosestExhibit(parentLoc));
+
+      this.registerLocation(parentLoc, false);
     });
   }
 
