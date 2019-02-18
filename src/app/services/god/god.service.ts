@@ -153,7 +153,7 @@ export class GodService {
 
   public registerODGuestToReal(data: any): any
   {
-    console.log('ODGuestToReal before emit');
+    // console.log('ODGuestToReal before emit');
     this.socket.emit('makeToRealUser', data);
 
     this.socket.on('makeToRealUserResult', result =>
@@ -401,7 +401,7 @@ export class GodService {
 
   public checkUsernameExists(username: String): void
   {
-    console.log('checkUsername');
+    // console.log('checkUsername');
     this.socket.emit('checkUsernameExists', username);
 
     this.socket.on('checkUsernameExistsResult', result =>
@@ -415,7 +415,7 @@ export class GodService {
 
   public checkEmailExists(email: String): void
   {
-    console.log('checkEmail');
+    // console.log('checkEmail');
     this.socket.emit('checkEmailExists', email);
 
     this.socket.on('checkEmailExistsResult', result =>
@@ -466,7 +466,7 @@ export class GodService {
     {
       const res = result.data;
       const message = result.message;
-      console.log(message);
+      // console.log(message);
 
       if (message.code > 299)
       {

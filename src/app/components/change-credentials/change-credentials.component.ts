@@ -112,7 +112,7 @@ export class ChangeCredentialsComponent implements OnInit
     this.changeName = state.user.name;
     this.oldPassword = '';
     this.changeEmail = state.user.email;
-    console.log('cred name ' + this.changeName + ' email ' + this.changeEmail);
+    // console.log('cred name ' + this.changeName + ' email ' + this.changeEmail);
 
     this.nameFormControl = new FormControl(this.changeName, /*[Validators.required]*/);
     this.emailFormControl = new FormControl(this.changeEmail, /*[Validators.required]*/);
@@ -173,7 +173,7 @@ export class ChangeCredentialsComponent implements OnInit
       if(result === 'confirm'){
         this.transmissionService.deleteUserAccount();
       }else{
-        console.log('Account NOT deleted!');
+        // console.log('Account NOT deleted!');
       }
     });
   }

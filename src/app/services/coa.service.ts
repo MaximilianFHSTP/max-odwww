@@ -91,7 +91,7 @@ export class CoaService {
     if(!this.have(coaPartId)){
       this.transmissionService.unlockCoaPart(coaPartId); 
       this.unlockedItemsId.push(coaPartId);
-      console.log('unlocking'); 
+      // console.log('unlocking');
     }  
   }
 

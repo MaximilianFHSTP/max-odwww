@@ -56,7 +56,6 @@ import { rootReducer } from './store/reducers/rootReducer';
 import { LocationActions } from './store/actions/LocationActions';
 import { UserActions } from './store/actions/UserActions';
 import { StatusActions } from './store/actions/StatusActions';
-import logger from 'redux-logger';
 
 // import ngx-translate and the http loader
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -72,8 +71,7 @@ import { ContentTableNotifyOnComponent } from './components/content-table-notify
 
 
 export const appStore = createStore(
-  rootReducer,
-  applyMiddleware(logger)
+  rootReducer
 );
 
 @NgModule({

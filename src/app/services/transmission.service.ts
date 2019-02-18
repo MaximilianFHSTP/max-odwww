@@ -182,7 +182,7 @@ export class TransmissionService
 
   public transmitODLogin(): void {
     const isEmail = this.utilityService.checkIfEmail(this.loginName);
-    console.log('login ' + isEmail);
+    // console.log('login ' + isEmail);
     if (isEmail) {
       const data = {user: undefined, email: this.loginName, password: this.loginPassword};
       this.godService.loginOD(data);

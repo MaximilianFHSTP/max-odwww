@@ -302,7 +302,7 @@ function addSymbolToNgModuleMetadata(source, ngModulePath, metadataField, symbol
         node = arrLiteral.elements;
     }
     if (!node) {
-        console.log('No app module found. Please add your new class to your component.');
+        // console.log('No app module found. Please add your new class to your component.');
         return [];
     }
     if (Array.isArray(node)) {

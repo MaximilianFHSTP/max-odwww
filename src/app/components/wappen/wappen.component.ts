@@ -57,7 +57,7 @@ export class WappenComponent implements OnInit, OnDestroy {
   ){
     this._unsubscribe = this.appStore.subscribe(() =>{
       const state = this.appStore.getState();
-      console.log(state.user);
+      // console.log(state.user);
     });
 
     this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {

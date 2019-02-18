@@ -44,13 +44,13 @@ export class LoginComponent implements OnInit
   ) {
     this.subscriptionWrongLogin = this.alertService.getMessageWrongLoginCheck().subscribe(message => {
       this.wrongLogin = message;
-      console.log('LoginComponent' + message);
+      // console.log('LoginComponent' + message);
     });
    }
 
   public loginDevice()
   {
-    console.log('LoginComponentButton');
+    // console.log('LoginComponentButton');
     this.transmissionService.loginName = this.nameFormControl.value;
     this.transmissionService.loginPassword = this.passwordFormControl.value;
 

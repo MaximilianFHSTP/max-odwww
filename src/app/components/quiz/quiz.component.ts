@@ -129,7 +129,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       this.correctAnswer = this.translate.instant('quiz.rightAnswer') + message.correctAnswer;
     });
     this.subscriptionPoints = this.alertService.getCorrectPoints().subscribe(message => {
-      console.log('subscription points');
+      // console.log('subscription points');
       const points = message;
       if(points<7){
         this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '7 ' + this.translate.instant('quiz.points');
@@ -199,7 +199,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     // Send quizendtime here
     const endQuizTime = new Date().getTime();
     this.quizTime = endQuizTime - this.startQuizTime;
-    console.log('onDestroyQuiz', this.quizTime);
+    // console.log('onDestroyQuiz', this.quizTime);
     this.exhibitService.sendQuizTime(this.quizTime);
     this.firstQuestionOfRun = false;
 
@@ -217,7 +217,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     // Send quizendtime here
     const endQuizTime = new Date().getTime();
     this.quizTime = endQuizTime - this.startQuizTime;
-    console.log('DisconnectQuiz', this.quizTime);
+    // console.log('DisconnectQuiz', this.quizTime);
     this.exhibitService.sendQuizTime(this.quizTime);
     this.firstQuestionOfRun = false;
     this.exhibitService.disconnect();
@@ -302,7 +302,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   private createProgressbar() {
     const progressbar: HTMLElement = document.getElementById('progressbar') as HTMLElement;
-    console.log('createProgressbar', progressbar);
+    // console.log('createProgressbar', progressbar);
     const durationTime = '30s';
     progressbar.className = 'progressbar';
 
