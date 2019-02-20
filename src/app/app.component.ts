@@ -11,15 +11,12 @@ import { MatDialog, MatDialogConfig} from '@angular/material';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import {NativeSettingDialogComponent} from './components/native-setting-dialog/native-setting-dialog.component';
 import {AlertService} from './services/alert.service';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {Router} from '@angular/router';
 import {LocationService} from './services/location.service';
 import {TransmissionService} from './services/transmission.service';
 import {LanguageService} from './services/language.service';
 import * as languageTypes from './config/LanguageTypes';
 import {TranslateService} from '@ngx-translate/core';
-import { MainViewComponent } from './components/main-view/main-view.component';
-import { UtilityService } from './services/utility.service';
 
 @Component({
   selector: 'app-root',
@@ -40,8 +37,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptionNativeSettingCheckResult: Subscription;
   private subscriptionNativeBackbuttonTimelineResult: Subscription;
   private subscriptionNativeBackbuttonStartResult: Subscription;
-  private currentError: number;
-  private currentSuccess: number;
   private registerLocationmessage: any;
   public nativeSettingType: any;
   public language: string;
@@ -60,11 +55,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private alertService: AlertService,
     private transmissionService: TransmissionService,
-    public snackBar: MatSnackBar,
     public router: Router,
     private translate: TranslateService,
-    private languageService: LanguageService,
-    private utilityService: UtilityService
+    private languageService: LanguageService
   )
   {
     translate.setDefaultLang('en');
@@ -81,29 +74,10 @@ export class AppComponent implements OnInit, OnDestroy {
         // console.log('Guest '+state.user.isGuest);
       }
 
-      const errorMessage = state.errorMessage;
-      const successMessage = state.successMessage;
-
       if (this.currentToken !== token && token !== undefined)
       {
         this.nativeCommunicationService.sendToNative(token, 'saveToken');
         this.currentToken = token;
-      }
-
-      if (errorMessage && errorMessage.code !== this.currentError){
-        const config = new MatSnackBarConfig();
-        config.duration = 3000;
-        config.panelClass = ['error-snackbar'];
-        this.snackBar.open(errorMessage.message, 'OK', config);
-        this.currentError = errorMessage.code;
-      }
-
-      if (successMessage && successMessage.code !== this.currentSuccess){
-        const config = new MatSnackBarConfig();
-        config.duration = 3000;
-        config.panelClass = ['success-snackbar'];
-        this.snackBar.open(successMessage.message, 'OK', config);
-        this.currentSuccess = successMessage.code;
       }
     });
 

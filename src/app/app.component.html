@@ -4,8 +4,8 @@
 
 <div id="notConnectedToGod" *ngIf="!isConnectedToGod">
   <section>
-    <h1>Connection lost!</h1>
-    <h3>Please wait until the app reconnects to the server.</h3>
+    <h1>{{ 'app.connectionLostHeader' | translate }}</h1>
+    <h3>{{ 'app.connectionLostBody' | translate }}</h3>
   </section>
 </div>
 <div class="apptoolbar">
