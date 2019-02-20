@@ -81,7 +81,7 @@
     "quizQuestion": "What is the name of the student appearing here?",
     "quizRight": "Correct Answer!",
     "quizWrong": "Wrong Answer.",
-    "exhibitNotAvailable": "This exhibit is<br/>not available yet."
+    "exhibitNotAvailable": "This exhibit is not available."
   },
   "notifiyExhibit": {
     "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",

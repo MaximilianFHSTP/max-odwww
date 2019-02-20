@@ -3,6 +3,12 @@
   src: url("assets/fonts/Open_Sans/OpenSans-Regular.ttf");
 }
 
+#notConnectedToGod h1, h3{
+  color: #ffffff;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  margin: 20px;
+}
+
 #notConnectedToGod
 {
   height: 100%;
