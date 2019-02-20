@@ -76,6 +76,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       if(!this.firstQuestionOfRun){
         this.startQuizTime = new Date().getTime();
         this.firstQuestionOfRun = true;
+        this.exhibitService.getInitialUserCorrectPoints();
       }
       this.questionStartTime = new Date().getTime();
       this.waitingToStart = false;
