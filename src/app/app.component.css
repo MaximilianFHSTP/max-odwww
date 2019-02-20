@@ -69,7 +69,7 @@
   height: 50px;
   width: 50px;
   background-color: #494949;
-  background-image: url("assets/icons/menu.svg");
+  background-image: url("assets/css/menu.svg");
   background-position: center;
   background-size: 35px;
   background-repeat: no-repeat;
@@ -86,7 +86,7 @@
   width: 50px;
   background-color: #494949;
   margin: 20px 20px 0px 20px;
-  background-image: url("assets/icons/back.svg");
+  background-image: url("assets/css/back.svg");
   background-position: center;
   background-size: 50px;
 }

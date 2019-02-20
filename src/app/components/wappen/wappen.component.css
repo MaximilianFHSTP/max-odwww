@@ -147,23 +147,23 @@ h1{
 }
 
 .wappenSettingsNav_shield button{ 
-    background: url("../../../assets/icons/WappenIcons.png") -92px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -92px 0px;
 }
 
 .wappenSettingsNav_emblem button{ 
-    background: url("../../../assets/icons/WappenIcons.png") -185px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -185px 0px;
 }
 
 .wappenSettingsNav_helmet button{ 
-    background: url("../../../assets/icons/WappenIcons.png") -275px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -275px 0px;
 }
 
 .wappenSettingsNav_weapon button{ 
-    background: url("../../../assets/icons/WappenIcons.png") -365px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -365px 0px;
 }
 
 .wappenSettingsNav_color button{ 
-    background: url("../../../assets/icons/WappenIcons.png") -460px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -460px 0px;
 }
 
 .wappenSettingsNav ul li.selected button{ 
@@ -250,137 +250,137 @@ h1{
 
 
 .wappen .Mantle1{
-    background: url("assets/icons/Wappen/Mantle1.png") no-repeat;
+    background: url("assets/css/Mantle1.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Mantle2{
-    background: url("assets/icons/Wappen/Mantle2.png") no-repeat;
+    background: url("assets/css/Mantle2.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Mantle3{
-    background: url("assets/icons/Wappen/Mantle3.png") no-repeat;
+    background: url("assets/css/Mantle3.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Mantle4{
-    background: url("assets/icons/Wappen/Mantle4.png") no-repeat;
+    background: url("assets/css/Mantle4.png") no-repeat;
     background-size: 100%;
 }
 
 .wappen .Helmet1{
-    background: url("assets/icons/Wappen/Helmet1.png") no-repeat;
+    background: url("assets/css/Helmet1.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Helmet2{
-    background: url("assets/icons/Wappen/Helmet2.png") no-repeat;
+    background: url("assets/css/Helmet2.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Helmet3{
-    background: url("assets/icons/Wappen/Helmet3.png") no-repeat;
+    background: url("assets/css/Helmet3.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Helmet4{
-    background: url("assets/icons/Wappen/Helmet4.png") no-repeat;
+    background: url("assets/css/Helmet4.png") no-repeat;
     background-size: 100%;
 }
 
 .wappen .Helmet1.outline{
-    background: url("assets/icons/Wappen/Helmet1_outline.png") no-repeat;
+    background: url("assets/css/Helmet1_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Helmet2.outline{
-    background: url("assets/icons/Wappen/Helmet2_outline.png") no-repeat;
+    background: url("assets/css/Helmet2_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Helmet3.outline{
-    background: url("assets/icons/Wappen/Helmet3_outline.png") no-repeat;
+    background: url("assets/css/Helmet3_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Helmet4.outline{
-    background: url("assets/icons/Wappen/Helmet4_outline.png") no-repeat;
+    background: url("assets/css/Helmet4_outline.png") no-repeat;
     background-size: 100%;
 }
 
 .wappen .Shield1{
-    background: url("assets/icons/Wappen/Shield1.png") no-repeat;
+    background: url("assets/css/Shield1.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Shield2{
-    background: url("assets/icons/Wappen/Shield2.png") no-repeat;
+    background: url("assets/css/Shield2.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Shield3{
-    background: url("assets/icons/Wappen/Shield3.png") no-repeat;
+    background: url("assets/css/Shield3.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Shield4{
-    background: url("assets/icons/Wappen/Shield4.png") no-repeat;
+    background: url("assets/css/Shield4.png") no-repeat;
     background-size: 100%;
 }
 
 .wappen .Shield1.outline{
-    background: url("assets/icons/Wappen/Shield1_outline.png") no-repeat;
+    background: url("assets/css/Shield1_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Shield2.outline{
-    background: url("assets/icons/Wappen/Shield2_outline.png") no-repeat;
+    background: url("assets/css/Shield2_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Shield3.outline{
-    background: url("assets/icons/Wappen/Shield3_outline.png") no-repeat;
+    background: url("assets/css/Shield3_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Shield4.outline{
-    background: url("assets/icons/Wappen/Shield4_outline.png") no-repeat;
+    background: url("assets/css/Shield4_outline.png") no-repeat;
     background-size: 100%;
 }
 
 .wappen .Emblem1{
-    background: url("assets/icons/Wappen/Emblem1.png") no-repeat;
+    background: url("assets/css/Emblem1.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem2{
-    background: url("assets/icons/Wappen/Emblem2.png") no-repeat;
+    background: url("assets/css/Emblem2.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem3{
-    background: url("assets/icons/Wappen/Emblem3.png") no-repeat;
+    background: url("assets/css/Emblem3.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem4{
-    background: url("assets/icons/Wappen/Emblem4.png") no-repeat;
+    background: url("assets/css/Emblem4.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem5{
-    background: url("assets/icons/Wappen/Emblem5.png") no-repeat;
+    background: url("assets/css/Emblem5.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem6{
-    background: url("assets/icons/Wappen/Emblem6.png") no-repeat;
+    background: url("assets/css/Emblem6.png") no-repeat;
     background-size: 100%;
 }
 
 .wappen .Emblem1.outline{
-    background: url("assets/icons/Wappen/Emblem1_outline.png") no-repeat;
+    background: url("assets/css/Emblem1_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem2.outline{
-    background: url("assets/icons/Wappen/Emblem2_outline.png") no-repeat;
+    background: url("assets/css/Emblem2_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem3.outline{
-    background: url("assets/icons/Wappen/Emblem3_outline.png") no-repeat;
+    background: url("assets/css/Emblem3_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem4.outline{
-    background: url("assets/icons/Wappen/Emblem4_outline.png") no-repeat;
+    background: url("assets/css/Emblem4_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem5.outline{
-    background: url("assets/icons/Wappen/Emblem5_outline.png") no-repeat;
+    background: url("assets/css/Emblem5_outline.png") no-repeat;
     background-size: 100%;
 }
 .wappen .Emblem6.outline{
-    background: url("assets/icons/Wappen/Emblem6_outline.png") no-repeat;
+    background: url("assets/css/Emblem6_outline.png") no-repeat;
     background-size: 100%;
 }
 
@@ -514,92 +514,92 @@ h1{
 }
 
 .wappenSettings_shield .options .Shield1 button{ 
-    background: url("../../../assets/icons/Wappen/Shield1.png");
+    background: url("../../../assets/css/Shield1.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_shield .options .Shield2 button{ 
-    background: url("../../../assets/icons/Wappen/Shield2.png");
+    background: url("../../../assets/css/Shield2.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_shield .options .Shield3 button { 
-    background: url("../../../assets/icons/Wappen/Shield3.png");
+    background: url("../../../assets/css/Shield3.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_shield .options .Shield4 button{ 
-    background: url("../../../assets/icons/Wappen/Shield4.png");
+    background: url("../../../assets/css/Shield4.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_emblem .options .Emblem1 button{ 
-    background: url("../../../assets/icons/Wappen/Emblem1.png");
+    background: url("../../../assets/css/Emblem1.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_emblem .options .Emblem2 button{ 
-    background: url("../../../assets/icons/Wappen/Emblem2.png");
+    background: url("../../../assets/css/Emblem2.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_emblem .options .Emblem3 button { 
-    background: url("../../../assets/icons/Wappen/Emblem3.png");
+    background: url("../../../assets/css/Emblem3.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_emblem .options .Emblem4 button{ 
-    background: url("../../../assets/icons/Wappen/Emblem4.png");
+    background: url("../../../assets/css/Emblem4.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_emblem .options .Emblem5 button { 
-    background: url("../../../assets/icons/Wappen/Emblem5.png");
+    background: url("../../../assets/css/Emblem5.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_emblem .options .Emblem6 button{ 
-    background: url("../../../assets/icons/Wappen/Emblem6.png");
+    background: url("../../../assets/css/Emblem6.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_helmet .options .Helmet1 button{ 
-    background: url("../../../assets/icons/Wappen/Helmet1.png");
+    background: url("../../../assets/css/Helmet1.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_helmet .options .Helmet2 button{ 
-    background: url("../../../assets/icons/Wappen/Helmet2.png");
+    background: url("../../../assets/css/Helmet2.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_helmet .options .Helmet3 button { 
-    background: url("../../../assets/icons/Wappen/Helmet3.png");
+    background: url("../../../assets/css/Helmet3.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_helmet .options .Helmet4 button{ 
-    background: url("../../../assets/icons/Wappen/Helmet4.png");
+    background: url("../../../assets/css/Helmet4.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_weapon .options .Mantle1 button{ 
-    background: url("../../../assets/icons/Wappen/Mantle1.png");
+    background: url("../../../assets/css/Mantle1.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_weapon .options .Mantle2 button{ 
-    background: url("../../../assets/icons/Wappen/Mantle2.png");
+    background: url("../../../assets/css/Mantle2.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_weapon .options .Mantle3 button { 
-    background: url("../../../assets/icons/Wappen/Mantle3.png");
+    background: url("../../../assets/css/Mantle3.png");
     background-size: 70px 70px;
 }
 
 .wappenSettings_weapon .options .Mantle4 button{ 
-    background: url("../../../assets/icons/Wappen/Mantle4.png");
+    background: url("../../../assets/css/Mantle4.png");
     background-size: 70px 70px;
 }
 
@@ -689,7 +689,7 @@ h1{
 }
 
 .tasks .done p:before {
-    background-image: url("../../../assets/icons/lock_open-24px.svg");
+    background-image: url("../../../assets/css/lock_open-24px.svg");
     background-size: 16px 16px;
     display: inline-block;
     width: 18px; 
@@ -698,7 +698,7 @@ h1{
  }
 
 .tasks .locked p:before {
-    background-image: url("../../../assets/icons/lock-24px.svg");
+    background-image: url("../../../assets/css/lock-24px.svg");
     background-size: 16px 16px;
     display: inline-block;
     width: 18px; 
@@ -707,7 +707,7 @@ h1{
  }
 
  .options .locked + .locker{
-    background-image: url("../../../assets/icons/lock-24px.svg");
+    background-image: url("../../../assets/css/lock-24px.svg");
     background-size: 20px 20px;
     opacity: 1;
     width: 20px; 

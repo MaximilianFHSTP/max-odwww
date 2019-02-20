@@ -29,37 +29,37 @@ p{
 }
 
 #woodcut.Sec10{
-  background: url("../../../assets/img/woodcuts/Section1BG.png");
+  background: url("../../../assets/css/Section1BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #woodcut.Sec20{
-  background: url("../../../assets/img/woodcuts/Section2BG.png");
+  background: url("../../../assets/css/Section2BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #woodcut.Sec30{
-  background: url("../../../assets/img/woodcuts/Section3BG.png");
+  background: url("../../../assets/css/Section3BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #woodcut.Sec40{
-  background: url("../../../assets/img/woodcuts/Section4BG.png");
+  background: url("../../../assets/css/Section4BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #woodcut.Sec50{
-  background: url("../../../assets/img/woodcuts/Section5BG.png");
+  background: url("../../../assets/css/Section5BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 #woodcut.Sec60{
-  background: url("../../../assets/img/woodcuts/Section6BG.png");
+  background: url("../../../assets/css/Section6BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -131,7 +131,7 @@ p{
   position: absolute;
   bottom: 33px;
   right: 4.5px;
-  background-image: url("../../../assets/icons/WappenIcons.png");
+  background-image: url("../../../assets/css/WappenIcons.png");
   background-position: 27px -28px;
   background-size: 240px;
 }
@@ -140,7 +140,7 @@ p{
   position: absolute;
   bottom: 4.5px;
   right: 4.5px;
-  background-image: url("../../../assets/icons/WappenIcons.png");
+  background-image: url("../../../assets/css/WappenIcons.png");
   background-position: -3px -28px;
   background-size: 240px;
 }
@@ -217,7 +217,7 @@ p{
 }
 
 .wappenbutton{ 
-  background: url("../../../assets/icons/WappenIcons.png") 54px 48px;
+  background: url("../../../assets/css/WappenIcons.png") 54px 48px;
   background-size: 450px;
   margin: 90px 20px 0px 0px;
 }
@@ -229,7 +229,7 @@ p{
   right: 0;
   bottom: 110px;
   margin: 20px 20px 0px 0px;
-  background-image: url("../../../assets/icons/location.svg");
+  background-image: url("../../../assets/css/location.svg");
   background-position: center;
   background-size: 40px;
   background-repeat: no-repeat;
