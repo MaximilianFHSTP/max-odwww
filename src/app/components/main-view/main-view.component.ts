@@ -356,19 +356,19 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     if(secCode !== this.currentSection.toString()){
       this.displaySection(+secCode, true);
     }
-    scrollTo(id);
 
-    // const el = document.getElementById('exh_'+id);
-    // el.scrollIntoView({behavior:'smooth'});
+    this.scrollTo(+id);
   }
 
   scrollTo(id: number) {
-    // console.log('scr to' + id);
+    /* Previous implementation: worked on Android but not on iOS */
     // const el = document.getElementById('exh_'+id);
     // el.scrollIntoView({behavior:'smooth'});
 
+    /* Smooth scrolling as well for Safari / iOS */
     this.smoothScroll(id);
   }
+
   // sets timeout for scrolling
   scrollToTimeout(yPoint: number, duration: number) {
     setTimeout(() => {
@@ -376,6 +376,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }, duration);
     return;
   }
+
   /*
   ---------------------------------------------------------------------------
     Scroll functions to implement smooth scrolling as well for Safari / iOS
@@ -400,14 +401,14 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
     let timer = 0;
     if (stopY > startY) {
-        for (let i = startY; i < stopY; i += step) {
-            this.scrollToTimeout(leapY, timer * speed);
-            leapY += step; 
-            if (leapY > stopY) {
-              leapY = stopY; 
-              timer++;
-            }
-        } return;
+      for (let i = startY; i < stopY; i += step) {
+          this.scrollToTimeout(leapY, timer * speed);
+          leapY += step; 
+          if (leapY > stopY) {
+            leapY = stopY; 
+            timer++;
+          }
+      } return;
     }
 
     for (let i = startY; i > stopY; i -= step) {
@@ -418,6 +419,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
           timer++;
         } 
     }
+
   }
 
   /*
