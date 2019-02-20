@@ -299,11 +299,11 @@ h1{
     background: url("assets/css/Helmet4_outline.png") no-repeat;
     background-size: 100%;
 }
-
-.wappen .Shield1{
+/* test svg vajo */
+/*.wappen .Shield1{
     background: url("assets/css/Shield1.png") no-repeat;
     background-size: 100%;
-}
+}*/
 .wappen .Shield2{
     background: url("assets/css/Shield2.png") no-repeat;
     background-size: 100%;
@@ -316,11 +316,11 @@ h1{
     background: url("assets/css/Shield4.png") no-repeat;
     background-size: 100%;
 }
-
-.wappen .Shield1.outline{
+/* test svg vajo */
+/*.wappen .Shield1.outline{
     background: url("assets/css/Shield1_outline.png") no-repeat;
     background-size: 100%;
-}
+}*/
 .wappen .Shield2.outline{
     background: url("assets/css/Shield2_outline.png") no-repeat;
     background-size: 100%;
@@ -630,7 +630,7 @@ h1{
 .wappenSettings .options .unlocked{ 
     opacity: 0.6;
 }
-
+/*
 .wappen .Color1{
     filter: invert(88%) sepia(88%) saturate(6586%) hue-rotate(290deg) brightness(101%) contrast(100%);
 }
@@ -669,7 +669,7 @@ h1{
 
 .wappen .Color5dark{
     filter: invert(20%) sepia(0%) saturate(55%) hue-rotate(239deg) brightness(104%) contrast(91%);
-}
+}*/
 
 /* Scroll for emblem buttons */
 .wappenSettings_emblem .overflowWrapper{
@@ -725,10 +725,17 @@ div::-webkit-scrollbar-thumb {
     background: #CCC;
 }
 
+.wappen_shield svg{
+    width: 100%;
+    margin-top: -27%;
+}
+
 @media (max-width: 350px) {
     .toolbar .savebutton p{
         display: none;
     }
+
+    
 }
 
 @media (min-height: 750px) {
@@ -767,6 +774,11 @@ div::-webkit-scrollbar-thumb {
     .wappen_shield{
         margin-top: -290px;
         margin-left: 7%;
+    }
+
+    .wappen_shield svg{
+        width: 100%;
+        margin-top: -49%;
     }
 
     .wappen_weapon{

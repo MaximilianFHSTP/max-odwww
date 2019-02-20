@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Injectable, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, AfterViewInit, Injectable, OnDestroy } from '@angular/core';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { Unsubscribe} from 'redux';
 import { AlertService } from '../../services/alert.service';
@@ -8,13 +8,14 @@ import { TransmissionService } from '../../services/transmission.service';
 import { LanguageService } from '../../services/language.service';
 import * as coaTypes from '../../config/COATypes';
 import { CoaService } from '../../services/coa.service';
+import * as d3 from 'd3';
 
 @Component({
   selector: 'app-wappen',
   templateUrl: './wappen.component.html',
   styleUrls: ['./wappen.component.css']
 })
-export class WappenComponent implements OnInit, OnDestroy {
+export class WappenComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly _unsubscribe: Unsubscribe;
   private registerLocationmessage: any;
   private subscriptionBack: Subscription;
@@ -95,6 +96,11 @@ export class WappenComponent implements OnInit, OnDestroy {
     this.coaService.setColorSecondary = this.user.secondaryColor;
   }
 
+  ngAfterViewInit(){
+    d3.selectAll('.svgPrimary').attr('fill', '#cccccc');
+    d3.selectAll('.svgSecondary').attr('fill', '#333333');
+  }
+
   ngOnDestroy() {
     this._unsubscribe();
     if (this.subscriptionBack){
@@ -154,11 +160,49 @@ export class WappenComponent implements OnInit, OnDestroy {
   selectPrimaryColor(color: string){
     this.setColorPrimary = color.toString();
     this.saveBtnActive = true;
+
+    // d3.selectAll('.svgPrimary').attr('fill', '#cccccc');
+    switch(this.setColorPrimary){
+      case 'Color1': 
+        d3.selectAll('.svgPrimaryDark').attr('fill', '#7e0200');
+        d3.selectAll('.svgPrimary').attr('fill', '#ffb1af'); break;
+      case 'Color2': 
+        d3.selectAll('.svgPrimaryDark').attr('fill', '#202a3d');
+        d3.selectAll('.svgPrimary').attr('fill', '#7a9fed'); break;
+      case 'Color3': 
+        d3.selectAll('.svgPrimaryDark').attr('fill', '#002e03');
+        d3.selectAll('.svgPrimary').attr('fill', '#8ee594'); break;
+      case 'Color4': 
+        d3.selectAll('.svgPrimaryDark').attr('fill', '#895c00');
+        d3.selectAll('.svgPrimary').attr('fill', '#ffc152'); break;
+      case 'Color5': 
+        d3.selectAll('.svgPrimaryDark').attr('fill', '#3c3c3c');
+        d3.selectAll('.svgPrimary').attr('fill', '#a3a3a3'); break;
+    }
+    
   }
 
   selectSecondaryColor(color: string){
     this.setColorSecondary = color.toString();
     this.saveBtnActive = true;
+
+    switch(this.setColorSecondary){
+      case 'Color1': 
+        d3.selectAll('.svgSecondaryDark').attr('fill', '#7e0200');
+        d3.selectAll('.svgSecondary').attr('fill', '#ffb1af'); break;
+      case 'Color2': 
+        d3.selectAll('.svgSecondaryDark').attr('fill', '#202a3d');
+        d3.selectAll('.svgSecondary').attr('fill', '#7a9fed'); break;
+      case 'Color3': 
+        d3.selectAll('.svgSecondaryDark').attr('fill', '#002e03');
+        d3.selectAll('.svgSecondary').attr('fill', '#8ee594'); break;
+      case 'Color4': 
+        d3.selectAll('.svgSecondaryDark').attr('fill', '#895c00');
+        d3.selectAll('.svgSecondary').attr('fill', '#ffc152'); break;
+      case 'Color5': 
+        d3.selectAll('.svgSecondaryDark').attr('fill', '#3c3c3c');
+        d3.selectAll('.svgSecondary').attr('fill', '#a3a3a3'); break;
+    }
   }
 
   displaySettings(id: string){
