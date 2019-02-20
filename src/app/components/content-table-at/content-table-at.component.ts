@@ -10,6 +10,7 @@ import { NativeCommunicationService } from '../../services/native/native-communi
 import {Subscription} from 'rxjs';
 import {TransmissionService} from '../../services/transmission.service';
 import {LanguageService} from '../../services/language.service';
+import * as locationTypes from '../../config/LocationTypes';
 
 @Component({
   selector: 'app-content-table-at',
@@ -87,6 +88,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.nativeCommunicationService.sendToNative('TABLE-AT', 'print');
 
     this.location = this.locationService.currentLocation.value;
+    this.checkIfRedirected();
     this.locationName = this.location.description;
     this.locationId = this.location.id;
     this.locationStatusFree = false;
@@ -102,6 +104,20 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this._statusTimerSubscription = this.checkStatusTimer.subscribe(() => {
       this.godService.checkLocationStatus(this.locationId);
     });
+  }
+
+  checkIfRedirected(){
+    // If not on Table at...
+    if(this.location.locationTypeId !== locationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT){
+      this.locationStatusOffline = true;
+
+      // If coming from Table on, send to parent
+      if(this.location.locationTypeId === locationTypes.ACTIVE_EXHIBIT_BEHAVIOR_ON){
+        const mMinor = this.location.parentId;
+        const mMajor = +(this.location.parentId.toString().substr(0,2));
+        this.transmissionService.transmitLocationRegister({minor: mMinor, major: mMajor});
+      }
+    }
   }
 
   ngOnDestroy() {
@@ -136,22 +152,15 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   }
 
   getSectionIcon(sectionId: number){
+    // console.log(sectionId);
     let icon = '';
     this.sectionList.forEach((section) => {
       if(section.code === sectionId){
         icon = section.icon;
       }
     });
-
+    // console.log(icon);
     return icon;
-  }
-
-  enterQuiz(){
-    this.router.navigate(['quiz']).then( () =>
-      {
-        this.nativeCommunicationService.sendToNative('Quiz', 'print');
-      }
-    );
   }
 
   // saves ID of current exhibit in localstorage

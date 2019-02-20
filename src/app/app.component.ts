@@ -46,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public nativeSettingType: any;
   public language: string;
   public guest: boolean;
+  public isConnectedToGod: boolean;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -72,6 +73,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       const token = state.token;
+
+      this.isConnectedToGod = state.isConnectedToGod;
 
       if(state.user !== undefined){
         this.guest = state.user.isGuest;
@@ -245,6 +248,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dismissMenu();
     this.router.navigate(['registerRealUser']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Register as real user', 'print');
       }
     );
@@ -276,6 +280,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dismissMenu();
     this.router.navigate(['changecred']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('User Credentials', 'print');
       }
     );
@@ -284,6 +289,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public userCoA(){
     this.router.navigate(['wappen']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
       }
     );
@@ -293,6 +299,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dismissMenu();
     this.router.navigate(['about']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('About', 'print');
       }
     );
@@ -302,6 +309,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dismissMenu();
     this.router.navigate(['legal']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Legal', 'print');
       }
     );

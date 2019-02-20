@@ -10,7 +10,7 @@
 <ng-container  *ngFor="let loc of currentEntrance" >
   <div *ngIf="loc.parentId == currentSection" [className]="isClose(loc.id) ? 'near card title lck'+loc.locked+' Sec'+loc.parentId : 'card title lck'+loc.locked+' Sec'+loc.parentId" 
   id="exh_{{loc.id}}" (click)="requestRegisterLocation(loc.id, loc.parentId, loc.locked)">
-    <img src="assets/icons/Timeline/{{getSectionIcon(currentSection)}}.png" />
+    <div class="image"></div>
     <h1>{{loc.titleGER }}</h1>
   </div>
 </ng-container>
@@ -21,7 +21,7 @@
   id="exh_{{loc.id}}" (click)="requestRegisterLocation(loc.id, loc.parentId, loc.locked)">
     <div class="wrapIcon">
       <div class="coaIcon" *ngIf="loc.unlockCoa"></div>
-      <div class="actIcon" *ngIf="loc.locationTypeId == 3 || loc.locationTypeId == 6"></div>
+      <div class="actIcon" *ngIf="loc.locationTypeId == 3 || loc.locationTypeId == 6 || loc.locationTypeId == 8 || loc.locationTypeId == 9"></div>
     </div>
     <p class="timespan">{{loc.startDate}} - {{loc.endDate}}</p>
     <h2>{{loc.titleGER }}</h2>
@@ -30,22 +30,20 @@
 
 <div class="timelineSectionNav selected_Section{{currentSection}}">
   <ul>
-    <li class="Sec10"><button (click)="displaySection(10, false)"><img src="assets/icons/Timeline/Trumpet.png" /></button></li>
-    <li class="Sec20"><button (click)="displaySection(20, false)"><img src="assets/icons/Timeline/DocumentSword.png" /></button></li>
-    <li class="Sec30"><button (click)="displaySection(30, false)"><img src="assets/icons/Timeline/Maximilian.png" /></button></li>
-    <li class="Sec40"><button (click)="displaySection(40, false)"><img src="assets/icons/Timeline/Veil.png" /></button></li>
-    <li class="Sec50"><button (click)="displaySection(50, false)"><img src="assets/icons/Timeline/Shrine.png" /></button></li>
-    <li class="Sec60"><button (click)="displaySection(60, false)"><img src="assets/icons/Timeline/Tombstone.png" /></button></li>
+    <li class="Sec10"><button (click)="displaySection(10, false)"></button></li>
+    <li class="Sec20"><button (click)="displaySection(20, false)"></button></li>
+    <li class="Sec30"><button (click)="displaySection(30, false)"></button></li>
+    <li class="Sec40"><button (click)="displaySection(40, false)"></button></li>
+    <li class="Sec50"><button (click)="displaySection(50, false)"></button></li>
+    <li class="Sec60"><button (click)="displaySection(60, false)"></button></li>
   </ul>
 </div> 
 
 <div class="webdevtools" *ngIf="isWeb">
-  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableAt()">1000/10</button>
-  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableAtBehavior()">301/30</button>
-  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationPassive()">102/10</button>
-  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTableOn()">2002/20</button>
-  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationQuiz()">Quiz</button>
-  <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterNotifyLocation()">502/50</button>
+  <ng-container  *ngFor="let loc of timelineLocations" >
+    <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTest(loc.id, loc.parentId)">{{loc.id}}/{{loc.parentId}}</button>
+  </ng-container>
+
   <button mat-raised-button class="control-button" color="secondary" (click)="checkWifiForWeb()">Check Wifi SSID</button>
 </div>
 

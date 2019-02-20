@@ -115,7 +115,7 @@ export class ExhibitService {
   private startAutoResponder()
   {
     this.socket.connection.on('exhibitStatusCheck', () => {
-      console.log('AutoResponderCheck');
+      // console.log('AutoResponderCheck');
       this.utilitiesService.sendToNative('AutoResponderCheck', 'print');
       const user = this.appStore.getState().user;
       this.socket.connection.emit('exhibitStatusCheckResult', user);

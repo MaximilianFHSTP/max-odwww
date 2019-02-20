@@ -57,7 +57,7 @@ export class WappenComponent implements OnInit, OnDestroy {
   ){
     this._unsubscribe = this.appStore.subscribe(() =>{
       const state = this.appStore.getState();
-      console.log(state.user);
+      // console.log(state.user);
     });
 
     this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
@@ -192,8 +192,11 @@ export class WappenComponent implements OnInit, OnDestroy {
   }
 
   public saveCoa(){
+    if(this.saveBtnActive)
+    {
     this.coaService.saveMyCoa(this.setShield, this.setEmblem, this.setHelmet, this.setWeapon, this.setColorPrimary, this.setColorSecondary);
     this.saveBtnActive = false;
+    } 
   }
 
   public closeWindow(){

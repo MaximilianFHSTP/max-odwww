@@ -18,6 +18,7 @@ const initialState = {
   closestExhibit: undefined,
   locationScanning: true,
   isLoggedIn: false,
+  isConnectedToGod: false,
   language: 1
 };
 
@@ -119,6 +120,12 @@ export function rootReducer(state = initialState, action)
       return {
         ...state,
         language: action.language
+      };
+
+    case StatusActions.CHANGE_IS_CONNECTED_TO_GOD:
+      return {
+        ...state,
+        isConnectedToGod: action.isConnectedToGod
       };
 
     default:

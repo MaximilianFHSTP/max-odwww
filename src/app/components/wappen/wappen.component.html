@@ -1,12 +1,15 @@
-<div class="wrapper">
+<div class="wrapper wappen-wrapper">
   <div class="toolbar">
-      <button class="helpbutton" (click)="displayHelp()"><mat-icon>help</mat-icon></button>
-      <button [className]="saveBtnActive ? 'savebutton active' : 'savebutton'" (click)="saveCoa()">{{ 'coa.save' | translate }}</button>
-      <button class="closebutton" (click)="closeWindow()"><mat-icon>close</mat-icon></button>
+      <button class="helpbutton" (click)="displayHelp()"><img src="assets/icons/help.svg"></button>
+      <button [className]="saveBtnActive ? 'savebutton active' : 'savebutton'" (click)="saveCoa()">
+            <div><img src="assets/icons/save.svg"></div>
+            <p>{{ 'coa.save' | translate }}</p>
+        </button>
+      <button class="closebutton" (click)="closeWindow()"><img src="assets/icons/closewhite.svg"></button>
   </div> 
 
   <div class="wappenHelp" *ngIf="showHelp">
-      <mat-icon (click)="closeHelp()">close</mat-icon>
+        <img (click)="closeHelp()" src="assets/icons/close.svg">
       <h2>{{ 'coa.helpTitle' | translate }}</h2>
       <p>{{ 'coa.helpText' | translate }}</p>
   </div> 
@@ -15,27 +18,34 @@
   <h1>{{ 'coa.title' | translate }}<br/>{{user.name}}</h1>
 
   <div class="wappen">
-      <div class="wappen_weapon">
-          <img *ngIf="setWeapon != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setWeapon}}.png" />
+      <div class="wappen_weapon {{setColorPrimary}}dark {{setWeapon}}">
+          <!--<img *ngIf="setWeapon != ''" class="" src="assets/icons/Wappen/{{setWeapon}}.png" />-->
       </div>
-      <div class="wappen_helmet">
-          <img *ngIf="setHelmet != ''" class="{{setColorSecondary}}" src="assets/icons/Wappen/{{setHelmet}}.png" />
-          <img *ngIf="setHelmet != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setHelmet}}_outline.png" />
+      <div *ngIf="setHelmet != ''" class="wappen_helmet {{setColorSecondary}} {{setHelmet}}">
+          <!--<img *ngIf="setHelmet != ''" class="{{setColorSecondary}}" src="assets/icons/Wappen/{{setHelmet}}.png" />
+          <img *ngIf="setHelmet != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setHelmet}}_outline.png" />-->
       </div> 
-      <div class="wappen_shield">
-          <img *ngIf="setShield != ''" class="{{setColorPrimary}}" src="assets/icons/Wappen/{{setShield}}.png" />
-          <img *ngIf="setShield != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setShield}}_outline.png" />
-      </div> 
-      <div class="wappen_emblem">
-          <img *ngIf="setEmblem != ''" class="{{setColorSecondary}}" src="assets/icons/Wappen/{{setEmblem}}.png" />
-          <img *ngIf="setEmblem != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setEmblem}}_outline.png" />
+      <div *ngIf="setHelmet != ''" class="wappen_helmet outline {{setColorPrimary}}dark {{setHelmet}}">
+
       </div>
+      <div *ngIf="setShield != ''" class="wappen_shield {{setColorPrimary}} {{setShield}}">
+          <!--<img *ngIf="setShield != ''" class="{{setColorPrimary}}" src="assets/icons/Wappen/{{setShield}}.png" />
+          <img *ngIf="setShield != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setShield}}_outline.png" />-->
+      </div> 
+      <div *ngIf="setShield != ''" class="wappen_shield outline {{setColorPrimary}}dark {{setShield}}">
+
+      </div>
+      <div *ngIf="setEmblem != ''" class="wappen_emblem {{setColorSecondary}} {{setEmblem}}">
+          <!--<img *ngIf="setEmblem != ''" class="{{setColorSecondary}}" src="assets/icons/Wappen/{{setEmblem}}.png" />
+          <img *ngIf="setEmblem != ''" class="{{setColorPrimary}}dark" src="assets/icons/Wappen/{{setEmblem}}_outline.png" />-->
+      </div>
+      <div *ngIf="setEmblem != ''" class="wappen_emblem outline {{setColorPrimary}}dark {{setEmblem}}"></div>
   </div>
 
   <div class="wappenSettings" *ngIf="showSettings">
 
       <div class="wappenSettings_shield" *ngIf="settingsContent == 'shield'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.shield' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
@@ -55,7 +65,7 @@
       </div>
 
       <div class="wappenSettings_emblem" *ngIf="settingsContent == 'emblem'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.charge' | translate }}</h2>
           <div class="overflowWrapper">
               <ul class="options">
@@ -76,7 +86,7 @@
           </ul>
       </div>
       <div class="wappenSettings_helmet" *ngIf="settingsContent == 'helmet'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.helmet' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
@@ -96,7 +106,7 @@
           </ul>
       </div>
       <div class="wappenSettings_weapon" *ngIf="settingsContent == 'weapon'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.mantle' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
@@ -116,7 +126,7 @@
           </ul>
       </div>
       <div class="wappenSettings_color" *ngIf="settingsContent == 'color'">
-          <mat-icon (click)="closeWappenSettings()">close</mat-icon>
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
           <h2>{{ 'coa.colors' | translate }}</h2>
           <p>{{ 'coa.primColor' | translate }}</p>
           <ul class="primary">

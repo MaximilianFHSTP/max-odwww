@@ -62,7 +62,7 @@ export class ChangeCredentialsComponent implements OnInit
         const config = new MatSnackBarConfig();
         config.duration = 3000;
         config.panelClass = ['success-snackbar'];
-        this.snackBar.open('You changed your credentials successfully', 'OK', config);
+        this.snackBar.open(this.translate.instant('changeCredentials.credentialsChanged'), 'OK', config);
       }else{
         this.wrongCredChange = true;
       }
@@ -112,7 +112,7 @@ export class ChangeCredentialsComponent implements OnInit
     this.changeName = state.user.name;
     this.oldPassword = '';
     this.changeEmail = state.user.email;
-    console.log('cred name ' + this.changeName + ' email ' + this.changeEmail);
+    // console.log('cred name ' + this.changeName + ' email ' + this.changeEmail);
 
     this.nameFormControl = new FormControl(this.changeName, /*[Validators.required]*/);
     this.emailFormControl = new FormControl(this.changeEmail, /*[Validators.required]*/);
@@ -136,16 +136,17 @@ export class ChangeCredentialsComponent implements OnInit
   getPasswordErrorMessage() {
     return this.newPasswordFormControl.hasError('required') ? 'You must enter a value' :
     this.newPasswordFormControl.hasError('pattern') ?
-    'Please use at least 6 characters with at least 1 upper case, 1 lower case, ' +
-    '1 number and 1 special character! Example: ! $ § % & / ( ) = ?' : '';
+    this.translate.instant('changeCredentials.infoPassword1') + 
+    this.translate.instant('changeCredentials.infoPassword2') : '';
   }
   getConfirmPasswordErrorMessage() {
 
-    return this.newConfirmPasswordFormControl.hasError('required') ? 'You must enter a value' :
-    this.newConfirmPasswordFormControl.hasError('matchingpassword') ? 'The password is not the same' : 'The password is not the same';
+    return this.newConfirmPasswordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
+    this.newConfirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') : 
+    this.translate.instant('changeCredentials.notSamePassword');
   }
   getRequiredErrorMessage(field) {
-    return this.changeForm.get(field).hasError('required') ? 'You must enter a value' : '';
+    return this.changeForm.get(field).hasError('required') ? this.translate.instant('changeCredentials.enterValue') : '';
   }
 
 
@@ -172,17 +173,17 @@ export class ChangeCredentialsComponent implements OnInit
       if(result === 'confirm'){
         this.transmissionService.deleteUserAccount();
       }else{
-        console.log('Account NOT deleted!');
+        // console.log('Account NOT deleted!');
       }
     });
   }
 
   getCredChangeErrorMessage(field) {
-    return 'The credentials were not changed correctly.';
+    return this.translate.instant('changeCredentials.credentialsNotChanged');
   }
 
   getCredChangeExistingCred(field) {
-    return 'These credentials are already taken.';
+    return this.translate.instant('changeCredentials.credentialsTaken');
   }
 
   public useLanguage(language: string) {
