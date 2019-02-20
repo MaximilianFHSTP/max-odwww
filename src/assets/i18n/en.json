@@ -44,7 +44,7 @@
   "tableAt": {
     "welcomeText": "Welcome at",
     "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
-    "tableOfflineText": "Sorry an error occurred. Therefore, the display is currently not available!",
+    "tableOfflineText": "The display is currently not available!",
     "tableFreeText": "The display is free",
     "tableOccupiedText": "Sorry, the display is occupied. Please try again later",
     "tableJoinButton": "Join interactive exhibit",
