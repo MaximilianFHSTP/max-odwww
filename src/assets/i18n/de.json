@@ -6,7 +6,9 @@
     "menuAbout": "ÜBER",
     "menuLogout": "AUSLOGGEN",
     "cancel": "abbrechen",
-    "confirm": "bestätigen"
+    "confirm": "bestätigen",
+    "connectionLostHeader": "Verbindung verloren!",
+    "connectionLostBody": "Bitte warten Sie bis die Verbindung wieder hergestellt werden konnte."
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",

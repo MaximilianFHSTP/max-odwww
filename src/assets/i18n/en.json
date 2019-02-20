@@ -6,7 +6,9 @@
     "menuAbout": "ABOUT",
     "menuLogout": "LOGOUT",
     "cancel": "cancel",
-    "confirm": "confirm"
+    "confirm": "confirm",
+    "connectionLostHeader": "Connection lost!",
+    "connectionLostBody": "Please wait until the app reconnects to the server."
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",

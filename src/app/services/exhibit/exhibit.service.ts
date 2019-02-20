@@ -150,6 +150,12 @@ export class ExhibitService {
     this.socket.connection.emit('updateUserAnswerTable', data);
   }
 
+  public getInitialUserCorrectPoints(){
+    const user = this.appStore.getState().user;
+    const data = {userId: user.id};
+    this.socket.connection.emit('initialUserAnsweredCorrect', data);
+  }
+
   public getUserCorrectPoints(){
     this.socket.connection.on('updateUserCorrectPoints', (data) =>{
       this.alertSerivce.sendCorrectPoints(data);
