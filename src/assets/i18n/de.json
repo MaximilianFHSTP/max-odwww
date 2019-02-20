@@ -44,7 +44,7 @@
   "tableAt": {
     "welcomeText": "Willkommen bei",
     "interactiveExhibitMsg": "Dies ist eine interaktives Objekt. Klicke auf die Schaltfläche unten, um zu beginnen!",
-    "tableOfflineText": "Das Display steht zur Zeit nicht zur Verfügung!",
+    "tableOfflineText": "Das Display steht zur Zeit nicht zur Verfügung.",
     "tableFreeText": "Das Display ist frei.",
     "tableOccupiedText": "Das Display ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",
