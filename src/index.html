@@ -40,6 +40,12 @@
        window.angularComponentRef.componentFn("update_location",beacon);
      };
 
+     // call from native
+     // gets native language, sets language
+     window.send_language = function(language){
+       console.log("call from native: send_language" + language);
+       window.angularComponentRef.componentFn("send_language",language);
+     };
 
      // call from native
      // gets deviceInfos, calls registerOD

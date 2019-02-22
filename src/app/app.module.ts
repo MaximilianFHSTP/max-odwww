@@ -20,6 +20,8 @@ import {AlertService} from './services/alert.service';
 import {LocationService} from './services/location.service';
 import {TransmissionService} from './services/transmission.service';
 import {CoaService} from './services/coa.service';
+import { LanguageService } from './services/language.service';
+import * as languageTypes from './config/LanguageTypes';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -163,7 +165,8 @@ export class AppModule {
     private zone: NgZone,
     private nativeResponseService: NativeResponseService,
     private nativeCommunicationService: NativeCommunicationService,
-    public router: Router
+    public router: Router,
+    private languageService: LanguageService
   ) {
 
     winRef.nativeWindow.angularComponentRef = {
@@ -201,6 +204,21 @@ export class AppModule {
       }
       case 'send_bluetooth_check': {
         this.nativeResponseService.checkBluetooth();
+        break;
+      }
+      case 'send_language': {
+        console.log('go');
+        // set language to english if not german if no user
+        /*switch (value) {
+          case 'de':
+            // this.language = 'de';
+            this.languageService.transmitChangeAppLanguage(languageTypes.DE);
+            break;
+          default:
+            // this.language = 'en';
+            this.languageService.transmitChangeAppLanguage(languageTypes.ENG);
+            break;
+        }*/
         break;
       }
       case 'back_button_pressed': {

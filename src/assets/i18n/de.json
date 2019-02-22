@@ -8,7 +8,7 @@
     "cancel": "abbrechen",
     "confirm": "bestätigen",
     "connectionLostHeader": "Verbindung verloren!",
-    "connectionLostBody": "Bitte warten Sie bis die Verbindung wieder hergestellt werden konnte."
+    "connectionLostBody": "Bitte warte bis die Verbindung wieder hergestellt werden konnte."
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",
@@ -24,11 +24,11 @@
     "username": "Nutzername",
     "password": "Passwort",
     "btnSave": "Weiter",
-    "enterValue": "Bitte gib einen Wert ein.",
+    "enterValue": "Bitte gib einen Wert ein!",
     "credentialsNotMatch": "Diese Zugangsdaten stimmen nicht überein."
   },
   "register": {
-    "title": "Bitte wähle einen Benutzernamen und ein Passwort.",
+    "title": "Bitte wähle einen Benutzernamen und ein Passwort!",
     "username": "Nutzername",
     "email": "Email",
     "password": "Passwort",
@@ -50,8 +50,8 @@
     "tableFreeText": "Das Display ist frei.",
     "tableOccupiedText": "Das Display ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",
-    "beaconPutText": "Bitte lege Dein Handy auf ein Beacon am Display.",
-    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei!"
+    "beaconPutText": "Bitte lege Dein Handy auf ein Beacon am Display!",
+    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei."
   },
   "quiz": {
     "pleaseWait" : "Bitte warte, bis die Frage aufgelöst wird!",
@@ -78,7 +78,7 @@
   "interactiveExhibit": {
     "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche unten, um zu beginnen!",
     "startButton": "Starten",
-    "notAtLocation": "Gehe zum Ausstellungsstück, um die interaktiven Inhalt zu starten!",
+    "notAtLocation": "Gehe zum Ausstellungsstück, um den interaktiven Inhalt zu starten!",
     "quizQuestion": "Wie heißt der hier aufscheinende Student mit Vornamen?",
     "quizRight": "Korrekte Antwort!",
     "quizWrong": "Falsche Antwort.",
@@ -95,7 +95,7 @@
   "notifiyExhibitOn": {
     "disconnectButton": "Zum Beenden drücken",
     "connectedMsg": "Verbunden",
-    "connectionMsg": "Nutze nun das Tablet, um mit dem Ausstellungsstück zu interagieren.",
+    "connectionMsg": "Nutze nun das Display, um mit dem Ausstellungsstück zu interagieren.",
     "disconnectInfo": "Um die interaktive Exploration zu beenden, drücke den Button unten."
   },
   "coa": {
@@ -103,7 +103,7 @@
     "helpTitle": "Dein Wappen",
     "helpText": "Du kannst hier Dein persönliches Wappen erstellen, indem Du aus den folgenden Teilen auswählst. Du kannst weitere Teile freischalten, indem Du Aufgaben in der Ausstellung löst!",
     "shield": "Schild",
-    "charge": "Gemeinen Figur",
+    "charge": "Figur",
     "helmet": "Helm",
     "mantle": "Helmdecke",
     "colors": "Farben",
@@ -129,7 +129,7 @@
     "btnCancel": "Abbrechen",
     "credentialsChanged": "Du hast Deine Anmeldeinformationen erfolgreich geändert.",
     "OK": "OK",
-    "enterValue": "Bitte gib einen Wert ein.",
+    "enterValue": "Bitte gib einen Wert ein!",
     "infoPassword1": "Bitte verwende mindestens 6 Zeichen mit mindestens 1 Großbuchstaben, 1 Kleinbuchstaben, ",
     "infoPassword2": "1 Ziffer und 1 Sonderzeichen! Beispiel: ! $ § % & / ( ) = ?",
     "notSamePassword": "Das Passwort ist nicht dasselbe.",

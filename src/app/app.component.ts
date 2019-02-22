@@ -101,6 +101,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.requestCheckedPlatform();
     this.getTokenForAutoLogin();
+
+    // call for native language
+    this.nativeCommunicationService.sendToNative('getLanguage', 'getLanguage');
   }
 
   openDialog() {
