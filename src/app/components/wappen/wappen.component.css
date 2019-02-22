@@ -303,7 +303,7 @@ h1{
 /*.wappen .Shield1{
     background: url("assets/css/Shield1.png") no-repeat;
     background-size: 100%;
-}*/
+}
 .wappen .Shield2{
     background: url("assets/css/Shield2.png") no-repeat;
     background-size: 100%;
@@ -315,12 +315,12 @@ h1{
 .wappen .Shield4{
     background: url("assets/css/Shield4.png") no-repeat;
     background-size: 100%;
-}
+}*/
 /* test svg vajo */
 /*.wappen .Shield1.outline{
     background: url("assets/css/Shield1_outline.png") no-repeat;
     background-size: 100%;
-}*/
+}
 .wappen .Shield2.outline{
     background: url("assets/css/Shield2_outline.png") no-repeat;
     background-size: 100%;
@@ -332,7 +332,7 @@ h1{
 .wappen .Shield4.outline{
     background: url("assets/css/Shield4_outline.png") no-repeat;
     background-size: 100%;
-}
+}*/
 
 .wappen .Emblem1{
     background: url("assets/css/Emblem1.png") no-repeat;
