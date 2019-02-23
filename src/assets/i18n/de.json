@@ -54,6 +54,9 @@
     "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei!"
   },
   "quiz": {
+    "title": "Maximilians Audienz",
+    "content": "Tippe in das Eingabefeld, um den Namen zu ändern, oder tippe auf SPIELEN, um sofort in das Spiel einzusteigen.",
+    "btnPlay": "SPIELEN",
     "pleaseWait" : "Bitte warte, bis die Frage aufgelöst wird!",
     "waitNext" : "Bitte warte auf die nächste Frage!",
     "none": "keine",

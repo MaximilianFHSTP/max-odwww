@@ -11,6 +11,8 @@ import {Subscription} from 'rxjs';
 import {TransmissionService} from '../../services/transmission.service';
 import {LanguageService} from '../../services/language.service';
 import * as locationTypes from '../../config/LocationTypes';
+import * as languageTypes from '../../config/LanguageTypes';
+import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'app-content-table-at',
@@ -28,6 +30,8 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   public locationStatusOffline: boolean;
   public locationType: number;
   public isJoinButtonUnlocked: boolean;
+  public language: string;
+  public openLangScreen = false;
 
   private checkStatusTimer: any;
   public isWeb: boolean;
@@ -38,14 +42,10 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   private _statusTimerSubscription;
   private _curLocSubscribe: Subscription;
   private navigationSubscription: Subscription;
-  sectionList = [
-    {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
-    {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
-    {code: 30, icon: 'Maximilian', primaryColor: '#755300', secondaryColor: '#906e1b'},
-    {code: 40, icon: 'Veil', primaryColor: '#1d635d', secondaryColor: '#3c7f7a'},
-    {code: 50, icon: 'Shrine', primaryColor: '#5c416a', secondaryColor: '#785d86'},
-    {code: 60, icon: 'Tombstone',  primaryColor: '#32633a', secondaryColor: '#4c7d54'}
-  ];
+
+  changeName = '';
+  private changeForm: FormGroup;
+  private nameFormControl: FormControl;
 
   constructor(
     private godService: GodService,
@@ -60,6 +60,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
+      this.changeName = state.user.name;
       this.updateLocationStatus(state.locationStatus);
       if(state.closestExhibit)
       {
@@ -81,7 +82,13 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.initialiseInvites();
+    this.nameFormControl = new FormControl(this.changeName, /*[Validators.required]*/);
+    this.changeForm = new FormGroup({
+      name: this.nameFormControl
+    });
+
+    this.language = this.languageService.getCurrentLanguageAsString();
+    this.initialiseInvites();    
   }
 
   initialiseInvites() {
@@ -151,16 +158,12 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     }
   }
 
-  getSectionIcon(sectionId: number){
-    // console.log(sectionId);
-    let icon = '';
-    this.sectionList.forEach((section) => {
-      if(section.code === sectionId){
-        icon = section.icon;
-      }
-    });
-    // console.log(icon);
-    return icon;
+  openLanguage(){
+    this.openLangScreen = true;
+  }
+
+  closeLanguage(){
+    this.openLangScreen = false;
   }
 
   // saves ID of current exhibit in localstorage
@@ -169,6 +172,22 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.locationService.stopLocationScanning();
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
     // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
+  }
+
+  changeLanguageToGerman(){
+    this.language = 'de';
+    this.languageService.transmitChangeAppLanguage(languageTypes.DE);
+  }
+
+  changeLanguageToEnglish(){
+    this.language = 'en';
+    this.languageService.transmitChangeAppLanguage(languageTypes.ENG);  
+  }
+
+  isSelected(lang: string){
+    let selected = false;
+    (this.language === lang) ? selected = true : selected = false;
+    return selected;
   }
 
   /*
