@@ -209,7 +209,7 @@ export class AppModule {
       case 'send_language': {
         console.log('go');
         // set language to english if not german if no user
-        /*switch (value) {
+        switch (value.language) {
           case 'de':
             // this.language = 'de';
             this.languageService.transmitChangeAppLanguage(languageTypes.DE);
@@ -218,7 +218,7 @@ export class AppModule {
             // this.language = 'en';
             this.languageService.transmitChangeAppLanguage(languageTypes.ENG);
             break;
-        }*/
+        }
         break;
       }
       case 'back_button_pressed': {
