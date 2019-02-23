@@ -118,6 +118,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   ngOnInit() {
+    this.transmissionService.transmitLocationRegister({minor: 301, major: 40});
+
     const state = this.appStore.getState();
     this.user = state.user;
     this.locationService.lookuptable = state.lookupTable;
