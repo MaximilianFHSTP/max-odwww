@@ -35,6 +35,8 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   changeVersion = false;
   pMargin = 0;
   textContent: string;
+  eventStartDate = 0;
+  eventEndDate = 0;
 
   constructor(
     private locationService: LocationService,
@@ -74,6 +76,14 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     this.location.contents.forEach(content => {
       if(content.contentTypeId === ContentTypes.EVENT){
         this.mContent.push({id: content.id, content: content.content, type: content.contentTypeId, year: content.year, top: 0});
+
+        // set timespan according to events
+        if(this.eventStartDate === 0){
+          this.eventStartDate = content.year;
+          this.eventEndDate = content.year;
+        }else{
+          (content.year < this.eventStartDate) ? this.eventStartDate = content.year : this.eventEndDate = content.year;
+        }
       }
     });
 
@@ -93,8 +103,8 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
 
   drawEventTimeline(){
     // Draw Event Timeline
-    const start = this.location.startDate;
-    const end = this.location.endDate + 1;
+    const start = this.eventStartDate;  // this.location.startDate;
+    const end = this.eventEndDate + 1;  // this.location.endDate + 1;
     const stringDates = [start.toString(),end.toString()];
     const svgHeight = (end - start) * 60;
     const parseDate = d3.timeParse('%Y');

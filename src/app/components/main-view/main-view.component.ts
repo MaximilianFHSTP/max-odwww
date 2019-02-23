@@ -457,7 +457,9 @@ function currentYPosition() {
 
 function elmYPosition(eID) {
   const elm = document.getElementById('exh_'+eID);
-  const y = elm.offsetTop;
+  let y = 0;
+  elm ? y = elm.offsetTop : y = 0;
+
   // let node  = elm;
   /*while (node.offsetParent && node.offsetParent !== document.body) {
       node = node.offsetParent;
