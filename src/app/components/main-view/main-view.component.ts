@@ -56,6 +56,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   mergedDates = [];
   cardPositions = [];
   redirected = false;
+  updatePart = false;
 
   constructor(
     private transmissionService: TransmissionService,
@@ -141,7 +142,12 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
     if(this.redirected){
       this.redirected = false;
-      this.goToClosestExhibit();
+      this.goToClosestExhibit(); 
+    }
+
+    if (this.updatePart){
+      this.colorSVGIcons(); 
+      this.updatePart = false;
     }
   }
 
@@ -233,6 +239,30 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     d3.selectAll('.timespanline').transition().style('opacity', '0');
     d3.selectAll('.card.Sec' + this.currentSection).transition().style('display', 'inline');
     d3.selectAll('.line_' + this.currentSection).transition().style('opacity', '1');
+    this.colorSVGIcons();    
+  }
+
+  colorSVGIcons(){
+    switch(this.currentSection){
+      case 10: 
+        d3.selectAll('.sectionColorSvg').attr('fill', '#a85757'); 
+        d3.selectAll('li.Sec10 .sectionColorSvg').attr('fill', '#ffffff'); break;
+      case 20: 
+        d3.selectAll('.sectionColorSvg').attr('fill', '#4b799c');
+        d3.selectAll('li.Sec20 .sectionColorSvg').attr('fill', '#ffffff'); break;
+      case 30: 
+        d3.selectAll('.sectionColorSvg').attr('fill', '#906e1b');
+        d3.selectAll('li.Sec30 .sectionColorSvg').attr('fill', '#ffffff'); break;
+      case 40: 
+        d3.selectAll('.sectionColorSvg').attr('fill', '#3c7f7a');
+        d3.selectAll('li.Sec40 .sectionColorSvg').attr('fill', '#ffffff'); break;
+      case 50: 
+        d3.selectAll('.sectionColorSvg').attr('fill', '#785d86');
+        d3.selectAll('li.Sec50 .sectionColorSvg').attr('fill', '#ffffff'); break;
+      case 60: 
+        d3.selectAll('.sectionColorSvg').attr('fill', '#4c7d54');
+        d3.selectAll('li.Sec60 .sectionColorSvg').attr('fill', '#ffffff'); break;
+    }
   }
 
   setCurrentExhibits(){
@@ -321,6 +351,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.currentSection = sectionId;
     this.reDraw();
     this.redirected = auto;
+    this.updatePart = true;
   }
 
   public userCoA(){
