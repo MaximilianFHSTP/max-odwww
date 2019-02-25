@@ -1,3 +1,36 @@
+@font-face {
+  font-family: 'OpenSans';
+  src: url("assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
+#notConnectedToGod h1, h3{
+  color: #ffffff;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  margin: 20px;
+}
+
+#notConnectedToGod
+{
+  height: 100%;
+  width: 100%;
+  text-align:center;
+  position: absolute;
+  display: table;
+  top: 0;
+  left: 0;
+  color: white;
+  background-color: #333333;
+  opacity: 0.95;
+  filter:alpha(opacity=90); /* For IE8 and earlier */
+  z-index: 999;
+}
+
+#notConnectedToGod section
+{
+  display:table-cell;
+  vertical-align: middle;
+}
+
 .example-fill-remaining-space
 {
   flex: 1 1 auto;
@@ -13,4 +46,98 @@
 
 .hiddenbutton{
   display: none;
+}
+
+.apptoolbar{
+  width: 65px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.apptoolbar mat-icon{
+  font-size: 35px;
+  margin: 5px 0 0 -11px;
+  color:#ffffff;
+}
+
+.apptoolbar button{
+  float:right;
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  background-color: #494949;
+  background-image: url("assets/css/menu.svg");
+  background-position: center;
+  background-size: 35px;
+  background-repeat: no-repeat;
+  margin: 20px 20px 0px 0px;
+}
+
+#redirectTimelineLong,
+#redirectTimeline,
+#redirectStart{
+  float:left;
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  background-color: #494949;
+  margin: 20px 20px 0px 20px;
+  background-image: url("assets/css/back.svg");
+  background-position: center;
+  background-size: 50px;
+}
+
+#redirectTimelineLong{
+  width: 100px;
+  background-color: transparent;
+  background-position: 10%;
+  background-repeat: no-repeat;
+}
+
+.menuDiv{
+  position: fixed;
+  height: 100%;
+  width: 65%;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  background-color: #494949; 
+}
+
+.menuDiv ul{
+  list-style: none;
+  color: #ffffff;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  margin: 100px auto;
+}
+
+.menuDiv ul li{
+  margin: 20% 0;
+}
+
+.dismissMenuDiv{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 8;
+  background-color: #333333;
+  opacity: 0.5;
+}
+
+@media (min-height: 730px) {
+  .apptoolbar button{
+    margin: 35px 20px 0px 0px;
+  }
+  
+  #redirectTimelineLong,
+  #redirectTimeline,
+  #redirectStart{
+    margin: 35px 20px 0px 20px;
+  }
 }

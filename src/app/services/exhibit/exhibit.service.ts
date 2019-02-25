@@ -10,6 +10,7 @@ import { NativeCommunicationService } from '../native/native-communication.servi
 import {StatusActions} from '../../store/actions/StatusActions';
 import * as SuccessTypes from '../../config/SuccessMessageTypes';
 import * as ErrorTypes from '../../config/ErrorMessageTypes';
+import { AlertService } from '../alert.service';
 
 @Injectable()
 export class ExhibitService {
@@ -24,7 +25,8 @@ export class ExhibitService {
     private locationActions: LocationActions,
     private userActions: UserActions,
     private statusActions: StatusActions,
-    private utilitiesService: NativeCommunicationService
+    private utilitiesService: NativeCommunicationService,
+    private alertSerivce: AlertService
   )
   {}
 
@@ -69,12 +71,18 @@ export class ExhibitService {
 
       if(currLoc)
       {
-        this.socketGod.disconnectedFromExhibit(currLoc.parentId, currLoc.id);
-        this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
-        this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
-        this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+        this.transmitGodDisconnect(currLoc);
       }
     });
+  }
+
+  public transmitGodDisconnect(location)
+  {
+    this.socketGod.disconnectedFromExhibit(location.parentId, location.id);
+    this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
+    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
+    this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
+    this.appStore.dispatch(this.locationActions.changeClosestExhibit(location.parentId));
   }
 
   public connectOD(): any
@@ -107,7 +115,7 @@ export class ExhibitService {
   private startAutoResponder()
   {
     this.socket.connection.on('exhibitStatusCheck', () => {
-      console.log('AutoResponderCheck');
+      // console.log('AutoResponderCheck');
       this.utilitiesService.sendToNative('AutoResponderCheck', 'print');
       const user = this.appStore.getState().user;
       this.socket.connection.emit('exhibitStatusCheckResult', user);
@@ -118,6 +126,60 @@ export class ExhibitService {
   {
     const user = this.appStore.getState().user;
     this.socket.connection.emit('sendMessage', {user, message: 'Na'});
+  }
+
+  public sendQuizAnswer(answer)
+  {
+    this.socket.connection.emit('sendAnswer', answer);
+  }
+
+
+  public getQuestion()
+  {
+    // const user = this.appStore.getState().user;
+    this.socket.connection.on('getQuestionResult', (result) =>
+    {
+      this.alertSerivce.sendQuizQuestion(result);
+    });
+  }
+
+  public updateUserAnswerTable(result){
+
+    const user = this.appStore.getState().user;
+    const data = {userId: user.id, correctAnswer: result};
+    this.socket.connection.emit('updateUserAnswerTable', data);
+  }
+
+  public getInitialUserCorrectPoints(){
+    const user = this.appStore.getState().user;
+    const data = {userId: user.id};
+    this.socket.connection.emit('initialUserAnsweredCorrect', data);
+  }
+
+  public getUserCorrectPoints(){
+    this.socket.connection.on('updateUserCorrectPoints', (data) =>{
+      this.alertSerivce.sendCorrectPoints(data);
+    });
+  }
+
+  public getUpdateUserData()
+  {
+    this.socket.connection.on('updateUserOD', (result) =>
+    {
+      this.alertSerivce.sendUpdateUserData(result);
+    });
+  }
+
+  public sendQuizTime(result){
+    const user = this.appStore.getState().user;
+    const data = {userId: user.id, participationQuizTime: result};
+    this.socket.connection.emit('updateQuizParticipationTime', (data));
+  }
+
+  public sendAnswerTime(result){
+    const user = this.appStore.getState().user;
+    const data = {userId: user.id, quizAnswerTime: result.answerTime, questionId: result.questionId, correctAnswer: result.correctAnswer};
+    this.socket.connection.emit('updateQuizAnswerTime', (data));
   }
 
   public disconnect()

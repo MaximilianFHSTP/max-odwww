@@ -182,7 +182,7 @@ export class TransmissionService
 
   public transmitODLogin(): void {
     const isEmail = this.utilityService.checkIfEmail(this.loginName);
-    console.log('login ' + isEmail);
+    // console.log('login ' + isEmail);
     if (isEmail) {
       const data = {user: undefined, email: this.loginName, password: this.loginPassword};
       this.godService.loginOD(data);
@@ -253,10 +253,15 @@ export class TransmissionService
     const exhibitParentId = state.atExhibitParentId;
     const onExhibit = state.onExhibit;
 
-    if ((location.locationTypeId !== LocationTypes.ACTIVE_EXHIBIT_ON && !onExhibit) ||
-      (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON && exhibitParentId === location.parentId))
+    const isExhibitOnType = location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON ||
+      location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON;
+
+    // console.log('exhibitParentId: ' + exhibitParentId + ' onExhibit: ' + onExhibit + ' isExhibitOnType: ' + isExhibitOnType);
+    
+    if (isExhibitOnType)
     {
-      if (location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON) {
+      if(!onExhibit && exhibitParentId === location.parentId)
+      {
         this.godService.checkLocationStatus(location.id, res => {
           if (res === 'FREE') {
             this.godService.registerLocation(location.id, false);
@@ -267,16 +272,14 @@ export class TransmissionService
           }
         });
       }
-      else {
-        this.locationService.stopLocationScanning();
-        const data = {location: location.id, resStatus: null};
-
-        this.alertService.sendMessageLocationid(data);
-        const elm: HTMLElement = document.getElementById('ghostButton') as HTMLElement;
-        elm.click();
-      }
     }
+    else
+    {
+      this.locationService.stopLocationScanning();
 
+      this.godService.registerLocation(location.id, false);
+      this.locationService.startLocationScanning();
+    }
   }
 
   public transmitLocationRegisterTableBehavior(): void {
@@ -319,4 +322,47 @@ export class TransmissionService
 
     this.godService.registerLocationLike(currLoc, like);
   }
+
+  /*************************************************************************
+   ****                           COA Methods                           ****
+   *************************************************************************/
+  public getCoaColors(): void{
+    this.godService.getCoaColors();
+  }
+
+  public changeUserCoaColors(primColor: any, secColor: any): void{
+    const state = this.appStore.getState();
+    const data = {userId: state.user.id, primary: primColor, secondary: secColor};
+    this.godService.changeUserCoaColors(data);
+  }
+
+  public unlockCoaPart(coaPartId: any): void{
+    const state = this.appStore.getState();
+    if(state.user){
+      const data = {userId: state.user.id, coaId: coaPartId};
+      this.godService.unlockCoaPart(data);
+    }
+  }
+
+  public changeUserCoaPart(coaTypeId: any, coaPartId: any): void{
+    const state = this.appStore.getState();
+    if(state.user){
+      const data = {userId: state.user.id, coaType: coaTypeId, coaId: coaPartId};
+      this.godService.changeUserCoaPart(data);
+    }
+  }
+
+  public getUserCoaParts(): void{
+    const state = this.appStore.getState();
+    if(state.user){
+      const data = {userId: state.user.id};
+      this.godService.getUserCoaParts(data);
+    }
+  }
+
+  public getCoaParts(): void{
+    this.godService.getCoaParts();
+  }
 }
+
+

@@ -5,6 +5,7 @@ import {UserActions} from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import {TransmissionService} from '../../services/transmission.service';
 import { LanguageService } from '../../services/language.service';
+import {TranslateService} from '@ngx-translate/core';
 import * as languageTypes from '../../config/LanguageTypes';
 
 @Component({
@@ -15,22 +16,36 @@ import * as languageTypes from '../../config/LanguageTypes';
 @Injectable()
 export class LanguageStartComponent implements OnInit
 {
+  public language: string;
+
   constructor(
     private router: Router,
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
+    private translate: TranslateService,
     private languageService: LanguageService
-  ) { }
+  ) {
+    
+   }
 
-  ngOnInit()
-  {
+  ngOnInit(){ 
+    this.language = this.languageService.getCurrentLanguageAsString();
+    
   }
 
   changeLanguageToGerman(){
+    this.language = 'de';
     this.languageService.transmitChangeAppLanguage(languageTypes.DE);
   }
 
   changeLanguageToEnglish(){
-    this.languageService.transmitChangeAppLanguage(languageTypes.ENG);
+    this.language = 'en';
+    this.languageService.transmitChangeAppLanguage(languageTypes.ENG);  
+  }
+
+  isSelected(lang: string){
+    let selected = false;
+    (this.language === lang) ? selected = true : selected = false;
+    return selected;
   }
 }

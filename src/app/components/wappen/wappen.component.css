@@ -1,0 +1,573 @@
+@font-face {
+    font-family: 'Vollkorn';
+    src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+    /*font-weight: bold;*/
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Vollkorn', Times, serif;
+}
+
+.toolbar .savebutton,
+.wappenHelp p,
+.wappenSettings p{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 0;
+}
+
+.wrapper{
+    min-height: -webkit-fill-available;
+    margin-bottom: 100px;
+}
+
+.toolbar button{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 50px;
+    margin: 20px 20px 0px 20px; 
+    background: #ffffff;
+}
+
+.helpbutton{
+    padding: 0;
+}
+
+.helpbutton img{
+    height: 100%;
+    padding:0;
+}
+
+.toolbar .closebutton{
+    float: right; 
+    background: #494949;
+    color:#ffffff;
+    padding: 0;
+}
+
+.toolbar .closebutton img{
+    margin: 4px 0 0 -1px;
+    height: 40px;
+}
+
+.toolbar .savebutton{
+    position: absolute;
+    top: 20px;
+    right: 80px;
+    width: min-content;
+    color:#cccccc;
+    background:#ffffff;
+    padding: 0;
+    text-align: right;
+}
+
+.toolbar .savebutton p{
+    float: right;
+    color:#ffffff;
+    margin: -45px 50px 0 0;
+    padding-left: 15px;
+}
+
+.toolbar .savebutton div{
+    width: 50px;
+    height: 50px;
+    background:#cccccc;
+    float: right;
+}
+
+.toolbar .savebutton div img{
+    margin: 4px;
+    height: 40px;
+}
+
+.toolbar .savebutton.active div,
+.toolbar .savebutton.active{
+    background:#494949;
+    color:#ffffff;
+}
+
+h1{
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 0; 
+}
+
+.wappenSettingsNav{
+    position: fixed;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+}
+
+.wappenSettingsNav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 80px;
+    border-top: 15px solid #494949;
+    background: #494949;
+}
+
+.wappenSettingsNav ul li{
+    background: #fff;
+    float: left;
+    width: 19.36%; 
+    height: 100%;
+}
+
+.wappenSettingsNav ul li.selected{
+    background: #494949;
+}
+
+.wappenSettingsNav_weapon,
+.wappenSettingsNav_emblem,
+.wappenSettingsNav_helmet,
+.wappenSettingsNav_color {
+    margin-left: 0.8%;
+}
+
+.wappenSettingsNav ul li button{
+    display: block;
+    margin: 5px auto;
+    width: 70px; 
+    height: 70px;
+    border: none;
+    outline: none;
+    background-size: 620px 136px;
+}
+
+.wappenSettingsNav_shield button{ 
+    background: url("../../../assets/css/WappenIcons.png") -92px 0px;
+}
+
+.wappenSettingsNav_emblem button{ 
+    background: url("../../../assets/css/WappenIcons.png") -185px 0px;
+}
+
+.wappenSettingsNav_helmet button{ 
+    background: url("../../../assets/css/WappenIcons.png") -275px 0px;
+}
+
+.wappenSettingsNav_weapon button{ 
+    background: url("../../../assets/css/WappenIcons.png") -365px 0px;
+}
+
+.wappenSettingsNav_color button{ 
+    background: url("../../../assets/css/WappenIcons.png") -460px 0px;
+}
+
+.wappenSettingsNav ul li.selected button{ 
+    background-position-y: -70px;
+}
+
+.wappenHelpOut,
+.wappenSettingsNavOut{ 
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 4;
+}
+
+.wappenHelpOut{
+    z-index: 6;
+}
+
+.wappen{
+    position: relative;
+    width: 320px;
+    margin: 12% auto;
+}
+
+.wappen svg{
+    position: absolute;
+    left: 50%;
+    height: auto;
+    
+}
+
+.wappen_weapon svg{
+    z-index: 1;
+    top: -10px; 
+    width: 116%;
+    margin-left: -58%; 
+}
+
+.wappen_helmet svg{
+    z-index: 2;
+    top: -50px;
+    width: 72%;
+    margin-left: -36%; 
+}
+
+.wappen_shield svg{
+    z-index: 3;
+    top: 100px;
+    width: 86%;
+    margin-left: -43%; 
+}
+.wappen_emblem svg{
+    z-index: 4;
+    top: 140px;
+    width: 60%;
+    margin-left: -30%; 
+}
+
+.wappenSettings_shield .done p:after {
+    content: " Unlocked from beginning.";
+    color: #047f0d;
+ }
+
+ /*
+.wappenSettings_emblem .done p:after,
+.wappenSettings_helmet .done p:after,
+.wappenSettings_weapon .done p:after {
+    content: " Done!";
+    color: #047f0d;
+ }*/
+
+.hidden{
+    display: none;
+}
+
+.wappenSettings{
+    border: 3px solid #494949;
+    background: #ffffff;
+    position: fixed;
+    bottom: 105px;
+    z-index: 5;
+    width: 90%;
+    margin: 0 4%;
+}
+
+.wappenHelp{
+    border: 3px solid #494949;
+    background: #ffffff;
+    position: absolute;
+    z-index: 7;
+    width: 90%;
+    margin: 0 4%;
+}
+
+.wappenHelp h2,
+.wappenSettings_color p,
+.wappenSettings h2{
+    margin: 20px 0px 0px 20px;
+}
+
+.wappenHelp img,
+.wappenSettings img{
+    margin: 20px 10px 0px 0px;
+}
+
+.wappenHelp p{
+    margin: 20px;
+}
+
+.wappenHelp h2,
+.wappenSettings h2{
+    display: inline-block;
+}
+
+.wappenHelp img,
+.wappenSettings img{
+    float: right;
+    cursor: pointer;
+    width: 35px;
+    margin-top: 15px; 
+}
+
+.wappenSettings ul{
+    list-style-type: none;
+    margin: 20px;
+    padding: 0;
+}
+
+.wappenSettings_color ul{
+    list-style-type: none;
+    margin: 10px 20px;
+    padding: 0;
+}
+
+.wappenSettings .options{ 
+    height: 85px;
+}
+
+.wappenSettings .tasks{ 
+    height: 2em;
+}
+
+.wappenSettings .primary,
+.wappenSettings .secondary{ 
+    height: 60px;
+}
+
+.wappenSettings .options li{
+    float: left;
+    width: 25%; 
+    height: 100%;
+}
+
+.wappenSettings .primary li,
+.wappenSettings .secondary li{
+    float: left;
+    width: 20%; 
+    height: 100%;
+    border-bottom: 3px solid #ffffff;
+}
+
+.wappenSettings .options .used{
+    border-bottom: 3px solid #dddddd;
+}
+
+.wappenSettings .primary .selected,
+.wappenSettings .secondary .selected,
+.wappenSettings .options .selected{
+    border-bottom: 3px solid #494949;
+}
+
+.wappenSettings ul li button{
+    display: block;
+    margin: 5px auto;
+    width: 70px; 
+    height: 70px;
+    border: none;
+    outline: none;   
+}
+
+.wappenSettings_color ul li button{
+    border-radius: 50px;
+    width: 45px; 
+    height: 45px;
+}
+
+.wappenSettings_shield .options .Shield1 button{ 
+    background: url("../../../assets/css/Shield1.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_shield .options .Shield2 button{ 
+    background: url("../../../assets/css/Shield2.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_shield .options .Shield3 button { 
+    background: url("../../../assets/css/Shield3.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_shield .options .Shield4 button{ 
+    background: url("../../../assets/css/Shield4.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_emblem .options .Emblem1 button{ 
+    background: url("../../../assets/css/Emblem1.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_emblem .options .Emblem2 button{ 
+    background: url("../../../assets/css/Emblem2.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_emblem .options .Emblem3 button { 
+    background: url("../../../assets/css/Emblem3.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_emblem .options .Emblem4 button{ 
+    background: url("../../../assets/css/Emblem4.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_emblem .options .Emblem5 button { 
+    background: url("../../../assets/css/Emblem5.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_emblem .options .Emblem6 button{ 
+    background: url("../../../assets/css/Emblem6.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_helmet .options .Helmet1 button{ 
+    background: url("../../../assets/css/Helmet1.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_helmet .options .Helmet2 button{ 
+    background: url("../../../assets/css/Helmet2.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_helmet .options .Helmet3 button { 
+    background: url("../../../assets/css/Helmet3.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_helmet .options .Helmet4 button{ 
+    background: url("../../../assets/css/Helmet4.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_weapon .options .Mantle1 button{ 
+    background: url("../../../assets/css/Mantle1.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_weapon .options .Mantle2 button{ 
+    background: url("../../../assets/css/Mantle2.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_weapon .options .Mantle3 button { 
+    background: url("../../../assets/css/Mantle3.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_weapon .options .Mantle4 button{ 
+    background: url("../../../assets/css/Mantle4.png");
+    background-size: 70px 70px;
+}
+
+.wappenSettings_color .Color1 button{
+    background: #ce2828;
+}
+
+.wappenSettings_color .Color2 button{
+    background: #526ba0;
+}
+
+.wappenSettings_color .Color3 button{
+    background: #047f0d;
+}
+
+.wappenSettings_color .Color4 button{
+    background: #c38918;
+}
+
+.wappenSettings_color .Color5 button{
+    background: #a2a2a2;
+}
+
+.wappenSettings .options .locked{ 
+    opacity: 0.3;
+}
+
+.wappenSettings .options .unlocked{ 
+    opacity: 0.6;
+}
+
+
+/* Scroll for emblem buttons */
+.wappenSettings_emblem .overflowWrapper{
+    overflow-x: scroll;
+    margin: 0 20px;
+}
+
+.wappenSettings_emblem .options{
+    margin: 10px 0px 8px 0px;
+    width: 140%;
+}
+
+.wappenSettings_emblem .options li{
+    float: left;
+    width: 16.6%; 
+    height: 100%;
+}
+
+.tasks .done p:before {
+    background-image: url("../../../assets/css/lock_open-24px.svg");
+    background-size: 16px 16px;
+    display: inline-block;
+    width: 18px; 
+    height: 15px;
+    content:"";
+ }
+
+.tasks .locked p:before {
+    background-image: url("../../../assets/css/lock-24px.svg");
+    background-size: 16px 16px;
+    display: inline-block;
+    width: 18px; 
+    height: 15px;
+    content:"";
+ }
+
+ .options .locked + .locker{
+    background-image: url("../../../assets/css/lock-24px.svg");
+    background-size: 20px 20px;
+    opacity: 1;
+    width: 20px; 
+    height: 20px;
+    float: right;
+    margin-top: -25px;
+ }
+
+div::-webkit-scrollbar {
+    height: 2px;
+}
+
+div::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background: #CCC;
+}
+
+@media (max-width: 350px) {
+    .toolbar .savebutton p{
+        display: none;
+    }
+}
+
+@media (min-height: 750px) {
+    h1{
+        text-align: center;
+        font-size: 1.8em;
+        margin: 10%;
+    }
+}
+
+@media (max-height: 650px) {
+    h1{
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    .wappenHelp p,
+    .wappenSettings p{
+        font-size: 0.8em;
+    }
+
+    .wappen{
+        width: 240px;  
+        margin: 15% auto;
+    }
+
+    .wappen_emblem svg{
+        top:92px;
+    }
+
+    .wappen_shield svg{
+        top: 62px;
+    }
+
+    .wappen_weapon svg{
+        top: -22px;
+    }
+}
+
+@media (min-height: 730px) {
+    .toolbar button{
+        margin: 35px 20px 0px 20px; 
+    }
+
+    .toolbar .savebutton{
+        top: 35px;
+    }
+}

@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@a
 import {TransmissionService} from '../../services/transmission.service';
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,7 @@ export class RegisterComponent implements OnInit
   public subscriptionExistingCred: Subscription;
   private existingEmail: boolean;
   private existingUser: boolean;
-  private wrongCred: boolean;
+  public wrongCred: boolean;
 
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required]);
@@ -48,23 +49,24 @@ export class RegisterComponent implements OnInit
     private userActions: UserActions,
     private nativeCommunicationService: NativeCommunicationService,
     private fb: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private translate: TranslateService
   ) {
     this.subscriptionExistingCred = this.alertService.getMessageExistingCredentials().subscribe(message => {
       this.existingUser = message.user;
       this.existingEmail = message.email;
       if(this.existingUser && this.existingEmail){
         this.wrongCred = true;
-        this.errorCredentialMessage = 'These username and email already exists';
+        this.errorCredentialMessage = this.translate.instant('register.userEmailAlreadyExists');
       }else if(this.existingUser){
         this.wrongCred = true;
-        this.errorCredentialMessage = 'This username already exists';
+        this.errorCredentialMessage = this.translate.instant('register.userAlreadyExists');
       }else if(this.existingEmail){
         this.wrongCred = true;
-        this.errorCredentialMessage = 'This email already exists';
+        this.errorCredentialMessage = this.translate.instant('register.emailAlreadyExists');
       }else{
         this.wrongCred = true;
-        this.errorCredentialMessage = 'These credentials don\'t match';
+        this.errorCredentialMessage = this.translate.instant('register.credentialsNotMatch');
       }
     });
   }
@@ -99,18 +101,19 @@ export class RegisterComponent implements OnInit
   }
 
   getPasswordErrorMessage() {
-    return this.passwordFormControl.hasError('required') ? 'You must enter a value' :
+    return this.passwordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
       this.passwordFormControl.hasError('pattern') ?
-      'Please use at least 6 characters with at least 1 upper case, 1 lower case, ' +
-      '1 number and 1 special character! Example: ! $ § % & / ( ) = ?' : '';
+      this.translate.instant('changeCredentials.infoPassword1') + 
+      this.translate.instant('changeCredentials.infoPassword2') : '';
   }
   getConfirmPasswordErrorMessage() {
 
-    return this.confirmPasswordFormControl.hasError('required') ? 'You must enter a value' :
-      this.confirmPasswordFormControl.hasError('matchingpassword') ? 'The password is not the same' : 'The password is not the same';
+    return this.confirmPasswordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
+      this.confirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') : 
+      this.translate.instant('changeCredentials.notSamePassword');
   }
   getRequiredErrorMessage(field) {
-    return this.signupForm.get(field).hasError('required') ? 'You must enter a value' : '';
+    return this.signupForm.get(field).hasError('required') ? this.translate.instant('changeCredentials.enterValue') : '';
   }
 
 

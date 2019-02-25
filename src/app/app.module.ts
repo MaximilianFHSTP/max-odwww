@@ -19,6 +19,7 @@ import { NativeCommunicationService } from './services/native/native-communicati
 import {AlertService} from './services/alert.service';
 import {LocationService} from './services/location.service';
 import {TransmissionService} from './services/transmission.service';
+import {CoaService} from './services/coa.service';
 
 // Routing
 import { AppRoutingModule } from './app-routing.module';
@@ -39,6 +40,7 @@ import { MainViewComponent } from './components/main-view/main-view.component';
 import { ContentTableAtComponent } from './components/content-table-at/content-table-at.component';
 import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
+import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { NativeSettingDialogComponent } from './components/native-setting-dialog/native-setting-dialog.component';
 import {StartViewComponent} from './components/start-view/start-view.component';
@@ -46,6 +48,7 @@ import { ChangeCredentialsComponent } from './components/change-credentials/chan
 import {DeleteDialogComponent} from './components/delete-dialog/delete-dialog.component';
 import {RegisterRealuserComponent} from './components/register-realuser/register-realuser.component';
 import {LanguageStartComponent} from './components/language-start/language-start.component';
+import { QuizComponent } from './components/quiz/quiz.component';
 
 // Redux
 import { applyMiddleware, createStore } from 'redux';
@@ -53,18 +56,22 @@ import { rootReducer } from './store/reducers/rootReducer';
 import { LocationActions } from './store/actions/LocationActions';
 import { UserActions } from './store/actions/UserActions';
 import { StatusActions } from './store/actions/StatusActions';
-import logger from 'redux-logger';
 
 // import ngx-translate and the http loader
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { WappenComponent } from './components/wappen/wappen.component';
+import { AboutComponent } from './components/about/about.component';
+import { LegalComponent } from './components/legal/legal.component';
+import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
+import { ContentTableNotifyAtComponent } from './components/content-table-notify-at/content-table-notify-at.component';
+import { ContentTableNotifyOnComponent } from './components/content-table-notify-on/content-table-notify-on.component';
 
 
 
 export const appStore = createStore(
-  rootReducer,
-  applyMiddleware(logger)
+  rootReducer
 );
 
 @NgModule({
@@ -76,6 +83,7 @@ export const appStore = createStore(
     ContentTableAtComponent,
     ContentTableOnComponent,
     ContentPassiveComponent,
+    ContentInteractiveComponent,
     AlertDialogComponent,
     NativeSettingDialogComponent,
     LoginComponent,
@@ -84,7 +92,15 @@ export const appStore = createStore(
     DeleteDialogComponent,
     ChangeCredentialsComponent,
     RegisterRealuserComponent,
-    LanguageStartComponent
+    WappenComponent,
+    AboutComponent,
+    LegalComponent,
+    EducationQuizComponent,
+    LanguageStartComponent,
+    QuizComponent,
+    EducationQuizComponent,
+    ContentTableNotifyAtComponent,
+    ContentTableNotifyOnComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +147,8 @@ export const appStore = createStore(
     AlertService,
     FormBuilder,
     UtilityService,
-    TransmissionService
+    TransmissionService,
+    CoaService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
@@ -161,6 +178,11 @@ export class AppModule {
       this.nativeCommunicationService.sendToNative('calledFromOutside ' + message, 'print');
 
     switch (message) {
+      case 'send_language': {
+        this.nativeCommunicationService.sendToNative('Received OS Language: ' + value.language, 'print');
+        this.nativeResponseService.updateAppLanguage(value.language);
+        break;
+      }
        case 'update_location': {
          this.nativeCommunicationService.sendToNative('Received Location Register ' + value.minor, 'print');
           this.nativeResponseService.timelineUpdate(value);
