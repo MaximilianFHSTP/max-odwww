@@ -52,7 +52,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private router: Router,
     private locationService: LocationService,
     private transmissionService: TransmissionService,
-    private languageService: LanguageService,
+    public languageService: LanguageService,
     private responseService: NativeResponseService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,

@@ -27,14 +27,14 @@
 .btnLogin{
   background: #93272c;
   color: #ffffff;
-  min-width: 180px;
+  min-width: 190px;
   padding: 0.8em;
 }
 
 .btnLoginGuest{
   background: #93272c;
   color: #ffffff;
-  min-width: 180px;
+  min-width: 190px;
   padding: 0.8em;
 }
 
@@ -42,7 +42,7 @@
   background: #ffffff;
   border: 1px solid #93272c;
   color: #93272c;
-  min-width: 180px;
+  min-width: 190px;
   padding: 0.5em;
 }
 

@@ -4,28 +4,28 @@
     <form name="registerRealForm" [formGroup]="registerRealUserForm">
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="{{ 'register.username' | translate }}" required [(ngModel)]="name" [formControl]="nameFormControl">
+          <input matInput placeholder="{{ 'register.username' | translate }}" required [(ngModel)]="registerName" [formControl]="nameFormControl">
           <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="{{ 'register.email' | translate }}" [(ngModel)]="email" required [formControl]="emailFormControl">
+          <input matInput placeholder="{{ 'register.email' | translate }}" [(ngModel)]="registerEmail" required [formControl]="emailFormControl">
           <mat-error *ngIf="emailFormControl.invalid">{{getRequiredErrorMessage('email')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="{{ 'register.password' | translate }}" type="password" [(ngModel)]="password" required [formControl]="passwordFormControl">
+          <input matInput placeholder="{{ 'register.password' | translate }}" type="password" [(ngModel)]="registerPassword" required [formControl]="passwordFormControl">
           <mat-error *ngIf="passwordFormControl.invalid">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="{{ 'register.passwordConfirm' | translate }}" type="password" [(ngModel)]="confirmPassword" required [formControl]="confirmPasswordFormControl">
+          <input matInput placeholder="{{ 'register.passwordConfirm' | translate }}" type="password" [(ngModel)]="confirmPassword_" required [formControl]="confirmPasswordFormControl">
           <mat-error *ngIf="confirmPasswordFormControl.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
       </div>
