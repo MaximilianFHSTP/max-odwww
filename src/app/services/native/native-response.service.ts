@@ -10,6 +10,8 @@ import {MatDialog} from '@angular/material';
 import {AlertService} from '../alert.service';
 import {TransmissionService} from '../transmission.service';
 import * as LocationTypes from '../../config/LocationTypes';
+import {LanguageService} from '../language.service';
+import * as LanguageTypes from '../../config/LanguageTypes';
 
 @Injectable()
 export class NativeResponseService implements OnInit
@@ -26,7 +28,8 @@ export class NativeResponseService implements OnInit
     private statusActions: StatusActions,
     private dialog: MatDialog,
     private alertService: AlertService,
-    private transmissionService: TransmissionService
+    private transmissionService: TransmissionService,
+    private languageService: LanguageService
   ) {
   }
 
@@ -90,6 +93,9 @@ export class NativeResponseService implements OnInit
     if (token !== undefined && token !== null && token !== '') {
       this.godService.autoLogin(token);
     }
+    else {
+      this.nativeCommunicationService.sendToNative('getLanguage', 'getLanguage');
+    }
   }
 
   public checkWifi(data: any): void {
@@ -112,5 +118,18 @@ export class NativeResponseService implements OnInit
 
   public logoutSuccess(): void {
     this.transmissionService.transmitLogoutCleanup();
+  }
+
+  public updateAppLanguage(language): void
+  {
+    let langNumb;
+    switch(language)
+    {
+      case 'de': case 'DE': langNumb = LanguageTypes.DE; break;
+      case 'en': case 'EN': case 'eng': case 'ENG': langNumb = LanguageTypes.ENG; break;
+      default: langNumb = LanguageTypes.ENG;
+    }
+
+    this.languageService.transmitChangeAppLanguage(langNumb);
   }
 }

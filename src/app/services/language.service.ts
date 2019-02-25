@@ -59,6 +59,11 @@ export class LanguageService {
     }
   }
 
+  public getCurrentLanguage(): number
+  {
+    return this._currentLanguage;
+  }
+
   private updateTranslateService(lang: number)
   {
     if(lang === LanguageTypes.DE)

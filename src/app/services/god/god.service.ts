@@ -24,13 +24,13 @@ export class GodService {
     private locationActions: LocationActions,
     private userActions: UserActions,
     private statusActions: StatusActions,
-    private utilitiesService: NativeCommunicationService,
+    private nativeCommunicationService: NativeCommunicationService,
     private alertService: AlertService
   )
   {
     this.socket.on('news', msg =>
     {
-      this.utilitiesService.sendToNative(msg, 'print');
+      this.nativeCommunicationService.sendToNative(msg, 'print');
       this.store.dispatch(this.statusActions.changeIsConnectedToGod(true));
     });
 
@@ -92,7 +92,7 @@ export class GodService {
 
     this.socket.on('registerODResult', result =>
     {
-      this.utilitiesService.sendToNative(result, 'print');
+      this.nativeCommunicationService.sendToNative(result, 'print');
       const res = result.data;
       const message = result.message;
 
@@ -111,7 +111,7 @@ export class GodService {
       this.router.navigate(['/mainview']).then( () =>
         {
           // send success to native & start beacon scan
-          this.utilitiesService.sendToNative('success', 'registerOD');
+          this.nativeCommunicationService.sendToNative('success', 'registerOD');
         }
       );
 
@@ -143,7 +143,7 @@ export class GodService {
 
       this.router.navigate(['/mainview']).then( () =>
         {
-          this.utilitiesService.sendToNative('success', 'registerOD');
+          this.nativeCommunicationService.sendToNative('success', 'registerOD');
         }
       );
 
@@ -158,7 +158,7 @@ export class GodService {
 
     this.socket.on('makeToRealUserResult', result =>
     {
-      this.utilitiesService.sendToNative(result, 'print');
+      this.nativeCommunicationService.sendToNative(result, 'print');
       const res = result.data;
       const message = result.message;
 
@@ -198,14 +198,14 @@ export class GodService {
       if (message.code > 299)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
-        this.utilitiesService.sendToNative('RegisterLocation: FAILED', 'print');
+        this.nativeCommunicationService.sendToNative('RegisterLocation: FAILED', 'print');
         return;
       }
 
       if (dis === false)
       {
         this.locationService.updateCurrentLocation(loc);
-        this.utilitiesService.sendToNative('New Location is ' + this.locationService.currentLocation, 'print');
+        this.nativeCommunicationService.sendToNative('New Location is ' + this.locationService.currentLocation, 'print');
         const currLoc = this.locationService.currentLocation.value;
         this.router.navigate([currLoc.contentURL]).then(() => {
           window.scrollTo(0, 0);
@@ -232,11 +232,11 @@ export class GodService {
         if (message.code > 299)
         {
           this.store.dispatch(this.statusActions.changeErrorMessage(message));
-          this.utilitiesService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
+          this.nativeCommunicationService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
           return;
         }
 
-        this.utilitiesService.sendToNative('success', 'triggerSignal');
+        this.nativeCommunicationService.sendToNative('success', 'triggerSignal');
         this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
 
         // TODO: TRIGGER SCROLL HERE
@@ -314,7 +314,7 @@ export class GodService {
     {
       const res = result.data;
       const message = result.message;
-      this.utilitiesService.sendToNative('Disconnected from Exhibit-' + parentLocation + ': ' + result, 'print');
+      this.nativeCommunicationService.sendToNative('Disconnected from Exhibit-' + parentLocation + ': ' + result, 'print');
 
       if (message.code > 299)
       {
@@ -344,6 +344,7 @@ export class GodService {
       if (message.code > 299)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        this.nativeCommunicationService.sendToNative('getLanguage', 'getLanguage');
         return;
       }
 
@@ -358,7 +359,7 @@ export class GodService {
       this.router.navigate(['/mainview']).then( () =>
       {
         // send success to native & start beacon scan
-        this.utilitiesService.sendToNative('success', 'registerOD');
+        this.nativeCommunicationService.sendToNative('success', 'registerOD');
       });
 
       this.socket.removeAllListeners('autoLoginODResult');
@@ -392,7 +393,7 @@ export class GodService {
       this.router.navigate(['/mainview']).then( () =>
       {
         // send success to native & start beacon scan
-        this.utilitiesService.sendToNative('success', 'loginOD');
+        this.nativeCommunicationService.sendToNative('success', 'loginOD');
       });
 
       this.socket.removeAllListeners('loginODResult');
@@ -448,12 +449,12 @@ export class GodService {
 
       if(isCorrect)
       {
-        this.utilitiesService.sendToNative('correctWifi','getWifiStatusResult');
-        this.utilitiesService.sendToNative('bluetoothCheck','activateBluetoothCheck');
+        this.nativeCommunicationService.sendToNative('correctWifi','getWifiStatusResult');
+        this.nativeCommunicationService.sendToNative('bluetoothCheck','activateBluetoothCheck');
       }
       else
       {
-        this.utilitiesService.sendToNative('openWifiDialogNative','openWifiDialogNative');
+        this.nativeCommunicationService.sendToNative('openWifiDialogNative','openWifiDialogNative');
       }
     this.socket.removeAllListeners('checkWifiSSIDResult');
     });
@@ -503,7 +504,7 @@ export class GodService {
       if (message.code > 299)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
-        this.utilitiesService.sendToNative('RegisterUserLanguageUpdate: FAILED', 'print');
+        this.nativeCommunicationService.sendToNative('RegisterUserLanguageUpdate: FAILED', 'print');
         return;
       }
 

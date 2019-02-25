@@ -178,6 +178,11 @@ export class AppModule {
       this.nativeCommunicationService.sendToNative('calledFromOutside ' + message, 'print');
 
     switch (message) {
+      case 'send_language': {
+        this.nativeCommunicationService.sendToNative('Received OS Language: ' + value.language, 'print');
+        this.nativeResponseService.updateAppLanguage(value.language);
+        break;
+      }
        case 'update_location': {
          this.nativeCommunicationService.sendToNative('Received Location Register ' + value.minor, 'print');
           this.nativeResponseService.timelineUpdate(value);

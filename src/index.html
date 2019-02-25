@@ -68,6 +68,13 @@
     };
 
     // call from native
+    // gets OS language, calls
+    window.send_language = function(message)
+    {
+      window.angularComponentRef.componentFn("send_language",message);
+    };
+
+    // call from native
     // gets deviceInfos, calls registerOD
     window.send_wifi_ssid = function(message){
       window.angularComponentRef.componentFn("send_wifi_ssid",message);

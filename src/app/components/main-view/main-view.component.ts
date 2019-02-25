@@ -13,6 +13,8 @@ import {TransmissionService} from '../../services/transmission.service';
 import * as d3 from 'd3';
 import { CoaService } from '../../services/coa.service';
 import { JsonpCallbackContext } from '@angular/common/http/src/jsonp';
+import {LanguageService} from '../../services/language.service';
+import * as LanguageTypes from '../../config/LanguageTypes';
 
 @Component({
   selector: 'app-main-view',
@@ -42,6 +44,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private y;
   private whichY;
 
+  public germanLang = LanguageTypes.DE;
+
   currentSection = 10;
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
@@ -69,7 +73,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     private dialog: MatDialog,
     public router: Router,
     private alertService: AlertService,
-    private coaService: CoaService
+    private coaService: CoaService,
+    public languageService: LanguageService
   ){
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
