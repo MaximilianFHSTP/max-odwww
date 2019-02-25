@@ -41,7 +41,7 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   constructor(
     private locationService: LocationService,
     private transmissionService: TransmissionService,
-    private languageService: LanguageService,
+    public languageService: LanguageService,
     private coaService: CoaService,
     public router: Router,
     private nativeCommunicationService: NativeCommunicationService,
