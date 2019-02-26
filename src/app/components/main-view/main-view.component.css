@@ -68,7 +68,7 @@ p{
   background: #ffffff;
 }
 
-.card.lckfalse:hover{
+.card.lckfalse:active{
   background: #cacaca;
 }
 
@@ -324,6 +324,10 @@ p{
   .timelineSectionNav ul li button svg{
     width: 35px; 
     height: 35px;
+  }
+
+  .card h1{
+    font-size: 1em;
   }
 
   .card h2{
