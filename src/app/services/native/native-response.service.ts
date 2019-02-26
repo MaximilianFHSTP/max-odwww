@@ -132,4 +132,18 @@ export class NativeResponseService implements OnInit
 
     this.languageService.transmitChangeAppLanguage(langNumb);
   }
+
+  public redirectToTimeline()
+  {
+    // this.alertService.sendMessageNativeBackbuttonTimeline();
+    const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
+    elm.click();
+  }
+
+  public redirectToStart()
+  {
+    // this.alertService.sendMessageNativeBackbuttonStart();
+    const elm: HTMLElement = document.getElementById('redirectTimeline') as HTMLElement;
+    elm.click();
+  }
 }
