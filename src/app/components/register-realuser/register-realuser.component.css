@@ -57,6 +57,11 @@ input{
   font-size: 0.9em;
 }
 
+@media (max-width: 350px) {
+  input{
+    font-size: 0.9em;
+  }
+}
 
 @media (max-height: 650px) {
   .wrapper h2{
