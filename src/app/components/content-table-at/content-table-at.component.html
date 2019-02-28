@@ -1,29 +1,33 @@
 <div class="wrapper Sec_{{location.parentId}}">
-    <div class="wrapperContent">
-      <h1><div class="puzzleIco"></div>{{ 'quiz.title' | translate }}</h1>
-      <div><p>{{ 'quiz.content' | translate }}</p></div>
-    
-      <form name="credentialsForm" [formGroup]="changeForm">
-        <div class="fix-mat-form-field">
-          <mat-form-field class="full-with-field" appearance="outline">
-            <input matInput placeholder="Username" value = "{{changeName}}" [(ngModel)]="name" [formControl]="nameFormControl">
-          </mat-form-field>
-        </div>
-      </form>
-    </div> 
+  <div class="wrapperContent">
+    <h1><div class="puzzleIco"></div>{{ 'quiz.title' | translate }}</h1>
+    <div><p>{{ 'quiz.content' | translate }}</p></div>
   
-    <div class="btnJoinDisabled" *ngIf="locationStatusOffline || locationStatusOccupied || !joinGame || locationSocketStatus === 'OCCUPIED'"></div>
-    <button class="btnJoin" *ngIf="joinGame" (click)="startOnTableSearch()">{{ 'quiz.btnPlay' | translate }}</button>
+    <form name="credentialsForm" [formGroup]="changeForm">
+      <div class="fix-mat-form-field">
+        <mat-form-field class="full-with-field" appearance="outline">
+          <input (click)="editCred()"  matInput placeholder="Username" value = "{{changeName}}" [(ngModel)]="name" [formControl]="nameFormControl">
+        </mat-form-field>
+      </div>
+    </form>
+  </div> 
+
+  <div class="error"><mat-error *ngIf="changeUsernameEnable && existingCred">{{getCredChangeExistingCred()}}</mat-error></div> 
+  <button class="btnSave" [disabled]="changeForm.invalid" (click)="submitCredentialsChange()" *ngIf="changeUsernameEnable">{{ 'changeCredentials.btnSave' | translate }}</button>
+  <button class="btnCancel" [disabled]="changeForm.invalid" (click)="cancelSubmitCredentialsChange()" *ngIf="changeUsernameEnable">{{ 'changeCredentials.btnCancel' | translate }}</button>
+
+  <div class="error"><mat-error *ngIf="!changeUsernameEnable && !locationStatusFree">{{ 'tableAt.tableOfflineText' | translate }}</mat-error></div> 
+  <button class="btnJoin" *ngIf="!changeUsernameEnable" (click)="startOnTableSearch()">{{ 'quiz.btnPlay' | translate }}</button>
+
+  <div class="btnBottom"><button class="btnLang" (click)="openLanguage()"><img src="./assets/img/deen.png" /></button></div>
   
-    <div class="btnBottom"><button class="btnLang" (click)="openLanguage()"><img src="./assets/img/deen.png" /></button></div>
-    
-  </div>
-  
-  <div *ngIf="openLangScreen" class="wrapperLang">
-    <button id="redirectStart" (click)="closeLanguage()"></button>
-  
-    <h2>{{ 'languageStart.helpmessage' | translate }}</h2>
-    <button [className]=" isSelected('de') ? 'selected btnDe' : 'notSelected btnDe'"  (click)="changeLanguageToGerman()"><img src="assets/img/de.png"></button>
-    <button [className]=" isSelected('en') ? 'selected btnEn' : 'notSelected btnEn'" (click)="changeLanguageToEnglish()"><img src="assets/img/en.png"></button>
-  </div>
+</div>
+
+<div *ngIf="openLangScreen" class="wrapperLang">
+  <button id="redirectStart" (click)="closeLanguage()"></button>
+
+  <h2>{{ 'languageStart.helpmessage' | translate }}</h2>
+  <button [className]=" isSelected('de') ? 'selected btnDe' : 'notSelected btnDe'"  (click)="changeLanguageToGerman()"><img src="assets/img/de.png"></button>
+  <button [className]=" isSelected('en') ? 'selected btnEn' : 'notSelected btnEn'" (click)="changeLanguageToEnglish()"><img src="assets/img/en.png"></button>
+</div>
   

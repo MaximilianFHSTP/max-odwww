@@ -91,6 +91,8 @@ input{
   height: 50px;
 }
 
+.btnCancel,
+.btnSave,
 .btnJoin{
   border: none;
   outline: none;
@@ -101,8 +103,14 @@ input{
   margin: 0px auto 10px auto;
   background: #494949;
   color: #ffffff;
-  min-width: 200px;
+  min-width: 280px;
   padding: 0.8em;
+}
+
+.btnCancel{
+  border: 1px solid #494949;
+  background: #ffffff;
+  color: #494949;
 }
 
 .btnJoin{ background-color: #755300; }

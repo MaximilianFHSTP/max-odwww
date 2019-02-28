@@ -1,18 +1,21 @@
-import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { GodService } from '../../services/god/god.service';
-import {LocationService} from '../../services/location.service';
+import { LocationService } from '../../services/location.service';
+import { AlertService } from '../../services/alert.service';
 import { Router, NavigationEnd } from '@angular/router';
-import {NativeResponseService} from '../../services/native/native-response.service';
-import {Unsubscribe} from 'redux';
-import {TimerObservable} from 'rxjs/observable/TimerObservable';
-import {LocationActions} from '../../store/actions/LocationActions';
+import { NativeResponseService } from '../../services/native/native-response.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Unsubscribe } from 'redux';
+import { TimerObservable } from 'rxjs/observable/TimerObservable';
+import { LocationActions } from '../../store/actions/LocationActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
-import {Subscription} from 'rxjs';
-import {TransmissionService} from '../../services/transmission.service';
-import {LanguageService} from '../../services/language.service';
+import { Subscription } from 'rxjs';
+import { TransmissionService } from '../../services/transmission.service';
+import { LanguageService } from '../../services/language.service';
 import * as locationTypes from '../../config/LocationTypes';
 import * as languageTypes from '../../config/LanguageTypes';
-import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-content-table-at',
@@ -21,7 +24,6 @@ import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@a
 })
 export class ContentTableAtComponent implements OnInit, OnDestroy {
 
-  // location data
   public location: any;
   public locationName: string;
   private locationId: number;
@@ -32,18 +34,20 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   public isJoinButtonUnlocked: boolean;
   public language: string;
   public openLangScreen = false;
-
+  public changeUsernameEnable = false;
   private checkStatusTimer: any;
   public isWeb: boolean;
   public joinGame: boolean;
   public locationSocketStatus: undefined;
-
   private readonly _unsubscribe: Unsubscribe;
   private _statusTimerSubscription;
   private _curLocSubscribe: Subscription;
   private navigationSubscription: Subscription;
-
-  changeName = '';
+  private subscriptionChangeCred: Subscription;
+  private subscriptionExistingChangeCred: Subscription;
+  public wrongCredChange: boolean;
+  public existingCred: boolean;
+  public changeName = '';
   private changeForm: FormGroup;
   private nameFormControl: FormControl;
 
@@ -54,30 +58,45 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private transmissionService: TransmissionService,
     private languageService: LanguageService,
     private responseService: NativeResponseService,
+    private alertService: AlertService,
+    private translate: TranslateService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
+    private snackBar: MatSnackBar,
     private nativeCommunicationService: NativeCommunicationService
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       this.changeName = state.user.name;
       this.updateLocationStatus(state.locationStatus);
-      if(state.closestExhibit)
-      {
+      if(state.closestExhibit){
         this.updateJoinButtonStatus(state.closestExhibit);
       }
       this.locationSocketStatus = state.locationSocketStatus;
     });
 
-    this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
-    {
+    this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>{
       this.location = value;
     });
+
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
+      if (e instanceof NavigationEnd) { this.initialiseInvites(); }
+    });
+
+    this.subscriptionChangeCred = this.alertService.getMessageChangedCred().subscribe(message => {
+      if (message){
+        this.changeUsernameEnable = false;
+        const config = new MatSnackBarConfig();
+        config.duration = 3000;
+        config.panelClass = ['success-snackbar'];
+        this.snackBar.open(this.translate.instant('changeCredentials.credentialsChanged'), 'OK', config);
+      }else{
+        this.wrongCredChange = true;
       }
+    });
+
+    this.subscriptionExistingChangeCred = this.alertService.getMessageExistingCredentialsOnChange().subscribe(message =>{
+      this.existingCred = message;
     });
   }
 
@@ -168,10 +187,29 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   // saves ID of current exhibit in localstorage
   startOnTableSearch(){
-    this.joinGame = false;
-    this.locationService.stopLocationScanning();
-    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
-    // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
+    if(this.locationStatusFree){
+      this.joinGame = false;
+      this.locationService.stopLocationScanning();
+      this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
+      // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
+    }    
+  }
+
+  public submitCredentialsChange()
+  {
+    if(this.nameFormControl.value === undefined || this.nameFormControl.value === ''){
+      this.transmissionService.changeName = undefined;
+    }else{
+      this.transmissionService.changeName = this.nameFormControl.value;
+      this.changeName = this.nameFormControl.value;
+    }
+  
+    this.transmissionService.transmitUserCredentialChange();
+  }
+
+  public cancelSubmitCredentialsChange(){
+    this.changeName = this.appStore.getState().user.name;
+    this.changeUsernameEnable = false;    
   }
 
   changeLanguageToGerman(){
@@ -188,6 +226,14 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     let selected = false;
     (this.language === lang) ? selected = true : selected = false;
     return selected;
+  }
+
+  getCredChangeExistingCred(field) {
+    return this.translate.instant('changeCredentials.credentialsTaken');
+  }
+
+  editCred(){
+    this.changeUsernameEnable = true;
   }
 
   /*
