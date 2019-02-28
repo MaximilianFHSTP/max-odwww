@@ -9,12 +9,14 @@ import { Unsubscribe } from 'redux';
 import { TimerObservable } from 'rxjs/observable/TimerObservable';
 import { LocationActions } from '../../store/actions/LocationActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { Subscription } from 'rxjs';
 import { TransmissionService } from '../../services/transmission.service';
 import { LanguageService } from '../../services/language.service';
 import * as locationTypes from '../../config/LocationTypes';
 import * as languageTypes from '../../config/LanguageTypes';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -59,6 +61,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private languageService: LanguageService,
     private responseService: NativeResponseService,
     private alertService: AlertService,
+    private dialog: MatDialog,
     private translate: TranslateService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
@@ -234,6 +237,22 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   editCred(){
     this.changeUsernameEnable = true;
+  }
+
+  disconnectFromExhibit(){
+    const dialogRef = this.dialog.open(DeleteDialogComponent,
+      {data: { username: this.appStore.getState().user.name},
+        disableClose: true,
+        autoFocus: false
+      });
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result === 'confirm'){
+        // disconnect then logoff
+        this.transmissionService.logout();
+      }else{
+        // console.log('Account NOT deleted!');
+      }
+    });
   }
 
   /*

@@ -113,6 +113,35 @@ input{
   color: #494949;
 }
 
+.toolbar button{
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  margin: 20px 20px 0px 20px; 
+  background: #ffffff;
+}
+
+.toolbar .closebutton{
+  float: right; 
+  background: #494949;
+  color:#ffffff;
+  padding: 0;
+}
+
+.toolbar .closebutton img{
+  margin: 4px 0 0 -1px;
+  height: 40px;
+}
+
+.username{
+  font-family: 'Vollkorn', Times, serif;
+  margin: 30px 5px;
+  font-size: 1.5em;
+  text-align: center; 
+  float: right; 
+}
+
 .btnJoin{ background-color: #755300; }
 
 .btnBottom{ background-color: #cccccc; }

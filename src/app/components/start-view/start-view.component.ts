@@ -25,6 +25,7 @@ export class StartViewComponent implements OnInit
 
   ngOnInit()
   {
+    this.loginAsGuest();
   }
 
   forwardToRegister(){

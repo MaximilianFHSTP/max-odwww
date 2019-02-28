@@ -7,6 +7,8 @@ import {LocationActions} from '../../store/actions/LocationActions';
 import {NativeCommunicationService} from '../../services/native/native-communication.service';
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {TransmissionService} from '../../services/transmission.service';
@@ -63,6 +65,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
+    private dialog: MatDialog,
     private coaService: CoaService,
     private alertService: AlertService,
     private translate: TranslateService
@@ -190,7 +193,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   updateLocationStatus(status: string){
     // When not free, disconnect and redirect back
     if (status !== 'FREE'){
-      this.disconnectFromExhibit();
+      this.disconnectFromExhibitQuiz();
       this.closeWindow();
     }
   }
@@ -212,7 +215,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.subscriptionPoints.unsubscribe();
   }
 
-  public disconnectFromExhibit()
+  public disconnectFromExhibitQuiz()
   {
     //  this.transmissionService.transmitLocationRegister({minor: 301, major: 30});
     // Send quizendtime here
@@ -222,6 +225,22 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.exhibitService.sendQuizTime(this.quizTime);
     this.firstQuestionOfRun = false;
     this.exhibitService.disconnect();
+  }
+
+  disconnectFromExhibit(){
+    const dialogRef = this.dialog.open(DeleteDialogComponent,
+      {data: { username: this.appStore.getState().user.name},
+        disableClose: true,
+        autoFocus: false
+      });
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result === 'confirm'){
+        this.disconnectFromExhibitQuiz();
+        this.transmissionService.logout();
+      }else{
+        // console.log('Account NOT deleted!');
+      }
+    });
   }
 
   public sendMessageToExhibit()

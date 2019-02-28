@@ -140,9 +140,10 @@
 
   },
   "deleteDialog": {
-    "title": "Delete Account",
-    "text": "If you delete your account, you will not be able to reactivate it, and all your data will be lost. Do you really want to proceed?",
-    "yesOption": "Delete Account"
+    "title": "Leave Game?",
+    "text": "Do you really want to proceed",
+    "yesOption": "Leave",
+    "noOption": "Stay"
   },
   "alertDialog": {
     "title": "Exhibit",

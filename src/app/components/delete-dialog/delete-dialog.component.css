@@ -26,18 +26,26 @@ p{
   font-size: 1em;
 }
 
+.btnNo,
 .btnConfirm{
   border: none;
   outline: none;
   text-transform: uppercase;
   font-size: 1em;
   font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
-  display: block;
-  margin: 10px auto;
+  display: block !important;
+  margin: 0px auto;
   background: #494949;
   color: #ffffff;
   min-width: 180px;
   padding: 0.8em;
+}
+
+.btnNo{
+  margin-top: 20px;
+  border: 1px solid #494949;
+  background: #ffffff;
+  color: #494949;
 }
 
   .btnCancel{

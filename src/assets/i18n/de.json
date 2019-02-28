@@ -140,9 +140,10 @@
     "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben."
   },
   "deleteDialog": {
-    "title": "Konto löschen",
-    "text": "Wenn Du das Konto löscht, kannst Du es nicht erneut aktivieren, alle Daten gehen verloren. Möchtest Du wirklich fortfahren?",
-    "yesOption": "Konto löschen"
+    "title": "Spiel verlassen?",
+    "text": "Möchtest Du wirklich fortfahren",
+    "yesOption": "Verlassen",
+    "noOption": "Bleiben"
   },
   "alertDialog": {
     "title": "Ausstellungsstück",
