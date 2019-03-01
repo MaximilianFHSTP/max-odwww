@@ -201,7 +201,7 @@ export class AppModule {
         break;
       }
       case 'send_wifi_ssid': {
-        this.nativeResponseService.checkWifi(value);
+        this.nativeResponseService.getWifiDataFromGoD();
         break;
       }
       case 'send_bluetooth_check': {

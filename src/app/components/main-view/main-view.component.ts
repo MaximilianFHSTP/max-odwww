@@ -498,7 +498,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   public checkWifiForWeb()
   {
-    this.nativeResponseService.checkWifi({ssid: 'FH_STP_WLAN'});
+    this.nativeResponseService.getWifiDataFromGoD();
   }
 }
 
