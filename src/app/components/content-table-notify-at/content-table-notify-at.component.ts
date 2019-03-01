@@ -154,6 +154,6 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
 
   redirectToOnTable()
   {
-    this.responseService.timelineUpdate({minor: 5021, major: 502});
+    this.responseService.timelineUpdate({minor: this.locationId * 10 + 1, major: this.locationId});
   }
 }

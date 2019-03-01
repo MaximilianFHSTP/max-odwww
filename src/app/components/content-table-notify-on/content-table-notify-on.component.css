@@ -121,6 +121,8 @@ a{
 .Sec_502 .btnJoin{ background-color: #5c416a; }
 .Sec_502 .note{ text-align: center; color: #5c416a; }
 
+.Sec_403 .btnJoin{ background-color: #1d635d; }
+.Sec_403 .note{ text-align: center; color: #1d635d; }
 
 
 @media (max-width: 370px) {
