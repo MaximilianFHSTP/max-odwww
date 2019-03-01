@@ -12,7 +12,7 @@ export class AboutComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private languageService: LanguageService,
+    public languageService: LanguageService,
     private nativeCommunicationService: NativeCommunicationService
   ) { }
 

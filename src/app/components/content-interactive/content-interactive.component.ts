@@ -34,7 +34,7 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
     private router: Router,
     private coaService: CoaService,
     private transmissionService: TransmissionService,
-    private languageService: LanguageService,
+    public languageService: LanguageService,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore)
   {

@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit
   public subscriptionExistingCred: Subscription;
   private existingEmail: boolean;
   private existingUser: boolean;
-  private wrongCred: boolean;
+  public wrongCred: boolean;
 
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required]);

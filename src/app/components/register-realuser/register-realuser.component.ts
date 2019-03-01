@@ -26,7 +26,7 @@ export class RegisterRealuserComponent implements OnInit
   private subscriptionExistingCred: Subscription;
   private existingUser: boolean;
   private existingEmail: boolean;
-  private wrongCred: boolean;
+  public wrongCred: boolean;
   private errorCredentialMessage: string;
 
   nameFormControl = new FormControl('', [Validators.required]);

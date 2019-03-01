@@ -26,21 +26,23 @@ export class ChangeCredentialsComponent implements OnInit
   public changeEmail: string;
   public oldPassword: string;
   public newPassword_: string;
+  public newConfirmPassword_: string;
   private subscriptionChangeCred: Subscription;
-  private wrongCredChange: boolean;
+  public wrongCredChange: boolean;
   private subscriptionExistingChangeCred: Subscription;
-  private existingCred: boolean;
-  private changeForm: FormGroup;
-  private nameFormControl: FormControl;
-  private emailFormControl: FormControl;
-  private passwordFormControl: FormControl;
-  private newPasswordFormControl: FormControl;
-  private newConfirmPasswordFormControl: FormControl;
+  public existingCred: boolean;
+  public changeForm: FormGroup;
+  public nameFormControl: FormControl;
+  public emailFormControl: FormControl;
+  public passwordFormControl: FormControl;
+  public newPasswordFormControl: FormControl;
+  public newConfirmPasswordFormControl: FormControl;
   public language: string;
   changeUsernameEnable = false;
   changeEmailEnable = false;
   changePasswordEnable = false;
   changeLanguageEnable = false;
+  lastUpdated = '';
 
   constructor(
     private router: Router,
@@ -69,6 +71,16 @@ export class ChangeCredentialsComponent implements OnInit
     });
     this.subscriptionExistingChangeCred = this.alertService.getMessageExistingCredentialsOnChange().subscribe(message =>{
       this.existingCred = message;
+
+      if(this.existingCred){
+        if(this.lastUpdated === 'changeUsernameEnable'){
+          this.changeUsernameEnable = true;
+        }else if(this.lastUpdated === 'changeEmailEnable'){
+          this.changeEmailEnable = true;
+        }else if(this.lastUpdated === 'changePasswordEnable'){
+          this.changePasswordEnable = true;
+        }
+      }
     });
   }
 
@@ -209,6 +221,7 @@ export class ChangeCredentialsComponent implements OnInit
 
   changeUsernamePreview(){
     this.changeUsernameEnable = true;
+    this.lastUpdated = 'changeUsernameEnable';
 
     this.changeEmailEnable = false;
     this.changePasswordEnable = false;
@@ -217,6 +230,7 @@ export class ChangeCredentialsComponent implements OnInit
 
   changeEmailPreview(){
     this.changeEmailEnable = true;
+    this.lastUpdated = 'changeEmailEnable';
 
     this.changeUsernameEnable = false;
     this.changePasswordEnable = false;
@@ -225,6 +239,7 @@ export class ChangeCredentialsComponent implements OnInit
 
   changePasswordPreview(){
     this.changePasswordEnable = true;
+    this.lastUpdated = 'changePasswordPreview';
 
     this.changeUsernameEnable = false;
     this.changeEmailEnable = false;

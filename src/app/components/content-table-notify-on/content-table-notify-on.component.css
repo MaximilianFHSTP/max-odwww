@@ -37,12 +37,12 @@ a{
   width: 100%;
   top: 90px;
   min-height: -webkit-fill-available;
-  margin-bottom: 100px;
 }
 
 .wrapperContent{
   width: 70%;
   margin: 20px auto;
+  margin-bottom: 100px;
 }
 
 .btnJoin{

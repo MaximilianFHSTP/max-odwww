@@ -34,6 +34,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public timelineLocations: any;
   public isWeb: boolean;
   public closestExhibit: number;
+  public prevClosestExhibit: number;
   public locationId: string;
 
   /////////////////////
@@ -79,6 +80,10 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       this.closestExhibit = state.closestExhibit;
+      if(this.prevClosestExhibit !== this.closestExhibit){
+        this.prevClosestExhibit = this.closestExhibit;
+        this.buttonAnimationOn();
+      }
       this.timelineLocations = this.locationService.getTimelineLocations();
       this.sortLocationData();
     });
@@ -236,7 +241,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     // Get calculated positions and place cards
     this.cardPositions.forEach((pos) => {
       const card = d3.select('#exh_' + pos.id).style('position','absolute')
-          .style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 1) +'px');
+          .style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 2) +'px');
     });
 
     // Hide everything then show only selected section
@@ -302,9 +307,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   sortLocationData( ){
     const mtimelineLocations = this.timelineLocations;
-    // console.log(this.timelineLocations);
+    let exhX;
 
     this.timelineLocations.forEach((exh, index) => {
+
+      // Fix cases in wich the timespan of the next exhibit would pass over the current one
       if(this.timelineLocations[index + 1] && exh.locationTypeId !== 5 && exh.parentId === this.timelineLocations[index + 1].parentId){
         if(!(exh.startDate >= this.timelineLocations[index + 1].endDate || exh.endDate <= this.timelineLocations[index + 1].startDate)){
           if(this.timelineLocations[index + 1].startDate - exh.startDate < 5 && this.timelineLocations[index + 1].endDate !== exh.endDate) {
@@ -313,7 +320,16 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
           }
         }
       }
-    });    
+      
+      // Fix positioning of specific exhibits (502-5001)
+      if(exh.id === 502){
+        exhX = index;
+      }else if(exhX && exh.id === 5001){
+        mtimelineLocations[index] =  this.timelineLocations[exhX];
+        mtimelineLocations[exhX] =  exh;
+      }
+    });
+
 
     this.timelineLocations = mtimelineLocations;
     this.setCurrentExhibits();
@@ -368,32 +384,43 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     );
   }
 
+  getLocation(id: any){
+    let loc;
+
+    this.timelineLocations.forEach((exh) => {
+      if(exh.id === id){loc = exh;}
+    });
+
+    return loc;
+  }
+
   isClose(exhibit: number){
     let state = false;
     (this.closestExhibit === exhibit) ? state = true : state = false; 
     return state;
   }
 
+  buttonAnimationOn(){
+    // d3.select('.locationbutton').transition().style('background-color', '#aaaaaa')
+    // .transition().style('background-color', '#494949');
+
+    d3.select('.locationbutton').transition().style('box-shadow', '0px 0px 18px #888888')
+    .transition().style('box-shadow', 'none');
+  }
+
   goToClosestExhibit() {
     if(this.closestExhibit){
-      const secCode = (this.closestExhibit).toString().substring(0,2);
-      if(secCode !== this.currentSection.toString()){
-        this.displaySection(+secCode, true);
-      }else{
-        this.scrollTo(this.closestExhibit);
-      }  
+      const loc = this.getLocation(this.closestExhibit);
+      if(!loc.locked){
+        (loc.parentId !== this.currentSection) ? this.displaySection(loc.parentId, true) : this.scrollTo(loc.id);
+      }
     }
   }
 
   scroll() {
-    const id = this.registerLocationmessage.location;
-    
-    const secCode = id.toString().substring(0,2);
-    if(secCode !== this.currentSection.toString()){
-      this.displaySection(+secCode, true);
-    }
-
-    this.scrollTo(+id);
+    const loc = this.getLocation(this.registerLocationmessage.location);
+    if(loc.parentId !== this.currentSection){ this.displaySection(loc.parentId, true); }
+    this.scrollTo(loc.id);
   }
 
   scrollTo(id: number) {

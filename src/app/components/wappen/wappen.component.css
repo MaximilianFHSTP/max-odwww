@@ -523,6 +523,16 @@ div::-webkit-scrollbar-thumb {
     .toolbar .savebutton p{
         display: none;
     }
+
+    h1{
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    .wappenHelp p,
+    .wappenSettings p{
+        font-size: 0.8em;
+    }
 }
 
 @media (min-height: 750px) {
