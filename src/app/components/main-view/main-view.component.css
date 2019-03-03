@@ -81,12 +81,23 @@ p{
   z-index: 1;
 }
 
+.titlewrapper{
+  width: 65%;
+  height: 94px;
+  position: fixed;
+  top: 25px;
+  left: 34px;
+  z-index: 1;
+  background: #ffffff;
+}
+
 .card.title{
   width: 65%;
   height: 90px;
-  position: absolute;
+  position: fixed;
   top: 25px;
-  left: 32px;
+  left: 34px;
+  z-index: 5;
 }
 
 .card img{
@@ -174,6 +185,11 @@ p{
 .card.Sec40 .wrapIcon div, #timelineAxis.Sec40{ background-color: #1d635d; }
 .card.Sec50 .wrapIcon div, #timelineAxis.Sec50{ background-color: #5c416a; }
 .card.Sec60 .wrapIcon div, #timelineAxis.Sec60{ background-color: #32633a; }
+
+.titlewrapper,
+.card.title{
+  border-left: none;
+}
 
 #timelineAxis{
   margin: 0;
@@ -353,6 +369,7 @@ p{
 }
 
 @media (min-height: 730px) {
+  .titlewrapper,
   .card.title{
     top: 40px;
   }
