@@ -69,7 +69,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
-      this.updateLocationStatus(state.locationStatus);
+      // this.updateLocationStatus(state.locationStatus);
       this.connectionSuccess = state.connectedToExhibit;
     });
     this.subscriptionQuestion = this.alertService.getQuizQuestion().subscribe(message => {
