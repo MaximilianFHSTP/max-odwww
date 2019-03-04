@@ -1,10 +1,11 @@
 <div id="woodcut" class="Sec{{currentSection}}"></div>
+<div id="woodcuttop" class="Sec{{currentSection}}"></div>
 <div class="toolbar">
     <button class="wappenbutton" (click)="userCoA()"></button>
     <button [className]="closestExhibit ? 'enabled locationbutton' : 'disabled locationbutton'" (click)="goToClosestExhibit()"></button>
 </div>
 
-<div id="timelineAxis" class="Sec{{currentSection}}"></div>
+<div id="timelineAxis" class="Sec{{currentSection}}"></div><div id="timelineAxisTitle" class="Sec{{currentSection}}"></div>
 <div id="timeline"></div>
 
 <div class="titlewrapper"></div>

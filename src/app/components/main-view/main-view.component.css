@@ -19,6 +19,7 @@ p{
   margin: 0;
 }
 
+#woodcuttop,
 #woodcut{
   position: fixed;
   top: 0;
@@ -28,36 +29,47 @@ p{
   z-index: -2;
 }
 
+#woodcuttop{
+  height: 118px;
+  z-index: 3;
+}
+
+#woodcuttop.Sec10,
 #woodcut.Sec10{
   background: url("../../../assets/css/Section1BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+#woodcuttop.Sec20,
 #woodcut.Sec20{
   background: url("../../../assets/css/Section2BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+#woodcuttop.Sec30,
 #woodcut.Sec30{
   background: url("../../../assets/css/Section3BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+#woodcuttop.Sec40,
 #woodcut.Sec40{
   background: url("../../../assets/css/Section4BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+#woodcuttop.Sec50,
 #woodcut.Sec50{
   background: url("../../../assets/css/Section5BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+#woodcuttop.Sec60,
 #woodcut.Sec60{
   background: url("../../../assets/css/Section6BG.png");
   background-size: cover;
@@ -81,18 +93,23 @@ p{
   z-index: 1;
 }
 
+.card.title.lckfalse.near{
+  box-shadow: 5px 0px 18px #888888;
+  z-index: 3;
+}
+
 .titlewrapper{
-  width: 65%;
+  width: 67%;
   height: 94px;
   position: fixed;
   top: 25px;
   left: 34px;
-  z-index: 1;
-  background: #ffffff;
+  z-index: 4;
+  /*background: #ffffff;*/
 }
 
 .card.title{
-  width: 65%;
+  width: 67%;
   height: 90px;
   position: fixed;
   top: 25px;
@@ -179,18 +196,19 @@ p{
 .card.Sec50 .timespan{ color: #5c416a; }
 .card.Sec60 .timespan{ color: #32633a; }
 
-.card.Sec10 .wrapIcon div, #timelineAxis.Sec10{ background-color: #823a3a; }
-.card.Sec20 .wrapIcon div, #timelineAxis.Sec20{ background-color: #305978; }
-.card.Sec30 .wrapIcon div, #timelineAxis.Sec30{ background-color: #755300; }
-.card.Sec40 .wrapIcon div, #timelineAxis.Sec40{ background-color: #1d635d; }
-.card.Sec50 .wrapIcon div, #timelineAxis.Sec50{ background-color: #5c416a; }
-.card.Sec60 .wrapIcon div, #timelineAxis.Sec60{ background-color: #32633a; }
+.card.Sec10 .wrapIcon div, #timelineAxis.Sec10, #timelineAxisTitle.Sec10{ background-color: #823a3a; }
+.card.Sec20 .wrapIcon div, #timelineAxis.Sec20, #timelineAxisTitle.Sec20{ background-color: #305978; }
+.card.Sec30 .wrapIcon div, #timelineAxis.Sec30, #timelineAxisTitle.Sec30{ background-color: #755300; }
+.card.Sec40 .wrapIcon div, #timelineAxis.Sec40, #timelineAxisTitle.Sec40{ background-color: #1d635d; }
+.card.Sec50 .wrapIcon div, #timelineAxis.Sec50, #timelineAxisTitle.Sec50{ background-color: #5c416a; }
+.card.Sec60 .wrapIcon div, #timelineAxis.Sec60, #timelineAxisTitle.Sec60{ background-color: #32633a; }
 
 .titlewrapper,
 .card.title{
   border-left: none;
 }
 
+#timelineAxisTitle,
 #timelineAxis{
   margin: 0;
   padding: 0;
@@ -200,6 +218,11 @@ p{
   left: 0;
   top: 0;
   z-index: -1;
+}
+
+#timelineAxisTitle{
+  height: 120px;
+  z-index: 5;
 }
 
 #timeline{
@@ -215,6 +238,7 @@ p{
   position: fixed;
   right: 0;
   top: 0;
+  z-index: 3;
 }
 
 .toolbar mat-icon{
@@ -349,6 +373,11 @@ p{
   .card h2{
     font-size: 0.8em;
   }
+
+  .card.title,
+  .titlewrapper{
+    width: 65%;
+  }
 }
 
 @media (min-width: 550px) {
@@ -365,7 +394,7 @@ p{
   .card h2{
     font-size: 1em;
     margin: 0px 0px 0px 15px;
-  }
+  }  
 }
 
 @media (min-height: 730px) {
@@ -377,4 +406,31 @@ p{
   .wappenbutton{ 
     margin: 105px 20px 0px 0px;
   }
+
+  #woodcuttop{
+    height: 134px;
+  }
+
+  #timelineAxisTitle{
+    height: 136px;
+  }
 }
+
+@media (min-height: 810px) {
+  #woodcuttop{
+    background-size: 122% !important;
+  }
+}
+
+@media (min-height: 820px) {
+  #woodcuttop{
+    background-size: 113% !important;
+  }
+}
+
+@media (min-height: 830px) {
+  #woodcuttop{
+    background-size: cover !important;
+  }
+}
+
