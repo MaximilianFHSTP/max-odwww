@@ -7,6 +7,7 @@
 <div id="timelineAxis" class="Sec{{currentSection}}"></div>
 <div id="timeline"></div>
 
+<div class="titlewrapper"></div>
 <ng-container  *ngFor="let loc of currentEntrance" >
   <div *ngIf="loc.parentId == currentSection" [className]="isClose(loc.id) ? 'near card title lck'+loc.locked+' Sec'+loc.parentId : 'card title lck'+loc.locked+' Sec'+loc.parentId" 
   id="exh_{{loc.id}}" (click)="requestRegisterLocation(loc.id, loc.parentId, loc.locked)">
