@@ -88,6 +88,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.nativeCommunicationService.sendToNative('TABLE-AT', 'print');
 
     this.location = this.locationService.currentLocation.value;
+    // console.log(this.location);
     // this.checkIfRedirected();
     this.locationName = this.location.description;
     this.locationId = this.location.id;
