@@ -35,9 +35,10 @@ export class QuizComponent implements OnInit, OnDestroy {
   public answerD: string;
   private answerChar: string;
   public yourAnswer: string;
-  
+
   public yourPoints = this.translate.instant('quiz.progress')+' ...';
   public yourStatus = '...';
+  public yourStatusText;
   public correctAnswer: string;
   public elaboration: string;
 
@@ -69,7 +70,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
-      this.updateLocationStatus(state.locationStatus);
+      // this.updateLocationStatus(state.locationStatus);
       this.connectionSuccess = state.connectedToExhibit;
     });
     this.subscriptionQuestion = this.alertService.getQuizQuestion().subscribe(message => {
@@ -134,17 +135,20 @@ export class QuizComponent implements OnInit, OnDestroy {
       const points = message;
       if(points<7){
         this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '7 ' + this.translate.instant('quiz.points');
-        this.yourStatus = this.translate.instant('quiz.beggars');
+        this.yourStatus = 'Bettelvolk';
+        this.yourStatusText = this.translate.instant('quiz.beggars');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = ((points*100)/7) + '%';
       }else if(points>=7 && points <13){
         this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '13 ' + this.translate.instant('quiz.points');
-        this.yourStatus = this.translate.instant('quiz.bourgeoisie');
+        this.yourStatus = 'Buergertum';
+        this.yourStatusText = this.translate.instant('quiz.bourgeoisie');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = ((points*100)/13) + '%';
       }else if(points>=13){
-        this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '13 ' + this.translate.instant('quiz.points');
-        this.yourStatus = this.translate.instant('quiz.noble');
+        this.yourPoints = this.translate.instant('quiz.progress') + points/* + '/' + '13 ' + this.translate.instant('quiz.points')*/;
+        this.yourStatus = 'Adel';
+        this.yourStatusText = this.translate.instant('quiz.noble');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = '100%';
       }
