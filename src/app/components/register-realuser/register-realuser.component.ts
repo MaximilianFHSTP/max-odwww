@@ -32,7 +32,7 @@ export class RegisterRealuserComponent implements OnInit
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required,
-    Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
+    Validators.pattern('(?=.*[a-z])((?=.*[0-9])|(?=.*[!@#$%^*&?)§(\/]))[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
   registerRealUserForm: FormGroup = new FormGroup({
@@ -102,7 +102,7 @@ export class RegisterRealuserComponent implements OnInit
   getConfirmPasswordErrorMessage() {
 
     return this.confirmPasswordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
-      this.confirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') : 
+      this.confirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') :
       this.translate.instant('changeCredentials.notSamePassword');
   }
   getRequiredErrorMessage(field) {

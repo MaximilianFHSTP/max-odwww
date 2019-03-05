@@ -110,11 +110,11 @@ export class ChangeCredentialsComponent implements OnInit
     }
 
     this.transmissionService.transmitUserCredentialChange();
-    
+
     this.changeUsernameEnable = false;
     this.changeEmailEnable = false;
     this.changePasswordEnable = false;
-    this.changeLanguageEnable = false;   
+    this.changeLanguageEnable = false;
   }
 
   ngOnInit()
@@ -130,7 +130,7 @@ export class ChangeCredentialsComponent implements OnInit
     this.emailFormControl = new FormControl(this.changeEmail, /*[Validators.required]*/);
     this.passwordFormControl = new FormControl('', /*[Validators.required]*/);
     this.newPasswordFormControl = new FormControl('', [/*[Validators.required]*/
-      Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
+      Validators.pattern('(?=.*[a-z])((?=.*[0-9])|(?=.*[!@#$%^*&?)§(\/]))[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
     this.newConfirmPasswordFormControl = new FormControl('', /*[Validators.required]*/);
 
     this.changeForm = new FormGroup({
@@ -148,13 +148,13 @@ export class ChangeCredentialsComponent implements OnInit
   getPasswordErrorMessage() {
     return this.newPasswordFormControl.hasError('required') ? 'You must enter a value' :
     this.newPasswordFormControl.hasError('pattern') ?
-    this.translate.instant('changeCredentials.infoPassword1') + 
+    this.translate.instant('changeCredentials.infoPassword1') +
     this.translate.instant('changeCredentials.infoPassword2') : '';
   }
   getConfirmPasswordErrorMessage() {
 
     return this.newConfirmPasswordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
-    this.newConfirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') : 
+    this.newConfirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') :
     this.translate.instant('changeCredentials.notSamePassword');
   }
   getRequiredErrorMessage(field) {
@@ -216,7 +216,7 @@ export class ChangeCredentialsComponent implements OnInit
       this.router.navigate(['mainview']).then( () => {
         this.nativeCommunicationService.sendToNative('Main View', 'print');
       });
-    }  
+    }
   }
 
   changeUsernamePreview(){
@@ -225,7 +225,7 @@ export class ChangeCredentialsComponent implements OnInit
 
     this.changeEmailEnable = false;
     this.changePasswordEnable = false;
-    this.changeLanguageEnable = false;  
+    this.changeLanguageEnable = false;
   }
 
   changeEmailPreview(){
@@ -234,7 +234,7 @@ export class ChangeCredentialsComponent implements OnInit
 
     this.changeUsernameEnable = false;
     this.changePasswordEnable = false;
-    this.changeLanguageEnable = false;  
+    this.changeLanguageEnable = false;
   }
 
   changePasswordPreview(){
@@ -243,7 +243,7 @@ export class ChangeCredentialsComponent implements OnInit
 
     this.changeUsernameEnable = false;
     this.changeEmailEnable = false;
-    this.changeLanguageEnable = false;  
+    this.changeLanguageEnable = false;
   }
 
   changeLanguagePreview(){
