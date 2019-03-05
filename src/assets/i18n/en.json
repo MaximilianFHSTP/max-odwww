@@ -129,8 +129,8 @@
     "credentialsChanged": "You changed your credentials successfully.",
     "OK": "OK",
     "enterValue": "You must enter a value.",
-    "infoPassword1": "Please use at least 6 characters with at least 1 upper case, 1 lower case, ",
-    "infoPassword2": "1 number and 1 special character! Example: ! $ § % & / ( ) = ?",
+    "infoPassword1": "Please use at least 6 characters with at least 1 lower case and ",
+    "infoPassword2": "1 number or 1 special character! Example: ! $ § % & / ( ) = ?",
     "notSamePassword": "The password is not the same.",
     "credentialsNotChanged": "The credentials were not changed correctly.",
     "credentialsTaken": "These credentials are already taken."
