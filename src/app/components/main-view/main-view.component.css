@@ -256,8 +256,10 @@ p{
 }
 
 .wappenbutton{ 
-  background: url("../../../assets/css/WappenIcons.png") 54px 48px;
-  background-size: 450px;
+  background: url("../../../assets/css/coa.svg");
+  background-position: center;
+  background-size: 30px;
+  background-repeat: no-repeat;
   margin: 90px 20px 0px 0px;
 }
  
