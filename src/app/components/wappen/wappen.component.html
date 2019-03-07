@@ -5,7 +5,7 @@
             <div><img src="assets/icons/save.svg"></div>
             <p>{{ 'coa.save' | translate }}</p>
         </button>
-      <button class="closebutton" (click)="closeWindow()"><img src="assets/icons/closewhite.svg"></button>
+      <button id="closebutton" class="closebutton" (click)="closeWindow()"><img src="assets/icons/closewhite.svg"></button>
   </div> 
 
   <div class="wappenHelp" *ngIf="showHelp">
@@ -120,8 +120,7 @@
           <ul class="tasks">
               <ng-container *ngFor="let item of itemsList">
                   <li *ngIf="item.coaTypeId === 1 && selectedShield == item.image" [className]="isUnlocked(item.image) ? 'item.image done' : 'item.image locked'">
-                    <p *ngIf="languageService.getCurrentLanguageAsString() === 'en'">{{item.taskENG}}</p>
-                    <p *ngIf="languageService.getCurrentLanguageAsString() === 'de'">{{item.taskGER}}</p>
+                    <p>{{ 'coa.unlocked' | translate }}</p>
                 </li>
               </ng-container>
           </ul>

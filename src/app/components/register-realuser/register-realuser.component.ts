@@ -28,11 +28,12 @@ export class RegisterRealuserComponent implements OnInit
   private existingEmail: boolean;
   public wrongCred: boolean;
   private errorCredentialMessage: string;
+  private subscriptionNativeBackbutton: Subscription;
 
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required,
-    Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
+    Validators.pattern('(?=.*[a-z])((?=.*[0-9])|(?=.*[!@#$%^*&?)§(\/]))[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
   registerRealUserForm: FormGroup = new FormGroup({
@@ -70,6 +71,11 @@ export class RegisterRealuserComponent implements OnInit
         this.errorCredentialMessage = this.translate.instant('register.credentialsNotMatch');
       }
     });
+
+    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
+      const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
+      if(elm){ elm.click(); }
+    });
   }
 
   public registerAsRealuser()
@@ -102,7 +108,7 @@ export class RegisterRealuserComponent implements OnInit
   getConfirmPasswordErrorMessage() {
 
     return this.confirmPasswordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
-      this.confirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') : 
+      this.confirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') :
       this.translate.instant('changeCredentials.notSamePassword');
   }
   getRequiredErrorMessage(field) {
@@ -128,6 +134,14 @@ export class RegisterRealuserComponent implements OnInit
 
   getExistsErrorMessage(){
     return this.errorCredentialMessage;
+  }
+
+  public closeWindow(){
+    this.router.navigate(['mainview']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Main View', 'print');
+      }
+    );
   }
 
 }

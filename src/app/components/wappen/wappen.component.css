@@ -218,8 +218,8 @@ h1{
     margin-left: -30%; 
 }
 
-.wappenSettings_shield .done p:after {
-    content: " Unlocked from beginning.";
+.wappenSettings_shield .done p {
+    /* content: " Unlocked from beginning.";*/
     color: #047f0d;
  }
 

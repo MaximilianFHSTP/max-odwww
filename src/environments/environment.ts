@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   // godURL: 'https://god.meeteux.fhstp.ac.at:3000'
-  // godURL: 'http://localhost:3000'
-  godURL: 'https://god.meeteux.fhstp.ac.at:8080'
+  // godURL: 'http://192.168.178.48:3000'
+  // godURL: 'https://god.meeteux.fhstp.ac.at:8080'
+  godURL: 'https://god.stift-klosterneuburg.at'
 };

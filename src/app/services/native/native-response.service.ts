@@ -98,13 +98,8 @@ export class NativeResponseService implements OnInit
     }
   }
 
-  public checkWifi(data: any): void {
-    const wifiSSSID: String = data.ssid;
-    this.nativeCommunicationService.sendToNative('Received SSID: ' + wifiSSSID, 'print');
-
-    if (wifiSSSID !== undefined && wifiSSSID !== null && wifiSSSID !== '') {
-      this.godService.checkWifi(wifiSSSID);
-    }
+  public getWifiDataFromGoD(): void {
+      this.godService.getWifi();
   }
 
   public checkBluetooth(): void {
@@ -133,17 +128,8 @@ export class NativeResponseService implements OnInit
     this.languageService.transmitChangeAppLanguage(langNumb);
   }
 
-  public redirectToTimeline()
+  public redirectView()
   {
-    // this.alertService.sendMessageNativeBackbuttonTimeline();
-    const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
-    elm.click();
-  }
-
-  public redirectToStart()
-  {
-    // this.alertService.sendMessageNativeBackbuttonStart();
-    const elm: HTMLElement = document.getElementById('redirectTimeline') as HTMLElement;
-    elm.click();
+    this.alertService.sendMessageNativeBackbutton();
   }
 }

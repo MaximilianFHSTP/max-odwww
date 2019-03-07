@@ -15,7 +15,7 @@ import { RegisterRealuserComponent } from './components/register-realuser/regist
 import { LanguageStartComponent } from './components/language-start/language-start.component';
 import { WappenComponent } from './components/wappen/wappen.component';
 import { AboutComponent } from './components/about/about.component';
-import { LegalComponent } from './components/legal/legal.component';
+import { WifiComponent } from './components/wifi/wifi.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import {ContentTableNotifyAtComponent} from './components/content-table-notify-at/content-table-notify-at.component';
@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'tableat', component: ContentTableAtComponent, runGuardsAndResolvers: 'always'},
   { path: 'tableon', component: ContentTableOnComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'legal', component: LegalComponent },
+  { path: 'wifi', component: WifiComponent },
   { path: 'educationQuiz', component: EducationQuizComponent },
   { path: 'wappen', component: WappenComponent },
   { path: 'quiz', component: QuizComponent},

@@ -65,7 +65,7 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     this.updateLocationInformation(state.currentLocation);
     // console.log(this.location);
 
-    if(this.location.id === 6000){
+    if(this.location.id === 6000 || this.location.id === 6001){
       this.coaService.tryUnlock(33);
     }
   }

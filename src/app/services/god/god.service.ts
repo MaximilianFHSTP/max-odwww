@@ -439,24 +439,18 @@ export class GodService {
     });
   }
 
-  public checkWifi(wifiSSID: any): void
+  public getWifi(): void
   {
-    this.socket.emit('checkWifiSSID', wifiSSID);
+    this.socket.emit('getWifiSSID');
 
-    this.socket.on('checkWifiSSIDResult', result =>
+    this.socket.on('getWifiSSIDResult', result =>
     {
-      const isCorrect = result.data.check;
+      const ssid = result.data.ssid;
+      const password = result.data.password;
 
-      if(isCorrect)
-      {
-        this.nativeCommunicationService.sendToNative('correctWifi','getWifiStatusResult');
-        this.nativeCommunicationService.sendToNative('bluetoothCheck','activateBluetoothCheck');
-      }
-      else
-      {
-        this.nativeCommunicationService.sendToNative('openWifiDialogNative','openWifiDialogNative');
-      }
-    this.socket.removeAllListeners('checkWifiSSIDResult');
+      this.nativeCommunicationService.sendToNative({ssid, password},'receiveWifiData');
+
+      this.socket.removeAllListeners('getWifiSSIDResult');
     });
   }
 
