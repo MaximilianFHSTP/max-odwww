@@ -19,6 +19,7 @@ import {CoaService} from '../../services/coa.service';
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent implements OnInit, OnDestroy {
+  private subscriptionNativeBackbutton: Subscription;
   public connectionSuccess: boolean;
   public locationName: string;
   public waitingToStart: boolean;
@@ -161,6 +162,11 @@ export class QuizComponent implements OnInit, OnDestroy {
       } else if(points >= 10) {
         this.coaService.tryUnlock(32);
       }
+    });
+
+    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
+      const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
+      if(elm){ elm.click(); }
     });
   }
 

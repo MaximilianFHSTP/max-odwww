@@ -20,6 +20,7 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
   private registerLocationmessage: any;
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
+  private subscriptionNativeBackbutton: Subscription;
 
   public user: any;
   subscriptionCoaParts: Subscription;
@@ -72,6 +73,11 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
 
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
       this.registerLocationmessage = message;
+    });
+
+    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
+      const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
+      if(elm){ elm.click(); }
     });
   }
 

@@ -30,6 +30,7 @@ export class ChangeCredentialsComponent implements OnInit
   private subscriptionChangeCred: Subscription;
   public wrongCredChange: boolean;
   private subscriptionExistingChangeCred: Subscription;
+  private subscriptionNativeBackbutton: Subscription;
   public existingCred: boolean;
   public changeForm: FormGroup;
   public nameFormControl: FormControl;
@@ -81,6 +82,11 @@ export class ChangeCredentialsComponent implements OnInit
           this.changePasswordEnable = true;
         }
       }
+    });
+
+    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
+      const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
+      if(elm){ elm.click(); }
     });
   }
 

@@ -28,6 +28,7 @@ export class RegisterRealuserComponent implements OnInit
   private existingEmail: boolean;
   public wrongCred: boolean;
   private errorCredentialMessage: string;
+  private subscriptionNativeBackbutton: Subscription;
 
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required]);
@@ -69,6 +70,11 @@ export class RegisterRealuserComponent implements OnInit
         this.wrongCred = true;
         this.errorCredentialMessage = this.translate.instant('register.credentialsNotMatch');
       }
+    });
+
+    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
+      const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
+      if(elm){ elm.click(); }
     });
   }
 
@@ -128,6 +134,14 @@ export class RegisterRealuserComponent implements OnInit
 
   getExistsErrorMessage(){
     return this.errorCredentialMessage;
+  }
+
+  public closeWindow(){
+    this.router.navigate(['mainview']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Main View', 'print');
+      }
+    );
   }
 
 }

@@ -209,23 +209,13 @@ export class AppModule {
         break;
       }
       case 'back_button_pressed': {
-        if(this.router.url === '/register' || this.router.url === '/login' || this.router.url === '/changeLanguageStart' ||
-          this.router.url === '/login'){
-          this.nativeResponseService.redirectToStart();
-          // const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
-          // elm.click();
-        }else{
-          this.nativeResponseService.redirectToTimeline();
-          // const elm: HTMLElement = document.getElementById('redirectTimeline') as HTMLElement;
-          // elm.click();
-        }
+        this.nativeResponseService.redirectView();
         break;
       }
        default: {
           break;
        }
     }
-
   }
 }
 
