@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
+import {LanguageService} from '../../services/language.service';
 
 @Component({
-  selector: 'app-legal',
-  templateUrl: './legal.component.html',
-  styleUrls: ['./legal.component.css']
+  selector: 'app-wifi',
+  templateUrl: './wifi.component.html',
+  styleUrls: ['./wifi.component.css']
 })
-export class LegalComponent implements OnInit {
+export class WifiComponent implements OnInit {
 
   constructor(
     private router: Router,
+    public languageService: LanguageService,
     private nativeCommunicationService: NativeCommunicationService
   ) { }
 

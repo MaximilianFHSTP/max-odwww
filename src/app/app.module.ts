@@ -63,10 +63,10 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { WappenComponent } from './components/wappen/wappen.component';
 import { AboutComponent } from './components/about/about.component';
-import { LegalComponent } from './components/legal/legal.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
 import { ContentTableNotifyAtComponent } from './components/content-table-notify-at/content-table-notify-at.component';
 import { ContentTableNotifyOnComponent } from './components/content-table-notify-on/content-table-notify-on.component';
+import { WifiComponent } from './components/wifi/wifi.component';
 
 
 
@@ -94,13 +94,13 @@ export const appStore = createStore(
     RegisterRealuserComponent,
     WappenComponent,
     AboutComponent,
-    LegalComponent,
     EducationQuizComponent,
     LanguageStartComponent,
     QuizComponent,
     EducationQuizComponent,
     ContentTableNotifyAtComponent,
-    ContentTableNotifyOnComponent
+    ContentTableNotifyOnComponent,
+    WifiComponent
   ],
   imports: [
     BrowserModule,

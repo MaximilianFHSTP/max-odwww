@@ -15,6 +15,7 @@ import { CoaService } from '../../services/coa.service';
 import { JsonpCallbackContext } from '@angular/common/http/src/jsonp';
 import {LanguageService} from '../../services/language.service';
 import * as LanguageTypes from '../../config/LanguageTypes';
+import * as LocationTypes from '../../config/LocationTypes';
 
 @Component({
   selector: 'app-main-view',
@@ -108,11 +109,20 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
   }
 
-  public requestRegisterLocation(id: number, parentId: number, locked: boolean){
+  public requestRegisterLocation(id: number, parentId: number, locked: boolean, typeId: number){
     if(!locked && id && parentId){
       if(id === 5001){ this.checkCoaUnlock(); }
+      if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT || 
+        typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT || 
+        typeId === LocationTypes.NOTIFY_EXHIBIT_AT){
+          this.checkWifi();
+      }
       this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
     }
+  }
+
+  public checkWifi(){
+    this.nativeResponseService.getWifiDataFromGoD();
   }
 
   checkCoaUnlock(){

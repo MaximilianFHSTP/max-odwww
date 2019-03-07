@@ -14,15 +14,27 @@ h1{
     font-size: 1.6em;
 }
 
+h2{
+    font-family: 'Vollkorn', Times, serif;
+    margin: 10px 0;
+    font-size: 1em;
+}
+
 p{
     font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
     margin: 10px 0;
     font-size: 1em;
+    line-height: 1.5em;
 }
 
 a{
     color: #0057a3;
     text-decoration: underline;
+}
+
+.infoWrapper img{
+    width: 40%;
+    margin: 20px 5%;
 }
 
 a:after {
@@ -68,8 +80,23 @@ a:after {
     margin: 20px auto;
   }
 
-  @media (min-height: 730px) {
+ul li{
+    font-family: 'OpenSans';
+    font-size: 1em;
+}
+
+@media (min-height: 730px) {
     .toolbar button{
         margin: 35px 20px 0px 20px; 
+    }
+}
+
+@media (max-width: 370px) {
+    h1{
+        font-size: 1.5em;
+    }
+
+    p{
+        font-size: 0.9em;
     }
 }

@@ -279,12 +279,12 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  public openLegalView(){
+  public openWifiView(){
     this.dismissMenu();
-    this.router.navigate(['legal']).then( () =>
+    this.router.navigate(['wifi']).then( () =>
       {
         window.scrollTo(0, 0);
-        this.nativeCommunicationService.sendToNative('Legal', 'print');
+        this.nativeCommunicationService.sendToNative('Wifi', 'print');
       }
     );
   }
