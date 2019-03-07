@@ -1,26 +1,24 @@
 <div class="wrapper">
-  <mat-card class="loginForm">
-    <h1>Login</h1>
-    <h2>Please enter a username</h2>
-
+  
+  <div class="loginFormWrapper">
     <form name="loginForm" [formGroup]="loginForm">
       <div class="fix-mat-form-field">
-        <mat-form-field class="full-with-field">
-          <input matInput placeholder="Username" required [(ngModel)]="name" [formControl]="nameFormControl">
+        <mat-form-field class="full-with-field" appearance="outline">
+          <input matInput placeholder="{{ 'login.username' | translate }}" required [formControl]="nameFormControl">
           <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="fix-mat-form-field">
-        <mat-form-field class="full-with-field">
-          <input matInput placeholder="Password" [(ngModel)]="password" required [formControl]="passwordFormControl">
+        <mat-form-field class="full-with-field" appearance="outline">
+          <input matInput placeholder="{{ 'login.password' | translate }}" type="password" required [formControl]="passwordFormControl">
           <mat-error *ngIf="passwordFormControl.invalid">{{getRequiredErrorMessage('password')}}</mat-error>
         </mat-form-field>
       </div>
-      <br />
-      <mat-error *ngIf="wrongLogin">{{getLoginErrorMessage()}}</mat-error>
-      <button mat-raised-button [disabled]="loginForm.invalid" color="primary" (click)="loginDevice()">Login</button>
 
+      <div class="error"><mat-error *ngIf="wrongLogin">{{getLoginErrorMessage()}}</mat-error></div>
+
+      <button class="btnLogin" [disabled]="loginForm.invalid" (click)="loginDevice()">{{ 'login.btnSave' | translate }}</button>
     </form>
-  </mat-card>
+  </div>
 </div>

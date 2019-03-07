@@ -6,20 +6,17 @@ import { NativeCommunicationService } from './services/native/native-communicati
 import {Unsubscribe} from 'redux';
 import {NativeResponseService} from './services/native/native-response.service';
 import {WindowRef} from './WindowRef';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogConfig} from '@angular/material';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import {NativeSettingDialogComponent} from './components/native-setting-dialog/native-setting-dialog.component';
 import {AlertService} from './services/alert.service';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 import {Router} from '@angular/router';
 import {LocationService} from './services/location.service';
 import {TransmissionService} from './services/transmission.service';
 import {LanguageService} from './services/language.service';
 import * as languageTypes from './config/LanguageTypes';
 import {TranslateService} from '@ngx-translate/core';
-import { MainViewComponent } from './components/main-view/main-view.component';
-import { UtilityService } from './services/utility.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +26,7 @@ import { UtilityService } from './services/utility.service';
 @Injectable()
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
+  menuOpen = false;
 
   public platform: String;
   private readonly _unsubscribe: Unsubscribe;
@@ -37,14 +35,12 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
   private subscriptionNativeSettingCheckResult: Subscription;
-  private subscriptionNativeBackbuttonTimelineResult: Subscription;
-  private subscriptionNativeBackbuttonStartResult: Subscription;
-  private currentError: number;
-  private currentSuccess: number;
   private registerLocationmessage: any;
   public nativeSettingType: any;
   public language: string;
   public guest: boolean;
+  public isConnectedToGod: boolean;
+  private subscriptionNativeBackbutton: Subscription;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -58,11 +54,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private alertService: AlertService,
     private transmissionService: TransmissionService,
-    public snackBar: MatSnackBar,
     public router: Router,
     private translate: TranslateService,
-    private languageService: LanguageService,
-    private utilityService: UtilityService
+    private languageService: LanguageService
   )
   {
     translate.setDefaultLang('en');
@@ -72,48 +66,36 @@ export class AppComponent implements OnInit, OnDestroy {
       const state = this.appStore.getState();
       const token = state.token;
 
-      if(state.user !== undefined){
+      this.isConnectedToGod = state.isConnectedToGod;
+
+      if(state.user !== undefined) {
         this.guest = state.user.isGuest;
-        console.log('Guest '+state.user.isGuest);
       }
 
-      const errorMessage = state.errorMessage;
-      const successMessage = state.successMessage;
-
-      if (this.currentToken !== token && token !== undefined)
-      {
+      if (this.currentToken !== token && token !== undefined) {
         this.nativeCommunicationService.sendToNative(token, 'saveToken');
         this.currentToken = token;
-      }
-
-      if (errorMessage && errorMessage.code !== this.currentError){
-        const config = new MatSnackBarConfig();
-        config.duration = 3000;
-        config.panelClass = ['error-snackbar'];
-        this.snackBar.open(errorMessage.message, 'OK', config);
-        this.currentError = errorMessage.code;
-      }
-
-      if (successMessage && successMessage.code !== this.currentSuccess){
-        const config = new MatSnackBarConfig();
-        config.duration = 3000;
-        config.panelClass = ['success-snackbar'];
-        this.snackBar.open(successMessage.message, 'OK', config);
-        this.currentSuccess = successMessage.code;
       }
     });
 
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
       this.registerLocationmessage = message;
     });
+
     this.subscriptionNativeSettingCheckResult = this.alertService.getMessageNativeSettingCheck().subscribe(message => {
       this.nativeSettingType = message.nativeSettingType;
     });
-    this.subscriptionNativeBackbuttonTimelineResult = this.alertService.getMessageNativeBackbuttonTimeline().subscribe(() => {
-      this.redirectToTimeline();
-    });
-    this.subscriptionNativeBackbuttonStartResult = this.alertService.getMessageNativeBackbuttonStart().subscribe(() => {
-      this.redirectToStart();
+
+    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
+      if(this.router.url === '/passive' || this.router.url === '/interactive' || 
+        this.router.url === '/tableat' || this.router.url === '/tableNotifyAt'){
+          const elm: HTMLElement = document.getElementById('redirectTimelineLong') as HTMLElement;
+          if(elm){ elm.click(); }
+      }else if(this.router.url === '/register' || this.router.url === '/login' || 
+        this.router.url === '/testscroll' || this.router.url === '/changeLanguageStart'){
+          const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
+          if(elm){ elm.click(); }
+      }
     });
   }
 
@@ -154,7 +136,7 @@ export class AppComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = false;
     if(this.nativeSettingType === 'wifi'){
 
-      console.log('openNativeSetting ' + this.nativeSettingType);
+      // console.log('openNativeSetting ' + this.nativeSettingType);
       let platformSpecificConfirm;
       if(this.nativeCommunicationService.checkPlatform() === 'Android'){
         platformSpecificConfirm = 'To the Settings';
@@ -216,21 +198,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public logoutUser()
   {
+    this.dismissMenu();
     this.transmissionService.logout();
   }
 
   public redirectToTimeline()
   {
-    // const state = this.appStore.getState();
-    // const id = state.currentLocation.id;
-    // const data = {location: id};
-
-
     this.locationService.setToStartPoint();
     this.router.navigate(['/mainview']).then( () =>
       {
-        // this.alertService.setMessageLocationBackid('1007');
-        // this.utilityService.triggerJumpTimeline(data);
         this.nativeCommunicationService.sendToNative('success', 'redirectToTimeline');
       }
     );
@@ -247,14 +223,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public registerRealuserRouting(){
+    this.dismissMenu();
     this.router.navigate(['registerRealUser']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('Register as real user', 'print');
       }
     );
   }
 
   public logoutRouting(){
+    this.dismissMenu();
     this.router.navigate(['']).then( () =>
       {
         this.nativeCommunicationService.sendToNative('User Logged out', 'print');
@@ -276,11 +255,50 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public userCredentials(){
+    this.dismissMenu();
     this.router.navigate(['changecred']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('User Credentials', 'print');
       }
     );
+  }
+
+  public userCoA(){
+    this.router.navigate(['wappen']).then( () =>
+      {
+        window.scrollTo(0, 0);
+        this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
+      }
+    );
+  }
+
+  public openAboutView(){
+    this.dismissMenu();
+    this.router.navigate(['about']).then( () =>
+      {
+        window.scrollTo(0, 0);
+        this.nativeCommunicationService.sendToNative('About', 'print');
+      }
+    );
+  }
+
+  public openWifiView(){
+    this.dismissMenu();
+    this.router.navigate(['wifi']).then( () =>
+      {
+        window.scrollTo(0, 0);
+        this.nativeCommunicationService.sendToNative('Wifi', 'print');
+      }
+    );
+  }
+
+  public dismissMenu(){
+    this.menuOpen = false;
+  }
+
+  public openMenu(){
+    this.menuOpen ? this.menuOpen = false : this.menuOpen = true;
   }
 
 }

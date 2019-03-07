@@ -5,7 +5,7 @@
   <title>Meeteux</title>
   <base href="./">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -68,6 +68,13 @@
     };
 
     // call from native
+    // gets OS language, calls
+    window.send_language = function(message)
+    {
+      window.angularComponentRef.componentFn("send_language",message);
+    };
+
+    // call from native
     // gets deviceInfos, calls registerOD
     window.send_wifi_ssid = function(message){
       window.angularComponentRef.componentFn("send_wifi_ssid",message);
@@ -84,7 +91,7 @@
     window.callfromnative = function(theParameter){
       $scope.$apply(function(){
         // Do whatever you want to do with data passed
-        console.log("coming from native");
+        // console.log("coming from native");
       });
     };
 

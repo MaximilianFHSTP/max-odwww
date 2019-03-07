@@ -20,7 +20,7 @@ export class LanguageService {
   {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
-      if(state.language !== this._currentLanguage)
+      if(state.isLoggedIn && state.language !== this._currentLanguage)
       {
         this.updateTranslateService(state.language);
         this._currentLanguage = state.language;
@@ -47,6 +47,7 @@ export class LanguageService {
   public transmitChangeAppLanguage(lang: number)
   {
     this.updateTranslateService(lang);
+    this._currentLanguage = lang;
   }
 
   public getCurrentLanguageAsString(): string
@@ -56,6 +57,11 @@ export class LanguageService {
       case LanguageTypes.DE: return 'de';
       default: return 'en';
     }
+  }
+
+  public getCurrentLanguage(): number
+  {
+    return this._currentLanguage;
   }
 
   private updateTranslateService(lang: number)

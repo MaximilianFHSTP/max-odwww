@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs/Subject';
+import { Observable ,  Subject } from 'rxjs';
 
 @Injectable()
 export class AlertService {
@@ -11,6 +10,7 @@ export class AlertService {
   private subjectNativeWifiSettingCheckResult = new Subject<any>();
   private subjectNativeBluetoothSettingCheckResult = new Subject<any>();
   private subjectNativeBackbuttonTimeline = new Subject<any>();
+  private subjectNativeBackbutton = new Subject<any>();
   private subjectNativeBackbuttonStart = new Subject<any>();
   private subjectWrongLoginCheck = new Subject<any>();
   private subjectLocationBackId = new Subject<any>();
@@ -21,6 +21,13 @@ export class AlertService {
   private subjectChangedCred = new Subject<any>();
   private subjectExistingCredentialsOnChange = new Subject<any>();
   private subjectUserOrEmailRegisterCheck = new Subject<any>();
+  private subjectCoaParts = new Subject<any>();
+  private subjectUserCoaParts = new Subject<any>();
+  private subjectCoaColors = new Subject<any>();
+  private subjectUserCoaColors = new Subject<any>();
+  private subjectQuizQuestion = new Subject<any>();
+  private subjectUpdateUserData = new Subject<any>();
+  private subjectCorrectPoints = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -70,20 +77,12 @@ export class AlertService {
       return this.subjectNativeWifiSettingCheckResult.asObservable();
   }
 
-  sendMessageNativeBackbuttonTimeline() {
-    this.subjectNativeBackbuttonTimeline.next();
+  sendMessageNativeBackbutton() {
+    this.subjectNativeBackbutton.next();
   }
 
-  getMessageNativeBackbuttonTimeline(): Observable<any> {
-      return this.subjectNativeBackbuttonTimeline.asObservable();
-  }
-
-  sendMessageNativeBackbuttonStart() {
-    this.subjectNativeBackbuttonStart.next();
-  }
-
-  getMessageNativeBackbuttonStart(): Observable<any> {
-      return this.subjectNativeBackbuttonStart.asObservable();
+  getMessageNativeBackbutton(): Observable<any> {
+      return this.subjectNativeBackbutton.asObservable();
   }
 
   setMessageWrongLoginCheck(message: any) {
@@ -148,5 +147,61 @@ export class AlertService {
 
   getMessageUserOrEmailRegisterCheck(): Observable<any>{
     return this.subjectUserOrEmailRegisterCheck.asObservable();
+  }
+
+  sendMessageCoaParts(message: any) {
+    this.subjectCoaParts.next(message);
+  }
+
+  getMessageCoaParts(): Observable<any>{
+    return this.subjectCoaParts.asObservable();
+  }
+
+  sendMessageUserCoaParts(message: any) {
+    this.subjectUserCoaParts.next(message);
+  }
+
+  getMessageUserCoaParts(): Observable<any>{
+    return this.subjectUserCoaParts.asObservable();
+  }
+
+  sendMessageCoaColors(message: any) {
+    this.subjectCoaColors.next(message);
+  }
+
+  getMessageCoaColors(): Observable<any>{
+    return this.subjectCoaColors.asObservable();
+  }
+
+  sendMessageUserCoaColors(message: any) {
+    this.subjectUserCoaColors.next(message);
+  }
+
+  getMessageUserCoaColors(): Observable<any>{
+    return this.subjectUserCoaColors.asObservable();
+  }
+
+  sendQuizQuestion(message: any) {
+    this.subjectQuizQuestion.next(message);
+  }
+
+  getQuizQuestion(): Observable<any>{
+    return this.subjectQuizQuestion.asObservable();
+  }
+
+  sendUpdateUserData(message: any) {
+    this.subjectUpdateUserData.next(message);
+  }
+
+  getUpdateUserData(): Observable<any>{
+    return this.subjectUpdateUserData.asObservable();
+  }
+
+  sendCorrectPoints(message: any) {
+    this.subjectCorrectPoints.next(message);
+  }
+
+  getCorrectPoints(): Observable<any>{
+    return this.subjectCorrectPoints.asObservable();
   }
 }

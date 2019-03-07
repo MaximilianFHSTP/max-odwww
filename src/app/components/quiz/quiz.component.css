@@ -1,0 +1,232 @@
+@font-face {
+  font-family: 'Vollkorn';
+  src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+  /*font-weight: bold;*/
+}
+
+.wrapper h2{
+  font-family: 'Vollkorn', Times, serif;
+  margin: 0px 5px 1em 5px;
+  text-align: center;
+  font-size: 1.3em;
+}
+
+p, button, h3{
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  margin: 0;
+  font-size: 1em;
+}
+
+h3{
+  text-align: center;
+  padding-top: 0.5em;
+}
+
+.elaboration{
+  width: 90%;
+  margin: 1em auto;
+  }
+
+.elaboration p{
+    text-align: left;
+}
+
+.wait p{
+  text-align: center;
+  }
+
+.option{
+  font-family: 'Vollkorn', Times, serif;
+  margin: 0px 5px;
+  color: #755300;
+  display: inline;
+  font-size: 1.3em;
+}
+
+.wrapper {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  top: 90px;
+}
+
+.toolbar button{
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  margin: 20px 20px 0px 20px; 
+  background: #ffffff;
+}
+
+.toolbar .closebutton{
+  float: right; 
+  background: #494949;
+  color:#ffffff;
+  padding: 0;
+}
+
+.toolbar .closebutton img{
+  margin: 4px 0 0 -1px;
+  height: 40px;
+}
+
+.progressbar {
+  width: 100%;
+  margin: 0px;
+  border-top: 2px solid #755300;
+  border-bottom: 2px solid #755300;
+}
+::ng-deep .inner {
+  height: 30px;
+  animation: progressbar-countdown;
+  animation-duration: 40s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: paused;
+  animation-timing-function: linear;
+}
+
+@keyframes progressbar-countdown {
+  0% {
+      width: 100%;
+      background: #755300;
+  }
+  100% {
+      width: 0%;
+      background: #906e1b;
+  }
+}
+
+.quizContent{
+  background: #d3c5a4;
+  height: -webkit-fill-available;
+}
+
+.quizContent div{
+  padding-top:0.1em;
+}
+
+.quizContent button{
+  border: 2px solid #755300;
+  outline: none;
+  display: block;
+  margin: 1em auto;
+  background: #fff;
+  color: #000;
+  min-width: 90%;
+  padding: 0.8em;
+  text-align: left;
+}
+
+.bottomBar{
+  position: fixed;
+  bottom: 0;
+  z-index: 5;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 80px;
+  border-top: 15px solid #494949;
+  background: #494949;
+}
+
+.connectionMsg{
+  margin: 50px auto;
+}
+
+.connectionMsgSpinner{
+  margin: 10px auto;
+  width: fit-content;
+}
+
+.bottomBar .points{
+  float: left;
+  width: 60%;
+  height: 80px;
+  background: #ffffff;
+}
+
+.bottomBar .status{
+  float: right;
+  width: 39%;
+  height: 80px;
+  background: #ffffff;
+}
+
+.statusimage{
+  height: 50px;
+  width: 50px;
+  margin: 15px 5px;
+  background: #906e1b;
+  border-radius: 25px;
+  float: left;
+}
+
+.statusimage img{
+  height: 30px;
+  margin: 10px;
+}
+
+.statustext{
+  margin: 15px 0px;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+.pointstext{
+  margin: 15px 0px 0px 0px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+#pointsbar{
+  border: 1px solid #755300;
+  width: 80%;
+  height: 25px;
+  margin: 5px auto;
+}
+
+#pointsbar div{
+  background: #755300;
+  width: 0%;
+  height: 26px;
+  margin: 0px;
+}
+
+@media (max-height: 650px) {
+  .wrapper h2{
+      font-size: 1em;
+    }
+
+  .quizContent button{
+      margin: 0.8em auto;
+  }
+
+  p, button, h3{
+      font-size: 0.9em;
+    }
+    
+    .option{
+      font-size: 1.5em;
+    }
+}
+
+@media (min-height: 730px) {
+  .toolbar button{
+      margin: 35px 20px 0px 20px; 
+  }
+}
+
+/* 
+primary: #755300 
+secondary: #906e1b
+*/
+
+

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -9,17 +10,20 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 export class DeleteDialogComponent implements OnInit{
 
   username: string;
-  constructor(public thisDialogRef: MatDialogRef<DeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    public thisDialogRef: MatDialogRef<DeleteDialogComponent>, 
+    private translate: TranslateService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit(){
   }
 
   cancelDialog() {
-    this.thisDialogRef.close('cancel');
+    this.thisDialogRef.close(this.translate.instant('app.cancel'));
   }
 
   confirmDialog() {
-    this.thisDialogRef.close('confirm');
+    this.thisDialogRef.close(this.translate.instant('app.confirm'));
   }
 }

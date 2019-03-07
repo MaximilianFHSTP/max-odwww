@@ -1,7 +1,165 @@
+@font-face {
+  font-family: 'OpenSans';
+  src: url("assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
 .registerForm {
   margin: 50px 0;
 }
 
+.btnWrapper{
+  height: 45%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.btnLogin, .btnLoginGuest, .btnRegister, .btnLang{
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  display: block;
+  margin: 10px auto 0 auto;
+}
+
+.btnLogin{
+  background: #93272c;
+  color: #ffffff;
+  min-width: 190px;
+  padding: 0.8em;
+}
+
+.btnLoginGuest{
+  background: #93272c;
+  color: #ffffff;
+  min-width: 190px;
+  padding: 0.8em;
+}
+
+.btnRegister{
+  background: #ffffff;
+  border: 1px solid #93272c;
+  color: #93272c;
+  min-width: 190px;
+  padding: 0.5em;
+}
+
+.btnLang{
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.btnLang img{
+  height: 50px;
+}
+
 .wrapper {
-  padding: 0 20px 0 20px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url("../../../assets/css/Section1BG.png");
+  background-size: 100%;
+  background-position: center 0px;
+  background-repeat: no-repeat;
+}
+
+@media (max-height: 620px) {
+  .btnLogin, .btnLoginGuest, .btnRegister{
+    font-size: 0.8em;
+    min-width: 150px;
+  }
+
+  .btnLang, .btnLang img{
+    height: 40px;
+  }
+
+}
+
+@media (max-width: 320px) {
+  .wrapper {
+    background-image: url("../../../assets/css/320_480.jpg");
+  }
+}
+
+@media (min-width: 320px) and (max-width: 700px) {
+  @media (max-height: 1000px) {
+    .wrapper {
+      background-image: url("../../../assets/css/640_960.jpg");
+    }
+  }
+  @media (min-height: 1000px) {
+    .wrapper {
+      background-image: url("../../../assets/css/640_1136.png");
+    }
+  }
+}
+
+@media (min-width: 700px) and (max-width: 800px) {
+  .wrapper {
+    background-image: url("../../../assets/css/750_1334.png");
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1000px) {
+  .wrapper {
+    background-image: url("../../../assets/css/828_1792.png");
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .wrapper {
+    background-image: url("../../../assets/css/1125_2436.png");
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+  @media (max-height: 2300px) {
+    .wrapper {
+      background-image: url("../../../assets/css/1242_2208.png");
+    }
+  }
+  @media (min-height: 2300px) {
+    .wrapper {
+      background-image: url("../../../assets/css/1242_2688.png");
+    }
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 1600px) {
+  .wrapper {
+    background-image: url("../../../assets/css/1536_2048.png");
+  }
+}
+
+@media (min-width: 1600px) and (max-width: 1800px) {
+  @media (max-height: 2300px) {
+    .wrapper {
+      background-image: url("../../../assets/css/1668_2224.png");
+    }
+  }
+  @media (min-height: 2300px) {
+    .wrapper {
+      background-image: url("../../../assets/css/1668_2388.png");
+    }
+  }
+}
+
+@media (min-width: 1800px) {
+  .wrapper {
+    background-image: url("../../../assets/css/2048_2732.png");
+  }
+}
+
+@media (min-height: 730px) {
+  .wrapper{
+    top: env(safe-area-inset-top); /* iPhone X safe */
+  }
 }

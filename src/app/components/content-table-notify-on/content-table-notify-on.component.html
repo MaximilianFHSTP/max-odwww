@@ -1,0 +1,25 @@
+<div class="wrapper Sec_{{location.parentId}}">
+  <div class="wrapperContent">
+    <section style="vertical-align: center">
+      <mat-icon style="color:green; width: 40px; font-size: 40px; float:left;">check_circle</mat-icon>
+      <h1>{{ 'notifiyExhibitOn.connectedMsg' | translate }}</h1>
+    </section>
+
+    <div *ngFor="let cont of location.contents">
+      <p *ngIf="cont.contentTypeId == 1">{{cont.content}}</p>
+      <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
+    </div>
+
+    <p>{{ 'notifiyExhibitOn.connectionMsg' | translate }}</p>
+    <p>{{ 'notifiyExhibitOn.disconnectInfo' | translate }}</p>
+  </div>
+
+  <div class="btnJoin">
+    <div class="ico"></div>
+    <div class="msg">
+      <div>
+        <button (click)="disconnectFromExhibit()">{{ 'notifiyExhibitOn.disconnectButton' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
