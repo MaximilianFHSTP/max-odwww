@@ -108,7 +108,8 @@
     "colors": "Colors",
     "save": "SAVE CHANGES",
     "primColor": "Primary Color",
-    "secColor": "Secondary Color"
+    "secColor": "Secondary Color",
+    "unlocked": "Unlocked from beginning"
   },
   "changeCredentials": {
     "title": "Profile Settings",
