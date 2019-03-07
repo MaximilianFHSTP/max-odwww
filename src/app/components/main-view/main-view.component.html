@@ -45,7 +45,8 @@
       <div class="coaIcon" *ngIf="loc.unlockCoa"></div>
       <div class="actIcon" *ngIf="loc.locationTypeId == 3 || loc.locationTypeId == 6 || loc.locationTypeId == 8 || loc.locationTypeId == 9"></div>
     </div>
-    <p class="timespan">{{loc.startDate}} - {{loc.endDate}}</p>
+    <p *ngIf="loc.id != 6001" class="timespan">{{loc.startDate}} - {{loc.endDate}}</p>
+    <p *ngIf="loc.id == 6001" class="timespan">{{loc.startDate}}</p>
     <h2 *ngIf="languageService.getCurrentLanguage() === germanLang; else titleElse">{{loc.titleGER }}</h2>
     <ng-template #titleElse><h2>{{loc.titleENG }}</h2></ng-template>
   </div>

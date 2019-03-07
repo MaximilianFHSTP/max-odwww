@@ -39,9 +39,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public locationId: string;
 
   /////////////////////
-  private stringDates = ['1450', '1600'];
+  private stringDates = ['1450', '1530'];
   private parseDate = d3.timeParse('%Y');
-  private svgHeight = 3000;
+  private svgHeight = 1600;
   private svgWidth = 320;
   private y;
   private whichY;
@@ -186,13 +186,13 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
     const axis = svg.append('g')
       .attr('class', 'y axis').attr('transform', 'translate(0,0)').style('margin-top', '200px')
-      .call(d3.axisLeft(this.y).ticks(15).tickFormat(d3.timeFormat('%Y')))
+      .call(d3.axisLeft(this.y).ticks(10).tickFormat(d3.timeFormat('%Y')))
       .selectAll('text').attr('y', 6).attr('x', 6).style('text-anchor', 'start').style('color', '#ffffff');
 
     svg.select('.domain').attr('stroke-width', '0');
       
     this.whichY = d3.scaleLinear()
-    .domain([1450, 1600]).range([0, this.svgHeight]);
+    .domain([1450, 1530]).range([0, this.svgHeight]);
 
     /* Draw and place exhibitions */
     this.sortedExhbits[0].forEach((currentExhibits) => {
@@ -316,6 +316,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
 
   sortLocationData( ){
+    // Ad hoc reordering and adjustments
     const mtimelineLocations = this.timelineLocations;
     let exhX;
 
@@ -337,6 +338,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       }else if(exhX && exh.id === 5001){
         mtimelineLocations[index] =  this.timelineLocations[exhX];
         mtimelineLocations[exhX] =  exh;
+      }
+
+      // Adjust Maximilian's death (6001)
+      if(exh.id === 6001){
+        mtimelineLocations[index].endDate = mtimelineLocations[index].startDate + 0.5;
       }
     });
 
