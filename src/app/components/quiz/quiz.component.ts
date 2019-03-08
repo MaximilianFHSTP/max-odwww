@@ -210,6 +210,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     // Send quizendtime here
     const endQuizTime = new Date().getTime();
     this.quizTime = endQuizTime - this.startQuizTime;
+    if(!this.quizTime){ this.quizTime = 0;}
     // console.log('onDestroyQuiz', this.quizTime);
     this.exhibitService.sendQuizTime(this.quizTime);
     this.firstQuestionOfRun = false;
@@ -228,6 +229,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     // Send quizendtime here
     const endQuizTime = new Date().getTime();
     this.quizTime = endQuizTime - this.startQuizTime;
+    if(!this.quizTime){ this.quizTime = 0;}
     // console.log('DisconnectQuiz', this.quizTime);
     this.exhibitService.sendQuizTime(this.quizTime);
     this.firstQuestionOfRun = false;
