@@ -195,7 +195,8 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
       this.locationService.stopLocationScanning();
       this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
       // localStorage.setItem('atExhibitParent', JSON.stringify(this.locationId));
-    }    
+      this.router.navigate(['/quiz']);
+    }
   }
 
   public submitCredentialsChange()
@@ -217,12 +218,12 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   changeLanguageToGerman(){
     this.language = 'de';
-    this.languageService.transmitChangeAppLanguage(languageTypes.DE);
+    this.languageService.transmitChangeUserLanguage(languageTypes.DE);
   }
 
   changeLanguageToEnglish(){
     this.language = 'en';
-    this.languageService.transmitChangeAppLanguage(languageTypes.ENG);  
+    this.languageService.transmitChangeUserLanguage(languageTypes.ENG);  
   }
 
   isSelected(lang: string){

@@ -21,6 +21,7 @@ import {CoaService} from '../../services/coa.service';
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent implements OnInit, OnDestroy {
+  private subscriptionNativeBackbutton: Subscription;
   public connectionSuccess: boolean;
   public locationName: string;
   public waitingToStart: boolean;
@@ -37,11 +38,14 @@ export class QuizComponent implements OnInit, OnDestroy {
   public answerD: string;
   private answerChar: string;
   public yourAnswer: string;
-  
+
   public yourPoints = this.translate.instant('quiz.progress')+' ...';
   public yourStatus = '...';
+  public yourStatusText;
   public correctAnswer: string;
   public elaboration: string;
+
+  public changeName = '';
 
   private firstQuestionOfRun: boolean;
   private startQuizTime: any;
@@ -74,6 +78,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       const state = this.appStore.getState();
       this.updateLocationStatus(state.locationStatus);
       this.connectionSuccess = state.connectedToExhibit;
+      this.changeName = state.user.name;
     });
     this.subscriptionQuestion = this.alertService.getQuizQuestion().subscribe(message => {
       const state = this.appStore.getState();
@@ -137,28 +142,22 @@ export class QuizComponent implements OnInit, OnDestroy {
       const points = message;
       if(points<7){
         this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '7 ' + this.translate.instant('quiz.points');
-        this.yourStatus = this.translate.instant('quiz.beggars');
+        this.yourStatus = 'Bettelvolk';
+        this.yourStatusText = this.translate.instant('quiz.beggars');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = ((points*100)/7) + '%';
       }else if(points>=7 && points <13){
         this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '13 ' + this.translate.instant('quiz.points');
-        this.yourStatus = this.translate.instant('quiz.bourgeoisie');
+        this.yourStatus = 'Buergertum';
+        this.yourStatusText = this.translate.instant('quiz.bourgeoisie');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = ((points*100)/13) + '%';
       }else if(points>=13){
-        this.yourPoints = this.translate.instant('quiz.progress') + points + '/' + '13 ' + this.translate.instant('quiz.points');
-        this.yourStatus = this.translate.instant('quiz.noble');
+        this.yourPoints = this.translate.instant('quiz.progress') + points/* + '/' + '13 ' + this.translate.instant('quiz.points')*/;
+        this.yourStatus = 'Adel';
+        this.yourStatusText = this.translate.instant('quiz.noble');
         const progressbar: HTMLElement = document.getElementById('pointsbarinner') as HTMLElement;
         progressbar.style.width = '100%';
-      }
-
-      // COA
-      if(points < 5) {
-        this.coaService.tryUnlock(42);
-      } else if(points >= 5 && points < 10) {
-        this.coaService.tryUnlock(21);
-      } else if(points >= 10) {
-        this.coaService.tryUnlock(32);
       }
     });
   }
@@ -166,9 +165,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._location = this.locationService.currentLocation.value;
     this.locationName = this._location.description;
-    this.locationId = this._location.parentId;
+    this.locationId = 301;
 
-    const parentLocation = this.locationService.findLocation(this._location.parentId);
+    const parentLocation = this.locationService.findLocation(this.locationId);
 
     // TODO: get IP address from LocationService
     const url = 'http://' + parentLocation.ipAddress + ':8100';
@@ -203,6 +202,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     // Send quizendtime here
     const endQuizTime = new Date().getTime();
     this.quizTime = endQuizTime - this.startQuizTime;
+    if(!this.quizTime){ this.quizTime = 0;}
     // console.log('onDestroyQuiz', this.quizTime);
     this.exhibitService.sendQuizTime(this.quizTime);
     this.firstQuestionOfRun = false;
@@ -221,6 +221,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     // Send quizendtime here
     const endQuizTime = new Date().getTime();
     this.quizTime = endQuizTime - this.startQuizTime;
+    if(!this.quizTime){ this.quizTime = 0;}
     // console.log('DisconnectQuiz', this.quizTime);
     this.exhibitService.sendQuizTime(this.quizTime);
     this.firstQuestionOfRun = false;

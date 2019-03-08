@@ -28,7 +28,6 @@
         </ng-template>
       </div>
     </div>
-
     <div class="bottomBar">
       <div class='points'>
           <div class='pointstext'><p>{{yourPoints}}</p></div>
@@ -36,11 +35,10 @@
       </div>
       <div class='status'>
           <div class='statusimage'><img *ngIf="yourStatus !== '...'" src="./assets/icons/{{yourStatus}}.png" /></div>
-          <div class='statustext'><p>Status:<br/>{{yourStatus}}</p></div>
+          <div class='statustext'><p>Status:<br/>{{yourStatusText}}</p></div>
       </div>
     </div>
   </div>
-
   <div class="connectionMsg" *ngIf="connectionSuccess && locationId!=301; else elseBlock">
     <h2>{{'tableOn.connected' | translate}}</h2>
     <button mat-raised-button color="primary" (click)="sendMessageToExhibit()">Send Message</button>

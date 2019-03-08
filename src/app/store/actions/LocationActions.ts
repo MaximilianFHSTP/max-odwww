@@ -47,6 +47,7 @@ export class LocationActions
 
   public changeAtExhibitParentId(locationId: number)
   {
+    console.log("change at exhibit")
     return {
       type: CHANGE_AT_EXHIBIT_PARENT_ID,
       atExhibitParentId: locationId

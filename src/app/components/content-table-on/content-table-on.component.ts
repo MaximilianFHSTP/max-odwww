@@ -62,7 +62,7 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
     this.locationId = this._location.parentId;
 
     const parentLocation = this.locationService.findLocation(this._location.parentId);
-
+    console.log(this.locationId);
     if(this.locationId!==301){
       // TODO: get IP address from LocationService
       const url = 'http://' + parentLocation.ipAddress + ':8100';
