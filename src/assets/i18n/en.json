@@ -8,7 +8,7 @@
     "cancel": "cancel",
     "confirm": "confirm",
     "connectionLostHeader": "Connection lost!",
-    "connectionLostBody": "Please wait until the app reconnects to the server."
+    "connectionLostBody": "Please wait until the app reconnects to the server!"
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",
@@ -28,7 +28,7 @@
     "credentialsNotMatch": "These credentials do not match."
   },
   "register": {
-    "title": "Please choose a username and a password.",
+    "title": "Please choose a username and a password!",
     "username": "Username",
     "email": "Email",
     "password": "Password",
@@ -47,14 +47,14 @@
     "welcomeText": "Welcome at",
     "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
     "tableOfflineText": "The display is currently not available.",
-    "tableFreeText": "The display is free",
-    "tableOccupiedText": "Sorry, the display is occupied. Please try again later.",
+    "tableFreeText": "The display is free.",
+    "tableOccupiedText": "Sorry, the display is occupied. Please try again later!",
     "tableJoinButton": "Join interactive exhibit",
-    "beaconPutText": "Please, put your phone at the indicated position.",
+    "beaconPutText": "Please, put your phone at the indicated position!",
     "beaconOccupiedText": "Sorry, but this place is currently occupied by an other player."
   },
   "quiz": {
-    "pleaseWait" : "Please wait, until the question is resolved!",
+    "pleaseWait" : "Please wait until the question is resolved!",
     "waitNext" : "Please wait for the next question!",
     "none": "None",
     "rightAnswer": "Right Answer ",
@@ -81,26 +81,26 @@
     "quizQuestion": "What is the name of the student appearing here?",
     "quizRight": "Correct Answer!",
     "quizWrong": "Wrong Answer.",
-    "exhibitNotAvailable": "This exhibit is not available."
+    "exhibitNotAvailable": "Interactive content is not available yet."
   },
   "notifiyExhibit": {
     "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
     "tableOfflineText": "Sorry, an error occurred. Therefore, the display is currently not available!",
-    "tableOccupiedText": "Sorry, the display is occupied. Please try again later.",
+    "tableOccupiedText": "Sorry, the display is occupied. Please try again later!",
     "tableJoinButton": "Join interactive exhibit",
-    "beaconPutText": "Please, put your phone at the indicated position.",
+    "beaconPutText": "Please, put your phone at the beacon near the display.",
     "beaconOccupiedText": "Sorry, but this place is currently occupied by an other player."
   },
   "notifiyExhibitOn": {
     "disconnectButton": "Press to disconnect",
     "connectedMsg": "Connected",
-    "connectionMsg": "Now use the tablets to explore the exhibit.",
+    "connectionMsg": "Now use the displays to explore the exhibit.",
     "disconnectInfo": "Press the button below to close the connection to the exhibit and go back to the previous screen."
   },
   "coa": {
     "title": "Coat of Arms of",
     "helpTitle": "Your Coat of Arms",
-    "helpText": "You can create your personal coat of arms here by selecting from the parts below. You can unlock more parts by solving tasks in the exhibition!",
+    "helpText": "Here you can create your personal coat of arms by selecting from the parts below. You can unlock more parts by solving tasks in the exhibition!",
     "shield": "Shield",
     "charge": "Charge",
     "helmet": "Helmet",
@@ -114,14 +114,14 @@
   "changeCredentials": {
     "title": "Profile Settings",
     "username": "Username",
-    "email": "E-Mail",
+    "email": "Email",
     "password": "Password",
     "passwordOld": "Old Password",
     "passwordNew": "New Password",
     "passwordConfirm": "Confirm Password",
     "language": "Language",
     "btnUsername": "Change Username",
-    "btnEmail": "Change E-Mail",
+    "btnEmail": "Change Email",
     "btnPassword": "Change Password",
     "btnLanguage": "Change Language",
     "btnDelete": "Delete Account",
