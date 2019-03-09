@@ -6,11 +6,11 @@ import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  selector: 'app-wifi',
+  templateUrl: './wifi.component.html',
+  styleUrls: ['./wifi.component.css']
 })
-export class AboutComponent implements OnInit {
+export class WifiComponent implements OnInit {
   private subscriptionNativeBackbutton: Subscription;
 
   constructor(
@@ -18,12 +18,12 @@ export class AboutComponent implements OnInit {
     public languageService: LanguageService,
     private alertService: AlertService,
     private nativeCommunicationService: NativeCommunicationService
-  ) {
+  ) { 
     this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
       const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
       if(elm){ elm.click(); }
     });
-   }
+  }
 
   ngOnInit() {
   }

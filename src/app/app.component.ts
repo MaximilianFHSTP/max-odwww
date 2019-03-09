@@ -35,13 +35,12 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
   private subscriptionNativeSettingCheckResult: Subscription;
-  private subscriptionNativeBackbuttonTimelineResult: Subscription;
-  private subscriptionNativeBackbuttonStartResult: Subscription;
   private registerLocationmessage: any;
   public nativeSettingType: any;
   public language: string;
   public guest: boolean;
   public isConnectedToGod: boolean;
+  private subscriptionNativeBackbutton: Subscription;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -69,13 +68,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
       this.isConnectedToGod = state.isConnectedToGod;
 
-      if(state.user !== undefined){
+      if(state.user !== undefined) {
         this.guest = state.user.isGuest;
-        // console.log('Guest '+state.user.isGuest);
       }
 
-      if (this.currentToken !== token && token !== undefined)
-      {
+      if (this.currentToken !== token && token !== undefined) {
         this.nativeCommunicationService.sendToNative(token, 'saveToken');
         this.currentToken = token;
       }
@@ -84,14 +81,21 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
       this.registerLocationmessage = message;
     });
+
     this.subscriptionNativeSettingCheckResult = this.alertService.getMessageNativeSettingCheck().subscribe(message => {
       this.nativeSettingType = message.nativeSettingType;
     });
-    this.subscriptionNativeBackbuttonTimelineResult = this.alertService.getMessageNativeBackbuttonTimeline().subscribe(() => {
-      this.redirectToTimeline();
-    });
-    this.subscriptionNativeBackbuttonStartResult = this.alertService.getMessageNativeBackbuttonStart().subscribe(() => {
-      this.redirectToStart();
+
+    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
+      if(this.router.url === '/passive' || this.router.url === '/interactive' || 
+        this.router.url === '/tableat' || this.router.url === '/tableNotifyAt'){
+          const elm: HTMLElement = document.getElementById('redirectTimelineLong') as HTMLElement;
+          if(elm){ elm.click(); }
+      }else if(this.router.url === '/register' || this.router.url === '/login' || 
+        this.router.url === '/testscroll' || this.router.url === '/changeLanguageStart'){
+          const elm: HTMLElement = document.getElementById('redirectStart') as HTMLElement;
+          if(elm){ elm.click(); }
+      }
     });
   }
 
@@ -279,12 +283,12 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  public openLegalView(){
+  public openWifiView(){
     this.dismissMenu();
-    this.router.navigate(['legal']).then( () =>
+    this.router.navigate(['wifi']).then( () =>
       {
         window.scrollTo(0, 0);
-        this.nativeCommunicationService.sendToNative('Legal', 'print');
+        this.nativeCommunicationService.sendToNative('Wifi', 'print');
       }
     );
   }

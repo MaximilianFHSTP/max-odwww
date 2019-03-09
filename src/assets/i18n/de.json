@@ -82,7 +82,7 @@
     "quizQuestion": "Wie heißt der hier aufscheinende Student mit Vornamen?",
     "quizRight": "Korrekte Antwort!",
     "quizWrong": "Falsche Antwort.",
-    "exhibitNotAvailable": "Das Ausstellungsstück ist noch nicht verfügbar."
+    "exhibitNotAvailable": "Es ist noch nicht verfügbar."
   },
   "notifiyExhibit": {
     "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche unten, um zu beginnen!",
@@ -103,13 +103,14 @@
     "helpTitle": "Dein Wappen",
     "helpText": "Du kannst hier Dein persönliches Wappen erstellen, indem Du aus den folgenden Teilen auswählst. Du kannst weitere Teile freischalten, indem Du Aufgaben in der Ausstellung löst!",
     "shield": "Schild",
-    "charge": "Gemeinen Figur",
+    "charge": "Wappenfigur",
     "helmet": "Helm",
     "mantle": "Helmdecke",
     "colors": "Farben",
     "save": "ÄNDERUNGEN SPEICHERN",
     "primColor": "Primärfarbe",
-    "secColor": "Sekundärfarbe"
+    "secColor": "Sekundärfarbe",
+    "unlocked": "Von Anfang an freigeschaltet"
   },
   "changeCredentials": {
     "title": "Profileinstellungen",
@@ -130,8 +131,8 @@
     "credentialsChanged": "Du hast Deine Anmeldeinformationen erfolgreich geändert.",
     "OK": "OK",
     "enterValue": "Bitte gib einen Wert ein.",
-    "infoPassword1": "Bitte verwende mindestens 6 Zeichen mit mindestens 1 Großbuchstaben, 1 Kleinbuchstaben, ",
-    "infoPassword2": "1 Ziffer und 1 Sonderzeichen! Beispiel: ! $ § % & / ( ) = ?",
+    "infoPassword1": "Bitte verwende mindestens 6 Zeichen mit mindestens 1 Kleinbuchstaben und ",
+    "infoPassword2": "1 Ziffer oder 1 Sonderzeichen! Beispiel: ! $ § % & / ( ) = ?",
     "notSamePassword": "Das Passwort ist nicht dasselbe.",
     "credentialsNotChanged": "Die Anmeldeinformationen wurden nicht korrekt geändert.",
     "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben."

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
+import {AlertService} from '../../services/alert.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-education-quiz',
@@ -8,12 +10,22 @@ import { NativeCommunicationService } from '../../services/native/native-communi
   styleUrls: ['./education-quiz.component.css']
 })
 export class EducationQuizComponent implements OnInit {
+  private subscriptionNativeBackbutton: Subscription;
   correctAnswer = 'Bernhardinus';
   options = ['Benedictus','Bernhardinus','Bartholomäus','Basilius'];
   trialSuccess = false;
   trialError = false;
 
-  constructor(private router: Router, private nativeCommunicationService: NativeCommunicationService) { }
+  constructor(
+    private alertService: AlertService,
+    private router: Router, 
+    private nativeCommunicationService: NativeCommunicationService
+  ) { 
+    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
+      const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
+      if(elm){ elm.click(); }
+    });
+  }
 
   ngOnInit() {
     this.options = this.shuffle(this.options);

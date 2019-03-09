@@ -24,6 +24,27 @@
   top: 90px;
 }
 
+.toolbar button{
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50px;
+  margin: 20px 20px 0px 20px; 
+  background: #ffffff;
+}
+
+.toolbar .closebutton{
+  float: right; 
+  background: #494949;
+  color:#ffffff;
+  padding: 0;
+}
+
+.toolbar .closebutton img{
+  margin: 4px 0 0 -1px;
+  height: 40px;
+}
+
 .loginFormWrapper{
   width: 70%;
   margin: 20px auto;
@@ -81,5 +102,11 @@ input{
   .error{
     height: auto;
     font-size: 0.8em;
+  }
+}
+
+@media (min-height: 730px) {
+  .toolbar button{
+      margin: 35px 20px 0px 20px; 
   }
 }

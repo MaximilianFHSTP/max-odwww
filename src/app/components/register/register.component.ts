@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit
   nameFormControl = new FormControl('', [Validators.required]);
   emailFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required,
-    Validators.pattern('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^*&?)§(\/])[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
+    Validators.pattern('(?=.*[a-z])((?=.*[0-9])|(?=.*[!@#$%^*&?)§(\/]))[A-Za-z0-9!@#$%^*&?)§(\/].{5,}')]);
   confirmPasswordFormControl = new FormControl('', [Validators.required]);
 
   signupForm: FormGroup = new FormGroup({
@@ -103,13 +103,13 @@ export class RegisterComponent implements OnInit
   getPasswordErrorMessage() {
     return this.passwordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
       this.passwordFormControl.hasError('pattern') ?
-      this.translate.instant('changeCredentials.infoPassword1') + 
+      this.translate.instant('changeCredentials.infoPassword1') +
       this.translate.instant('changeCredentials.infoPassword2') : '';
   }
   getConfirmPasswordErrorMessage() {
 
     return this.confirmPasswordFormControl.hasError('required') ? this.translate.instant('changeCredentials.enterValue') :
-      this.confirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') : 
+      this.confirmPasswordFormControl.hasError('matchingpassword') ? this.translate.instant('changeCredentials.notSamePassword') :
       this.translate.instant('changeCredentials.notSamePassword');
   }
   getRequiredErrorMessage(field) {
