@@ -188,7 +188,7 @@ export class ChangeCredentialsComponent implements OnInit
         autoFocus: false
       });
     dialogRef.afterClosed().subscribe(result =>{
-      if(result === 'confirm'){
+      if(result === this.translate.instant('app.confirm')){
         this.transmissionService.deleteUserAccount();
       }else{
         // console.log('Account NOT deleted!');
