@@ -251,6 +251,33 @@ export class GodService {
     });
   }
 
+  public unlockAllTimelineLocations(): void
+  {
+    const state = this.store.getState();
+    const user = state.user;
+    this.socket.emit('unlockAllTimelineLocations',{user: user.id});
+
+    this.socket.on('unlockAllTimelineLocationsResult', result =>
+    {
+      if(result.data)
+      {
+        const lookuptable = result.data.locations;
+        const message = result.message;
+
+        if (message.code > 299)
+        {
+          this.store.dispatch(this.statusActions.changeErrorMessage(message));
+          this.nativeCommunicationService.sendToNative('UnlockAllTimelineLocations: FAILED', 'print');
+          return;
+        }
+
+        this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
+      }
+
+      this.socket.removeAllListeners('unlockAllTimelineLocationsResult');
+    });
+  }
+
   public registerLocationLike(location: any, like: boolean): void
   {
     const state = this.store.getState();
