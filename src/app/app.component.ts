@@ -59,13 +59,12 @@ export class AppComponent implements OnInit, OnDestroy {
     private languageService: LanguageService
   )
   {
-    translate.setDefaultLang('en');
-    this.language = 'en';
+    translate.setDefaultLang(languageService.getCurrentLanguageAsString());
+    this.language = languageService.getCurrentLanguageAsString();
 
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
       const token = state.token;
-
       this.isConnectedToGod = state.isConnectedToGod;
 
       if(state.user !== undefined) {

@@ -138,6 +138,7 @@ export class GodService {
       this.store.dispatch(this.userActions.changeLookupTable(res.locations));
       this.store.dispatch(this.userActions.changeToken(res.token));
       this.store.dispatch(this.statusActions.changeLoggedIn(true));
+      this.store.dispatch(this.statusActions.changeLanguage(res.user.contentLanguageId));
 
       this.locationService.setToStartPoint();
 
