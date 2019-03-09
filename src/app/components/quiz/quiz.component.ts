@@ -127,7 +127,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       if(this.yourAnswer === undefined || this.yourAnswer === null){
         this.notAnswered = false;
         this.yourAnswer = this.translate.instant('quiz.yourAnswer') + ' ' + this.translate.instant('quiz.none');
-        if(!this.noResponse){ this.timerToDisconnect();}
+        if(!this.waitingToStart){ this.timerToDisconnect();}
       }
       this.noResponse = false;
       const state = this.appStore.getState();
