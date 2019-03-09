@@ -235,7 +235,7 @@ export class QuizComponent implements OnInit, OnDestroy {
         autoFocus: false
       });
     dialogRef.afterClosed().subscribe(result =>{
-      if(result === 'confirm'){
+      if(result === this.translate.instant('app.confirm')){
         this.disconnectFromExhibitQuiz();
         this.transmissionService.logout();
       }else{
