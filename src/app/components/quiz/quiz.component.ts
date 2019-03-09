@@ -8,6 +8,7 @@ import {NativeCommunicationService} from '../../services/native/native-communica
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -126,6 +127,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       if(this.yourAnswer === undefined || this.yourAnswer === null){
         this.notAnswered = false;
         this.yourAnswer = this.translate.instant('quiz.yourAnswer') + ' ' + this.translate.instant('quiz.none');
+        this.timerToDisconnect();
       }
       this.noResponse = false;
       const state = this.appStore.getState();
@@ -226,6 +228,22 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.exhibitService.sendQuizTime(this.quizTime);
     this.firstQuestionOfRun = false;
     this.exhibitService.disconnect();
+  }
+
+  timerToDisconnect(){
+    const dialogRef = this.dialog.open(AlertDialogComponent,
+      {data: { username: this.appStore.getState().user.name},
+        disableClose: true,
+        autoFocus: false
+      });
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result === this.translate.instant('app.confirm')){
+        this.disconnectFromExhibitQuiz();
+        this.transmissionService.logout();
+      }else{
+        // console.log('Account NOT deleted!');
+      }
+    });
   }
 
   disconnectFromExhibit(){

@@ -146,9 +146,10 @@
     "noOption": "Stay"
   },
   "alertDialog": {
-    "title": "Exhibit",
-    "description": "Do you want to go to exhibit:",
-    "yesOption": "Yes",
-    "noOption": "No"
+    "textStart": "Due to inactivity, you will be disconnected in",
+    "textEnd": "",
+    "time": "Seconds",
+    "yesOption": "Logout",
+    "noOption": "Stay"
   }
 }

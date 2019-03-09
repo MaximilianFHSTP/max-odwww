@@ -146,9 +146,10 @@
     "noOption": "Bleiben"
   },
   "alertDialog": {
-    "title": "Ausstellungsstück",
-    "description": "Willst Du zum Austellungsstück wechseln:",
-    "yesOption": "Ja",
-    "noOption": "Nein"
+    "textStart": "Aufgrund von Inaktivität wirst du in",
+    "textEnd": "automatisch ausgeloggt",
+    "time": "Sekunden",
+    "yesOption": "Logout",
+    "noOption": "Bleiben"
   }
 }

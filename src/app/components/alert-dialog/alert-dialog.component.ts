@@ -8,24 +8,30 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./alert-dialog.component.css']
 })
 export class AlertDialogComponent implements OnInit{
-
+  public counter: number;
+  public intervalId: any;
   number: string;
   constructor(
     public thisDialogRef: MatDialogRef<AlertDialogComponent>,
     private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
-  }
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
   ngOnInit(){
+    this.counter = 45;
+    this.intervalId = setInterval(() => {
+      this.counter = this.counter - 1;
+      if(this.counter === 0){ this.confirmDialog(); }
+    }, 1000);
   }
 
   cancelDialog() {
+    clearInterval(this.intervalId);
     this.thisDialogRef.close(this.translate.instant('app.cancel'));
-    // console.log("canceled");
   }
 
   confirmDialog() {
+    clearInterval(this.intervalId);
     this.thisDialogRef.close(this.translate.instant('app.confirm'));
-    // console.log("confirmed");
   }
 }

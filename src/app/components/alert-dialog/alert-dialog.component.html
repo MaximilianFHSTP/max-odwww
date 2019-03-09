@@ -1,9 +1,9 @@
-<img class="btnCancel" (tap)="cancelDialog()" src="assets/icons/close.svg">
-<h1 matDialogTitle>{{ 'alertDialog.title' | translate }}</h1>
+<h1 matDialogTitle></h1>
 <div mat-dialog-content>
-  <p>{{ 'alertDialog.description' | translate }} {{data.number}}?</p>
+  <p>{{ 'alertDialog.textStart' | translate }}
+    <br/><b>{{counter}} {{ 'alertDialog.time' | translate }}</b>
+    <br/>{{ 'alertDialog.textEnd' | translate }}</p>
 </div>
-<mat-dialog-actions align="end">
-  <button class="btnConfirm" (tap)="confirmDialog()">{{ 'alertDialog.yesOption' | translate }}</button>
-</mat-dialog-actions>
 
+  <button class="btnNo" (tap)="cancelDialog()">{{ 'alertDialog.noOption' | translate }}</button><br/>
+  <button class="btnConfirm" (tap)="confirmDialog()">{{ 'alertDialog.yesOption' | translate }}</button>

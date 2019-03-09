@@ -1,49 +1,56 @@
 .wrapper {
-    padding: 50px 40px 0 40px;
-  }
-  
-  @font-face {
-    font-family: 'OpenSans';
-    src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
-  }
-  
-  @font-face {
-    font-family: 'Vollkorn';
-    src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
-  }
-  
-  h1{
-    font-family: 'Vollkorn', Times, serif;
-      margin: 20px;
-      text-align: center;
-      font-size: 1.6em;
-  }
-  
-  p{
-    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
-    margin: 0px;
+  padding: 50px 40px 0 40px;
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Vollkorn';
+  src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
+}
+
+h1{
+  font-family: 'Vollkorn', Times, serif;
+    margin: 20px;
     text-align: center;
-    font-size: 1em;
-  }
-  
-  .btnConfirm{
-    border: none;
-    outline: none;
-    text-transform: uppercase;
-    font-size: 1em;
-    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
-    display: block;
-    margin: 10px auto;
-    background: #494949;
-    color: #ffffff;
-    min-width: 180px;
-    padding: 0.8em;
-  }
-  
+    font-size: 1.6em;
+}
+
+p{
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  margin: 0px;
+  text-align: center;
+  font-size: 1em;
+}
+
+.btnNo,
+.btnConfirm{
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  display: block !important;
+  margin: 0px auto;
+  background: #494949;
+  color: #ffffff;
+  min-width: 180px;
+  padding: 0.8em;
+}
+
+.btnNo{
+  margin-top: 20px;
+  border: 1px solid #494949;
+  background: #ffffff;
+  color: #494949;
+}
+
   .btnCancel{
     margin: 0px;
     float: right;
     cursor: pointer;
     height: 35px;
 }
-  
