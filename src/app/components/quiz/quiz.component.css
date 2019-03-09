@@ -9,13 +9,16 @@
 }
 .wrapper h2{
   font-family: 'Vollkorn', Times, serif;
-  margin: 0px 5px 1em 5px;
+  margin: 2em 5px;
   text-align: center;
-  font-size: 1.3em;
+  font-size: 2em;
 }
 p, button, h3{
   font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
   margin: 0;
+  font-size: 1.5em;
+}
+.bottomBar p{
   font-size: 1em;
 }
 h3{
@@ -69,7 +72,7 @@ h3{
 
 .username{
   font-family: 'Vollkorn', Times, serif;
-  margin: 30px 5px;
+  margin: 40px 5px 0px 0px;
   font-size: 1.5em;
   text-align: center; 
   float: right; 
