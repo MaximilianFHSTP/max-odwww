@@ -258,22 +258,35 @@ export class GodService {
 
     this.socket.on('unlockAllTimelineLocationsResult', result =>
     {
-      if(result.data)
-      {
+      setTimeout(() => {this.getLookupTable();}, 5000);
+
+      this.socket.removeAllListeners('unlockAllTimelineLocationsResult');
+    });
+  }
+
+  public getLookupTable(): void
+  {
+    const state = this.store.getState();
+    const user = state.user;
+    this.socket.emit('getLookupTable',{user: user.id});
+
+    this.socket.on('getLookupTableResult', result =>
+    {
+      if(result.data){
         const lookuptable = result.data.locations;
         const message = result.message;
 
         if (message.code > 299)
         {
           this.store.dispatch(this.statusActions.changeErrorMessage(message));
-          this.nativeCommunicationService.sendToNative('UnlockAllTimelineLocations: FAILED', 'print');
+          this.nativeCommunicationService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
           return;
         }
 
         this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
       }
 
-      this.socket.removeAllListeners('unlockAllTimelineLocationsResult');
+      this.socket.removeAllListeners('getLookupTableResult');
     });
   }
 
