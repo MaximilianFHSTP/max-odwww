@@ -52,21 +52,24 @@ export class LanguageService {
 
   public getCurrentLanguageAsString(): string
   {
-    switch (this._currentLanguage)
-    {
-      case LanguageTypes.DE: return 'de';
-      default: return 'en';
+    let languageStr = '';
+
+    if(LanguageTypes.DE === Number(this._currentLanguage)){
+      languageStr = 'de';
+    } else {
+      languageStr = 'en';
     }
+    return languageStr;
   }
 
   public getCurrentLanguage(): number
   {
-    return this._currentLanguage;
+    return Number(this._currentLanguage);
   }
 
   private updateTranslateService(lang: number)
   {
-    if(lang === LanguageTypes.DE)
+    if(Number(lang) === LanguageTypes.DE)
     {
       this.translateService.use('de');
     } else

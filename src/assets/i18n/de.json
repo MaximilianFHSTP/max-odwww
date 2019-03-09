@@ -8,7 +8,7 @@
     "cancel": "abbrechen",
     "confirm": "bestätigen",
     "connectionLostHeader": "Verbindung verloren!",
-    "connectionLostBody": "Bitte warten Sie bis die Verbindung wieder hergestellt werden konnte."
+    "connectionLostBody": "Warte bitte bis die Verbindung wieder hergestellt werden konnte!"
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",
@@ -18,17 +18,17 @@
     "registerButton": "Registrieren"
   },
   "languageStart": {
-    "helpmessage": "Bitte wähle eine Sprache aus!"
+    "helpmessage": "Wähle bitte eine Sprache aus!"
   },
   "login": {
     "username": "Nutzername",
     "password": "Passwort",
     "btnSave": "Weiter",
-    "enterValue": "Bitte gib einen Wert ein.",
+    "enterValue": "Gib bitte einen Wert ein!",
     "credentialsNotMatch": "Diese Zugangsdaten stimmen nicht überein."
   },
   "register": {
-    "title": "Bitte wähle einen Benutzernamen und ein Passwort.",
+    "title": "Wähle bitte einen Benutzernamen und ein Passwort!",
     "username": "Nutzername",
     "email": "Email",
     "password": "Passwort",
@@ -45,17 +45,17 @@
   },
   "tableAt": {
     "welcomeText": "Willkommen bei",
-    "interactiveExhibitMsg": "Dies ist eine interaktives Objekt. Klicke auf die Schaltfläche unten, um zu beginnen!",
+    "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche unten, um zu beginnen!",
     "tableOfflineText": "Das Display steht zur Zeit nicht zur Verfügung.",
     "tableFreeText": "Das Display ist frei.",
     "tableOccupiedText": "Das Display ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",
-    "beaconPutText": "Bitte lege Dein Handy auf ein Beacon am Display.",
-    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei!"
+    "beaconPutText": "Lege bitte Dein Handy auf ein Beacon am Display!",
+    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei."
   },
   "quiz": {
-    "pleaseWait" : "Bitte warte, bis die Frage aufgelöst wird!",
-    "waitNext" : "Bitte warte auf die nächste Frage!",
+    "pleaseWait" : "Warte bitte, bis die Frage aufgelöst wird!",
+    "waitNext" : "Warte bitte auf die nächste Frage!",
     "none": "keine",
     "rightAnswer": "Richtige Antwort ",
     "progress": "Fortschritt: ",
@@ -82,14 +82,14 @@
     "quizQuestion": "Wie heißt der hier aufscheinende Student mit Vornamen?",
     "quizRight": "Korrekte Antwort!",
     "quizWrong": "Falsche Antwort.",
-    "exhibitNotAvailable": "Es ist noch nicht verfügbar."
+    "exhibitNotAvailable": "Der interaktive Inhalt ist noch nicht verfügbar."
   },
   "notifiyExhibit": {
     "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche unten, um zu beginnen!",
     "tableOfflineText": "Das interaktive Ausstellungsstück steht zur Zeit nicht zur Verfügung!",
     "tableOccupiedText": "Das interaktive Ausstellungsstück ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",
-    "beaconPutText": "Bitte lege Dein Handy auf ein Beacon am Display.",
+    "beaconPutText": "Lege bitte Dein Handy auf ein Beacon am Display!",
     "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei!"
   },
   "notifiyExhibitOn": {
@@ -115,14 +115,14 @@
   "changeCredentials": {
     "title": "Profileinstellungen",
     "username": "Nutzername",
-    "email": "E-Mail",
+    "email": "Email",
     "password": "Passwort",
     "passwordOld": "Altes Passwort",
     "passwordNew": "Neues Passwort",
     "passwordConfirm": "Passwort bestätigen",
     "language": "Sprache",
     "btnUsername": "Nutzername ändern",
-    "btnEmail": "E-Mail ändern",
+    "btnEmail": "Email ändern",
     "btnPassword": "Passwort ändern",
     "btnLanguage": "Sprache ändern",
     "btnDelete": "Konto löschen",
@@ -130,8 +130,8 @@
     "btnCancel": "Abbrechen",
     "credentialsChanged": "Du hast Deine Anmeldeinformationen erfolgreich geändert.",
     "OK": "OK",
-    "enterValue": "Bitte gib einen Wert ein.",
-    "infoPassword1": "Bitte verwende mindestens 6 Zeichen mit mindestens 1 Kleinbuchstaben und ",
+    "enterValue": "Gib bitte einen Wert ein!",
+    "infoPassword1": "Verwende bitte mindestens 6 Zeichen mit mindestens 1 Kleinbuchstaben und ",
     "infoPassword2": "1 Ziffer oder 1 Sonderzeichen! Beispiel: ! $ § % & / ( ) = ?",
     "notSamePassword": "Das Passwort ist nicht dasselbe.",
     "credentialsNotChanged": "Die Anmeldeinformationen wurden nicht korrekt geändert.",
