@@ -134,6 +134,10 @@
   .apptoolbar button{
     margin: 35px 20px 0px 0px;
   }
+
+  #notConnectedToGod{
+    height: -webkit-fill-available;
+  }
   
   #redirectTimelineLong,
   #redirectTimeline,

@@ -138,6 +138,7 @@ export class GodService {
       this.store.dispatch(this.userActions.changeLookupTable(res.locations));
       this.store.dispatch(this.userActions.changeToken(res.token));
       this.store.dispatch(this.statusActions.changeLoggedIn(true));
+      this.store.dispatch(this.statusActions.changeLanguage(res.user.contentLanguageId));
 
       this.locationService.setToStartPoint();
 
@@ -247,6 +248,46 @@ export class GodService {
       }
       
       this.socket.removeAllListeners('registerTimelineUpdateResult');
+    });
+  }
+
+  public unlockAllTimelineLocations(): void
+  {
+    const state = this.store.getState();
+    const user = state.user;
+    this.socket.emit('unlockAllTimelineLocations',{user: user.id});
+
+    this.socket.on('unlockAllTimelineLocationsResult', result =>
+    {
+      setTimeout(() => {this.getLookupTable();}, 5000);
+
+      this.socket.removeAllListeners('unlockAllTimelineLocationsResult');
+    });
+  }
+
+  public getLookupTable(): void
+  {
+    const state = this.store.getState();
+    const user = state.user;
+    this.socket.emit('getLookupTable',{user: user.id});
+
+    this.socket.on('getLookupTableResult', result =>
+    {
+      if(result.data){
+        const lookuptable = result.data.locations;
+        const message = result.message;
+
+        if (message.code > 299)
+        {
+          this.store.dispatch(this.statusActions.changeErrorMessage(message));
+          this.nativeCommunicationService.sendToNative('RegisterTimelineUpdate: FAILED', 'print');
+          return;
+        }
+
+        this.store.dispatch(this.userActions.changeLookupTable(lookuptable));
+      }
+
+      this.socket.removeAllListeners('getLookupTableResult');
     });
   }
 

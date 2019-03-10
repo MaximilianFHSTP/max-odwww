@@ -11,6 +11,7 @@ import {AlertService} from './alert.service';
 import {UtilityService} from './utility.service';
 import {Subscription} from 'rxjs';
 import * as LocationTypes from '../config/LocationTypes';
+import {LanguageService} from './language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,8 @@ export class TransmissionService
     private statusActions: StatusActions,
     private dialog: MatDialog,
     private alertService: AlertService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private languageService: LanguageService
   )
   {
     this.subscription = this.alertService.getMessageResponse().subscribe(message => {
@@ -166,7 +168,7 @@ export class TransmissionService
     this.deviceModel = result.deviceModel;
 
     const state = this.appStore.getState();
-    this.language = state.language;
+    this.language = this.languageService.getCurrentLanguage().toString();
 
     if (this.registerIsGuest) {
       const data = {deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,

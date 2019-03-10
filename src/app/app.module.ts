@@ -212,9 +212,13 @@ export class AppModule {
         this.nativeResponseService.redirectView();
         break;
       }
-       default: {
-          break;
-       }
+      case 'unlock_all_timeline_locations':{
+        this.nativeResponseService.unlockAllTimelineLocations();
+        break;
+      }
+      default: {
+        break;
+      }
     }
   }
 }

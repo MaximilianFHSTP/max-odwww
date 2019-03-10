@@ -141,6 +141,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   ngOnInit() {
     const state = this.appStore.getState();
     this.user = state.user;
+
+    if(state.language !== this.languageService.getCurrentLanguage){
+      this.languageService.transmitChangeUserLanguage(state.language);
+    }
+    
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
     // console.log(this.timelineLocations);

@@ -4,8 +4,6 @@ import { WindowRef } from '../../WindowRef';
 import {UserActions} from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
-import { MatDialog } from '@angular/material';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import {TransmissionService} from '../../services/transmission.service';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
