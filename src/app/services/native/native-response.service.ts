@@ -132,4 +132,9 @@ export class NativeResponseService implements OnInit
   {
     this.alertService.sendMessageNativeBackbutton();
   }
+
+  public unlockAllTimelineLocations(){
+    this.godService.unlockAllTimelineLocations();
+    this.nativeCommunicationService.sendToNative('unlockAllTimelineLocations called', 'unlockAllTimelineLocations called');
+  }
 }

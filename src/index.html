@@ -36,7 +36,6 @@
      // gets major and minor of beacon in an array
      // sets new location
      window.update_location = function(beacon){
-       //console.log("call from native: update_location" + beacon);
        window.angularComponentRef.componentFn("update_location",beacon);
      };
 
@@ -44,33 +43,34 @@
      // call from native
      // gets deviceInfos, calls registerOD
      window.send_device_infos = function(deviceinfos){
-       //console.log("call from native: send_device_infos" + deviceinfos);
        window.angularComponentRef.componentFn("send_device_infos",deviceinfos);
+     };
+
+     // call from native
+     // gets info about unlocking all items, calls unlockAllTimelineLocations
+     window.unlock_all_timeline_locations = function(deviceinfos){
+       window.angularComponentRef.componentFn("unlock_all_timeline_locations");
      };
 
     // call from native
     // gets deviceInfos, calls registerOD
     window.send_token = function(token){
-      //console.log("call from native: send_device_infos" + deviceinfos);
       window.angularComponentRef.componentFn("send_token",token);
     };
 
     // call from native
     // gets deviceInfos, calls registerOD
     window.logout_success = function(message){
-      //console.log("call from native: send_device_infos" + deviceinfos);
       window.angularComponentRef.componentFn("logout_success",message);
     };
 
     window.send_closest_exhibit = function(message){
-      //console.log("call from native: send_device_infos" + deviceinfos);
       window.angularComponentRef.componentFn("send_closest_exhibit",message);
     };
 
     // call from native
     // gets OS language, calls
-    window.send_language = function(message)
-    {
+    window.send_language = function(message){
       window.angularComponentRef.componentFn("send_language",message);
     };
 
