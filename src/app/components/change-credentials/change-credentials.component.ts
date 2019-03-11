@@ -1,18 +1,20 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { WindowRef } from '../../WindowRef';
-import {UserActions} from '../../store/actions/UserActions';
+import { UserActions } from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
+import { NativeResponseService } from '../../services/native/native-response.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import {TransmissionService} from '../../services/transmission.service';
-import {AlertService} from '../../services/alert.service';
+import { UnlockDialogComponent } from '../unlock-dialog/unlock-dialog.component';
+import { TransmissionService } from '../../services/transmission.service';
+import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
-import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
-import {TranslateService} from '@ngx-translate/core';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
 import * as languageTypes from '../../config/LanguageTypes';
-import {LanguageService} from '../../services/language.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-change-credentials',
@@ -52,6 +54,7 @@ export class ChangeCredentialsComponent implements OnInit
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
     private nativeCommunicationService: NativeCommunicationService,
+    private nativeResponseService: NativeResponseService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private alertService: AlertService,
@@ -267,4 +270,16 @@ export class ChangeCredentialsComponent implements OnInit
     this.changePasswordEnable = false;
   }
 
+  public unlockAll(){ 
+    const dialogRef = this.dialog.open(UnlockDialogComponent,
+      {data: { username: this.appStore.getState().user.name},
+        disableClose: true,
+        autoFocus: false
+      });
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result === this.translate.instant('app.confirm')){
+        this.nativeResponseService.unlockAllTimelineLocations();
+      }
+    });
+  }
 }

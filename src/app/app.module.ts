@@ -67,6 +67,8 @@ import { EducationQuizComponent } from './components/education-quiz/education-qu
 import { ContentTableNotifyAtComponent } from './components/content-table-notify-at/content-table-notify-at.component';
 import { ContentTableNotifyOnComponent } from './components/content-table-notify-on/content-table-notify-on.component';
 import { WifiComponent } from './components/wifi/wifi.component';
+import { UnlockComponent } from './components/unlock/unlock.component';
+import { UnlockDialogComponent } from './components/unlock-dialog/unlock-dialog.component';
 
 
 
@@ -100,7 +102,9 @@ export const appStore = createStore(
     EducationQuizComponent,
     ContentTableNotifyAtComponent,
     ContentTableNotifyOnComponent,
-    WifiComponent
+    WifiComponent,
+    UnlockComponent,
+    UnlockDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -154,7 +158,8 @@ export const appStore = createStore(
   entryComponents: [
     AlertDialogComponent,
     NativeSettingDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    UnlockDialogComponent
   ]
 })
 export class AppModule {

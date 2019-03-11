@@ -135,6 +135,5 @@ export class NativeResponseService implements OnInit
 
   public unlockAllTimelineLocations(){
     this.godService.unlockAllTimelineLocations();
-    this.nativeCommunicationService.sendToNative('unlockAllTimelineLocations called', 'unlockAllTimelineLocations called');
   }
 }

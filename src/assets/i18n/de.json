@@ -8,7 +8,8 @@
     "cancel": "abbrechen",
     "confirm": "bestätigen",
     "connectionLostHeader": "Verbindung verloren!",
-    "connectionLostBody": "Warte bitte bis die Verbindung wieder hergestellt werden konnte!"
+    "connectionLostBody": "Warte bitte bis die Verbindung wieder hergestellt werden konnte!",
+    "unlock": "INHALT FREISCHALTEN"
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",
@@ -135,12 +136,18 @@
     "infoPassword2": "1 Ziffer oder 1 Sonderzeichen! Beispiel: ! $ § % & / ( ) = ?",
     "notSamePassword": "Das Passwort ist nicht dasselbe.",
     "credentialsNotChanged": "Die Anmeldeinformationen wurden nicht korrekt geändert.",
-    "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben."
+    "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben.",
+    "btnUnlock": "INHALT FREISCHALTEN"
   },
   "deleteDialog": {
     "title": "Konto löschen",
     "text": "Wenn Du das Konto löscht, kannst Du es nicht erneut aktivieren, alle Daten gehen verloren. Möchtest Du wirklich fortfahren?",
     "yesOption": "Konto löschen"
+  },
+  "unlockDialog": {
+    "title": "Inhalt Freischalten",
+    "text": "Wähle 'Freischalten', um alle Ausstellungsstücke in der App freizuschalten, ohne dass Du bei diesen gewesen sein musst. Du kannst so die Inhalte konsumieren, Dich jedoch nicht mit den interaktiven Ausstellungsstücken verbinden.",
+    "yesOption": "Freischalten"
   },
   "alertDialog": {
     "title": "Ausstellungsstück",
