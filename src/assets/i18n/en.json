@@ -26,7 +26,8 @@
     "password": "Password",
     "btnSave": "Continue",
     "enterValue": "You must enter a value.",
-    "credentialsNotMatch": "These credentials do not match."
+    "credentialsNotMatch": "These credentials do not match.",
+    "oder": "or"
   },
   "register": {
     "title": "Please choose a username and a password!",

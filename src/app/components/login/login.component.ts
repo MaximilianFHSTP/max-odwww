@@ -75,4 +75,22 @@ export class LoginComponent implements OnInit
     return this.translate.instant('login.credentialsNotMatch');
   }
 
+  forwardToRegister(){
+    this.router.navigate(['/register']);
+  }
+
+  loginAsGuest(){
+    this.transmissionService.registerIsGuest = true;
+    const state = this.appStore.getState();
+    const platform = state.platform;
+
+    this.nativeCommunicationService.sendToNative('getDeviceInfos', 'getDeviceInfos');
+
+    if (platform !== 'IOS' && platform !== 'Android')
+    {
+      const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
+      this.transmissionService.transmitODRegister(data);
+    }
+  }
+
 }

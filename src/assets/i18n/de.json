@@ -26,7 +26,8 @@
     "password": "Passwort",
     "btnSave": "Weiter",
     "enterValue": "Gib bitte einen Wert ein!",
-    "credentialsNotMatch": "Diese Zugangsdaten stimmen nicht überein."
+    "credentialsNotMatch": "Diese Zugangsdaten stimmen nicht überein.",
+    "oder": "oder"
   },
   "register": {
     "title": "Wähle bitte einen Benutzernamen und ein Passwort!",
