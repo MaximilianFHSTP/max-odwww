@@ -100,6 +100,7 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
     this.setColorSecondary = 'Color' + this.user.secondaryColor;
     this.coaService.setColorPrimary = this.user.primaryColor;
     this.coaService.setColorSecondary = this.user.secondaryColor;
+    this.coaService.dismissNewItem();
   }
 
   ngAfterViewInit(){
@@ -234,6 +235,12 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
     } else {
       this.settingsContent = id.toString();
       this.showSettings = true;
+    }
+
+    switch(id){
+      case 'emblem': this.coaService.dismissNewEmblem(); break;
+      case 'helmet': this.coaService.dismissNewHelmet(); break;
+      case 'weapon': this.coaService.dismissNewWeapon(); break;
     }
   }
 
