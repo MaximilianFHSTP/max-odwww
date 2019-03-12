@@ -111,6 +111,10 @@ export class NativeCommunicationService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.receiveWifiData(messageString);
             break;
 
+          case 'getLanguage':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getLanguage();
+            break;
+
           default:
             break;
         }

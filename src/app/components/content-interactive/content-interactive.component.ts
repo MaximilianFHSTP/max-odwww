@@ -71,16 +71,19 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
 
   playARBooks(){
     // Call AR for accounting books
+    this.nativeCommunicationService.sendToNative('triggerAR', 'triggerAR');
   }
 
   playARPanels(){
     this.coaService.tryUnlock(30);
     // Call AR for sunthaym panels
+    this.nativeCommunicationService.sendToNative('triggerAR', 'triggerAR');
   }
 
   playARShrine(){
     this.coaService.tryUnlock(40);
     // Call AR for shrine
+    this.nativeCommunicationService.sendToNative('triggerAR', 'triggerAR');
   }
 
   ngOnDestroy() {

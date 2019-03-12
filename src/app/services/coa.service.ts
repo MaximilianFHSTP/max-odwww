@@ -20,6 +20,10 @@ export class CoaService {
   setWeapon = 0;
   setColorPrimary = 1;
   setColorSecondary = 1;
+  newItem = false;
+  newEmblem = false;
+  newHelmet = false;
+  newWeapon = false;
 
   constructor(private alertService: AlertService, private transmissionService: TransmissionService) { 
   }
@@ -35,7 +39,7 @@ export class CoaService {
       return this.setShield;
     }
   }
-
+  
   getActive(coaTypeId: any): string{
     if(coaTypeId === coaTypes.SYMBOL){ 
      return this.getPartName(this.setEmblem);
@@ -56,6 +60,16 @@ export class CoaService {
       }
     });
     return partName;
+  }
+
+  getPartType(coaPartId: any){
+    let coaTypeId = 0;
+    this.allCoaParts.forEach(part => {
+      if(part.id === coaPartId){
+        coaTypeId = part.coaTypeId;
+      }
+    });
+    return coaTypeId;
   }
 
   getPartId(coaPartName: string): number{
@@ -91,8 +105,30 @@ export class CoaService {
     if(!this.have(coaPartId)){
       this.transmissionService.unlockCoaPart(coaPartId); 
       this.unlockedItemsId.push(coaPartId);
-      // console.log('unlocking');
+      this.newItem = true;
+
+      switch(this.getPartType(coaPartId)){
+        case coaTypes.SYMBOL: this.newEmblem = true; break;
+        case coaTypes.HELMET: this.newHelmet = true; break;
+        case coaTypes.MANTLING: this.newWeapon = true; break;
+      }
     }  
+  }
+
+  dismissNewItem(){
+    this.newItem = false;
+  }
+
+  dismissNewEmblem(){
+    this.newEmblem = false;
+  }
+
+  dismissNewHelmet(){
+    this.newHelmet = false;
+  }
+
+  dismissNewWeapon(){
+    this.newWeapon = false;
   }
 
   setCoaParts(coaParts: any[]){

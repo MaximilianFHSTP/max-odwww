@@ -8,7 +8,8 @@
     "cancel": "cancel",
     "confirm": "confirm",
     "connectionLostHeader": "Connection lost!",
-    "connectionLostBody": "Please wait until the app reconnects to the server!"
+    "connectionLostBody": "Please wait until the app reconnects to the server!",
+    "unlock": "UNLOCK CONTENT"
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",
@@ -25,7 +26,8 @@
     "password": "Password",
     "btnSave": "Continue",
     "enterValue": "You must enter a value.",
-    "credentialsNotMatch": "These credentials do not match."
+    "credentialsNotMatch": "These credentials do not match.",
+    "oder": "or"
   },
   "register": {
     "title": "Please choose a username and a password!",
@@ -134,13 +136,18 @@
     "infoPassword2": "1 number or 1 special character! Example: ! $ § % & / ( ) = ?",
     "notSamePassword": "The password is not the same.",
     "credentialsNotChanged": "The credentials were not changed correctly.",
-    "credentialsTaken": "These credentials are already taken."
-
+    "credentialsTaken": "These credentials are already taken.",
+    "btnUnlock": "UNLOCK CONTENT"
   },
   "deleteDialog": {
     "title": "Delete Account",
     "text": "If you delete your account, you will not be able to reactivate it, and all your data will be lost. Do you really want to proceed?",
     "yesOption": "Delete Account"
+  },
+  "unlockDialog": {
+    "title": "Unlock Content",
+    "text": "Choose 'Unlock' to unlock all exhibits within the app without being there. Thus, you can read the contents. However, you can not connect to interactive exhibits.",
+    "yesOption": "Unlock"
   },
   "alertDialog": {
     "title": "Exhibit",

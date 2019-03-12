@@ -20,5 +20,10 @@
 
       <button class="btnLogin" [disabled]="loginForm.invalid" (click)="loginDevice()">{{ 'login.btnSave' | translate }}</button>
     </form>
+
+
+    <p> ------ {{ 'login.oder' | translate }} ------ </p>
+    <button class="btnLoginGuest" (click)="loginAsGuest()">{{ 'start.registerGuestButton' | translate }}</button>
+    <button class="btnRegister" (click)="forwardToRegister()">{{ 'start.registerButton' | translate }}</button>
   </div>
 </div>

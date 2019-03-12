@@ -519,6 +519,15 @@ div::-webkit-scrollbar-thumb {
     background: #CCC;
 }
 
+.wappenbuttonnew{
+    background-color: #ff0000;
+    height: 15px;
+    width: 15px;
+    border-radius: 25px;
+    float: right;
+    margin: -75px 5px 0px 0px;
+  }
+
 @media (max-width: 350px) {
     .toolbar .savebutton p{
         display: none;

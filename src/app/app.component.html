@@ -18,6 +18,7 @@
     <li *ngIf="guest == 1" (click)="registerRealuserRouting()">{{ 'app.menuSignup' | translate }}</li>
     <li (click)="openAboutView()">{{ 'app.menuAbout' | translate }}</li>
     <li (click)="openWifiView()">WIFI</li>
+    <li (click)="openUnlockView()">{{ 'app.unlock' | translate }}</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">DEUTSCH</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">ENGLISH</li>
     <li (click)="logoutUser()">{{ 'app.menuLogout' | translate }}</li>

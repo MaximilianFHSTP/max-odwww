@@ -262,6 +262,15 @@ p{
   background-repeat: no-repeat;
   margin: 90px 20px 0px 0px;
 }
+
+.wappenbuttonnew{
+  background-color: #ff0000;
+  height: 15px;
+  width: 15px;
+  border-radius: 25px;
+  float: right;
+  margin: -55px 15px;
+}
  
 .locationbutton{
   margin: 0;
