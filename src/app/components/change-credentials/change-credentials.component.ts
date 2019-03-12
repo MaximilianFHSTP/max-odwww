@@ -69,6 +69,9 @@ export class ChangeCredentialsComponent implements OnInit
         config.duration = 3000;
         config.panelClass = ['success-snackbar'];
         this.snackBar.open(this.translate.instant('changeCredentials.credentialsChanged'), 'OK', config);
+
+        this.changeName = this.appStore.getState().user.name;
+        this.changeEmail = this.appStore.getState().user.email;
       }else{
         this.wrongCredChange = true;
       }
@@ -99,13 +102,11 @@ export class ChangeCredentialsComponent implements OnInit
       this.transmissionService.changeName = undefined;
     }else{
       this.transmissionService.changeName = this.nameFormControl.value;
-      this.changeName = this.nameFormControl.value;
     }
     if(this.emailFormControl.value === undefined || this.emailFormControl.value === ''){
       this.transmissionService.changeEmail = undefined;
     }else{
       this.transmissionService.changeEmail = this.emailFormControl.value;
-      this.changeEmail = this.emailFormControl.value;
     }
     if(this.passwordFormControl.value === undefined || this.passwordFormControl.value === ''){
       this.transmissionService.changeOldPassword = undefined;
