@@ -35,7 +35,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public timelineLocations: any;
   public isWeb: boolean;
   public closestExhibit: number;
-  public prevClosestExhibit: number;
+  public prevClosestExhibit = 0;
   public locationId: string;
 
   /////////////////////
@@ -82,8 +82,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       const state = this.appStore.getState();
       this.closestExhibit = state.closestExhibit;
       if(this.prevClosestExhibit !== this.closestExhibit){
+        if(this.prevClosestExhibit !== 0){ this.buttonAnimationOn(); }
         this.prevClosestExhibit = this.closestExhibit;
-        this.buttonAnimationOn();
       }
       this.timelineLocations = this.locationService.getTimelineLocations();
       this.sortLocationData();
@@ -117,6 +117,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
         typeId === LocationTypes.NOTIFY_EXHIBIT_AT){
           this.checkWifi();
       }
+      this.locationService.setLastSection(this.currentSection);
       this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
     }
   }
@@ -162,13 +163,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     // If boxes lose position after content update, call reDraw()
     if (d3.select('#exh_101').style('position') !== 'absolute'){
       this.reDraw();
-      this.goToClosestExhibit();
-    } 
-
-    if(this.redirected){
-      this.redirected = false;
-      this.goToClosestExhibit(); 
-    }
+      if(this.redirected){
+        this.redirected = false;
+        this.goToClosestExhibit(); 
+      }
+    }     
 
     if (this.updatePart){
       this.colorSVGIcons(); 
@@ -177,7 +176,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   startSection(closestExhibit: number){
-    closestExhibit ? this.currentSection = +((closestExhibit).toString().substring(0,2)) : this.currentSection = 10;
+    // closestExhibit ? this.currentSection = +((closestExhibit).toString().substring(0,2)) : this.currentSection = 10;
+    this.currentSection = this.locationService.getLastSection();
+    if(!this.currentSection) {this.currentSection = 10;}
   }
 
   ngAfterViewInit(){
@@ -422,9 +423,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   buttonAnimationOn(){
-    // d3.select('.locationbutton').transition().style('background-color', '#aaaaaa')
-    // .transition().style('background-color', '#494949');
-
     d3.select('.locationbutton').transition().style('box-shadow', '0px 0px 18px #888888')
     .transition().style('box-shadow', 'none');
   }
@@ -445,12 +443,14 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   scrollTo(id: number) {
-    /* Previous implementation: worked on Android but not on iOS */
-    // const el = document.getElementById('exh_'+id);
-    // el.scrollIntoView({behavior:'smooth'});
-
-    /* Smooth scrolling as well for Safari / iOS */
-    this.smoothScroll(id);
+    if(this.nativeCommunicationService.isIOS) {
+      /* Smooth scrolling as well for Safari / iOS */
+      this.smoothScroll(id);
+    } else {
+      /* Previous implementation: worked on Android but not on iOS */
+      const el = document.getElementById('exh_'+id);
+      if(el){ el.scrollIntoView({behavior:'smooth'}); }
+    }
   }
 
   // sets timeout for scrolling

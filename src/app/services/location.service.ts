@@ -8,6 +8,7 @@ export class LocationService
 {
   private _lookuptable: any;
   private readonly _currentLocation: BehaviorSubject<any>;
+  private _lastSection: number;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -20,6 +21,14 @@ export class LocationService
     });
 
     this._currentLocation = new BehaviorSubject<any>(undefined);
+  }
+
+  public setLastSection(sectionId: number){
+    this._lastSection = sectionId;
+  }
+
+  public getLastSection(){
+    return this._lastSection;
   }
 
   public isActiveLocationInRange(locationId: number): boolean
