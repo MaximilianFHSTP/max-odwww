@@ -75,7 +75,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     private dialog: MatDialog,
     public router: Router,
     private alertService: AlertService,
-    private coaService: CoaService,
+    public coaService: CoaService,
     public languageService: LanguageService
   ){
     this._unsubscribe = this.appStore.subscribe(() => {

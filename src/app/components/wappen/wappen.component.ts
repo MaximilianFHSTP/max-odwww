@@ -55,7 +55,7 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
     public router: Router,
     private languageService: LanguageService,
     private alertService: AlertService,
-    private coaService: CoaService
+    public coaService: CoaService
   ){
     this._unsubscribe = this.appStore.subscribe(() =>{
       const state = this.appStore.getState();
