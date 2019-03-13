@@ -355,7 +355,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
         this.checkWifi(); 
       }
 
-      this.locationService.setPreviousState(this.currentSection, window.scrollY);
+      this.locationService.setPreviousState(this.currentSection, window.pageYOffset || document.documentElement.scrollTop);
       this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
     }
   }
