@@ -125,6 +125,7 @@ p{
 .card.exhibit{
   width: 56%;
   height: 90px;
+  display: none;
 }
 
 .card h1{
