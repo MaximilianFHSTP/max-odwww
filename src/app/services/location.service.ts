@@ -9,6 +9,8 @@ export class LocationService
   private _lookuptable: any;
   private readonly _currentLocation: BehaviorSubject<any>;
   private _lastSection: number;
+  private _lastWindowOffset: number;
+  private _saveLastLocation: boolean;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -23,12 +25,26 @@ export class LocationService
     this._currentLocation = new BehaviorSubject<any>(undefined);
   }
 
-  public setLastSection(sectionId: number){
+  public setPreviousState(sectionId: number, offset: number){
+    this._saveLastLocation = true;
+    this._lastWindowOffset = offset;
     this._lastSection = sectionId;
   }
 
   public getLastSection(){
     return this._lastSection;
+  }
+
+  public getLastWindowOffset(){
+    return this._lastWindowOffset;
+  }
+
+  public isSaveLastLocation(){
+    return this._saveLastLocation;
+  }
+
+  public cleanLastLocation(){
+    this._saveLastLocation = false;
   }
 
   public isActiveLocationInRange(locationId: number): boolean

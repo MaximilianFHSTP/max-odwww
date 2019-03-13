@@ -1,19 +1,15 @@
-import {Component, OnInit, AfterViewInit, Inject, AfterViewChecked, Injectable, OnDestroy} from '@angular/core';
-import {NativeResponseService} from '../../services/native/native-response.service';
-import {LocationService} from '../../services/location.service';
-import {UserActions} from '../../store/actions/UserActions';
-import {LocationActions} from '../../store/actions/LocationActions';
+import { Component, OnInit, AfterViewInit, Inject, AfterViewChecked, Injectable, OnDestroy} from '@angular/core';
+import { NativeResponseService } from '../../services/native/native-response.service';
+import { LocationService } from '../../services/location.service';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
-import {Unsubscribe} from 'redux';
-import {MatDialog} from '@angular/material';
-import {AlertService} from '../../services/alert.service';
-import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
-import {TransmissionService} from '../../services/transmission.service';
-import * as d3 from 'd3';
+import { AlertService } from '../../services/alert.service';
 import { CoaService } from '../../services/coa.service';
-import { JsonpCallbackContext } from '@angular/common/http/src/jsonp';
-import {LanguageService} from '../../services/language.service';
+import { LanguageService } from '../../services/language.service';
+import { TransmissionService } from '../../services/transmission.service';
+import { Router } from '@angular/router';
+import { Unsubscribe } from 'redux';
+import { Subscription } from 'rxjs';
+import * as d3 from 'd3';
 import * as LanguageTypes from '../../config/LanguageTypes';
 import * as LocationTypes from '../../config/LocationTypes';
 
@@ -28,28 +24,20 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private registerLocationmessage: any;
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
-  private comingBack: boolean;
   private subscriptionCoaParts: Subscription;
   private subscriptionUserCoaParts: Subscription;
+
   public user: any;
   public timelineLocations: any;
   public isWeb: boolean;
   public closestExhibit: number;
   public prevClosestExhibit = 0;
   public locationId: string;
-
-  /////////////////////
-  private stringDates = ['1450', '1530'];
-  private parseDate = d3.timeParse('%Y');
-  private svgHeight = 1600;
-  private svgWidth = 320;
-  private y;
-  private whichY;
-
+  public currentSection: number;
+  public redirected = false;
+  public updatePart = false;
   public germanLang = LanguageTypes.DE;
-
-  currentSection = 10;
-  sectionList = [
+  public sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
     {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
     {code: 30, icon: 'Maximilian', primaryColor: '#755300', secondaryColor: '#906e1b'},
@@ -57,24 +45,26 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     {code: 50, icon: 'Shrine', primaryColor: '#5c416a', secondaryColor: '#785d86'},
     {code: 60, icon: 'Tombstone',  primaryColor: '#32633a', secondaryColor: '#4c7d54'}
   ];
-  currentEntrance = [];
-  sortedExhbits = [];
-  mergedDates = [];
-  cardPositions = [];
-  redirected = false;
-  updatePart = false;
+  public currentEntrance = [];
+  public sortedExhbits = [];
+  public mergedDates = [];
+  public cardPositions = [];
+
+  private stringDates = ['1450', '1530'];
+  private parseDate = d3.timeParse('%Y');
+  private svgHeight = 1600;
+  private svgWidth = 320;
+  private y;
+  private whichY;
 
   constructor(
     private transmissionService: TransmissionService,
     private locationService: LocationService,
     @Inject('AppStore') private appStore,
-    private userActions: UserActions,
-    private locationActions: LocationActions,
     private nativeCommunicationService: NativeCommunicationService,
     private nativeResponseService: NativeResponseService,
-    private dialog: MatDialog,
-    public router: Router,
     private alertService: AlertService,
+    public router: Router,
     public coaService: CoaService,
     public languageService: LanguageService
   ){
@@ -107,35 +97,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     if (this.subscriptionLocationid){
       this.subscriptionLocationid.unsubscribe();
     }
-  }
-
-  public requestRegisterLocation(id: number, parentId: number, locked: boolean, typeId: number){
-    if(!locked && id && parentId){
-      if(id === 5001){ this.checkCoaUnlock(); }
-      if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT || 
-        typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT || 
-        typeId === LocationTypes.NOTIFY_EXHIBIT_AT){
-          this.checkWifi();
-      }
-      this.locationService.setLastSection(this.currentSection);
-      this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
+    if (this.subscriptionCoaParts){
+      this.subscriptionCoaParts.unsubscribe();
     }
-  }
-
-  public checkWifi(){
-    this.nativeResponseService.getWifiDataFromGoD();
-  }
-
-  checkCoaUnlock(){
-    let allUnlocked = true;
-    this.timelineLocations.forEach(loc => {
-      if(loc.id !== 502 && loc.id !== 6000 && loc.locked){
-        allUnlocked = false;
-      }
-    });
-   
-    if(allUnlocked){
-      this.coaService.tryUnlock(24);
+    if (this.subscriptionUserCoaParts){
+      this.subscriptionUserCoaParts.unsubscribe();
     }
   }
 
@@ -149,9 +115,10 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
-    // console.log(this.timelineLocations);
     this.closestExhibit = state.closestExhibit;
-    this.startSection(this.closestExhibit);
+    this.currentSection = this.locationService.getLastSection();
+    if(!this.currentSection) {this.currentSection = 10;}
+
     this.isWeb = this.nativeCommunicationService.isWeb;
     this.sortLocationData();
 
@@ -159,46 +126,19 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.transmissionService.getUserCoaParts();
   }
 
-  ngAfterViewChecked(){
-    // If boxes lose position after content update, call reDraw()
-    if (d3.select('#exh_101').style('position') !== 'absolute'){
-      this.reDraw();
-      if(this.redirected){
-        this.redirected = false;
-        this.goToClosestExhibit(); 
-      }
-    }     
-
-    if (this.updatePart){
-      this.colorSVGIcons(); 
-      this.updatePart = false;
-    }
-  }
-
-  startSection(closestExhibit: number){
-    // closestExhibit ? this.currentSection = +((closestExhibit).toString().substring(0,2)) : this.currentSection = 10;
-    this.currentSection = this.locationService.getLastSection();
-    if(!this.currentSection) {this.currentSection = 10;}
-  }
+  /* ----- Sort Data, Draw Timeline, Check for changes ---- */
 
   ngAfterViewInit(){
     // Draw Timeline
-    this.y = d3.scaleTime()
-      .domain(d3.extent(this.stringDates, (d: any) => this.parseDate(d)))
-      .range([0, this.svgHeight]);
-
-    const svg = d3.select('#timeline').append('svg')
-        .attr('height', this.svgHeight).attr('width', this.svgWidth);
-
+    this.y = d3.scaleTime().domain(d3.extent(this.stringDates, (d: any) => this.parseDate(d))).range([0, this.svgHeight]);
+    const svg = d3.select('#timeline').append('svg').attr('height', this.svgHeight).attr('width', this.svgWidth);
     const axis = svg.append('g')
       .attr('class', 'y axis').attr('transform', 'translate(0,0)').style('margin-top', '200px')
       .call(d3.axisLeft(this.y).ticks(10).tickFormat(d3.timeFormat('%Y')))
       .selectAll('text').attr('y', 6).attr('x', 6).style('text-anchor', 'start').style('color', '#ffffff');
 
     svg.select('.domain').attr('stroke-width', '0');
-      
-    this.whichY = d3.scaleLinear()
-    .domain([1450, 1530]).range([0, this.svgHeight]);
+    this.whichY = d3.scaleLinear().domain([1450, 1530]).range([0, this.svgHeight]);
 
     /* Draw and place exhibitions */
     this.sortedExhbits[0].forEach((currentExhibits) => {
@@ -238,34 +178,47 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
           .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId));
           
         this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
-
       });
     });
   }
 
-  mergeDate(mDate: number){
-    this.mergedDates.push(mDate);
-    let count = 0;
-    this.mergedDates.forEach((date) => {
-      if(date === mDate) {count++;}
-    });
+  ngAfterViewChecked(){
+    // If boxes lose position after content update, call reDraw()
+    if (d3.select('#exh_101').style('position') !== 'absolute'){
+      this.reDraw();
 
-    return count;
+      if(this.redirected){
+        this.redirected = false;
+        this.goToClosestExhibit(); 
+      }
+    }     
+
+    if (this.updatePart){
+      this.colorSVGIcons(); 
+      this.updatePart = false;
+    }
   }
 
   reDraw(){
     // Get calculated positions and place cards
     this.cardPositions.forEach((pos) => {
-      const card = d3.select('#exh_' + pos.id).style('position','absolute')
-          .style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 2) +'px');
+      const card = d3.select('#exh_' + pos.id)
+      .style('position','absolute').style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 2) +'px');
     });
 
     // Hide everything then show only selected section
-    d3.selectAll('.card.exhibit').transition().style('display', 'none');
-    d3.selectAll('.timespanline').transition().style('opacity', '0');
-    d3.selectAll('.card.Sec' + this.currentSection).transition().style('display', 'inline');
-    d3.selectAll('.line_' + this.currentSection).transition().style('opacity', '1');
+    const fade = 0; // or 150
+    d3.selectAll('.card.exhibit').transition().duration(0).style('opacity', '0').style('display', 'none');
+    d3.selectAll('.timespanline').transition().duration(0).style('opacity', '0');
+    d3.selectAll('.card.lckfalse.Sec' + this.currentSection).transition().duration(fade).style('opacity', '1').style('display', 'inline');
+    d3.selectAll('.card.lcktrue.Sec' + this.currentSection).transition().duration(fade).style('opacity', '0.5').style('display', 'inline');
+    d3.selectAll('.line_' + this.currentSection).transition().duration(fade).style('opacity', '1');
     this.colorSVGIcons();    
+
+    if(this.locationService.isSaveLastLocation()){
+      d3.transition().duration(0).tween('scroll', this.scrollTween(this.locationService.getLastWindowOffset() - window.scrollY));
+      this.locationService.cleanLastLocation();
+    }
   }
 
   colorSVGIcons(){
@@ -291,35 +244,12 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
   }
 
-  setCurrentExhibits(){
-    this.currentEntrance.length = 0;
-    this.sortedExhbits.length = 0;
-
-    const sec1Exhibits = [];
-    const sec2Exhibits = [];
-    const sec3Exhibits = [];
-    const sec4Exhibits = [];
-    const sec5Exhibits = [];
-    const sec6Exhibits = [];
-
-    this.timelineLocations.forEach((loc) => {
-      if (loc.locationTypeId === 5) {
-        this.currentEntrance.push(loc);
-      } else {
-        switch(loc.parentId){
-          case 10: sec1Exhibits.push(loc); break;
-          case 20: sec2Exhibits.push(loc); break;
-          case 30: sec3Exhibits.push(loc); break;
-          case 40: sec4Exhibits.push(loc); break;
-          case 50: sec5Exhibits.push(loc); break;
-          case 60: sec6Exhibits.push(loc); break;
-        }
-      }  
-    });
-
-    this.sortedExhbits.push([sec1Exhibits, sec2Exhibits, sec3Exhibits, sec4Exhibits, sec5Exhibits, sec6Exhibits,]);
+  mergeDate(mDate: number){
+    this.mergedDates.push(mDate);
+    let count = 0;
+    this.mergedDates.forEach((date) => { if(date === mDate) {count++;} });
+    return count;
   }
-
 
   sortLocationData( ){
     // Ad hoc reordering and adjustments
@@ -352,20 +282,37 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       }
     });
 
-
     this.timelineLocations = mtimelineLocations;
     this.setCurrentExhibits();
   }
 
-  getSectionIcon(sectionId: number){
-    let icon = '';
-    this.sectionList.forEach((section) => {
-      if(section.code === sectionId){
-        icon = section.icon;
-      }
+  setCurrentExhibits(){
+    this.currentEntrance.length = 0;
+    this.sortedExhbits.length = 0;
+
+    const sec1Exh = [];
+    const sec2Exh = [];
+    const sec3Exh = [];
+    const sec4Exh = [];
+    const sec5Exh = [];
+    const sec6Exh = [];
+
+    this.timelineLocations.forEach((loc) => {
+      if (loc.locationTypeId === 5) {
+        this.currentEntrance.push(loc);
+      } else {
+        switch(loc.parentId){
+          case 10: sec1Exh.push(loc); break;
+          case 20: sec2Exh.push(loc); break;
+          case 30: sec3Exh.push(loc); break;
+          case 40: sec4Exh.push(loc); break;
+          case 50: sec5Exh.push(loc); break;
+          case 60: sec6Exh.push(loc); break;
+        }
+      }  
     });
 
-    return icon;
+    this.sortedExhbits.push([sec1Exh, sec2Exh, sec3Exh, sec4Exh, sec5Exh, sec6Exh,]);
   }
 
   getSectionPrimaryColor(sectionId: number){
@@ -379,42 +326,58 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     return color;
   }
 
-  getSectionSecondaryColor(sectionId: number){
-    let color = '';
-    this.sectionList.forEach((section) => {
-      if(section.code === sectionId){
-        color = section.secondaryColor;
-      }
-    });
-    
-    return color;
-  }
+  /* ------------- Navbar and Toolbar buttons ------------- */
 
   displaySection(sectionId: number, auto: boolean){
     this.currentSection = sectionId;
-    this.reDraw();
     this.redirected = auto;
     this.updatePart = true;
+    this.reDraw();
   }
 
   public userCoA(){
-    this.router.navigate(['wappen']).then( () =>
-      {
-        window.scrollTo(0, 0);
-        this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
-      }
-    );
-  }
-
-  getLocation(id: any){
-    let loc;
-
-    this.timelineLocations.forEach((exh) => {
-      if(exh.id === id){loc = exh;}
+    this.router.navigate(['wappen']).then( () => {
+      window.scrollTo(0, 0);
+      this.nativeCommunicationService.sendToNative('Coat of Arms', 'print');
     });
-
-    return loc;
   }
+
+  /* ------ Enter Exhibit View (check CoA and Wifi) ------- */
+
+  public requestRegisterLocation(id: number, parentId: number, locked: boolean, typeId: number){
+    if(!locked && id && parentId){
+      if(id === 5001){ 
+        this.checkCoaUnlock(); 
+      }
+      if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT || 
+         typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT || 
+         typeId === LocationTypes.NOTIFY_EXHIBIT_AT){ 
+        this.checkWifi(); 
+      }
+
+      this.locationService.setPreviousState(this.currentSection, window.scrollY);
+      this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
+    }
+  }
+
+  public checkWifi(){
+    this.nativeResponseService.getWifiDataFromGoD();
+  }
+
+  checkCoaUnlock(){
+    let allUnlocked = true;
+    this.timelineLocations.forEach(loc => {
+      if(loc.id !== 502 && loc.id !== 6000 && loc.locked){
+        allUnlocked = false;
+      }
+    });
+   
+    if(allUnlocked){
+      this.coaService.tryUnlock(24);
+    }
+  }
+
+  /* -------- Location Button and Scroll Functions -------- */
 
   isClose(exhibit: number){
     let state = false;
@@ -423,8 +386,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   buttonAnimationOn(){
-    d3.select('.locationbutton').transition().style('box-shadow', '0px 0px 18px #888888')
-    .transition().style('box-shadow', 'none');
+    d3.select('.locationbutton').transition().style('box-shadow', '0px 0px 18px #888').transition().style('box-shadow', 'none');
   }
 
   goToClosestExhibit() {
@@ -443,67 +405,23 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   scrollTo(id: number) {
-    if(this.nativeCommunicationService.isIOS) {
-      /* Smooth scrolling as well for Safari / iOS */
-      this.smoothScroll(id);
-    } else {
-      /* Previous implementation: worked on Android but not on iOS */
-      const el = document.getElementById('exh_'+id);
-      if(el){ el.scrollIntoView({behavior:'smooth'}); }
-    }
+    const card = document.getElementById('exh_'+id);
+    if(card && card.offsetTop !== 0){
+      d3.transition().duration(1000).tween('scroll', this.scrollTween((card.offsetTop - 170) ));
+    } 
   }
 
-  // sets timeout for scrolling
-  scrollToTimeout(yPoint: number, duration: number) {
-    setTimeout(() => {
-        window.scrollTo(0, yPoint);
-    }, duration);
-    return;
+  scrollTween(offset: any) {
+    return function() {
+      const i = d3.interpolateNumber(window.pageYOffset || document.documentElement.scrollTop, offset);
+      return function(t) { scrollTo(0, i(t)); };
+    };
   }
 
-  /*
-  ---------------------------------------------------------------------------
-    Scroll functions to implement smooth scrolling as well for Safari / iOS
-  ---------------------------------------------------------------------------
-  */
-  smoothScroll(eID) {
-    const startY = currentYPosition();
-    const stopY = elmYPosition(eID) - 100;
-    const distance = stopY > startY ? stopY - startY : startY - stopY;
-    if (distance < 20) {
-        window.scrollTo(0, stopY); return;
-    }
-
-    // test with other values for steps and speed
-    let speed = Math.round(distance / 100);
-    if (speed >= 20) {
-      speed = 20;
-    }
-    const step = Math.round(distance / 100);
-
-    let leapY = stopY > startY ? startY + step : startY - step;
-
-    let timer = 0;
-    if (stopY > startY) {
-      for (let i = startY; i < stopY; i += step) {
-          this.scrollToTimeout(leapY, timer * speed);
-          leapY += step; 
-          if (leapY > stopY) {
-            leapY = stopY; 
-            timer++;
-          }
-      } return;
-    }
-
-    for (let i = startY; i > stopY; i -= step) {
-        this.scrollToTimeout(leapY, timer * speed);
-        leapY -= step; 
-        if (leapY < stopY) {
-          leapY = stopY; 
-          timer++;
-        } 
-    }
-
+  getLocation(id: any){
+    let loc;
+    this.timelineLocations.forEach((exh) => {if(exh.id === id){loc = exh;}});
+    return loc;
   }
 
   /*
@@ -512,43 +430,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   ------------------------------------------------------------
   */
 
-  public requestRegisterLocationTest(id: number, parentId: number)
-  {
+  public requestRegisterLocationTest(id: number, parentId: number){
     this.nativeResponseService.timelineUpdate({minor: id, major: parentId});
   }
 
-  public checkWifiForWeb()
-  {
+  public checkWifiForWeb(){
     this.nativeResponseService.getWifiDataFromGoD();
   }
-}
-
-function currentYPosition() {
-  // Firefox, Chrome, Opera, Safari
-  if (self.pageYOffset) {
-    return self.pageYOffset;
-  } 
-  // Internet Explorer 6 - standards mode
-  if (document.documentElement && document.documentElement.scrollTop) {
-    return document.documentElement.scrollTop;
-  }
-  // Internet Explorer 6, 7 and 8
-  if (document.body.scrollTop) {
-    return document.body.scrollTop;
-  }
-  return 0;
-}
-
-function elmYPosition(eID) {
-  const elm = document.getElementById('exh_'+eID);
-  let y = 0;
-  elm ? y = (elm.offsetTop - 50) : y = 0;
-  // console.log(y);
-
-  // let node  = elm;
-  /*while (node.offsetParent && node.offsetParent !== document.body) {
-      node = node.offsetParent;
-      y += elm.offsetTop;
-  }*/
-  return y;
 }
