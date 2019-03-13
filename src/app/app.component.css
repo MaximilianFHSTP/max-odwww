@@ -11,7 +11,6 @@
 
 #notConnectedToGod
 {
-  height: 100%;
   width: 100%;
   text-align:center;
   position: fixed;
@@ -23,6 +22,8 @@
   opacity: 0.95;
   filter:alpha(opacity=90); /* For IE8 and earlier */
   z-index: 999;
+  height: 100%;
+  height: -webkit-fill-available;
 }
 
 #notConnectedToGod section
@@ -134,10 +135,6 @@
 @media (min-height: 730px) {
   .apptoolbar button{
     margin: 35px 20px 0px 0px;
-  }
-
-  #notConnectedToGod{
-    height: -webkit-fill-available;
   }
   
   #redirectTimelineLong,
