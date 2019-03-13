@@ -175,7 +175,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
         const line = svg.append('line').attr('x1', lineX).attr('x2', lineX)
           .attr('class', 'timespanline line_'+ exh.parentId)
           .attr('y1', this.whichY(exh.startDate)).attr('y2', this.whichY(exh.endDate))
-          .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId));
+          .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId)).style('opacity', '0');
           
         this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
       });
@@ -205,20 +205,32 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       const card = d3.select('#exh_' + pos.id)
       .style('position','absolute').style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 2) +'px');
     });
-
+    
     // Hide everything then show only selected section
-    const fade = 0; // or 150
-    d3.selectAll('.card.exhibit').transition().duration(0).style('opacity', '0').style('display', 'none');
-    d3.selectAll('.timespanline').transition().duration(0).style('opacity', '0');
-    d3.selectAll('.card.lckfalse.Sec' + this.currentSection).transition().duration(fade).style('opacity', '1').style('display', 'inline');
-    d3.selectAll('.card.lcktrue.Sec' + this.currentSection).transition().duration(fade).style('opacity', '0.5').style('display', 'inline');
-    d3.selectAll('.line_' + this.currentSection).transition().duration(fade).style('opacity', '1');
+    if(this.locationService.isSaveLastLocation()){
+      this.showTimeline();
+    } else {
+      this.hideTimeline();
+      this.showTimeline();
+    }
     this.colorSVGIcons();    
 
     if(this.locationService.isSaveLastLocation()){
       d3.transition().duration(0).tween('scroll', this.scrollTween(this.locationService.getLastWindowOffset() - window.scrollY));
       this.locationService.cleanLastLocation();
     }
+  }
+
+  hideTimeline(){
+    d3.selectAll('.card.exhibit').transition().duration(0).style('opacity', '0').style('display', 'none');
+    d3.selectAll('.timespanline').transition().duration(0).style('opacity', '0');
+  }
+
+  showTimeline(){
+    const fade = 0; // or 150
+    d3.selectAll('.card.lckfalse.Sec' + this.currentSection).transition().duration(fade).style('opacity', '1').style('display', 'inline');
+    d3.selectAll('.card.lcktrue.Sec' + this.currentSection).transition().duration(fade).style('opacity', '0.5').style('display', 'inline');
+    d3.selectAll('.line_' + this.currentSection).transition().duration(fade).style('opacity', '1');
   }
 
   colorSVGIcons(){
