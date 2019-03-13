@@ -9,8 +9,7 @@
   margin: 20px;
 }
 
-#notConnectedToGod
-{
+#notConnectedToGod{
   width: 100%;
   text-align:center;
   position: fixed;
@@ -22,7 +21,6 @@
   opacity: 0.95;
   filter:alpha(opacity=90); /* For IE8 and earlier */
   z-index: 999;
-  height: 100%;
   height: -webkit-fill-available;
 }
 
