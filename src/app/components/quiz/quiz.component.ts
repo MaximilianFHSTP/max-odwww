@@ -12,6 +12,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {TransmissionService} from '../../services/transmission.service';
 import * as languageTypes from '../../config/LanguageTypes';
 import {CoaService} from '../../services/coa.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-quiz',
@@ -67,6 +68,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     private locationActions: LocationActions,
     private coaService: CoaService,
     private alertService: AlertService,
+    public languageService: LanguageService,
     private translate: TranslateService
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
@@ -76,7 +78,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     });
     this.subscriptionQuestion = this.alertService.getQuizQuestion().subscribe(message => {
       const state = this.appStore.getState();
-      const language = state.language;
+      const language = this.languageService.getCurrentLanguage();
       this.questionId = message.questionId;
       this.correctAns = message.correctAnswer;
       if(!this.firstQuestionOfRun){
@@ -100,7 +102,7 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.answerB = message.answerBGer;
         this.answerC = message.answerCGer;
         this.answerD = message.answerDGer;
-      } else if(language === languageTypes.ENG){
+      } else {
         this.question = message.questionEng;
         this.answerA = message.answerAEng;
         this.answerB = message.answerBEng;
@@ -123,10 +125,10 @@ export class QuizComponent implements OnInit, OnDestroy {
       }
       this.noResponse = false;
       const state = this.appStore.getState();
-      const language = state.language;
+      const language = this.languageService.getCurrentLanguage();
       if(language === languageTypes.DE){
         this.elaboration = message.elaborationGer;
-      }else if(language === languageTypes.ENG){
+      }else {
         this.elaboration = message.elaborationEng;
       }
       this.correctAnswer = this.translate.instant('quiz.rightAnswer') + message.correctAnswer;
@@ -316,7 +318,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   private createProgressbar() {
     const progressbar: HTMLElement = document.getElementById('progressbar') as HTMLElement;
     // console.log('createProgressbar', progressbar);
-    const durationTime = '30s';
+    const durationTime = '25s';
     progressbar.className = 'progressbar';
 
     const progressbarinner: HTMLElement = document.createElement('div');
