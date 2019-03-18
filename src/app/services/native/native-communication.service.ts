@@ -115,6 +115,10 @@ export class NativeCommunicationService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getLanguage();
             break;
 
+          case 'triggerAR':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerAr();
+            break;
+
           default:
             break;
         }
