@@ -60,12 +60,16 @@ export class GodService {
     this.socket.on('reconnect', () =>
     {
       const state = this.store.getState();
-      this.socket.emit('addTokenToSocket', state.token);
 
-      this.socket.on('addTokenToSocketResult', () =>
+      if(state.isLoggedIn)
       {
-        this.store.dispatch(this.statusActions.changeIsConnectedToGod(true));
-      });
+        this.socket.emit('addTokenToSocket', state.token);
+
+        this.socket.on('addTokenToSocketResult', () =>
+        {
+          this.store.dispatch(this.statusActions.changeIsConnectedToGod(true));
+        });
+      }
 
       const success: Message = {code: SuccessTypes.SUCCESS_RECONNECTED_TO_GOD, message: 'Reconnected to Server'};
       this.store.dispatch(this.statusActions.changeSuccessMessage(success));
