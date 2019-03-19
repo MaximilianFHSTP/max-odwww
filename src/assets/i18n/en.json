@@ -53,7 +53,8 @@
     "tableOccupiedText": "Sorry, the display is occupied. Please try again later!",
     "tableJoinButton": "Join interactive exhibit",
     "beaconPutText": "Please, put your phone at the indicated position!",
-    "beaconOccupiedText": "Sorry, but this place is currently occupied by an other player."
+    "beaconOccupiedText": "Sorry, but this place is currently occupied by an other player.",
+    "notAtWifi": "Please switch to the wifi: DesKaisersNeuerHeiliger."
   },
   "quiz": {
     "pleaseWait" : "Please wait until the question is resolved!",

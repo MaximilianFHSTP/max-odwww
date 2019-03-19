@@ -53,7 +53,8 @@
     "tableOccupiedText": "Das Display ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",
     "beaconPutText": "Lege bitte Dein Handy auf ein Beacon am Display!",
-    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei."
+    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei.",
+    "notAtWifi": "Wechsle bitte in das Wifi: DesKaisersNeuerHeiliger."
   },
   "quiz": {
     "pleaseWait" : "Warte bitte, bis die Frage aufgelöst wird!",

@@ -115,6 +115,10 @@ export class NativeResponseService implements OnInit
     this.transmissionService.transmitLogoutCleanup();
   }
 
+  public getWifiDataFromNative(message): void{
+    this.alertService.sendMessageCorrectWifi(message);
+  }
+
   public updateAppLanguage(language): void
   {
     let langNumb;

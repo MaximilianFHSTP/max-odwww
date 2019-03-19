@@ -3,6 +3,7 @@ import { GodService } from '../../services/god/god.service';
 import {LocationService} from '../../services/location.service';
 import { Router, NavigationEnd } from '@angular/router';
 import {NativeResponseService} from '../../services/native/native-response.service';
+import { AlertService } from '../../services/alert.service';
 import {Unsubscribe} from 'redux';
 import {TimerObservable} from 'rxjs/observable/TimerObservable';
 import {LocationActions} from '../../store/actions/LocationActions';
@@ -33,10 +34,12 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   public isWeb: boolean;
   public joinGame: boolean;
   public locationSocketStatus: undefined;
+  public correctWifi: string;
 
   private readonly _unsubscribe: Unsubscribe;
   private _statusTimerSubscription;
   private _curLocSubscribe: Subscription;
+  private correctWifiSubscribe: Subscription;
   private navigationSubscription: Subscription;
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
@@ -54,6 +57,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private transmissionService: TransmissionService,
     public languageService: LanguageService,
     private responseService: NativeResponseService,
+    private alertService: AlertService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private nativeCommunicationService: NativeCommunicationService
@@ -72,6 +76,9 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     {
       this.location = value;
     });
+    this.correctWifiSubscribe = this.alertService.getMessageCorrectWifi().subscribe(value => {
+        this.correctWifi = value;
+      });
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {

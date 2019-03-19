@@ -412,7 +412,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   scroll() {
     const loc = this.getLocation(this.registerLocationmessage.location);
-    if(loc.parentId !== this.currentSection){ this.displaySection(loc.parentId, true); }
+    if(loc && loc.parentId !== this.currentSection){ this.displaySection(loc.parentId, true); }
     this.scrollTo(loc.id);
   }
 
