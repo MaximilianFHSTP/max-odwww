@@ -150,6 +150,14 @@
     "text": "Choose 'Unlock' to unlock all exhibits within the app without being there. Thus, you can read the contents. However, you can not connect to interactive exhibits.",
     "yesOption": "Unlock"
   },
+  "questionnaireDialog": {
+    "title": "Questionnaire",
+    "text": "You have reached the end of the exhibition, could you please answer some questions.",
+    "text2": "Your participation allows us to carry out extensive evaluations in the field of user experience.",
+    "doneOption": "Already answered",
+    "laterOption": "Remind me later",
+    "yesOption": "Answer now"
+  },
   "alertDialog": {
     "title": "Exhibit",
     "description": "Do you want to go to exhibit:",

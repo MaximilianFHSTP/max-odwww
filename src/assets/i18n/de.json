@@ -151,6 +151,14 @@
     "text": "Wähle 'Freischalten', um alle Ausstellungsstücke in der App freizuschalten, ohne dass Du bei diesen gewesen sein musst. Du kannst so die Inhalte konsumieren, Dich jedoch nicht mit den interaktiven Ausstellungsstücken verbinden.",
     "yesOption": "Freischalten"
   },
+  "questionnaireDialog": {
+    "title": "Fragebogen",
+    "text": "Du hast das Ende der Ausstellung erreicht, würdest Du bitte diese Fragen beantworten.",
+    "text2": "Durch Deine Beteiligung können wir umfangreiche Evaluierungen im Bereich der User Experience durchführen.",
+    "doneOption": "Bereits beantwortet",
+    "laterOption": "Erinnere mich später",
+    "yesOption": "Antworte jetzt"
+  },
   "alertDialog": {
     "title": "Ausstellungsstück",
     "description": "Willst Du zum Austellungsstück wechseln:",

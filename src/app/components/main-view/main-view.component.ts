@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit, Inject, AfterViewChecked, Injectable, OnDestroy} from '@angular/core';
+import { QuestionnaireDialogComponent } from '../questionnaire-dialog/questionnaire-dialog.component';
+import { MatDialog } from '@angular/material';
 import { NativeResponseService } from '../../services/native/native-response.service';
 import { LocationService } from '../../services/location.service';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
@@ -64,6 +66,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     private nativeCommunicationService: NativeCommunicationService,
     private nativeResponseService: NativeResponseService,
     private alertService: AlertService,
+    private dialog: MatDialog,
     public router: Router,
     public coaService: CoaService,
     public languageService: LanguageService
@@ -124,6 +127,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
     this.transmissionService.getCoaParts();
     this.transmissionService.getUserCoaParts();
+    if(this.locationService.getVisitedAll()){
+      setTimeout(() => this.displayQuestionnaireDialog());
+    }
   }
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
@@ -360,9 +366,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   public requestRegisterLocation(id: number, parentId: number, locked: boolean, typeId: number){
     if(!locked && id && parentId){
-      if(id === 5001){ 
-        this.checkCoaUnlock(); 
-      }
+      if(id === 5001){  this.checkCoaUnlock();  }
+      else if(id === 502 || id === 6001 || id === 6000){ this.checkQuestionsUnlock(); }
       if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT || 
          typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT || 
          typeId === LocationTypes.NOTIFY_EXHIBIT_AT){ 
@@ -378,7 +383,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.nativeResponseService.getWifiDataFromGoD();
   }
 
-  checkCoaUnlock(){
+  checkAllUnlock(): boolean{
     let allUnlocked = true;
     this.timelineLocations.forEach(loc => {
       if(loc.id !== 502 && loc.id !== 6000 && loc.locked){
@@ -386,8 +391,18 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       }
     });
    
-    if(allUnlocked){
+    return allUnlocked;
+  }
+
+  checkCoaUnlock(){
+    if(this.checkAllUnlock()){
       this.coaService.tryUnlock(24);
+    }
+  }
+
+  checkQuestionsUnlock(){
+    if(this.checkAllUnlock()){
+      this.locationService.setVisitedAll(true);
     }
   }
 
@@ -438,6 +453,30 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     let loc;
     this.timelineLocations.forEach((exh) => {if(exh.id === id){loc = exh;}});
     return loc;
+  }
+
+  /* ---------------- Questionnaire Dialog ---------------- */
+
+  displayQuestionnaireDialog(){
+    const dialogRef = this.dialog.open(QuestionnaireDialogComponent,
+      {data: { username: ''},
+        disableClose: true,
+        autoFocus: false
+      });
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result === 'confirm'){
+        this.locationService.setVisitedAll(false);
+        this.router.navigate(['questionnaire']).then( () => {
+          window.scrollTo(0, 0);
+          this.nativeCommunicationService.sendToNative('Questionnaire', 'print');
+        });
+      }else if(result === 'done'){
+        this.locationService.setVisitedAll(false);
+        // TODO check database        
+      }else{
+        this.locationService.setVisitedAll(false);
+      }
+    });
   }
 
   /*
