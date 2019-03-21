@@ -127,7 +127,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
     this.transmissionService.getCoaParts();
     this.transmissionService.getUserCoaParts();
-    if(this.locationService.getVisitedAll()){
+    if(this.locationService.getVisitedAll() && !this.locationService.getQuestionsDismissed()){
       setTimeout(() => this.displayQuestionnaireDialog());
     }
   }
@@ -471,10 +471,12 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
           this.nativeCommunicationService.sendToNative('Questionnaire', 'print');
         });
       }else if(result === 'done'){
-        this.locationService.setVisitedAll(false);
+        this.locationService.setVisitedAll(false); 
+        this.locationService.setQuestionsDismissed(true);
         // TODO check database        
       }else{
         this.locationService.setVisitedAll(false);
+        this.locationService.setQuestionsDismissed(true);
       }
     });
   }

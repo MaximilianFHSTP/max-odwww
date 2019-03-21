@@ -12,6 +12,7 @@ export class LocationService
   private _lastWindowOffset: number;
   private _saveLastLocation: boolean;
   private _visitedAll: boolean;
+  private _questionsDismissed: boolean;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -38,6 +39,14 @@ export class LocationService
 
   public getVisitedAll(){
     return this._visitedAll;
+  }
+
+  public setQuestionsDismissed(dismiss: boolean){
+    this._questionsDismissed = dismiss;
+  }
+
+  public getQuestionsDismissed(){
+    return this._questionsDismissed;
   }
 
   public getLastSection(){
