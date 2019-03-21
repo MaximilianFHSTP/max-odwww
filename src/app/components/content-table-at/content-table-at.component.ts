@@ -77,7 +77,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
       this.location = value;
     });
     this.correctWifiSubscribe = this.alertService.getMessageCorrectWifi().subscribe(value => {
-        this.correctWifi = value;
+        this.correctWifi = value.toString();
       });
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
@@ -105,6 +105,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     this.locationType = this.location.locationTypeId;
 
     this.joinGame = true;
+    this.correctWifi = 'true';
     this.isWeb = this.nativeCommunicationService.isWeb;
 
     // Timer starts after 1sec, repeats every 5sec

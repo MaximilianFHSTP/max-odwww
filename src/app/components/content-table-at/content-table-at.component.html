@@ -19,19 +19,17 @@
         <div *ngIf="locationType === 3">
           <p>{{ 'tableAt.tableFreeText' | translate }}</p>
           <button *ngIf="joinGame && correctWifi == 'true'" (click)="startOnTableSearch()">A{{ 'tableAt.tableJoinButton' | translate }}</button>
+          <p *ngIf="joinGame && correctWifi == 'false'">{{ 'tableAt.notAtWifi' | translate }}</p>
           <p *ngIf="!joinGame">{{ 'tableAt.beaconPutText' | translate }}</p>
           <p *ngIf="locationSocketStatus === 'OCCUPIED'">{{ 'tableAt.beaconOccupiedText' | translate }}</p>
-          
-
           <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
             <button (click)="redirectToOnTable()">Register Location TableOn</button>
           </div>
         </div>
         <div *ngIf="locationType == 6">
           <button *ngIf="joinGame && correctWifi == 'true'" ng-disabled="isJoinButtonUnlocked" (click)="redirectToOnTableBehavior()">{{ 'tableAt.tableJoinButton' | translate }}</button>
+          <p *ngIf="joinGame && correctWifi == 'false'">{{ 'tableAt.notAtWifi' | translate }}</p>
         </div>
-
-        <p *ngIf="correctWifi == 'false'">{{ 'tableAt.notAtWifi' | translate }}</p>
       </div>
       <div *ngIf="locationStatusOccupied"><p>{{ 'tableAt.tableOccupiedText' | translate }}</p></div>
       <div *ngIf="locationStatusOffline"><p>{{ 'tableAt.tableOfflineText' | translate }}</p></div>
