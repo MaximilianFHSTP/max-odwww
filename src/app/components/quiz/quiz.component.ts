@@ -342,7 +342,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   private createProgressbar() {
     const progressbar: HTMLElement = document.getElementById('progressbar') as HTMLElement;
     // console.log('createProgressbar', progressbar);
-    const durationTime = '30s';
+    const durationTime = '25s';
     progressbar.className = 'progressbar';
 
     const progressbarinner: HTMLElement = document.createElement('div');
