@@ -186,13 +186,15 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     // If boxes lose position after content update, call reDraw()
     if (d3.select('#exh_101').style('position') !== 'absolute'){
       this.reDraw();
+    } 
+    
+    // If changing section, monitor need for new scroll
+    if(this.redirected){
+      this.redirected = false;
+      this.goToClosestExhibit(); 
+    }
 
-      if(this.redirected){
-        this.redirected = false;
-        this.goToClosestExhibit(); 
-      }
-    }     
-
+    // If changing section, monitor need for new icon
     if (this.updatePart){
       this.colorSVGIcons(); 
       this.updatePart = false;
@@ -420,7 +422,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     const card = document.getElementById('exh_'+id);
     if(card && card.offsetTop !== 0){
       d3.transition().duration(1000).tween('scroll', this.scrollTween((card.offsetTop - 170) ));
-    } 
+    } else {
+      this.redirected = true;
+    }
   }
 
   scrollTween(offset: any) {
