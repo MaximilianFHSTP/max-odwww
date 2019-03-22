@@ -128,7 +128,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.transmissionService.getCoaParts();
     this.transmissionService.getUserCoaParts();
     if(this.locationService.getVisitedAll() && !this.locationService.getQuestionsDismissed()){
-      setTimeout(() => this.displayQuestionnaireDialog());
+      // Enable questionnaire dialog in next release
+      // setTimeout(() => this.displayQuestionnaireDialog());
     }
   }
 
@@ -421,7 +422,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   goToClosestExhibit() {
     if(this.closestExhibit){
       const loc = this.getLocation(this.closestExhibit);
-      if(!loc.locked){
+      if(loc && !loc.locked){
         (loc.parentId !== this.currentSection) ? this.displaySection(loc.parentId, true) : this.scrollTo(loc.id);
       }
     }
@@ -429,8 +430,12 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   scroll() {
     const loc = this.getLocation(this.registerLocationmessage.location);
-    if(loc && loc.parentId !== this.currentSection){ this.displaySection(loc.parentId, true); }
-    this.scrollTo(loc.id);
+    if(loc){ 
+      if(loc.parentId !== this.currentSection){
+        this.displaySection(loc.parentId, true); 
+      }
+      this.scrollTo(loc.id);
+    }
   }
 
   scrollTo(id: number) {

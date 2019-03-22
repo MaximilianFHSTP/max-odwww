@@ -108,7 +108,7 @@ export class NativeResponseService implements OnInit
 
     this.alertService.sendMessageNativeSettingCheck(data);
     const elm: HTMLElement = document.getElementById('ghostButtonBluetooth') as HTMLElement;
-    elm.click();
+    if(elm) { elm.click(); }
   }
 
   public logoutSuccess(): void {
