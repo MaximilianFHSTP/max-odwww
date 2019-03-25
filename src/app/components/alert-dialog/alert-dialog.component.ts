@@ -18,7 +18,7 @@ export class AlertDialogComponent implements OnInit{
   ) {}
 
   ngOnInit(){
-    this.counter = 45;
+    this.counter = 30;
     this.intervalId = setInterval(() => {
       this.counter = this.counter - 1;
       if(this.counter === 0){ this.confirmDialog(); }
