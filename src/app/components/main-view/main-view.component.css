@@ -86,6 +86,7 @@ p{
 
 .card.lcktrue{
   opacity: 0.5;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 .card.lckfalse.near{
