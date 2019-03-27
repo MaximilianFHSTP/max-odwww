@@ -21,7 +21,8 @@ export class AlertService {
   private subjectChangedCred = new Subject<any>();
   private subjectExistingCredentialsOnChange = new Subject<any>();
   private subjectUserOrEmailRegisterCheck = new Subject<any>();
-  private subjectCoaParts = new Subject<any>();
+  private subjectCoaParts = new Subject<any>(); 
+  private subjectCorrectWifi = new Subject<any>();
   private subjectUserCoaParts = new Subject<any>();
   private subjectCoaColors = new Subject<any>();
   private subjectUserCoaColors = new Subject<any>();
@@ -155,6 +156,14 @@ export class AlertService {
 
   getMessageCoaParts(): Observable<any>{
     return this.subjectCoaParts.asObservable();
+  }
+
+  sendMessageCorrectWifi(message: any) {
+    this.subjectCorrectWifi.next(message);
+  }
+
+  getMessageCorrectWifi(): Observable<any>{
+    return this.subjectCorrectWifi.asObservable();
   }
 
   sendMessageUserCoaParts(message: any) {

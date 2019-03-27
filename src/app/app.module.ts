@@ -33,22 +33,32 @@ import { WindowRef } from './WindowRef';
 
 // Components
 import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { RegisterComponent } from './components/register/register.component';
+import { AboutComponent } from './components/about/about.component';
+import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
+import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
+import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
+import { ContentTableAtComponent } from './components/content-table-at/content-table-at.component';
+import { ContentTableNotifyAtComponent } from './components/content-table-notify-at/content-table-notify-at.component';
+import { ContentTableNotifyOnComponent } from './components/content-table-notify-on/content-table-notify-on.component';
+import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
+import { LanguageStartComponent } from './components/language-start/language-start.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
-import { ContentTableAtComponent } from './components/content-table-at/content-table-at.component';
-import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
-import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
-import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
-import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
 import { NativeSettingDialogComponent } from './components/native-setting-dialog/native-setting-dialog.component';
-import {StartViewComponent} from './components/start-view/start-view.component';
-import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
-import {DeleteDialogComponent} from './components/delete-dialog/delete-dialog.component';
-import {RegisterRealuserComponent} from './components/register-realuser/register-realuser.component';
-import {LanguageStartComponent} from './components/language-start/language-start.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { QuestionnaireComponent } from './components/questionnaire/questionnaire.component';
+import { QuestionnaireDialogComponent } from './components/questionnaire-dialog/questionnaire-dialog.component';
 import { QuizComponent } from './components/quiz/quiz.component';
+import { RegisterComponent } from './components/register/register.component';
+import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
+import { StartViewComponent } from './components/start-view/start-view.component';
+import { UnlockComponent } from './components/unlock/unlock.component';
+import { UnlockDialogComponent } from './components/unlock-dialog/unlock-dialog.component';
+import { WappenComponent } from './components/wappen/wappen.component';
+import { WifiComponent } from './components/wifi/wifi.component';
 
 // Redux
 import { applyMiddleware, createStore } from 'redux';
@@ -58,19 +68,9 @@ import { UserActions } from './store/actions/UserActions';
 import { StatusActions } from './store/actions/StatusActions';
 
 // import ngx-translate and the http loader
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import { WappenComponent } from './components/wappen/wappen.component';
-import { AboutComponent } from './components/about/about.component';
-import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
-import { ContentTableNotifyAtComponent } from './components/content-table-notify-at/content-table-notify-at.component';
-import { ContentTableNotifyOnComponent } from './components/content-table-notify-on/content-table-notify-on.component';
-import { WifiComponent } from './components/wifi/wifi.component';
-import { UnlockComponent } from './components/unlock/unlock.component';
-import { UnlockDialogComponent } from './components/unlock-dialog/unlock-dialog.component';
-
-
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 export const appStore = createStore(
   rootReducer
@@ -78,33 +78,35 @@ export const appStore = createStore(
 
 @NgModule({
   declarations: [
-    AppComponent,
-    PageNotFoundComponent,
-    RegisterComponent,
-    MainViewComponent,
-    ContentTableAtComponent,
-    ContentTableOnComponent,
-    ContentPassiveComponent,
-    ContentInteractiveComponent,
-    AlertDialogComponent,
-    NativeSettingDialogComponent,
-    LoginComponent,
-    StartViewComponent,
-    ChangeCredentialsComponent,
-    DeleteDialogComponent,
-    ChangeCredentialsComponent,
-    RegisterRealuserComponent,
-    WappenComponent,
     AboutComponent,
-    EducationQuizComponent,
-    LanguageStartComponent,
-    QuizComponent,
-    EducationQuizComponent,
+    AlertDialogComponent,
+    AppComponent,
+    ChangeCredentialsComponent,
+    ChangeCredentialsComponent,
+    ContentInteractiveComponent,
+    ContentPassiveComponent,
+    ContentTableAtComponent,
     ContentTableNotifyAtComponent,
     ContentTableNotifyOnComponent,
-    WifiComponent,
+    ContentTableOnComponent,
+    DeleteDialogComponent,
+    EducationQuizComponent,
+    EducationQuizComponent,
+    LanguageStartComponent,
+    LoginComponent,
+    MainViewComponent,
+    NativeSettingDialogComponent,
+    PageNotFoundComponent,
+    QuestionnaireComponent,
+    QuestionnaireDialogComponent,
+    QuizComponent,
+    RegisterComponent,
+    RegisterRealuserComponent,
+    StartViewComponent,
     UnlockComponent,
-    UnlockDialogComponent
+    UnlockDialogComponent,
+    WappenComponent,
+    WifiComponent
   ],
   imports: [
     BrowserModule,
@@ -159,7 +161,8 @@ export const appStore = createStore(
     AlertDialogComponent,
     NativeSettingDialogComponent,
     DeleteDialogComponent,
-    UnlockDialogComponent
+    UnlockDialogComponent,
+    QuestionnaireDialogComponent
   ]
 })
 export class AppModule {
@@ -207,6 +210,10 @@ export class AppModule {
       }
       case 'send_wifi_ssid': {
         this.nativeResponseService.getWifiDataFromGoD();
+        break;
+      }
+      case 'send_correct_wifi': {
+        this.nativeResponseService.getWifiDataFromNative(value);
         break;
       }
       case 'send_bluetooth_check': {

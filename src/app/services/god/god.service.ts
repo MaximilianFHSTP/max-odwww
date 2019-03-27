@@ -248,7 +248,7 @@ export class GodService {
         const data = {location: id};
         this.alertService.sendMessageLocationid(data);
         const elm: HTMLElement = document.getElementById('ghostScrollbutton') as HTMLElement;
-        elm.click();
+        if(elm) { elm.click(); }
       }
       
       this.socket.removeAllListeners('registerTimelineUpdateResult');

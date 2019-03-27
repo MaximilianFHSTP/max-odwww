@@ -3,6 +3,7 @@ import {LocationService} from '../../services/location.service';
 import {NavigationEnd, Router} from '@angular/router';
 import {TransmissionService} from '../../services/transmission.service';
 import {NativeCommunicationService} from '../../services/native/native-communication.service';
+import { AlertService } from '../../services/alert.service';
 import {Unsubscribe} from 'redux';
 import {Subscription} from 'rxjs';
 import {GodService} from '../../services/god/god.service';
@@ -28,6 +29,7 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
   public locationStatusOffline: boolean;
   public locationType: number;
   public isJoinButtonUnlocked: boolean;
+  public correctWifi: string;
 
   private checkStatusTimer: any;
   public isWeb: boolean;
@@ -37,6 +39,7 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
   private readonly _unsubscribe: Unsubscribe;
   private _statusTimerSubscription;
   private _curLocSubscribe: Subscription;
+  private correctWifiSubscribe: Subscription;
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
     {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
@@ -52,6 +55,7 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
     private locationService: LocationService,
     private transmissionService: TransmissionService,
     public languageService: LanguageService,
+    private alertService: AlertService,
     private responseService: NativeResponseService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
@@ -65,6 +69,10 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
         this.updateJoinButtonStatus(state.closestExhibit);
       }
       this.locationSocketStatus = state.locationSocketStatus;
+    });
+
+    this.correctWifiSubscribe = this.alertService.getMessageCorrectWifi().subscribe(value => {
+      this.correctWifi = value.toString();
     });
 
     this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
@@ -88,6 +96,7 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
     this.locationType = this.location.locationTypeId;
 
     this.joinGame = true;
+    this.correctWifi = 'true';
     this.isWeb = this.nativeCommunicationService.isWeb;
 
     // Timer starts after 1sec, repeats every 5sec

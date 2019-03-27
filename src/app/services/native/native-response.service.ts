@@ -108,11 +108,15 @@ export class NativeResponseService implements OnInit
 
     this.alertService.sendMessageNativeSettingCheck(data);
     const elm: HTMLElement = document.getElementById('ghostButtonBluetooth') as HTMLElement;
-    elm.click();
+    if(elm) { elm.click(); }
   }
 
   public logoutSuccess(): void {
     this.transmissionService.transmitLogoutCleanup();
+  }
+
+  public getWifiDataFromNative(message): void{
+    this.alertService.sendMessageCorrectWifi(message);
   }
 
   public updateAppLanguage(language): void

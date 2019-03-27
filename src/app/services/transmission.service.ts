@@ -226,7 +226,7 @@ export class TransmissionService
     this.appStore.dispatch(this.statusActions.changeLoggedIn(false));
 
     const elm: HTMLElement = document.getElementById('logout') as HTMLElement;
-    elm.click();
+    if(elm) { elm.click(); }
 
     this.appStore.dispatch(this.userActions.changeToken(undefined));
     this.appStore.dispatch(this.locationActions.changeLocationStatus(undefined));

@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'OpenSans';
+    src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'Vollkorn';
+    src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
+}
+
+h1{
+    font-family: 'Vollkorn', Times, serif;
+    margin: 20px 0;
+    font-size: 1.6em;
+}
+
+h2{
+    font-family: 'Vollkorn', Times, serif;
+    margin: 10px 0;
+    font-size: 1em;
+}
+
+p{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 10px 0;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+a{
+    color: #0057a3;
+    text-decoration: underline;
+}
+
+.infoWrapper img{
+    width: 40%;
+    margin: 20px 5%;
+}
+
+a:after {
+    background-image: url("../../../assets/css/externallink.svg");
+    background-size: 16px 16px;
+    display: inline-block;
+    width: 16px; 
+    height: 15px;
+    content:"";
+ }
+
+.toolbar button{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 50px;
+    margin: 20px 20px 20px 20px; 
+    background: #ffffff;
+}
+
+.toolbar .closebutton{
+    float: right; 
+    background: #494949;
+    color:#ffffff;
+    padding: 0;
+}
+
+.toolbar .closebutton img{
+    margin: 4px 0 0 -1px;
+    height: 40px;
+}
+
+.wrapper {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    top: 90px;
+  }
+  
+  .infoWrapper{
+    width: 70%;
+    margin: 20px auto;
+  }
+
+ul li{
+    font-family: 'OpenSans';
+    font-size: 1em;
+}
+
+@media (min-height: 730px) {
+    .toolbar button{
+        margin: 35px 20px 20px 20px; 
+    }
+}
+
+@media (max-width: 370px) {
+    h1{
+        font-size: 1.5em;
+    }
+
+    p{
+        font-size: 0.9em;
+    }
+}

@@ -53,7 +53,8 @@
     "tableOccupiedText": "Das Display ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",
     "beaconPutText": "Lege bitte Dein Handy auf ein Beacon am Display!",
-    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei."
+    "beaconOccupiedText": "Dieser Platz ist aktuell nicht frei.",
+    "notAtWifi": "Wechsle bitte in das Wifi: DesKaisersNeuerHeiliger."
   },
   "quiz": {
     "pleaseWait" : "Warte bitte, bis die Frage aufgelöst wird!",
@@ -149,6 +150,14 @@
     "title": "Inhalt freischalten",
     "text": "Wähle 'Freischalten', um alle Ausstellungsstücke in der App freizuschalten, ohne dass Du bei diesen gewesen sein musst. Du kannst so die Inhalte konsumieren, Dich jedoch nicht mit den interaktiven Ausstellungsstücken verbinden.",
     "yesOption": "Freischalten"
+  },
+  "questionnaireDialog": {
+    "title": "Fragebogen",
+    "text": "Du hast das Ende der Ausstellung erreicht, würdest Du bitte diese Fragen beantworten.",
+    "text2": "Durch Deine Beteiligung können wir umfangreiche Evaluierungen im Bereich der User Experience durchführen.",
+    "doneOption": "Bereits beantwortet",
+    "laterOption": "Erinnere mich später",
+    "yesOption": "Antworte jetzt"
   },
   "alertDialog": {
     "title": "Ausstellungsstück",
