@@ -463,6 +463,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   /* ---------------- Questionnaire Dialog ---------------- */
 
   displayQuestionnaireDialog(){
+    window.scrollTo(0, 0);
     const dialogRef = this.dialog.open(QuestionnaireDialogComponent,
       {data: { username: ''},
         disableClose: true,

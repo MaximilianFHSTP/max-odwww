@@ -186,6 +186,7 @@ export class ChangeCredentialsComponent implements OnInit
   }
 
   deleteAccountOfUser(){
+    window.scrollTo(0, 0);
     const dialogRef = this.dialog.open(DeleteDialogComponent,
       {data: { username: this.appStore.getState().user.name},
         disableClose: true,
@@ -272,6 +273,7 @@ export class ChangeCredentialsComponent implements OnInit
   }
 
   public unlockAll(){ 
+    window.scrollTo(0, 0);
     const dialogRef = this.dialog.open(UnlockDialogComponent,
       {data: { username: this.appStore.getState().user.name},
         disableClose: true,
