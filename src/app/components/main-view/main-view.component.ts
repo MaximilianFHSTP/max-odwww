@@ -28,6 +28,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private subscriptionLocationid: Subscription;
   private subscriptionCoaParts: Subscription;
   private subscriptionUserCoaParts: Subscription;
+  private subscriptionSwipe: Subscription;
 
   public user: any;
   public timelineLocations: any;
@@ -90,6 +91,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
       this.coaService.setUserCoaParts(message.data);
     });
+    this.subscriptionSwipe = this.alertService.getSwipeNavigation().subscribe(message=> {
+      this.handleSwipe(message);
+    })
   }
 
   ngOnDestroy() {
@@ -348,6 +352,27 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   /* ------------- Navbar and Toolbar buttons ------------- */
+
+  handleSwipe(direction: any) {
+
+    let section = this.currentSection;
+    if (direction["swipe"] == "right") {
+      if (section >= 20){
+      section -= 10;
+      this.displaySection(section,true);
+      this.nativeCommunicationService.sendToNative(section, 'print');
+    } }
+    else if (direction["swipe"] == "left")
+    {
+      if (section <= 50){
+      section += 10;
+      this.displaySection(section,true);
+      this.nativeCommunicationService.sendToNative(section, 'print');
+    
+    }
+    }
+
+  }
 
   displaySection(sectionId: number, auto: boolean){
     this.currentSection = sectionId;
