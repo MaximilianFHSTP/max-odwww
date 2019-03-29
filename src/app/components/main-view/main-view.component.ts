@@ -93,7 +93,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     });
     this.subscriptionSwipe = this.alertService.getSwipeNavigation().subscribe(message=> {
       this.handleSwipe(message);
-    })
+    });
   }
 
   ngOnDestroy() {
@@ -356,22 +356,21 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   handleSwipe(direction: any) {
 
     let section = this.currentSection;
-    if (direction["swipe"] == "right") {
-      if (section >= 20){
-      section -= 10;
-      this.displaySection(section,true);
-      this.nativeCommunicationService.sendToNative(section, 'print');
-    } }
-    else if (direction["swipe"] == "left")
-    {
-      if (section <= 50){
-      section += 10;
-      this.displaySection(section,true);
-      this.nativeCommunicationService.sendToNative(section, 'print');
     
+    if (direction['swipe'] === 'right') {
+      if (section >= 20){
+        section -= 10;
+        this.displaySection(section,true);
+        this.nativeCommunicationService.sendToNative(section, 'print');
+      } 
     }
+    else if (direction['swipe'] === 'left'){
+      if (section <= 50){
+        section += 10;
+        this.displaySection(section,true);
+        this.nativeCommunicationService.sendToNative(section, 'print');
+      }
     }
-
   }
 
   displaySection(sectionId: number, auto: boolean){
