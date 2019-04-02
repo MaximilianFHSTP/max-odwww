@@ -110,6 +110,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     if (this.subscriptionUserCoaParts){
       this.subscriptionUserCoaParts.unsubscribe();
     }
+    if(this.subscriptionSwipe){
+      this.subscriptionSwipe.unsubscribe();
+    }
   }
 
   ngOnInit() {
@@ -361,7 +364,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
         this.currentSection -= 10;
         const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
         if(elm){ elm.click(); }
-        this.nativeCommunicationService.sendToNative(this.currentSection, 'print');
       } 
     }
     else if (direction['swipe'] === 'left'){
@@ -369,7 +371,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
         this.currentSection += 10;
         const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
        if(elm){ elm.click(); }
-       this.nativeCommunicationService.sendToNative(this.currentSection, 'print');
       }
     }
   }
