@@ -355,20 +355,21 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   handleSwipe(direction: any) {
 
-    let section = this.currentSection;
     
     if (direction['swipe'] === 'right') {
-      if (section >= 20){
-        section -= 10;
-        this.displaySection(section,true);
-        this.nativeCommunicationService.sendToNative(section, 'print');
+      if (this.currentSection >= 20){
+        this.currentSection -= 10;
+        const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
+        if(elm){ elm.click(); }
+        this.nativeCommunicationService.sendToNative(this.currentSection, 'print');
       } 
     }
     else if (direction['swipe'] === 'left'){
-      if (section <= 50){
-        section += 10;
-        this.displaySection(section,true);
-        this.nativeCommunicationService.sendToNative(section, 'print');
+      if (this.currentSection <= 50){
+        this.currentSection += 10;
+        const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
+       if(elm){ elm.click(); }
+       this.nativeCommunicationService.sendToNative(this.currentSection, 'print');
       }
     }
   }
