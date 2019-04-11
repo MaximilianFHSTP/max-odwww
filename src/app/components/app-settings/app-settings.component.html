@@ -1,3 +1,45 @@
-<p>
-  app-settings works!
-</p>
+<div class="toolbar">
+  <button id="closebutton" class="closebutton" (click)="closeWindow()"><img src="assets/icons/closewhite.svg"></button>
+</div> 
+
+<div class="wrapper">
+  <div class="infoWrapper">
+    <h1>{{ 'appSettings.title' | translate }}</h1>
+    
+    <p class="issues" *ngIf="wifiStatus == 'error' || locationStatus == 'error' || bluetoothStatus == 'error'">{{ 'appSettings.issues' | translate }}</p> 
+    <p class="issues" *ngIf="wifiStatus == 'success' && locationStatus == 'success' && bluetoothStatus == 'success'">{{ 'appSettings.noIssues' | translate }}</p> 
+
+    <div class="{{wifiStatus}} card">
+      <img *ngIf="wifiStatus == 'error'" src="assets/icons/troubleshooting/wifiOff.svg">
+      <img *ngIf="wifiStatus == 'success'" src="assets/icons/troubleshooting/wifiOn.svg">
+      <h3>{{ 'appSettings.wifi' | translate }}</h3>
+      <div class="content">
+        <p *ngIf="wifiStatus == 'success'">{{ 'appSettings.wifiOn' | translate }}</p>    
+        <p *ngIf="wifiStatus == 'error'">{{ 'appSettings.wifiOff' | translate }}</p>    
+        <button *ngIf="wifiStatus == 'error'" class="btnDelete">{{ 'appSettings.wifiBtn' | translate }}</button> 
+      </div>    
+    </div>  
+
+    <div class="{{locationStatus}} card">
+      <img *ngIf="locationStatus == 'error'" src="assets/icons/troubleshooting/locationOff.svg">
+      <img *ngIf="locationStatus == 'success'" src="assets/icons/troubleshooting/locationOn.svg">
+      <h3>{{ 'appSettings.location' | translate }}</h3>
+      <div class="content">
+        <p *ngIf="wifiStatus == 'success'">{{ 'appSettings.locationOn' | translate }}</p> 
+        <p *ngIf="wifiStatus == 'error'">{{ 'appSettings.locationOff' | translate }}</p> 
+        <button *ngIf="locationStatus == 'error'" class="btnDelete">{{ 'appSettings.locationBtn' | translate }}</button>    
+      </div>    
+    </div> 
+
+    <div class="{{bluetoothStatus}} card">
+      <img *ngIf="bluetoothStatus == 'error'" src="assets/icons/troubleshooting/bluetoothOff.svg">
+      <img *ngIf="bluetoothStatus == 'success'" src="assets/icons/troubleshooting/bluetoothOn.svg">
+      <h3>{{ 'appSettings.bluetooth' | translate }}</h3>
+      <div class="content">
+        <p *ngIf="wifiStatus == 'success'">{{ 'appSettings.bluetoothOn' | translate }}</p>    
+        <p *ngIf="wifiStatus == 'error'">{{ 'appSettings.bluetoothOff' | translate }}</p>    
+        <button *ngIf="bluetoothStatus == 'error'" class="btnDelete">{{ 'appSettings.bluetoothBtn' | translate }}</button> 
+      </div>    
+    </div> 
+  </div>
+</div>

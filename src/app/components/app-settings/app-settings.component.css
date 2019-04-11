@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'OpenSans';
+    src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: 'Vollkorn';
+    src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
+}
+
+h1{
+    font-family: 'Vollkorn', Times, serif;
+    margin: 20px 0;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+h2{
+    font-family: 'Vollkorn', Times, serif;
+    margin: 10px 0;
+    font-size: 1em;
+}
+
+h3{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 10px 0;
+    font-size: 1em;
+}
+
+p{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 10px 0;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+p.issues{
+    text-align: center;
+}
+
+.infoWrapper img{
+    width: 40%;
+    margin: 20px 5%;
+}
+
+.toolbar button{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 50px;
+    margin: 20px 20px 0px 20px; 
+    background: #ffffff;
+}
+
+.toolbar .closebutton{
+    float: right; 
+    background: #494949;
+    color:#ffffff;
+    padding: 0;
+}
+
+.toolbar .closebutton img{
+    margin: 4px 0 0 -1px;
+    height: 40px;
+}
+
+.wrapper {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    top: 90px;
+  }
+  
+  .infoWrapper{
+    width: 70%;
+    margin: 20px auto;
+  }
+
+ul li{
+    font-family: 'OpenSans';
+    font-size: 1em;
+}
+
+.btnDelete{
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+  display: block;
+  margin: 20px auto 10px auto;
+  background: #494949;
+  color: #ffffff;
+  min-width: 180px;
+  padding: 0.8em;
+}
+
+.btnDelete{
+  border: 1px solid #93272c;
+  background: #ffffff;
+  color: #93272c;
+}
+
+.card{
+    border-radius: .25rem;
+    padding: .75rem 1.25rem;
+    color: #856404;
+    background-color: #fff3cd;
+    margin-top: 1em;
+}
+
+.card img{
+    float: right;
+    width: 20px;
+    margin: 10px 0px;
+}
+
+.warning{
+    color: #856404;
+    background-color: #fff3cd;
+}
+
+.error{
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.success{
+    color: #155724;
+    background-color: #d4edda;
+}
+
+.success .content{
+    border-top: 1px solid #155724;
+}
+
+.error .content{
+    border-top: 1px solid #721c24;
+}
+
+@media (min-height: 730px) {
+    .toolbar button{
+        margin: 35px 20px 0px 20px; 
+    }
+}
+
+@media (max-width: 370px) {
+    h1{
+        font-size: 1.5em;
+    }
+
+    p{
+        font-size: 0.9em;
+    }
+}

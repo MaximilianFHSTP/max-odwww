@@ -141,6 +141,23 @@
     "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben.",
     "btnUnlock": "INHALT FREISCHALTEN"
   },
+  "appSettings":{
+    "title": "App Settings",
+    "issues": "Problems found:",
+    "noIssues": "No problems found:",
+    "wifi": "Wifi",
+    "wifiOn": "Wifi activated",
+    "wifiOff": "Wrong Wifi Settings",
+    "wifiBtn": "Change Wifi",
+    "location": "Location",
+    "locationOn": "Location activated",
+    "locationOff": "Location is off",
+    "locationBtn": "Activate Location",
+    "bluetooth": "Bluetooth",
+    "bluetoothOn": "Bluetooth activated",
+    "bluetoothOff": "Bluetooth is off",
+    "bluetoothBtn": "Activate Bluetooth"
+  },
   "deleteDialog": {
     "title": "Konto löschen",
     "text": "Wenn Du das Konto löscht, kannst Du es nicht erneut aktivieren, alle Daten gehen verloren. Möchtest Du wirklich fortfahren?",

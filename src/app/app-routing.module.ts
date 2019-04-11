@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './components/about/about.component';
+import { AppSettingsComponent } from './components/app-settings/app-settings.component';
 import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
@@ -26,6 +27,7 @@ import { WifiComponent } from './components/wifi/wifi.component';
 const routes: Routes = [
   { path: '', component: StartViewComponent},
   { path: 'about', component: AboutComponent },
+  { path: 'appSettings', component: AppSettingsComponent },
   { path: 'changecred', component: ChangeCredentialsComponent },
   { path: 'interactive', component: ContentInteractiveComponent },
   { path: 'passive', component: ContentPassiveComponent },

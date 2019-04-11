@@ -35,6 +35,7 @@ import { WindowRef } from './WindowRef';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { AppSettingsComponent } from './components/app-settings/app-settings.component';
 import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
@@ -71,7 +72,6 @@ import { StatusActions } from './store/actions/StatusActions';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AppSettingsComponent } from './components/app-settings/app-settings.component';
 
 export const appStore = createStore(
   rootReducer
@@ -82,6 +82,7 @@ export const appStore = createStore(
     AboutComponent,
     AlertDialogComponent,
     AppComponent,
+    AppSettingsComponent,
     ChangeCredentialsComponent,
     ChangeCredentialsComponent,
     ContentInteractiveComponent,
@@ -107,8 +108,7 @@ export const appStore = createStore(
     UnlockComponent,
     UnlockDialogComponent,
     WappenComponent,
-    WifiComponent,
-    AppSettingsComponent
+    WifiComponent
   ],
   imports: [
     BrowserModule,

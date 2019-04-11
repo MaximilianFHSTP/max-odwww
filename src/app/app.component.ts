@@ -292,6 +292,16 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
+  public openAppSettings(){
+    this.dismissMenu();
+    this.router.navigate(['appSettings']).then( () =>
+      {
+        window.scrollTo(0, 0);
+        this.nativeCommunicationService.sendToNative('appSettings', 'print');
+      }
+    );
+  }  
+
   public openUnlockView(){
     this.dismissMenu();
     this.router.navigate(['unlock']).then( () =>
