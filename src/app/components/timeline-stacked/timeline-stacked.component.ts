@@ -49,7 +49,8 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
     {code: 60, icon: 'Tombstone',  primaryColor: '#32633a', secondaryColor: '#4c7d54'}
   ];
   public currentEntrance = [];
-  public sortedExhbits = [];
+  public sortedExhibits = [];
+  public exhibitsSortedBySection = [];
   public mergedDates = [];
   public cardPositions = [];
 
@@ -146,6 +147,8 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
     
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
+    console.log(this.timelineLocations);
+    
     this.closestExhibit = state.closestExhibit;
     this.currentSection = this.locationService.getLastSection();
     if(!this.currentSection) {this.currentSection = 10;}
@@ -163,7 +166,7 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
 
-  ngAfterViewInit(){
+  ngAfterViewInit(){/*
     // Draw Timeline
     this.y = d3.scaleTime().domain(d3.extent(this.stringDates, (d: any) => this.parseDate(d))).range([0, this.svgHeight]);
     const svg = d3.select('#timeline').append('svg').attr('height', this.svgHeight).attr('width', this.svgWidth);
@@ -174,9 +177,9 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
 
     svg.select('.domain').attr('stroke-width', '0');
     this.whichY = d3.scaleLinear().domain([1450, 1530]).range([0, this.svgHeight]);
-
+*/
     /* Draw and place exhibitions */
-    this.sortedExhbits[0].forEach((currentExhibits) => {
+ /*   this.sortedExhibits[0].forEach((currentExhibits) => {
       let lineX = 50;
       let prevStart = 0;
       let prevEnd = 0;
@@ -214,7 +217,7 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
           
         this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
       });
-    });
+    });*/
   }
 
   ngAfterViewChecked(){
@@ -337,7 +340,8 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
 
   setCurrentExhibits(){
     this.currentEntrance.length = 0;
-    this.sortedExhbits.length = 0;
+    this.sortedExhibits.length = 0;
+    this.exhibitsSortedBySection.length = 0;
 
     const sec1Exh = [];
     const sec2Exh = [];
@@ -360,8 +364,30 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
         }
       }  
     });
+    
+    this.timelineLocations.forEach((loc) => {
+      if(loc.locationTypeId === 5) {
+        this.exhibitsSortedBySection.push([loc]);
+      }
+    });
 
-    this.sortedExhbits.push([sec1Exh, sec2Exh, sec3Exh, sec4Exh, sec5Exh, sec6Exh,]);
+    this.timelineLocations.forEach((loc) => {
+      if(loc.locationTypeId !== 5) {
+        switch(loc.parentId){
+          case 10: this.exhibitsSortedBySection[0].push(loc); break;
+          case 20: this.exhibitsSortedBySection[1].push(loc); break;
+          case 30: this.exhibitsSortedBySection[2].push(loc); break;
+          case 40: this.exhibitsSortedBySection[3].push(loc); break;
+          case 50: this.exhibitsSortedBySection[4].push(loc); break;
+          case 60: this.exhibitsSortedBySection[5].push(loc); break;
+        }
+      }
+    });
+    console.log(this.exhibitsSortedBySection);
+
+    this.sortedExhibits.push(sec1Exh, sec2Exh, sec3Exh, sec4Exh, sec5Exh, sec6Exh);
+    // console.log(this.currentEntrance);
+    // console.log(this.sortedExhibits);
   }
 
   getSectionPrimaryColor(sectionId: number){
