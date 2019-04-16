@@ -5,7 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // Material Design
 import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, MatIconModule, MatCardModule,
   MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatSnackBarModule, MatBadgeModule,
-  MatListModule, MatDialogModule} from '@angular/material';
+  MatListModule, MatDialogModule, MatSelectModule} from '@angular/material';
 
 // Services
 import { SocketIoModule} from 'ngx-socket-io';
@@ -125,6 +125,7 @@ export const appStore = createStore(
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
     MatBadgeModule,
     AppRoutingModule,

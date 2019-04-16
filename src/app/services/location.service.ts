@@ -13,6 +13,7 @@ export class LocationService
   private _saveLastLocation: boolean;
   private _visitedAll: boolean;
   private _questionsDismissed: boolean;
+  private _timelineVersion: string;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -39,6 +40,14 @@ export class LocationService
 
   public getVisitedAll(){
     return this._visitedAll;
+  }
+
+  public setTimelineVersion(version: string){
+    this._timelineVersion = version;
+  }
+
+  public getTimelineVersion(){
+    return this._timelineVersion;
   }
 
   public setQuestionsDismissed(dismiss: boolean){

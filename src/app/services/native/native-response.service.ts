@@ -142,6 +142,6 @@ export class NativeResponseService implements OnInit
   }
 
   public swipeNavigation(swipe): void {
-    this.alertService.sendSwipeNavigation(swipe)
+    this.alertService.sendSwipeNavigation(swipe);
   }
 }
