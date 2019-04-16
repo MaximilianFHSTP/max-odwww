@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable ,  Subject } from 'rxjs';
 
+
 @Injectable()
 export class AlertService {
   private subjectAlert = new Subject<any>();
@@ -29,6 +30,7 @@ export class AlertService {
   private subjectQuizQuestion = new Subject<any>();
   private subjectUpdateUserData = new Subject<any>();
   private subjectCorrectPoints = new Subject<any>();
+  private subjectSwipeDirection = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -213,4 +215,12 @@ export class AlertService {
   getCorrectPoints(): Observable<any>{
     return this.subjectCorrectPoints.asObservable();
   }
+
+  sendSwipeNavigation(message: any) {
+    this.subjectSwipeDirection.next(message);
+  }
+
+  getSwipeNavigation(): Observable<any> {
+    return this.subjectSwipeDirection.asObservable();
+ }
 }

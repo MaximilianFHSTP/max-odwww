@@ -28,6 +28,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private subscriptionLocationid: Subscription;
   private subscriptionCoaParts: Subscription;
   private subscriptionUserCoaParts: Subscription;
+  private subscriptionSwipe: Subscription;
 
   public user: any;
   public timelineLocations: any;
@@ -90,6 +91,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
       this.coaService.setUserCoaParts(message.data);
     });
+    this.subscriptionSwipe = this.alertService.getSwipeNavigation().subscribe(message=> {
+      this.handleSwipe(message);
+    });
   }
 
   ngOnDestroy() {
@@ -105,6 +109,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
     if (this.subscriptionUserCoaParts){
       this.subscriptionUserCoaParts.unsubscribe();
+    }
+    if(this.subscriptionSwipe){
+      this.subscriptionSwipe.unsubscribe();
     }
   }
 
@@ -348,6 +355,25 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   /* ------------- Navbar and Toolbar buttons ------------- */
+
+  handleSwipe(direction: any) {
+
+    
+    if (direction['swipe'] === 'right') {
+      if (this.currentSection >= 20){
+        this.currentSection -= 10;
+        const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
+        if(elm){ elm.click(); }
+      } 
+    }
+    else if (direction['swipe'] === 'left'){
+      if (this.currentSection <= 50){
+        this.currentSection += 10;
+        const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
+       if(elm){ elm.click(); }
+      }
+    }
+  }
 
   displaySection(sectionId: number, auto: boolean){
     this.currentSection = sectionId;

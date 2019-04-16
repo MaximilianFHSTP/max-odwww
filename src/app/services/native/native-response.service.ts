@@ -140,4 +140,8 @@ export class NativeResponseService implements OnInit
   public unlockAllTimelineLocations(){
     this.godService.unlockAllTimelineLocations();
   }
+
+  public swipeNavigation(swipe): void {
+    this.alertService.sendSwipeNavigation(swipe)
+  }
 }

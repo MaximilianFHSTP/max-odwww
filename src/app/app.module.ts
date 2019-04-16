@@ -228,6 +228,11 @@ export class AppModule {
         this.nativeResponseService.unlockAllTimelineLocations();
         break;
       }
+      case 'send_swipedirection': {
+        //this.nativeCommunicationService.sendToNative(value, 'print');
+        this.nativeResponseService.swipeNavigation(value);
+        break;
+      }
       default: {
         break;
       }
