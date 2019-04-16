@@ -119,6 +119,27 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     const state = this.appStore.getState();
     this.user = state.user;
 
+    switch (this.locationService.getTimelineVersion()) {
+      case 'timeline-2':
+        this.router.navigate(['timelineStacked']).then( () =>
+          {
+            this.nativeCommunicationService.sendToNative('Timeline stacked', 'print');
+          }
+        );
+        break;
+      case 'timeline-3':
+        this.router.navigate(['timelineAllinone']).then( () =>
+          {
+            this.nativeCommunicationService.sendToNative('Timeline allinone', 'print');
+          }
+        );
+        break;
+      default:
+        // stay here
+        break;
+    }
+    
+
     if(state.language !== this.languageService.getCurrentLanguage){
       this.languageService.transmitChangeUserLanguage(state.language);
     }
