@@ -73,6 +73,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TimelineChangeComponent } from './components/timeline-change/timeline-change.component';
 import { TimelineStackedComponent } from './components/timeline-stacked/timeline-stacked.component';
+import { TimelineAllinoneComponent } from './components/timeline-allinone/timeline-allinone.component';
 
 export const appStore = createStore(
   rootReducer
@@ -110,7 +111,8 @@ export const appStore = createStore(
     WappenComponent,
     WifiComponent,
     TimelineChangeComponent,
-    TimelineStackedComponent
+    TimelineStackedComponent,
+    TimelineAllinoneComponent
   ],
   imports: [
     BrowserModule,
