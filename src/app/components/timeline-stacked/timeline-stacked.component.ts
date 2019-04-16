@@ -383,11 +383,24 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
         }
       }
     });
+    
+    this.exhibitsSortedBySection[3].sort(this.compare);
+
     console.log(this.exhibitsSortedBySection);
 
     this.sortedExhibits.push(sec1Exh, sec2Exh, sec3Exh, sec4Exh, sec5Exh, sec6Exh);
     // console.log(this.currentEntrance);
     // console.log(this.sortedExhibits);
+  }
+
+  compare(a, b){
+    if (a.id.toString().split('').pop() < b.id.toString().split('').pop()){
+      return -1;
+    }
+    if (a.id.toString().split('').pop() > b.id.toString().split('').pop()){
+      return 1;
+    }
+    return 0;
   }
 
   getSectionPrimaryColor(sectionId: number){
