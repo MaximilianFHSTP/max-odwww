@@ -166,7 +166,7 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
 
-  ngAfterViewInit(){/*
+  ngAfterViewInit(){
     // Draw Timeline
     this.y = d3.scaleTime().domain(d3.extent(this.stringDates, (d: any) => this.parseDate(d))).range([0, this.svgHeight]);
     const svg = d3.select('#timeline').append('svg').attr('height', this.svgHeight).attr('width', this.svgWidth);
@@ -177,9 +177,9 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
 
     svg.select('.domain').attr('stroke-width', '0');
     this.whichY = d3.scaleLinear().domain([1450, 1530]).range([0, this.svgHeight]);
-*/
+
     /* Draw and place exhibitions */
- /*   this.sortedExhibits[0].forEach((currentExhibits) => {
+    this.sortedExhibits[0].forEach((currentExhibits) => {
       let lineX = 50;
       let prevStart = 0;
       let prevEnd = 0;
@@ -217,7 +217,7 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
           
         this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
       });
-    });*/
+    });
   }
 
   ngAfterViewChecked(){
@@ -245,14 +245,14 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
       const card = d3.select('#exh_' + pos.id)
       .style('position','absolute').style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 2) +'px');
     });
-    
+    /*
     // Hide everything then show only selected section
     if(this.locationService.isSaveLastLocation()){
       this.showTimeline();
     } else {
       this.hideTimeline();
       this.showTimeline();
-    }
+    }*/
     this.colorSVGIcons();    
 
     if(this.locationService.isSaveLastLocation()){
@@ -262,8 +262,8 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   hideTimeline(){
-    d3.selectAll('.card.exhibit').transition().duration(0).style('opacity', '0').style('display', 'none');
-    d3.selectAll('.timespanline').transition().duration(0).style('opacity', '0');
+    //d3.selectAll('.card.exhibit').transition().duration(0).style('opacity', '0').style('display', 'none');
+    //d3.selectAll('.timespanline').transition().duration(0).style('opacity', '0');
   }
 
   showTimeline(){
@@ -274,26 +274,18 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   colorSVGIcons(){
-    switch(this.currentSection){
-      case 10: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#a85757'); 
-        d3.selectAll('li.Sec10 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 20: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#4b799c');
-        d3.selectAll('li.Sec20 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 30: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#906e1b');
-        d3.selectAll('li.Sec30 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 40: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#3c7f7a');
-        d3.selectAll('li.Sec40 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 50: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#785d86');
-        d3.selectAll('li.Sec50 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 60: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#4c7d54');
-        d3.selectAll('li.Sec60 .sectionColorSvg').attr('fill', '#ffffff'); break;
-    }
+    d3.selectAll('.sectionColorSvg10').attr('fill', '#a85757'); 
+    d3.selectAll('li.Sec10 .sectionColorSvg10').attr('fill', '#ffffff');
+    d3.selectAll('.sectionColorSvg20').attr('fill', '#4b799c');
+    d3.selectAll('li.Sec20 .sectionColorSvg20').attr('fill', '#ffffff');
+    d3.selectAll('.sectionColorSvg30').attr('fill', '#906e1b');
+    d3.selectAll('li.Sec30 .sectionColorSvg30').attr('fill', '#ffffff');
+    d3.selectAll('.sectionColorSvg40').attr('fill', '#3c7f7a');
+    d3.selectAll('li.Sec40 .sectionColorSvg40').attr('fill', '#ffffff');
+    d3.selectAll('.sectionColorSvg50').attr('fill', '#785d86');
+    d3.selectAll('li.Sec50 .sectionColorSvg50').attr('fill', '#ffffff');
+    d3.selectAll('.sectionColorSvg60').attr('fill', '#4c7d54');
+    d3.selectAll('li.Sec60 .sectionColorSvg60').attr('fill', '#ffffff');
   }
 
   mergeDate(mDate: number){
@@ -436,10 +428,10 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   displaySection(sectionId: number, auto: boolean){
-    this.currentSection = sectionId;
+    /*this.currentSection = sectionId;
     this.redirected = auto;
     this.updatePart = true;
-    this.reDraw();
+    this.reDraw();*/
   }
 
   public userCoA(){

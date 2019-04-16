@@ -111,9 +111,6 @@ p{
 .card.title{
   width: 67%;
   height: 90px;
-  position: fixed;
-  top: 25px;
-  left: 34px;
   z-index: 5;
 }
 
@@ -126,7 +123,6 @@ p{
 .card.exhibit{
   width: 56%;
   height: 90px;
-  display: none;
 }
 
 .card h1{
@@ -445,4 +441,6 @@ p{
     background-size: cover !important;
   }
 }
+
+
 
