@@ -22,6 +22,7 @@ import { StartViewComponent } from './components/start-view/start-view.component
 import { UnlockComponent } from './components/unlock/unlock.component';
 import { WappenComponent } from './components/wappen/wappen.component';
 import { WifiComponent } from './components/wifi/wifi.component';
+import { TimelineChangeComponent } from './components/timeline-change/timeline-change.component';
 
 const routes: Routes = [
   { path: '', component: StartViewComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: 'unlock', component: UnlockComponent},
   { path: 'wappen', component: WappenComponent },
   { path: 'wifi', component: WifiComponent },
+  { path: 'timelineChange', component: TimelineChangeComponent },
   // additional routes here
   { path: '**', component: PageNotFoundComponent }
   // don't touch this

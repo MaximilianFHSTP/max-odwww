@@ -22,7 +22,7 @@
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">DEUTSCH</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">ENGLISH</li>
     <li (click)="logoutUser()">{{ 'app.menuLogout' | translate }}</li>
-    <li (click)="timelineChange()">{{'app.menuTimelineChange' | translate}}</li>
+    <li (click)="openTimelineChangeView()">{{'app.menuTimelineChange' | translate}}</li>
   </ul>
 </div>
 

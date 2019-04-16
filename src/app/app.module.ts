@@ -71,6 +71,7 @@ import { StatusActions } from './store/actions/StatusActions';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TimelineChangeComponent } from './components/timeline-change/timeline-change.component';
 
 export const appStore = createStore(
   rootReducer
@@ -106,7 +107,8 @@ export const appStore = createStore(
     UnlockComponent,
     UnlockDialogComponent,
     WappenComponent,
-    WifiComponent
+    WifiComponent,
+    TimelineChangeComponent
   ],
   imports: [
     BrowserModule,
@@ -229,7 +231,7 @@ export class AppModule {
         break;
       }
       case 'send_swipedirection': {
-        //this.nativeCommunicationService.sendToNative(value, 'print');
+        // this.nativeCommunicationService.sendToNative(value, 'print');
         this.nativeResponseService.swipeNavigation(value);
         break;
       }

@@ -310,4 +310,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.menuOpen ? this.menuOpen = false : this.menuOpen = true;
   }
 
+  public openTimelineChangeView(){
+    this.dismissMenu();
+    this.router.navigate(['timelineChange']).then( () =>
+      {
+        window.scrollTo(0, 0);
+        this.nativeCommunicationService.sendToNative('Timeline Change', 'print');
+      }
+    );
+  }
+
 }
