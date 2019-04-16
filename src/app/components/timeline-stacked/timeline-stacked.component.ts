@@ -147,7 +147,6 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
     
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
-    console.log(this.timelineLocations);
     
     this.closestExhibit = state.closestExhibit;
     this.currentSection = this.locationService.getLastSection();
@@ -167,65 +166,11 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
 
   ngAfterViewInit(){
-    // Draw Timeline
-    this.y = d3.scaleTime().domain(d3.extent(this.stringDates, (d: any) => this.parseDate(d))).range([0, this.svgHeight]);
-    const svg = d3.select('#timeline').append('svg').attr('height', this.svgHeight).attr('width', this.svgWidth);
-    const axis = svg.append('g')
-      .attr('class', 'y axis').attr('transform', 'translate(0,0)').style('margin-top', '200px')
-      .call(d3.axisLeft(this.y).ticks(10).tickFormat(d3.timeFormat('%Y')))
-      .selectAll('text').attr('y', 6).attr('x', 6).style('text-anchor', 'start').style('color', '#ffffff');
-
-    svg.select('.domain').attr('stroke-width', '0');
-    this.whichY = d3.scaleLinear().domain([1450, 1530]).range([0, this.svgHeight]);
-
-    /* Draw and place exhibitions */
-    this.sortedExhibits[0].forEach((currentExhibits) => {
-      let lineX = 50;
-      let prevStart = 0;
-      let prevEnd = 0;
-      this.mergedDates.length = 0;
-    
-      currentExhibits.forEach((exh, index) => {
-        let boxY = exh.startDate;
-        const timespan = exh.endDate - exh.startDate;
-
-        // Look at previous: If not the first, check time overlap with previous event
-        // If same timespan -> merge them. If not -> increase x of new line
-        if(exh.id !== currentExhibits[0].id && !(exh.startDate >= prevEnd || exh.endDate <= prevStart)) { 
-          if(exh.startDate === prevStart && exh.endDate === prevEnd){
-            const qtDates = this.mergeDate(exh.startDate); 
-            boxY = boxY + (4.6 * qtDates);
-          } else { lineX = lineX + 20; }
-        } 
-        prevStart = exh.startDate;
-        prevEnd = exh.endDate;
-        
-        // Look at next: If there is an event to be displayed next but the timespan is to short: move card
-        if(currentExhibits[index + 1] && currentExhibits[index + 1].endDate !== exh.endDate){
-          if(timespan < 5 && Math.abs(currentExhibits[index + 1].startDate - exh.startDate) < 5) {
-            boxY = boxY - (4.6 - timespan);
-          } else if(currentExhibits[index + 1].startDate === exh.startDate) {
-            boxY = boxY + 6;
-          }
-        }
-
-        // Draw event line and save card position
-        const line = svg.append('line').attr('x1', lineX).attr('x2', lineX)
-          .attr('class', 'timespanline line_'+ exh.parentId)
-          .attr('y1', this.whichY(exh.startDate)).attr('y2', this.whichY(exh.endDate))
-          .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId)).style('opacity', '0');
-          
-        this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
-      });
-    });
   }
 
   ngAfterViewChecked(){
-    // If boxes lose position after content update, call reDraw()
-    if (d3.select('#exh_101').style('position') !== 'absolute'){
-      this.reDraw();
-    } 
-    
+    this.reDraw(); 
+
     // If changing section, monitor need for new scroll
     if(this.redirected){
       this.redirected = false;
@@ -240,19 +185,6 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   reDraw(){
-    // Get calculated positions and place cards
-    this.cardPositions.forEach((pos) => {
-      const card = d3.select('#exh_' + pos.id)
-      .style('position','absolute').style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 2) +'px');
-    });
-    /*
-    // Hide everything then show only selected section
-    if(this.locationService.isSaveLastLocation()){
-      this.showTimeline();
-    } else {
-      this.hideTimeline();
-      this.showTimeline();
-    }*/
     this.colorSVGIcons();    
 
     if(this.locationService.isSaveLastLocation()){
@@ -261,31 +193,14 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
     }
   }
 
-  hideTimeline(){
-    //d3.selectAll('.card.exhibit').transition().duration(0).style('opacity', '0').style('display', 'none');
-    //d3.selectAll('.timespanline').transition().duration(0).style('opacity', '0');
-  }
-
-  showTimeline(){
-    const fade = 0; // or 150
-    d3.selectAll('.card.lckfalse.Sec' + this.currentSection).transition().duration(fade).style('opacity', '1').style('display', 'inline');
-    d3.selectAll('.card.lcktrue.Sec' + this.currentSection).transition().duration(fade).style('opacity', '0.5').style('display', 'inline');
-    d3.selectAll('.line_' + this.currentSection).transition().duration(fade).style('opacity', '1');
-  }
-
   colorSVGIcons(){
-    d3.selectAll('.sectionColorSvg10').attr('fill', '#a85757'); 
-    d3.selectAll('li.Sec10 .sectionColorSvg10').attr('fill', '#ffffff');
+    console.log('color svg');
+    d3.selectAll('.sectionColorSvg10').attr('fill', '#a85757');
     d3.selectAll('.sectionColorSvg20').attr('fill', '#4b799c');
-    d3.selectAll('li.Sec20 .sectionColorSvg20').attr('fill', '#ffffff');
     d3.selectAll('.sectionColorSvg30').attr('fill', '#906e1b');
-    d3.selectAll('li.Sec30 .sectionColorSvg30').attr('fill', '#ffffff');
     d3.selectAll('.sectionColorSvg40').attr('fill', '#3c7f7a');
-    d3.selectAll('li.Sec40 .sectionColorSvg40').attr('fill', '#ffffff');
     d3.selectAll('.sectionColorSvg50').attr('fill', '#785d86');
-    d3.selectAll('li.Sec50 .sectionColorSvg50').attr('fill', '#ffffff');
     d3.selectAll('.sectionColorSvg60').attr('fill', '#4c7d54');
-    d3.selectAll('li.Sec60 .sectionColorSvg60').attr('fill', '#ffffff');
   }
 
   mergeDate(mDate: number){
@@ -381,8 +296,6 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
     console.log(this.exhibitsSortedBySection);
 
     this.sortedExhibits.push(sec1Exh, sec2Exh, sec3Exh, sec4Exh, sec5Exh, sec6Exh);
-    // console.log(this.currentEntrance);
-    // console.log(this.sortedExhibits);
   }
 
   compare(a, b){
@@ -428,10 +341,10 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   displaySection(sectionId: number, auto: boolean){
-    /*this.currentSection = sectionId;
+    this.currentSection = sectionId;
     this.redirected = auto;
     this.updatePart = true;
-    this.reDraw();*/
+    this.reDraw();
   }
 
   public userCoA(){
