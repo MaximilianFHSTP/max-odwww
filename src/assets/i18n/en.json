@@ -9,7 +9,8 @@
     "confirm": "confirm",
     "connectionLostHeader": "Connection lost!",
     "connectionLostBody": "Please wait until the app reconnects to the server!",
-    "unlock": "UNLOCK CONTENT"
+    "unlock": "UNLOCK CONTENT",
+    "menuTimelineChange": "CHANGE TIMELINE"
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",
