@@ -153,18 +153,12 @@ p{
 }
 
 .coaIcon{
-  position: absolute;
-  bottom: 33px;
-  right: 4.5px;
   background-image: url("../../../assets/css/WappenIcons.png");
   background-position: 27px -28px;
   background-size: 240px;
 }
 
 .actIcon{
-  position: absolute;
-  bottom: 4.5px;
-  right: 4.5px;
   background-image: url("../../../assets/css/WappenIcons.png");
   background-position: -3px -28px;
   background-size: 240px;
