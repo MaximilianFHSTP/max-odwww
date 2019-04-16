@@ -8,7 +8,7 @@
   </section>
 </div>
 <div class="apptoolbar">
-  <button class="menubutton" (click)="openMenu()"  *ngIf="router.url === '/mainview'"></button>
+  <button class="menubutton" (click)="openMenu()"  *ngIf="router.url === '/mainview' || router.url === '/timelineStacked' || router.url === '/timelineAllinone'"></button>
 </div>
 
 <div class="dismissMenuDiv" *ngIf="menuOpen" (click)="dismissMenu()"></div>
