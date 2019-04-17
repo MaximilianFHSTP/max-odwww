@@ -194,13 +194,20 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   colorSVGIcons(){
-    console.log('color svg');
+    /*
     d3.selectAll('.sectionColorSvg10').attr('fill', '#a85757');
     d3.selectAll('.sectionColorSvg20').attr('fill', '#4b799c');
     d3.selectAll('.sectionColorSvg30').attr('fill', '#906e1b');
     d3.selectAll('.sectionColorSvg40').attr('fill', '#3c7f7a');
     d3.selectAll('.sectionColorSvg50').attr('fill', '#785d86');
-    d3.selectAll('.sectionColorSvg60').attr('fill', '#4c7d54');
+    d3.selectAll('.sectionColorSvg60').attr('fill', '#4c7d54');*/
+
+    d3.selectAll('.sectionColorSvg10').attr('fill', '#FFF');
+    d3.selectAll('.sectionColorSvg20').attr('fill', '#FFF');
+    d3.selectAll('.sectionColorSvg30').attr('fill', '#FFF');
+    d3.selectAll('.sectionColorSvg40').attr('fill', '#FFF');
+    d3.selectAll('.sectionColorSvg50').attr('fill', '#FFF');
+    d3.selectAll('.sectionColorSvg60').attr('fill', '#FFF');
   }
 
   mergeDate(mDate: number){
