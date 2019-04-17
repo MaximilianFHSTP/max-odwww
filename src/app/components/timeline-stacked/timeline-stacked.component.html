@@ -1,6 +1,5 @@
 <div id="woodcut"></div>
 <div class="toolbar">
-    stacked
     <button class="wappenbutton" (click)="userCoA()"></button><div class="wappenbuttonnew" *ngIf="coaService.newItem"></div> 
     <button id="locationbutton" [className]="closestExhibit ? 'enabled locationbutton' : 'disabled locationbutton'" (click)="goToClosestExhibit()"></button>
 </div>

@@ -277,7 +277,7 @@ p{
   background-position: center;
   background-size: 30px;
   background-repeat: no-repeat;
-  margin: 70px 20px 0px 0px;
+  margin: 90px 20px 0px 0px;
 }
 
 .wappenbuttonnew{
@@ -294,7 +294,7 @@ p{
   border-radius: 25px;
   position: fixed;
   right: 0;
-  bottom: 50px;
+  bottom: 25px;
   margin: 20px 20px 0px 0px;
   background-image: url("../../../assets/css/location.svg");
   background-position: center;
