@@ -9,7 +9,8 @@
     "confirm": "bestätigen",
     "connectionLostHeader": "Verbindung verloren!",
     "connectionLostBody": "Warte bitte bis die Verbindung wieder hergestellt werden konnte!",
-    "unlock": "INHALT FREISCHALTEN"
+    "unlock": "INHALT FREISCHALTEN",
+    "menuTroubleshooting": "APP EINSTELLUNGEN"
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",

@@ -218,6 +218,14 @@ export class AppModule {
         this.nativeResponseService.getWifiDataFromNative(value);
         break;
       }
+      case 'send_correct_location': {
+        this.nativeResponseService.getLocationDataFromNative(value);
+        break;
+      }
+      case 'send_correct_bluetooth': {
+        this.nativeResponseService.getBluetoothDataFromNative(value);
+        break;
+      }
       case 'send_bluetooth_check': {
         this.nativeResponseService.checkBluetooth();
         break;

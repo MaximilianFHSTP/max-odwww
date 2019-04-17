@@ -1,4 +1,4 @@
-import { Component, Inject, Injectable, OnInit } from '@angular/core';
+import { Component, Inject, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { UnlockDialogComponent } from '../unlock-dialog/unlock-dialog.component';
@@ -14,12 +14,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './app-settings.component.html',
   styleUrls: ['./app-settings.component.css']
 })
-export class AppSettingsComponent implements OnInit {
+export class AppSettingsComponent implements OnInit, OnDestroy {
   private subscriptionNativeBackbutton: Subscription;
+  private correctWifiSubscribe: Subscription;
+  private correctLocationSubscribe: Subscription;
+  private correctBluetoothSubscribe: Subscription;
   public guest: boolean;
-  public wifiStatus = 'error';
-  public bluetoothStatus = 'error';
-  public locationStatus = 'error';
+  public wifiStatus = 'loading';
+  public bluetoothStatus = 'loading';
+  public locationStatus = 'loading';
+  public wifiCheck = false;
+  public bluetoothCheck = false;
+  public locationCheck = false;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -29,15 +35,41 @@ export class AppSettingsComponent implements OnInit {
     private alertService: AlertService,
     private translate: TranslateService,
     private nativeCommunicationService: NativeCommunicationService,
-    private nativeResponseService: NativeResponseService
+    private nativeResponseService: NativeResponseService,
+    private ngZone: NgZone
   ) { 
+    this.correctWifiSubscribe = this.alertService.getMessageCorrectWifi().subscribe(value => {
+      this.setValue(value, 'wifi');
+    });
+    this.correctLocationSubscribe = this.alertService.getMessageCorrectLocation().subscribe(value => {
+      this.setValue(value, 'location');
+    });
+    this.correctBluetoothSubscribe = this.alertService.getMessageCorrectBluetooth().subscribe(value => {
+      this.setValue(value, 'bluetooth');
+    });
     this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
       const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
       if(elm){ elm.click(); }
     });
   }
 
+  ngOnDestroy() {
+    if(this.correctWifiSubscribe){
+      this.correctWifiSubscribe.unsubscribe();
+    }
+    if(this.correctLocationSubscribe){
+      this.correctLocationSubscribe.unsubscribe();
+    }
+    if(this.correctBluetoothSubscribe){
+      this.correctBluetoothSubscribe.unsubscribe();
+    }
+  }
+
   ngOnInit() {
+    this.nativeCommunicationService.sendToNative('statusLocation', 'statusLocation');
+    this.nativeCommunicationService.sendToNative('statusBluetooth', 'statusBluetooth');
+    this.nativeCommunicationService.sendToNative('statusWifi', 'statusWifi');
+
     const state = this.appStore.getState();
     if(state.user !== undefined) { this.guest = state.user.isGuest; }
   }
@@ -54,6 +86,66 @@ export class AppSettingsComponent implements OnInit {
         this.nativeResponseService.unlockAllTimelineLocations();
       }
     });
+  }
+
+  setValue(value: any, func: string){
+    let status = '';
+    (value.toString() === 'true') ? status = 'success' : status = 'error';
+
+    switch(func){
+      case 'wifi':
+        this.ngZone.run(() => {
+          if(this.wifiStatus !== status) {this.wifiStatus = status; }
+        });
+        break;
+      case 'bluetooth':
+        this.ngZone.run(() => {
+          if(this.bluetoothStatus !== status) { this.bluetoothStatus = status; }
+        });        
+        break;
+      case 'location':
+        this.ngZone.run(() => {
+          if(this.locationStatus !== status) { this.locationStatus = status; }
+        });        
+        break;
+    }
+  }
+
+  fix(op: string){
+    switch(op){
+      case 'wifi':
+        this.nativeResponseService.getWifiDataFromGoD(); 
+        this.wifiCheck = true;
+        this.wifiStatus = 'loading'; 
+        break;
+      case 'bluetooth':
+        this.nativeCommunicationService.sendToNative('activateBluetoothCheck', 'activateBluetoothCheck');
+        this.bluetoothCheck = true;
+        this.bluetoothStatus = 'loading';    
+        break;
+      case 'location':
+        this.nativeCommunicationService.sendToNative('activateLocationCheck', 'activateLocationCheck');
+        this.locationCheck = true;
+        this.locationStatus = 'loading'; 
+        break;
+    }
+  }
+
+  get(op: string){
+    switch(op){
+      case 'wifi':
+        this.wifiCheck = false;
+        this.nativeCommunicationService.sendToNative('statusWifi', 'statusWifi');
+        break;
+      case 'bluetooth':
+        this.bluetoothCheck = false;
+        this.nativeCommunicationService.sendToNative('statusBluetooth', 'statusBluetooth');
+        break;
+      case 'location':
+        this.locationCheck = false;
+        this.nativeCommunicationService.sendToNative('statusLocation', 'statusLocation');
+        break;
+    }
   }
 
   public closeWindow(){
