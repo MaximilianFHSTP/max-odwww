@@ -34,52 +34,41 @@ p{
   z-index: 3;
 }
 
-#woodcuttop.Sec10,
-#woodcut.Sec10{
-  background: url("../../../assets/css/Section1BG.png");
+#woodcut{
+  background: url("../../../assets/css/SectionGrey.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-#woodcuttop.Sec20,
-#woodcut.Sec20{
-  background: url("../../../assets/css/Section2BG.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+#timeline .location{
+  display: table;
+  width: 100%;
 }
 
-#woodcuttop.Sec30,
-#woodcut.Sec30{
-  background: url("../../../assets/css/Section3BG.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+#timeline .section .card-cell{
+  display:table-cell;
+  vertical-align: bottom;
 }
 
-#woodcuttop.Sec40,
-#woodcut.Sec40{
-  background: url("../../../assets/css/Section4BG.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+#timeline .section .card.title{
+  margin-top: 1em;
 }
 
-#woodcuttop.Sec50,
-#woodcut.Sec50{
-  background: url("../../../assets/css/Section5BG.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+#timeline .section .location:last-child .card{
+  margin-top: 5px;
+  margin-bottom: 1em;
 }
 
-#woodcuttop.Sec60,
-#woodcut.Sec60{
-  background: url("../../../assets/css/Section6BG.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+#timeline .section .location:last-child .left{
+  padding-bottom: 1em;
 }
+
 
 #timeline .left{
-  float: left;
+  display: table-cell;
   width: 40px;
-  height: 94px;
+  height: 100px;
+  vertical-align: middle;
 }
 
 #timeline .left.Sec10{ background-color: #823a3a; }
@@ -89,6 +78,18 @@ p{
 #timeline .left.Sec50{ background-color: #5c416a; }
 #timeline .left.Sec60{ background-color: #32633a; }
 
+#timeline svg g path{
+  fill: #fff;
+}
+
+#timeline .left .timespan{
+  font-size: 80%;
+  text-align: center;
+  color: #fff;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
 #timeline .card{
   display: table;
 }
@@ -96,6 +97,7 @@ p{
 #timeline .card .text{
   display: table-cell;
   width: 90%;
+  vertical-align: middle;
 }
 
 #timeline .card .wrapIcon{
@@ -106,6 +108,7 @@ p{
 
 .card{
   background: #ffffff;
+  border-left: none !important;
 }
 
 .card.lckfalse:active{
@@ -159,13 +162,15 @@ p{
   margin: 1em 5% 0% 5%;
   white-space: normal;
   min-height: 50px;
-  float: left;
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 5%;
 }
 
 .card h2{
-  margin: 0% 5%;
   font-size: 1em;
   white-space: normal;
+  padding-left: 5%;
 }
 
 .coaIcon, .actIcon{
@@ -187,15 +192,6 @@ p{
   background-size: 240px;
 }
 
-.card .timespan{
-  font-size: 80%;
-  margin: 0.9em 5% 0% 5%;
-}
-/*
-.card.Sec1 img{
-  filter: invert(88%) sepia(88%) saturate(6586%) hue-rotate(290deg) brightness(101%) contrast(100%);
-}*/
-
 .card.Sec10{ border: 2px solid #823a3a; }
 .card.Sec20{ border: 2px solid #305978; }
 .card.Sec30{ border: 2px solid #755300; }
@@ -216,11 +212,6 @@ p{
 .card.Sec40 .wrapIcon div, #timelineAxis.Sec40, #timelineAxisTitle.Sec40{ background-color: #1d635d; }
 .card.Sec50 .wrapIcon div, #timelineAxis.Sec50, #timelineAxisTitle.Sec50{ background-color: #5c416a; }
 .card.Sec60 .wrapIcon div, #timelineAxis.Sec60, #timelineAxisTitle.Sec60{ background-color: #32633a; }
-
-.card{
-  border-left: none !important;
-  margin-left: 40px;
-}
 
 #timelineAxisTitle,
 #timelineAxis{
@@ -274,7 +265,7 @@ p{
   background-position: center;
   background-size: 30px;
   background-repeat: no-repeat;
-  margin: 90px 20px 0px 0px;
+  margin: 70px 20px 0px 0px;
 }
 
 .wappenbuttonnew{
@@ -291,7 +282,7 @@ p{
   border-radius: 25px;
   position: fixed;
   right: 0;
-  bottom: 110px;
+  bottom: 50px;
   margin: 20px 20px 0px 0px;
   background-image: url("../../../assets/css/location.svg");
   background-position: center;
@@ -305,8 +296,8 @@ p{
 
 #timeline .image{
   width: 80%;
-  margin-top: 1.2em;
-  margin-left: 5%;
+  margin-left: 10%;
+  margin-top: 15px;
 }
 
 .timelineSectionNav{

@@ -21,7 +21,7 @@ import * as LocationTypes from '../../config/LocationTypes';
   styleUrls: ['./timeline-stacked.component.css']
 })
 @Injectable()
-export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class TimelineStackedComponent implements OnInit, OnDestroy {
   private readonly _unsubscribe: Unsubscribe;
   private registerLocationmessage: any;
   private subscriptionBack: Subscription;
@@ -92,9 +92,6 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
     this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
       this.coaService.setUserCoaParts(message.data);
     });
-    this.subscriptionSwipe = this.alertService.getSwipeNavigation().subscribe(message=> {
-      this.handleSwipe(message);
-    });
   }
 
   ngOnDestroy() {
@@ -161,53 +158,6 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
       // Enable questionnaire dialog in next release
       // setTimeout(() => this.displayQuestionnaireDialog());
     }
-  }
-
-  /* ----- Sort Data, Draw Timeline, Check for changes ---- */
-
-  ngAfterViewInit(){
-  }
-
-  ngAfterViewChecked(){
-    this.reDraw(); 
-
-    // If changing section, monitor need for new scroll
-    if(this.redirected){
-      this.redirected = false;
-      this.goToClosestExhibit(); 
-    }
-
-    // If changing section, monitor need for new icon
-    if (this.updatePart){
-      this.colorSVGIcons(); 
-      this.updatePart = false;
-    }
-  }
-
-  reDraw(){
-    this.colorSVGIcons();    
-
-    if(this.locationService.isSaveLastLocation()){
-      d3.transition().duration(0).tween('scroll', this.scrollTween(this.locationService.getLastWindowOffset() - window.scrollY));
-      this.locationService.cleanLastLocation();
-    }
-  }
-
-  colorSVGIcons(){
-    /*
-    d3.selectAll('.sectionColorSvg10').attr('fill', '#a85757');
-    d3.selectAll('.sectionColorSvg20').attr('fill', '#4b799c');
-    d3.selectAll('.sectionColorSvg30').attr('fill', '#906e1b');
-    d3.selectAll('.sectionColorSvg40').attr('fill', '#3c7f7a');
-    d3.selectAll('.sectionColorSvg50').attr('fill', '#785d86');
-    d3.selectAll('.sectionColorSvg60').attr('fill', '#4c7d54');*/
-
-    d3.selectAll('.sectionColorSvg10').attr('fill', '#FFF');
-    d3.selectAll('.sectionColorSvg20').attr('fill', '#FFF');
-    d3.selectAll('.sectionColorSvg30').attr('fill', '#FFF');
-    d3.selectAll('.sectionColorSvg40').attr('fill', '#FFF');
-    d3.selectAll('.sectionColorSvg50').attr('fill', '#FFF');
-    d3.selectAll('.sectionColorSvg60').attr('fill', '#FFF');
   }
 
   mergeDate(mDate: number){
@@ -327,33 +277,6 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
   }
 
   /* ------------- Navbar and Toolbar buttons ------------- */
-
-  handleSwipe(direction: any) {
-
-    
-    if (direction['swipe'] === 'right') {
-      if (this.currentSection >= 20){
-        this.currentSection -= 10;
-        const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
-        if(elm){ elm.click(); }
-      } 
-    }
-    else if (direction['swipe'] === 'left'){
-      if (this.currentSection <= 50){
-        this.currentSection += 10;
-        const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
-       if(elm){ elm.click(); }
-      }
-    }
-  }
-
-  displaySection(sectionId: number, auto: boolean){
-    this.currentSection = sectionId;
-    this.redirected = auto;
-    this.updatePart = true;
-    this.reDraw();
-  }
-
   public userCoA(){
     this.router.navigate(['wappen']).then( () => {
       window.scrollTo(0, 0);
@@ -421,17 +344,14 @@ export class TimelineStackedComponent implements OnInit, AfterViewInit, AfterVie
     if(this.closestExhibit){
       const loc = this.getLocation(this.closestExhibit);
       if(loc && !loc.locked){
-        (loc.parentId !== this.currentSection) ? this.displaySection(loc.parentId, true) : this.scrollTo(loc.id);
+        this.scrollTo(loc.id);
       }
     }
   }
 
   scroll() {
     const loc = this.getLocation(this.registerLocationmessage.location);
-    if(loc){ 
-      if(loc.parentId !== this.currentSection){
-        this.displaySection(loc.parentId, true); 
-      }
+    if(loc){
       this.scrollTo(loc.id);
     }
   }
