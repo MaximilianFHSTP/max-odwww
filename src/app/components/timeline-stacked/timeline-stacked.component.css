@@ -213,16 +213,28 @@ p{
 .card.Sec50 .wrapIcon div, #timelineAxis.Sec50, #timelineAxisTitle.Sec50{ background-color: #5c416a; }
 .card.Sec60 .wrapIcon div, #timelineAxis.Sec60, #timelineAxisTitle.Sec60{ background-color: #32633a; }
 
-#timelineAxisTitle,
 #timelineAxis{
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 50px;
+  height: 50%;
+  width: 40px;
   position: fixed;
   left: 0;
   top: 0;
   z-index: -1;
+  background-color: #823a3a;
+}
+
+#timelineAxisBottom{
+  margin: 0;
+  padding: 0;
+  height: 50%;
+  width: 40px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  background-color:  #32633a;;
 }
 
 #timelineAxisTitle{
