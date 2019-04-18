@@ -124,8 +124,8 @@
   }
   
   .card.exhibit{
-    /* width: 30%;*/
-    width: 96px;
+    width: 30%;
+    /* width: 96px; */
     height: 70px;
     display: none;
   }
@@ -141,29 +141,29 @@
   
   .card h2{
     margin: 0% 5%;
-    font-size: 0.5em;
+    font-size: 0.7em;
     white-space: normal;
   }
   
   .wrapIcon{
-    width: 30px;
+    width: 25px;
     float: right;
     height: 100%;
   }
   
   .coaIcon, .actIcon{
     border-radius: 25px;
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
   }
   
   .coaIcon{
     position: absolute;
-    bottom: 33px;
+    bottom: 25px;
     right: 4.5px;
     background-image: url("../../../assets/css/WappenIcons.png");
-    background-position: 27px -28px;
-    background-size: 240px;
+    background-position: 21px -23px;
+    background-size: 190px;
   }
   
   .actIcon{
@@ -171,13 +171,13 @@
     bottom: 4.5px;
     right: 4.5px;
     background-image: url("../../../assets/css/WappenIcons.png");
-    background-position: -3px -28px;
-    background-size: 240px;
+    background-position: -3px -23px;
+    background-size: 190px;
   }
   
   .card .timespan{
     font-size: 70%;
-    margin: 0.5em 5% 0% 5%;
+    margin: 0.7em 5% 0% 5%;
   }
   /*
   .card.Sec1 img{
@@ -376,7 +376,7 @@
     height: 100%;
   }
   
-  @media (max-width: 350px) {
+  @media (max-width: 400px) {
     .timelineSectionNav ul li button svg{
       width: 35px; 
       height: 35px;
@@ -387,7 +387,7 @@
     }
   
     .card h2{
-      /* font-size: 0.7em; */
+      font-size: 0.55em;
     }
   
     .card.title,
@@ -419,31 +419,10 @@
       margin: 105px 20px 0px 0px;
     }
   
-    #woodcuttop{
-      height: 134px;
-    }
-  
     #timelineAxisTitle{
       height: 136px;
     }
   }
-  
-  @media (min-height: 810px) {
-    #woodcuttop{
-      background-size: 122% !important;
-    }
-  }
-  
-  @media (min-height: 820px) {
-    #woodcuttop{
-      background-size: 113% !important;
-    }
-  }
-  
-  @media (min-height: 830px) {
-    #woodcuttop{
-      background-size: cover !important;
-    }
-  }
+
   
   

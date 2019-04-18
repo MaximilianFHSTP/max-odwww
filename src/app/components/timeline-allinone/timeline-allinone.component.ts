@@ -154,8 +154,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
     this.whichY = d3.scaleLinear().domain([1450, 1530]).range([0, this.svgHeight]);
 
     /* Draw and place exhibitions */
-    console.log(this.sortedExhbits[0]);
-    let lineX = 150;
+    let lineX =  Math.round((30*window.innerWidth)/100) + 54;
     let prevStart = 0;
     let prevEnd = 0;
     const cardSize = 3.6;
@@ -167,9 +166,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
 
         // Look at previous: If not the first, check time overlap with previous event
         // If same timespan -> merge them. If not -> increase x of new line
-        if(!(exh.startDate >= prevEnd || exh.endDate <= prevStart)) { 
-          // if(exh.id === 2001){ boxY = boxY + (cardSize * 2.1); }  // Hardcoded conflict
-          // if(exh.id === 301){ boxY = boxY + (cardSize * 0.7); }   // Hardcoded conflict      
+        if(!(exh.startDate >= prevEnd || exh.endDate <= prevStart)) {     
           if(exh.startDate === prevStart && exh.endDate === prevEnd){
             const qtDates = this.mergeDate(exh.startDate); 
             boxY = boxY + (cardSize * qtDates);
@@ -187,7 +184,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
           }
         }
             
-        if(exh.id === 4004){ boxY = boxY - (cardSize * 0.71); } // Hardcoded conflict         
+        if(exh.id === 4004){ boxY = boxY - (cardSize * 0.75); } // Hardcoded conflict         
 
         // Draw event line and save card position
         const line = svg.append('line').attr('x1', lineX).attr('x2', lineX)
@@ -222,9 +219,13 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   reDraw(){
     // Get calculated positions and place cards
     this.cardPositions.forEach((pos) => {
-      if(pos.id === 101 || pos.id === 102 || pos.id === 2004){ pos.lineX = pos.lineX - 52; } 
+      let redux = 0;
+      if(pos.id === 101 || pos.id === 102 || pos.id === 2004){ 
+        redux = Math.round((30*window.innerWidth)/100);
+        (window.innerWidth < 450) ? redux += 8 : redux += 2;
+      } 
       const card = d3.select('#exh_' + pos.id)
-      .style('position','absolute').style('top', (this.whichY(pos.boxY) + 35) +'px').style('left', (pos.lineX + 2) +'px');
+      .style('position','absolute').style('top', (this.whichY(pos.boxY) + 35) +'px').style('left', (pos.lineX + 2 - redux) +'px');
     });
     
     d3.selectAll('.card.lckfalse').transition().duration(0).style('opacity', '1').style('display', 'inline');
