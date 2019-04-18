@@ -237,7 +237,7 @@ export class AppModule {
       }
       case 'send_swipedirection': {
         // this.nativeCommunicationService.sendToNative(value, 'print');
-        this.nativeResponseService.swipeNavigation(value);
+        // this.nativeResponseService.swipeNavigation(value);
         break;
       }
       default: {

@@ -1,0 +1,428 @@
+@font-face {
+    font-family: 'Vollkorn';
+    src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
+  }
+  
+  @font-face {
+    font-family: 'OpenSans';
+    src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+    /*font-weight: bold;*/
+  }
+  
+  h1, h2, h3, h4, h5, h6{
+    font-family: 'Vollkorn', Times, serif;
+    margin: 0;
+  }
+  
+  p{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 0;
+  }
+  
+  #woodcuttop,
+  #woodcut{
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    /*opacity: 0.2;*/
+    z-index: -2;
+  }
+  
+  #woodcuttop{
+    height: 118px;
+    z-index: 3;
+  }
+  
+  #woodcuttop.Sec10,
+  #woodcut.Sec10{
+    background: url("../../../assets/css/Section1BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  #woodcuttop.Sec20,
+  #woodcut.Sec20{
+    background: url("../../../assets/css/Section2BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  #woodcuttop.Sec30,
+  #woodcut.Sec30{
+    background: url("../../../assets/css/Section3BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  #woodcuttop.Sec40,
+  #woodcut.Sec40{
+    background: url("../../../assets/css/Section4BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  #woodcuttop.Sec50,
+  #woodcut.Sec50{
+    background: url("../../../assets/css/Section5BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  #woodcuttop.Sec60,
+  #woodcut.Sec60{
+    background: url("../../../assets/css/Section6BG.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .card{
+    background: #ffffff;
+  }
+  
+  .card.lckfalse:active{
+    background: #cacaca;
+  }
+  
+  .card.lcktrue{
+    opacity: 0.5;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+  
+  .card.exhibit.lckfalse.near{
+    box-shadow: 5px 0px 18px #888888;
+    z-index: 1;
+  }
+  
+  .card.title.lckfalse.near{
+    /* box-shadow: 5px 0px 18px #888888; */
+    z-index: 3;
+  }
+  
+  .titlewrapper{
+    width: 67%;
+    height: 94px;
+    position: fixed;
+    top: 25px;
+    left: 34px;
+    /*background: #ffffff;*/
+  }
+  
+  .card.title{
+    width: 67%;
+    height: 90px;
+    position: fixed;
+    bottom: 4px;
+    left: 34px;
+    z-index: 5;
+  }
+  
+  .card img{
+    width: 15%;
+    float: left;
+    margin: 1.5em 0 0 5%;
+  }
+  
+  .card.exhibit{
+    width: 30%;
+    /* width: 96px; */
+    height: 70px;
+    display: none;
+  }
+  
+  .card h1{
+    width: 70%;
+    font-size: 1.1em;
+    margin: 1em 5% 0% 5%;
+    white-space: normal;
+    min-height: 50px;
+    float: left;
+  }
+  
+  .card h2{
+    margin: 0% 5%;
+    font-size: 0.7em;
+    white-space: normal;
+  }
+  
+  .wrapIcon{
+    width: 23px;
+    float: right;
+    height: 100%;
+  }
+  
+  .coaIcon, .actIcon{
+    border-radius: 25px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .coaIcon{
+    position: absolute;
+    bottom: 25px;
+    right: 4.5px;
+    background-image: url("../../../assets/css/WappenIcons.png");
+    background-position: 21px -23px;
+    background-size: 190px;
+  }
+  
+  .actIcon{
+    position: absolute;
+    bottom: 4.5px;
+    right: 4.5px;
+    background-image: url("../../../assets/css/WappenIcons.png");
+    background-position: -3px -23px;
+    background-size: 190px;
+  }
+  
+  .card .timespan{
+    font-size: 70%;
+    margin: 0.7em 5% 0% 5%;
+  }
+  /*
+  .card.Sec1 img{
+    filter: invert(88%) sepia(88%) saturate(6586%) hue-rotate(290deg) brightness(101%) contrast(100%);
+  }*/
+  
+  .card.exhibit.Sec10{ border: 2px solid #823a3a; }
+  .card.exhibit.Sec20{ border: 2px solid #305978; }
+  .card.exhibit.Sec30{ border: 2px solid #755300; }
+  .card.exhibit.Sec40{ border: 2px solid #1d635d; }
+  .card.exhibit.Sec50{ border: 2px solid #5c416a; }
+  .card.exhibit.Sec60{ border: 2px solid #32633a; }
+  
+  .card.Sec10 .timespan{ color: #823a3a; }
+  .card.Sec20 .timespan{ color: #305978; }
+  .card.Sec30 .timespan{ color: #755300; }
+  .card.Sec40 .timespan{ color: #1d635d; }
+  .card.Sec50 .timespan{ color: #5c416a; }
+  .card.Sec60 .timespan{ color: #32633a; }
+  
+  .card.Sec10 .wrapIcon div, #timelineAxis.Sec10, #timelineAxisTitle.Sec10{ background-color: #823a3a; }
+  .card.Sec20 .wrapIcon div, #timelineAxis.Sec20, #timelineAxisTitle.Sec20{ background-color: #305978; }
+  .card.Sec30 .wrapIcon div, #timelineAxis.Sec30, #timelineAxisTitle.Sec30{ background-color: #755300; }
+  .card.Sec40 .wrapIcon div, #timelineAxis.Sec40, #timelineAxisTitle.Sec40{ background-color: #1d635d; }
+  .card.Sec50 .wrapIcon div, #timelineAxis.Sec50, #timelineAxisTitle.Sec50{ background-color: #5c416a; }
+  .card.Sec60 .wrapIcon div, #timelineAxis.Sec60, #timelineAxisTitle.Sec60{ background-color: #32633a; }
+  
+  .titlewrapper,
+  .card.title{
+    border-left: none;
+  }
+  
+  #timelineAxisTitle,
+  #timelineAxis{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 34px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+  }
+  
+  #timelineAxisTitle{
+    height: 120px;
+    z-index: 5;
+  }
+  
+  #timeline{
+    margin: 35px 0px 400px 0px;
+    padding: 0;
+    height: 1000px;
+    width: 100%;
+  }
+  
+  .toolbar{
+    width: 65px;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 6;
+  }
+  
+  .toolbar mat-icon{
+    font-size: 35px;
+    margin: 5px 0 0 -11px;
+    color:#ffffff;
+  }
+  
+  .toolbar button{
+    float:right;
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 50px;
+    background-color: #494949;
+  }
+  
+  .wappenbutton{ 
+    background: url("../../../assets/css/coa.svg");
+    background-position: center;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    margin: 90px 20px 0px 0px;
+  }
+  
+  .wappenbuttonnew{
+    background-color: #ff0000;
+    height: 15px;
+    width: 15px;
+    border-radius: 25px;
+    float: right;
+    margin: -55px 15px;
+  }
+   
+  .locationbutton{
+    margin: 0;
+    border-radius: 25px;
+    position: fixed;
+    right: 0;
+    bottom: 30px;
+    margin: 20px 20px 0px 0px;
+    background-image: url("../../../assets/css/location.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+  }
+  
+  .toolbar button.disabled{
+    background-color: #aaaaaa;
+  }
+  
+  .title .image{
+    width: 15%;
+    max-width: 50px;
+    height: 50px;
+    float: left;
+    margin: 1.2em 0 0% 5%;
+  }
+  
+  .timelineSectionNav{
+    position: fixed;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    height: 100px;
+    background: #fff;
+    border-top: 15px solid #494949;
+  }
+  
+  .timelineSectionNav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 80px;
+    border-top: 15px solid #494949;
+    background: #494949;
+  }
+  
+  .timelineSectionNav ul li{
+    background: #fff;
+    float: left;
+    width: 16%; 
+    height: 100%;
+  }
+  
+  .timelineSectionNav .Sec20,
+  .timelineSectionNav .Sec30,
+  .timelineSectionNav .Sec40,
+  .timelineSectionNav .Sec50,
+  .timelineSectionNav .Sec60 {
+    margin-left: 0.8%;
+  }
+  
+  .timelineSectionNav ul li button{
+    display: block;
+    margin: 5px auto;
+    width: 100%; 
+    height: 70px;
+    border: none;
+    outline: none;
+    background: transparent;
+  }
+  
+  .timelineSectionNav ul li button svg{
+    width: 45px; 
+    height: 45px;
+  }
+  
+  .timelineSectionNav.selected_Section10 ul li.Sec10,
+  .timelineSectionNav.selected_Section20 ul li.Sec20,
+  .timelineSectionNav.selected_Section30 ul li.Sec30,
+  .timelineSectionNav.selected_Section40 ul li.Sec40,
+  .timelineSectionNav.selected_Section50 ul li.Sec50,
+  .timelineSectionNav.selected_Section60 ul li.Sec60{
+    background: #494949;
+  }
+  
+  .webdevtools {
+    margin-bottom: 80px;
+    margin-left: 50px;
+  }
+  
+  .webdevtools button {
+    margin-left: 10px;
+  }
+  
+  .hiddenbutton{
+    display: none;
+  }
+  
+  .title .image svg{
+    width: 100%;
+    height: 100%;
+  }
+  
+  @media (max-width: 400px) {
+    .timelineSectionNav ul li button svg{
+      width: 35px; 
+      height: 35px;
+    }
+  
+    .card h1{
+      font-size: 1em;
+    }
+  
+    .card h2{
+      font-size: 0.55em;
+    }
+  
+    .card.title,
+    .titlewrapper{
+      width: 65%;
+    }
+  }
+  
+  @media (min-width: 550px) {
+    .card img{
+      width: 55px;
+      margin: 15px;
+    }
+    
+    .card .timespan{
+      font-size: 80%;
+      margin: 15px 0px 0px 15px;
+    }
+  
+    .card h2{
+      /* font-size: 0.7em; */
+      margin: 0px 0px 0px 15px;
+    }  
+  }
+  
+  @media (min-height: 730px) {
+ 
+    .wappenbutton{ 
+      margin: 105px 20px 0px 0px;
+    }
+  
+    #timelineAxisTitle{
+      height: 136px;
+    }
+  }
+
+  
+  
