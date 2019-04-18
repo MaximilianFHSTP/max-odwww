@@ -116,28 +116,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
 
   ngOnInit() {
     const state = this.appStore.getState();
-    this.user = state.user;
-
-    switch (this.locationService.getTimelineVersion()) {
-      case 'timeline-2':
-        this.router.navigate(['timelineStacked']).then( () =>
-          {
-            this.nativeCommunicationService.sendToNative('Timeline stacked', 'print');
-          }
-        );
-        break;
-      case 'timeline-3':
-        this.router.navigate(['timelineAllinone']).then( () =>
-          {
-            this.nativeCommunicationService.sendToNative('Timeline allinone', 'print');
-          }
-        );
-        break;
-      default:
-        // stay here
-        break;
-    }
-    
+    this.user = state.user;  
 
     if(state.language !== this.languageService.getCurrentLanguage){
       this.languageService.transmitChangeUserLanguage(state.language);
@@ -176,7 +155,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
 
     /* Draw and place exhibitions */
     console.log(this.sortedExhbits[0]);
-    let lineX = 50;
+    let lineX = 150;
     let prevStart = 0;
     let prevEnd = 0;
     const cardSize = 3.6;
@@ -189,13 +168,12 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
         // Look at previous: If not the first, check time overlap with previous event
         // If same timespan -> merge them. If not -> increase x of new line
         if(!(exh.startDate >= prevEnd || exh.endDate <= prevStart)) { 
-          if(exh.id === 2001){ boxY = boxY + (cardSize * 2.1); }  // Hardcoded conflict
-          if(exh.id === 301){ boxY = boxY + (cardSize * 0.7); }   // Hardcoded conflict      
+          // if(exh.id === 2001){ boxY = boxY + (cardSize * 2.1); }  // Hardcoded conflict
+          // if(exh.id === 301){ boxY = boxY + (cardSize * 0.7); }   // Hardcoded conflict      
           if(exh.startDate === prevStart && exh.endDate === prevEnd){
-            console.log('mrg ' + exh.id);
             const qtDates = this.mergeDate(exh.startDate); 
             boxY = boxY + (cardSize * qtDates);
-          } else { console.log('inc ' + exh.id); lineX = lineX + 20; }
+          } else { lineX = lineX + 10; }
         } 
         prevStart = exh.startDate;
         prevEnd = exh.endDate;
@@ -208,6 +186,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
             boxY = boxY + 6;
           }
         }
+            
         if(exh.id === 4004){ boxY = boxY - (cardSize * 0.71); } // Hardcoded conflict         
 
         // Draw event line and save card position
@@ -215,7 +194,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
           .attr('class', 'timespanline line_'+ exh.parentId)
           .attr('y1', this.whichY(exh.startDate)).attr('y2', this.whichY(exh.endDate))
           .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId)).style('opacity', '1');
-          
+
         this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
       });
     });
@@ -243,6 +222,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   reDraw(){
     // Get calculated positions and place cards
     this.cardPositions.forEach((pos) => {
+      if(pos.id === 101 || pos.id === 102 || pos.id === 2004){ pos.lineX = pos.lineX - 52; } 
       const card = d3.select('#exh_' + pos.id)
       .style('position','absolute').style('top', (this.whichY(pos.boxY) + 35) +'px').style('left', (pos.lineX + 2) +'px');
     });
@@ -332,6 +312,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
     const sec4Exh = [];
     const sec5Exh = [];
     const sec6Exh = [];
+    const sec2ExhXt = [];
 
     this.timelineLocations.forEach((loc) => {
       if (loc.locationTypeId === 5) {
@@ -339,7 +320,9 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
       } else {
         switch(loc.parentId){
           case 10: sec1Exh.push(loc); break;
-          case 20: sec2Exh.push(loc); break;
+          case 20:
+            (loc.id === 2002 || loc.id === 2003) ? sec2ExhXt.push(loc) : sec2Exh.push(loc);
+            break;
           case 30: sec3Exh.push(loc); break;
           case 40: sec4Exh.push(loc); break;
           case 50: sec5Exh.push(loc); break;
@@ -348,7 +331,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
       }  
     });
 
-    this.sortedExhbits.push([sec1Exh, sec2Exh, sec3Exh, sec4Exh, sec5Exh, sec6Exh,]);
+    this.sortedExhbits.push([sec1Exh, sec2Exh, sec3Exh, sec2ExhXt, sec4Exh, sec5Exh, sec6Exh]);
   }
 
   getSectionPrimaryColor(sectionId: number){

@@ -53,7 +53,7 @@
     </div>
   </ng-container>
 </div> 
-<div class="webdevtools" *ngIf="isWeb">
+<div class="webdevtools" *ngIf="!isWeb">
   <ng-container  *ngFor="let loc of timelineLocations" >
     <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTest(loc.id, loc.parentId)">{{loc.id}}/{{loc.parentId}}</button>
   </ng-container>
