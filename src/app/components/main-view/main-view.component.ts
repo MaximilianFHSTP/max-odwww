@@ -135,7 +135,13 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
         );
         break;
       default:
-        // stay here
+        // stay here - TODO: CHANGE when pushing
+        /*
+        this.router.navigate(['timelineStacked']).then( () =>
+          {
+            this.nativeCommunicationService.sendToNative('Timeline stacked', 'print');
+          }
+        );*/
         break;
     }
     
