@@ -33,9 +33,52 @@ p{
   height: 118px;
   z-index: 3;
 }
-
+/*
 #woodcut{
   background: url("../../../assets/css/SectionGrey.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+*/
+
+#woodcuttop.Sec10,
+#woodcut.Sec10{
+  background: url("../../../assets/css/Section1BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#woodcuttop.Sec20,
+#woodcut.Sec20{
+  background: url("../../../assets/css/Section2BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#woodcuttop.Sec30,
+#woodcut.Sec30{
+  background: url("../../../assets/css/Section3BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#woodcuttop.Sec40,
+#woodcut.Sec40{
+  background: url("../../../assets/css/Section4BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#woodcuttop.Sec50,
+#woodcut.Sec50{
+  background: url("../../../assets/css/Section5BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#woodcuttop.Sec60,
+#woodcut.Sec60{
+  background: url("../../../assets/css/Section6BG.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
