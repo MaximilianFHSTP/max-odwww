@@ -78,9 +78,12 @@ p{
 #timeline .left.Sec50{ background-color: #5c416a; }
 #timeline .left.Sec60{ background-color: #32633a; }
 
-#timeline svg g path{
-  fill: #fff;
-}
+#timeline path.sectionColorSvg10{ fill: #823a3a; }
+#timeline path.sectionColorSvg20{ fill: #305978; }
+#timeline path.sectionColorSvg30{ fill: #755300; }
+#timeline path.sectionColorSvg40{ fill: #1d635d; }
+#timeline path.sectionColorSvg50{ fill: #5c416a; }
+#timeline path.sectionColorSvg60{ fill: #32633a; }
 
 #timeline .left .timespan{
   font-size: 80%;
@@ -164,7 +167,7 @@ p{
   min-height: 50px;
   display: table-cell;
   vertical-align: middle;
-  padding-left: 5%;
+  padding-left: 0%;
 }
 
 .card h2{
@@ -307,9 +310,9 @@ p{
 }
 
 #timeline .image{
-  width: 80%;
+  width: 70%;
   margin-left: 10%;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .timelineSectionNav{
