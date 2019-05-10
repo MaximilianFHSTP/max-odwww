@@ -287,6 +287,19 @@ p{
   background-repeat: no-repeat;
 }
 
+.questionsbutton{
+  margin: 0;
+  border-radius: 25px;
+  position: fixed;
+  right: 0;
+  bottom: 170px;
+  margin: 20px 20px 0px 0px;
+  background-image: url("../../../assets/css/questions.svg");
+  background-position: center;
+  background-size: 30px;
+  background-repeat: no-repeat;
+}
+
 .toolbar button.disabled{
   background-color: #aaaaaa;
 }

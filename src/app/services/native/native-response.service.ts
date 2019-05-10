@@ -81,6 +81,10 @@ export class NativeResponseService implements OnInit
     }
   }
 
+  public questionnaireAnswered(){
+    this.godService.questionnaireAnswered();
+  }
+
   public odRegister(result: any): void
   {
     this.transmissionService.transmitODRegister(result);
@@ -142,6 +146,6 @@ export class NativeResponseService implements OnInit
   }
 
   public swipeNavigation(swipe): void {
-    this.alertService.sendSwipeNavigation(swipe)
+    this.alertService.sendSwipeNavigation(swipe);
   }
 }

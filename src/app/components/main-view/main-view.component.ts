@@ -52,6 +52,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public sortedExhbits = [];
   public mergedDates = [];
   public cardPositions = [];
+  public triggeredQuestions = false;
 
   private stringDates = ['1450', '1530'];
   private parseDate = d3.timeParse('%Y');
@@ -76,7 +77,12 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       const state = this.appStore.getState();
       this.closestExhibit = state.closestExhibit;
       if(this.prevClosestExhibit !== this.closestExhibit){
-        if(this.prevClosestExhibit !== 0){ this.buttonAnimationOn(); }
+        if(this.prevClosestExhibit !== 0){
+          if(this.closestExhibit === 7000 && this.locationService.getEnableQuestions() && !state.user.answeredQuestionnaire){
+            this.triggeredQuestions = true;
+              setTimeout(() => this.displayQuestionnaireDialog());
+          }
+          this.buttonAnimationOn(); }
         this.prevClosestExhibit = this.closestExhibit;
       }
       this.timelineLocations = this.locationService.getTimelineLocations();
@@ -132,12 +138,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.isWeb = this.nativeCommunicationService.isWeb;
     this.sortLocationData();
 
+    this.checkQuestionsUnlock();
     this.transmissionService.getCoaParts();
     this.transmissionService.getUserCoaParts();
-    if(this.locationService.getVisitedAll() && !this.locationService.getQuestionsDismissed()){
-      // Enable questionnaire dialog in next release
-      // setTimeout(() => this.displayQuestionnaireDialog());
-    }
   }
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
@@ -285,7 +288,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     let exhX;
 
     this.timelineLocations.forEach((exh, index) => {
-
       // Fix cases in wich the timespan of the next exhibit would pass over the current one
       if(this.timelineLocations[index + 1] && exh.locationTypeId !== 5 && exh.parentId === this.timelineLocations[index + 1].parentId){
         if(!(exh.startDate >= this.timelineLocations[index + 1].endDate || exh.endDate <= this.timelineLocations[index + 1].startDate)){
@@ -394,7 +396,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public requestRegisterLocation(id: number, parentId: number, locked: boolean, typeId: number){
     if(!locked && id && parentId){
       if(id === 5001){  this.checkCoaUnlock();  }
-      else if(id === 502 || id === 6001 || id === 6000){ this.checkQuestionsUnlock(); }
       if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT || 
          typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT || 
          typeId === LocationTypes.NOTIFY_EXHIBIT_AT){ 
@@ -421,6 +422,15 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     return allUnlocked;
   }
 
+  isThereUnlock(): boolean{
+    let someUnlocked = false;
+    this.timelineLocations.forEach(loc => {
+      if(!loc.locked){ someUnlocked = true; }
+    });
+   
+    return someUnlocked;
+  }
+
   checkCoaUnlock(){
     if(this.checkAllUnlock()){
       this.coaService.tryUnlock(24);
@@ -428,8 +438,14 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   checkQuestionsUnlock(){
-    if(this.checkAllUnlock()){
-      this.locationService.setVisitedAll(true);
+    // enable questions after unlocking all exhibits
+    /*if(this.checkAllUnlock()){
+      this.locationService.setEnableQuestions(true);
+    }*/
+
+    // enable questions after unlocking at least one exhibit
+    if(this.isThereUnlock()){
+      this.locationService.setEnableQuestions(true);
     }
   }
 
@@ -488,6 +504,13 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   /* ---------------- Questionnaire Dialog ---------------- */
 
+  displayQuestionnaire(){
+    this.router.navigate(['questionnaire']).then( () => {
+      window.scrollTo(0, 0);
+      this.nativeCommunicationService.sendToNative('Questionnaire', 'print');
+    });
+  }
+
   displayQuestionnaireDialog(){
     window.scrollTo(0, 0);
     const dialogRef = this.dialog.open(QuestionnaireDialogComponent,
@@ -497,18 +520,14 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       });
     dialogRef.afterClosed().subscribe(result =>{
       if(result === 'confirm'){
-        this.locationService.setVisitedAll(false);
+        this.locationService.setEnableQuestions(false);
         this.router.navigate(['questionnaire']).then( () => {
           window.scrollTo(0, 0);
           this.nativeCommunicationService.sendToNative('Questionnaire', 'print');
         });
       }else if(result === 'done'){
-        this.locationService.setVisitedAll(false); 
-        this.locationService.setQuestionsDismissed(true);
-        // TODO check database        
-      }else{
-        this.locationService.setVisitedAll(false);
-        this.locationService.setQuestionsDismissed(true);
+        this.nativeResponseService.questionnaireAnswered();   
+        this.locationService.setEnableQuestions(false);
       }
     });
   }

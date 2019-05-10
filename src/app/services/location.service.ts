@@ -11,8 +11,7 @@ export class LocationService
   private _lastSection: number;
   private _lastWindowOffset: number;
   private _saveLastLocation: boolean;
-  private _visitedAll: boolean;
-  private _questionsDismissed: boolean;
+  private _displayQuestions: boolean;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -33,20 +32,12 @@ export class LocationService
     this._lastSection = sectionId;
   }
 
-  public setVisitedAll(visited: boolean){
-    this._visitedAll = visited;
+  public setEnableQuestions(visited: boolean){
+    this._displayQuestions = visited;
   }
 
-  public getVisitedAll(){
-    return this._visitedAll;
-  }
-
-  public setQuestionsDismissed(dismiss: boolean){
-    this._questionsDismissed = dismiss;
-  }
-
-  public getQuestionsDismissed(){
-    return this._questionsDismissed;
+  public getEnableQuestions(){
+    return this._displayQuestions;
   }
 
   public getLastSection(){

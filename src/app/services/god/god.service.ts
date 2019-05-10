@@ -376,6 +376,20 @@ export class GodService {
     });
   }
 
+  public questionnaireAnswered(){
+    const state = this.store.getState();
+    const user = state.user;
+
+    this.socket.emit('questionnaireAnswered', user.id);
+
+    this.socket.on('questionnaireAnsweredResult', result =>
+    {
+      this.socket.removeAllListeners('questionnaireAnsweredResult');
+      console.log(result);
+      return result;
+    });
+  }
+
   public autoLogin(token: String): void
   {
     this.socket.emit('autoLoginOD', token);
