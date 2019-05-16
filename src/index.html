@@ -96,6 +96,10 @@
       window.angularComponentRef.componentFn("back_button_pressed",message);
     };
 
+    window.permissionresult = function(message){
+      window.angularComponentRef.componentFn("permissionresult",message);
+    };
+
     window.callfromnative = function(theParameter){
       $scope.$apply(function(){
         // Do whatever you want to do with data passed

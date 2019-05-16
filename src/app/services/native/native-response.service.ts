@@ -148,4 +148,8 @@ export class NativeResponseService implements OnInit
   public swipeNavigation(swipe): void {
     this.alertService.sendSwipeNavigation(swipe);
   }
+
+  public handleNoPermissionsGranted(){
+    console.log('Native Response permission was not granted');
+  }
 }
