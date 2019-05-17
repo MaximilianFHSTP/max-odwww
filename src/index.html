@@ -96,6 +96,10 @@
       window.angularComponentRef.componentFn("back_button_pressed",message);
     };
 
+    window.ar_object_found = function(message){
+      window.angularComponentRef.componentFn("ar_object_found",message);
+    };
+
     window.callfromnative = function(theParameter){
       $scope.$apply(function(){
         // Do whatever you want to do with data passed

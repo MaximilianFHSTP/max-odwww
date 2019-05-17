@@ -229,8 +229,12 @@ export class AppModule {
         break;
       }
       case 'send_swipedirection': {
-        //this.nativeCommunicationService.sendToNative(value, 'print');
+        // this.nativeCommunicationService.sendToNative(value, 'print');
         this.nativeResponseService.swipeNavigation(value);
+        break;
+      }
+      case 'ar_object_found': {
+        this.nativeResponseService.arObjectFound();
         break;
       }
       default: {

@@ -365,6 +365,16 @@ export class TransmissionService
   public getCoaParts(): void{
     this.godService.getCoaParts();
   }
+
+  public arObjectFound(): void
+  {
+    this.nativeCommunicationService.sendToNative('arObjectFound in GodService', 'print');
+    const state = this.appStore.getState();
+    const currLoc = this.locationService.currentLocation.value;
+    const data = {userId: state.user.id, logType: 1, location: currLoc.id, comment: 'Found AR stuff'};
+
+    this.godService.addUserLogEntry(data);
+  }
 }
 
 

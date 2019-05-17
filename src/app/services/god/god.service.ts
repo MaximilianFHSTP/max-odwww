@@ -649,4 +649,9 @@ export class GodService {
       return;
     });
   }
+
+  public addUserLogEntry(data: any): void
+  {
+    this.socket.emit('addUserLogEntry', data);
+  }
 }
