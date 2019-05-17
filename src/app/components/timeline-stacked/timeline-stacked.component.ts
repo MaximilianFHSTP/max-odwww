@@ -276,6 +276,12 @@ export class TimelineStackedComponent implements OnInit, OnDestroy {
     return color;
   }
 
+  displaySection(sectionId: number, auto: boolean){
+    this.currentSection = sectionId;
+    this.redirected = auto;
+    this.updatePart = true;
+  }
+
   /* ------------- Navbar and Toolbar buttons ------------- */
   public userCoA(){
     this.router.navigate(['wappen']).then( () => {
@@ -344,7 +350,7 @@ export class TimelineStackedComponent implements OnInit, OnDestroy {
     if(this.closestExhibit){
       const loc = this.getLocation(this.closestExhibit);
       if(loc && !loc.locked){
-        this.scrollTo(loc.id);
+        (loc.parentId !== this.currentSection) ? this.displaySection(loc.parentId, true) : this.scrollTo(loc.id);
       }
     }
   }
@@ -352,6 +358,9 @@ export class TimelineStackedComponent implements OnInit, OnDestroy {
   scroll() {
     const loc = this.getLocation(this.registerLocationmessage.location);
     if(loc){
+      if(loc.parentId !== this.currentSection){
+        this.displaySection(loc.parentId, true); 
+      }
       this.scrollTo(loc.id);
     }
   }
