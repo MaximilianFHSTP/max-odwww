@@ -59,7 +59,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   private y;
   private whichY;
   private smallBttnSize = 50;
-  private bigBttnSize = Math.round((30*window.innerWidth)/100);
+  private bigBttnSize = Math.round((40*window.innerWidth)/100);
 
   constructor(
     private transmissionService: TransmissionService,
@@ -159,7 +159,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
 
     let prevStart = 0;
     let prevEnd = 0;
-    const cardSize = 3.6;
+    const cardSize = 4.6;
     this.mergedDates.length = 0;
     this.sortedExhbits[0].forEach((currentExhibits) => {
       currentExhibits.forEach((exh, index) => {
@@ -187,6 +187,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
         }
             
         if(exh.id === 4004){ boxY = boxY - (cardSize * 0.75); } // Hardcoded conflict         
+        if(exh.id === 403){ boxY = boxY - (cardSize * 0.15); } // Hardcoded conflict   
 
         // Draw event line and save card position
         const line = lineG.append('line').attr('x1', lineX).attr('x2', lineX)
@@ -265,7 +266,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
 
   showTimeline(){
     const fade = 0; // or 150
-    d3.selectAll('.card.exhibit.Sec' + this.currentSection).transition().duration(fade).style('width', '30%');
+    d3.selectAll('.card.exhibit.Sec' + this.currentSection).transition().duration(fade).style('width', '40%');
     d3.selectAll('.card.exhibit.Sec' + this.currentSection + ' .cardContent').transition().duration(fade).style('display', 'inline');
   }
 

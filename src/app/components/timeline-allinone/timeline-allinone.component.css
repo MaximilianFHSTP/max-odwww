@@ -128,9 +128,9 @@
   }
 
   .card.exhibit{
-    width: 30%;
+    width: 40%;
     /* width: 96px; */
-    height: 70px;
+    height: 90px;
     
   }
   
@@ -145,7 +145,7 @@
   
   .card h2{
     margin: 0% 5%;
-    font-size: 0.7em;
+    font-size: 0.9em;
     white-space: normal;
   }
   
@@ -180,8 +180,8 @@
   }
   
   .card .timespan{
-    font-size: 70%;
-    margin: 0.7em 5% 0% 5%;
+    font-size: 80%;
+    margin: 1em 5% 0.2em 5%;
   }
   /*
   .card.Sec1 img{
@@ -342,15 +342,15 @@
   .timelineSectionNav ul li button{
     display: block;
     width: 100%; 
-    height: 70px;
+    height: 90px;
     border: none;
     outline: none;
     background: transparent;
   }
   
   .timelineSectionNav ul li button svg{
-    width: 45px; 
-    height: 45px;
+    width: 35px; 
+    height: 35px;
   }
   
   .timelineSectionNav.selected_Section10 ul li.Sec10,
@@ -391,7 +391,11 @@
     }
   
     .card h2{
-      font-size: 0.55em;
+      font-size: 0.75em;
+    }
+
+    .card .timespan{
+      font-size: 75%;
     }
   
     .card.title,
