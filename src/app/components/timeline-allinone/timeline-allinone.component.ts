@@ -140,7 +140,6 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   }
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
-
   ngAfterViewInit(){
     // Draw Timeline
     this.y = d3.scaleTime().domain(d3.extent(this.stringDates, (d: any) => this.parseDate(d))).range([0, this.svgHeight]);
@@ -152,10 +151,9 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
 
     svg.select('.domain').attr('stroke-width', '0');
     this.whichY = d3.scaleLinear().domain([1450, 1530]).range([0, this.svgHeight]);
-
+    const lineG = svg.append('g').attr('class', 'glines').attr('transform', 'translate(0,0)');
     /* Draw and place exhibitions */
     let lineX =  Math.round((30*window.innerWidth)/100) + 54;
-    if(this.currentSection !== 10 && this.currentSection !== 50){ lineX =  120; }
 
     let prevStart = 0;
     let prevEnd = 0;
@@ -189,11 +187,10 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
         if(exh.id === 4004){ boxY = boxY - (cardSize * 0.75); } // Hardcoded conflict         
 
         // Draw event line and save card position
-        const line = svg.append('line').attr('x1', lineX).attr('x2', lineX)
+        const line = lineG.append('line').attr('x1', lineX).attr('x2', lineX)
           .attr('class', 'timespanline line_'+ exh.parentId)
           .attr('y1', this.whichY(exh.startDate)).attr('y2', this.whichY(exh.endDate))
           .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId)).style('opacity', '1');
-
 
         this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
       });
@@ -227,15 +224,25 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
       if(pos.id === 101 || pos.id === 102 || pos.id === 501 || pos.id === 5001 || pos.id === 502){ 
         redux = Math.round((30*window.innerWidth)/100);
         (window.innerWidth < 450) ? redux += 8 : redux += 2;
-        if(this.currentSection !== 10 && (pos.id === 101 || pos.id === 102)){
+
+        if(this.currentSection === 50 && (pos.id === 101 || pos.id === 102)){
+          (window.innerWidth < 450) ? redux -= 65 : redux -= 85;
+        } 
+        if(this.currentSection === 10 && (pos.id === 501 || pos.id === 5001 || pos.id === 502)){
           (window.innerWidth < 450) ? redux -= 65 : redux -= 85;
         }
-        else if(this.currentSection !== 50 && (pos.id === 501 || pos.id === 5001 || pos.id === 502)){
-          (window.innerWidth < 450) ? redux -= 65 : redux -= 85;
+      } else {
+        // redraw according to selected section
+        if(this.currentSection !== 10 && this.currentSection !== 50){ 
+          (window.innerWidth < 450) ? redux = 65 : redux = 85;
+          d3.selectAll('.glines').transition().duration(0).attr('transform', 'translate(-'+ redux +',0)');
+        }else{
+          d3.selectAll('.glines').transition().duration(0).attr('transform', 'translate(0,0)');
         }
-      } 
+      }
+
       const card = d3.select('#exh_' + pos.id)
-      .style('position','absolute').style('top', (this.whichY(pos.boxY) + 35) +'px').style('left', (pos.lineX + 2 - redux) +'px');
+          .style('position','absolute').style('top', (this.whichY(pos.boxY) + 35) +'px').style('left', (pos.lineX + 2 - redux) +'px');
     });
     
     // Hide everything then show only selected section
