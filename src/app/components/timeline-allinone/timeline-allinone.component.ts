@@ -58,6 +58,8 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   private svgWidth = 320;
   private y;
   private whichY;
+  private smallBttnSize = 50;
+  private bigBttnSize = Math.round((30*window.innerWidth)/100);
 
   constructor(
     private transmissionService: TransmissionService,
@@ -153,7 +155,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
     this.whichY = d3.scaleLinear().domain([1450, 1530]).range([0, this.svgHeight]);
     const lineG = svg.append('g').attr('class', 'glines').attr('transform', 'translate(0,0)');
     /* Draw and place exhibitions */
-    let lineX =  Math.round((30*window.innerWidth)/100) + 54;
+    let lineX =  this.bigBttnSize + 54;
 
     let prevStart = 0;
     let prevEnd = 0;
@@ -192,7 +194,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
           .attr('y1', this.whichY(exh.startDate)).attr('y2', this.whichY(exh.endDate))
           .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId)).style('opacity', '1');
 
-        this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
+        this.cardPositions.push({id: exh.id, parentId: exh.parentId, boxY: boxY, lineX: lineX });
       });
     });
   }
@@ -219,24 +221,20 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   reDraw(){
     // Get calculated positions and place cards
     this.cardPositions.forEach((pos) => {
-      let redux = 0;
+      let redux = this.bigBttnSize;
       // invert cards to the left 
-      if(pos.id === 101 || pos.id === 102 || pos.id === 501 || pos.id === 5001 || pos.id === 502){ 
-        redux = Math.round((30*window.innerWidth)/100);
-        (window.innerWidth < 450) ? redux += 8 : redux += 2;
-
-        if(this.currentSection === 50 && (pos.id === 101 || pos.id === 102)){
-          (window.innerWidth < 450) ? redux -= 65 : redux -= 85;
-        } 
-        if(this.currentSection === 10 && (pos.id === 501 || pos.id === 5001 || pos.id === 502)){
-          (window.innerWidth < 450) ? redux -= 65 : redux -= 85;
+      if(pos.parentId === 10 || pos.parentId === 50){
+        if((this.currentSection === 50 && pos.parentId === 10) || (this.currentSection === 10 && pos.parentId === 50)){
+          redux = this.smallBttnSize;
         }
+        (window.innerWidth < 450) ? redux += 8 : redux += 2;
       } else {
         // redraw according to selected section
         if(this.currentSection !== 10 && this.currentSection !== 50){ 
-          (window.innerWidth < 450) ? redux = 65 : redux = 85;
+          (window.innerWidth < 450) ? redux -= this.smallBttnSize : redux = 85;
           d3.selectAll('.glines').transition().duration(0).attr('transform', 'translate(-'+ redux +',0)');
         }else{
+          redux = 0;
           d3.selectAll('.glines').transition().duration(0).attr('transform', 'translate(0,0)');
         }
       }
@@ -262,7 +260,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
 
   hideTimeline(){
     d3.selectAll('.card.exhibit .cardContent').transition().duration(0).style('display', 'none');
-    d3.selectAll('.card.exhibit').transition().duration(0).style('width', '60px');
+    d3.selectAll('.card.exhibit').transition().duration(0).style('width', this.smallBttnSize+'px');
   }
 
   showTimeline(){
