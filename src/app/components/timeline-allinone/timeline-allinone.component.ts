@@ -58,6 +58,8 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   private svgWidth = 320;
   private y;
   private whichY;
+  private smallBttnSize = 50;
+  private bigBttnSize = Math.round((40*window.innerWidth)/100);
 
   constructor(
     private transmissionService: TransmissionService,
@@ -140,7 +142,6 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   }
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
-
   ngAfterViewInit(){
     // Draw Timeline
     this.y = d3.scaleTime().domain(d3.extent(this.stringDates, (d: any) => this.parseDate(d))).range([0, this.svgHeight]);
@@ -152,12 +153,13 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
 
     svg.select('.domain').attr('stroke-width', '0');
     this.whichY = d3.scaleLinear().domain([1450, 1530]).range([0, this.svgHeight]);
-
+    const lineG = svg.append('g').attr('class', 'glines').attr('transform', 'translate(0,0)');
     /* Draw and place exhibitions */
-    let lineX =  Math.round((30*window.innerWidth)/100) + 54;
+    let lineX =  this.bigBttnSize + 54;
+
     let prevStart = 0;
     let prevEnd = 0;
-    const cardSize = 3.6;
+    const cardSize = 4.6;
     this.mergedDates.length = 0;
     this.sortedExhbits[0].forEach((currentExhibits) => {
       currentExhibits.forEach((exh, index) => {
@@ -185,14 +187,15 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
         }
             
         if(exh.id === 4004){ boxY = boxY - (cardSize * 0.75); } // Hardcoded conflict         
+        if(exh.id === 403){ boxY = boxY - (cardSize * 0.15); } // Hardcoded conflict   
 
         // Draw event line and save card position
-        const line = svg.append('line').attr('x1', lineX).attr('x2', lineX)
+        const line = lineG.append('line').attr('x1', lineX).attr('x2', lineX)
           .attr('class', 'timespanline line_'+ exh.parentId)
           .attr('y1', this.whichY(exh.startDate)).attr('y2', this.whichY(exh.endDate))
           .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId)).style('opacity', '1');
 
-        this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
+        this.cardPositions.push({id: exh.id, parentId: exh.parentId, boxY: boxY, lineX: lineX });
       });
     });
   }
@@ -219,17 +222,35 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
   reDraw(){
     // Get calculated positions and place cards
     this.cardPositions.forEach((pos) => {
-      let redux = 0;
-      if(pos.id === 101 || pos.id === 102 || pos.id === 2004){ 
-        redux = Math.round((30*window.innerWidth)/100);
+      let redux = this.bigBttnSize;
+      // invert cards to the left 
+      if(pos.parentId === 10 || pos.parentId === 50){
+        if((this.currentSection === 50 && pos.parentId === 10) || (this.currentSection === 10 && pos.parentId === 50)){
+          redux = this.smallBttnSize;
+        }
         (window.innerWidth < 450) ? redux += 8 : redux += 2;
-      } 
+      } else {
+        // redraw according to selected section
+        if(this.currentSection !== 10 && this.currentSection !== 50){ 
+          (window.innerWidth < 450) ? redux -= this.smallBttnSize : redux = 85;
+          d3.selectAll('.glines').transition().duration(0).attr('transform', 'translate(-'+ redux +',0)');
+        }else{
+          redux = 0;
+          d3.selectAll('.glines').transition().duration(0).attr('transform', 'translate(0,0)');
+        }
+      }
+
       const card = d3.select('#exh_' + pos.id)
-      .style('position','absolute').style('top', (this.whichY(pos.boxY) + 35) +'px').style('left', (pos.lineX + 2 - redux) +'px');
+          .style('position','absolute').style('top', (this.whichY(pos.boxY) + 35) +'px').style('left', (pos.lineX + 2 - redux) +'px');
     });
     
-    d3.selectAll('.card.lckfalse').transition().duration(0).style('opacity', '1').style('display', 'inline');
-    d3.selectAll('.card.lcktrue').transition().duration(0).style('opacity', '0.5').style('display', 'inline');
+    // Hide everything then show only selected section
+    if(this.locationService.isSaveLastLocation()){
+      this.showTimeline();
+    } else {
+      this.hideTimeline();
+      this.showTimeline();
+    }
     this.colorSVGIcons();    
 
     if(this.locationService.isSaveLastLocation()){
@@ -238,27 +259,24 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
     }
   }
 
+  hideTimeline(){
+    d3.selectAll('.card.exhibit .cardContent').transition().duration(0).style('display', 'none');
+    d3.selectAll('.card.exhibit').transition().duration(0).style('width', this.smallBttnSize+'px');
+  }
+
+  showTimeline(){
+    const fade = 0; // or 150
+    d3.selectAll('.card.exhibit.Sec' + this.currentSection).transition().duration(fade).style('width', '40%');
+    d3.selectAll('.card.exhibit.Sec' + this.currentSection + ' .cardContent').transition().duration(fade).style('display', 'inline');
+  }
+
   colorSVGIcons(){
-    switch(this.currentSection){
-      case 10: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#a85757'); 
-        d3.selectAll('li.Sec10 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 20: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#4b799c');
-        d3.selectAll('li.Sec20 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 30: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#906e1b');
-        d3.selectAll('li.Sec30 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 40: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#3c7f7a');
-        d3.selectAll('li.Sec40 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 50: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#785d86');
-        d3.selectAll('li.Sec50 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 60: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#4c7d54');
-        d3.selectAll('li.Sec60 .sectionColorSvg').attr('fill', '#ffffff'); break;
-    }
+    d3.selectAll('li.Sec10 .sectionColorSvg, .timelineSectionTitle.selected_Section10 .sectionColorSvg').attr('fill', '#a85757'); 
+    d3.selectAll('li.Sec20 .sectionColorSvg, .timelineSectionTitle.selected_Section20 .sectionColorSvg').attr('fill', '#4b799c');
+    d3.selectAll('li.Sec30 .sectionColorSvg, .timelineSectionTitle.selected_Section30 .sectionColorSvg').attr('fill', '#906e1b');
+    d3.selectAll('li.Sec40 .sectionColorSvg, .timelineSectionTitle.selected_Section40 .sectionColorSvg').attr('fill', '#3c7f7a');
+    d3.selectAll('li.Sec50 .sectionColorSvg, .timelineSectionTitle.selected_Section50 .sectionColorSvg').attr('fill', '#785d86');
+    d3.selectAll('li.Sec60 .sectionColorSvg, .timelineSectionTitle.selected_Section60 .sectionColorSvg').attr('fill', '#4c7d54');
   }
 
   mergeDate(mDate: number){
@@ -322,7 +340,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
         switch(loc.parentId){
           case 10: sec1Exh.push(loc); break;
           case 20:
-            (loc.id === 2002 || loc.id === 2003) ? sec2ExhXt.push(loc) : sec2Exh.push(loc);
+            (loc.id === 2002 || loc.id === 2003 || loc.id === 2004) ? sec2ExhXt.push(loc) : sec2Exh.push(loc);
             break;
           case 30: sec3Exh.push(loc); break;
           case 40: sec4Exh.push(loc); break;
@@ -332,7 +350,7 @@ export class TimelineAllinoneComponent implements OnInit, AfterViewInit, AfterVi
       }  
     });
 
-    this.sortedExhbits.push([sec1Exh, sec2Exh, sec3Exh, sec2ExhXt, sec4Exh, sec5Exh, sec6Exh]);
+    this.sortedExhbits.push([sec5Exh, sec1Exh, sec2Exh, sec3Exh, sec2ExhXt, sec4Exh, sec6Exh]);
   }
 
   getSectionPrimaryColor(sectionId: number){
