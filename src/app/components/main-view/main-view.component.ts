@@ -63,7 +63,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   constructor(
     private transmissionService: TransmissionService,
-    private locationService: LocationService,
+    public locationService: LocationService,
     @Inject('AppStore') private appStore,
     private nativeCommunicationService: NativeCommunicationService,
     private nativeResponseService: NativeResponseService,
@@ -128,7 +128,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     if(state.language !== this.languageService.getCurrentLanguage){
       this.languageService.transmitChangeUserLanguage(state.language);
     }
-    
+
     this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
     this.closestExhibit = state.closestExhibit;
@@ -163,22 +163,22 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       let prevStart = 0;
       let prevEnd = 0;
       this.mergedDates.length = 0;
-    
+
       currentExhibits.forEach((exh, index) => {
         let boxY = exh.startDate;
         const timespan = exh.endDate - exh.startDate;
 
         // Look at previous: If not the first, check time overlap with previous event
         // If same timespan -> merge them. If not -> increase x of new line
-        if(exh.id !== currentExhibits[0].id && !(exh.startDate >= prevEnd || exh.endDate <= prevStart)) { 
+        if(exh.id !== currentExhibits[0].id && !(exh.startDate >= prevEnd || exh.endDate <= prevStart)) {
           if(exh.startDate === prevStart && exh.endDate === prevEnd){
-            const qtDates = this.mergeDate(exh.startDate); 
+            const qtDates = this.mergeDate(exh.startDate);
             boxY = boxY + (4.6 * qtDates);
           } else { lineX = lineX + 20; }
-        } 
+        }
         prevStart = exh.startDate;
         prevEnd = exh.endDate;
-        
+
         // Look at next: If there is an event to be displayed next but the timespan is to short: move card
         if(currentExhibits[index + 1] && currentExhibits[index + 1].endDate !== exh.endDate){
           if(timespan < 5 && Math.abs(currentExhibits[index + 1].startDate - exh.startDate) < 5) {
@@ -193,7 +193,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
           .attr('class', 'timespanline line_'+ exh.parentId)
           .attr('y1', this.whichY(exh.startDate)).attr('y2', this.whichY(exh.endDate))
           .attr('stroke-width', '8').attr('stroke', this.getSectionPrimaryColor(exh.parentId)).style('opacity', '0');
-          
+
         this.cardPositions.push({id: exh.id, boxY: boxY, lineX: lineX });
       });
     });
@@ -203,17 +203,17 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     // If boxes lose position after content update, call reDraw()
     if (d3.select('#exh_101').style('position') !== 'absolute'){
       this.reDraw();
-    } 
-    
+    }
+
     // If changing section, monitor need for new scroll
     if(this.redirected){
       this.redirected = false;
-      this.goToClosestExhibit(); 
+      this.goToClosestExhibit();
     }
 
     // If changing section, monitor need for new icon
     if (this.updatePart){
-      this.colorSVGIcons(); 
+      this.colorSVGIcons();
       this.updatePart = false;
     }
   }
@@ -224,7 +224,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       const card = d3.select('#exh_' + pos.id)
       .style('position','absolute').style('top', (this.whichY(pos.boxY) + 200) +'px').style('left', (pos.lineX + 2) +'px');
     });
-    
+
     // Hide everything then show only selected section
     if(this.locationService.isSaveLastLocation()){
       this.showTimeline();
@@ -232,7 +232,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       this.hideTimeline();
       this.showTimeline();
     }
-    this.colorSVGIcons();    
+    this.colorSVGIcons();
 
     if(this.locationService.isSaveLastLocation()){
       d3.transition().duration(0).tween('scroll', this.scrollTween(this.locationService.getLastWindowOffset() - window.scrollY));
@@ -254,22 +254,22 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   colorSVGIcons(){
     switch(this.currentSection){
-      case 10: 
-        d3.selectAll('.sectionColorSvg').attr('fill', '#a85757'); 
+      case 10:
+        d3.selectAll('.sectionColorSvg').attr('fill', '#a85757');
         d3.selectAll('li.Sec10 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 20: 
+      case 20:
         d3.selectAll('.sectionColorSvg').attr('fill', '#4b799c');
         d3.selectAll('li.Sec20 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 30: 
+      case 30:
         d3.selectAll('.sectionColorSvg').attr('fill', '#906e1b');
         d3.selectAll('li.Sec30 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 40: 
+      case 40:
         d3.selectAll('.sectionColorSvg').attr('fill', '#3c7f7a');
         d3.selectAll('li.Sec40 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 50: 
+      case 50:
         d3.selectAll('.sectionColorSvg').attr('fill', '#785d86');
         d3.selectAll('li.Sec50 .sectionColorSvg').attr('fill', '#ffffff'); break;
-      case 60: 
+      case 60:
         d3.selectAll('.sectionColorSvg').attr('fill', '#4c7d54');
         d3.selectAll('li.Sec60 .sectionColorSvg').attr('fill', '#ffffff'); break;
     }
@@ -297,7 +297,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
           }
         }
       }
-      
+
       // Fix positioning of specific exhibits (502-5001)
       if(exh.id === 502){
         exhX = index;
@@ -339,7 +339,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
           case 50: sec5Exh.push(loc); break;
           case 60: sec6Exh.push(loc); break;
         }
-      }  
+      }
     });
 
     this.sortedExhbits.push([sec1Exh, sec2Exh, sec3Exh, sec4Exh, sec5Exh, sec6Exh,]);
@@ -360,13 +360,13 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   handleSwipe(direction: any) {
 
-    
+
     if (direction['swipe'] === 'right') {
       if (this.currentSection >= 20){
         this.currentSection -= 10;
         const elm: HTMLElement = document.getElementById('Sec'+this.currentSection) as HTMLElement;
         if(elm){ elm.click(); }
-      } 
+      }
     }
     else if (direction['swipe'] === 'left'){
       if (this.currentSection <= 50){
@@ -396,10 +396,10 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public requestRegisterLocation(id: number, parentId: number, locked: boolean, typeId: number){
     if(!locked && id && parentId){
       if(id === 5001){  this.checkCoaUnlock();  }
-      if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT || 
-         typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT || 
-         typeId === LocationTypes.NOTIFY_EXHIBIT_AT){ 
-        this.checkWifi(); 
+      if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT ||
+         typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT ||
+         typeId === LocationTypes.NOTIFY_EXHIBIT_AT){
+        this.checkWifi();
       }
 
       this.locationService.setPreviousState(this.currentSection, window.pageYOffset || document.documentElement.scrollTop);
@@ -418,7 +418,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
         allUnlocked = false;
       }
     });
-   
+
     return allUnlocked;
   }
 
@@ -427,7 +427,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.timelineLocations.forEach(loc => {
       if(!loc.locked){ someUnlocked = true; }
     });
-   
+
     return someUnlocked;
   }
 
@@ -453,7 +453,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   isClose(exhibit: number){
     let state = false;
-    (this.closestExhibit === exhibit) ? state = true : state = false; 
+    (this.closestExhibit === exhibit) ? state = true : state = false;
     return state;
   }
 
@@ -472,9 +472,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   scroll() {
     const loc = this.getLocation(this.registerLocationmessage.location);
-    if(loc){ 
+    if(loc){
       if(loc.parentId !== this.currentSection){
-        this.displaySection(loc.parentId, true); 
+        this.displaySection(loc.parentId, true);
       }
       this.scrollTo(loc.id);
     }
@@ -526,7 +526,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
           this.nativeCommunicationService.sendToNative('Questionnaire', 'print');
         });
       }else if(result === 'done'){
-        this.nativeResponseService.questionnaireAnswered();   
+        this.nativeResponseService.questionnaireAnswered();
         this.locationService.setEnableQuestions(false);
       }
     });

@@ -9,6 +9,8 @@
     "confirm": "confirm",
     "connectionLostHeader": "Connection lost!",
     "connectionLostBody": "Please wait until the app reconnects to the server!",
+    "noPermissionHeader": "No permissions!",
+    "noPermissionBody": "Please restart the app and allow the requested permissions!",
     "unlock": "UNLOCK CONTENT"
   },
   "start": {

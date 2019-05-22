@@ -224,6 +224,10 @@ export class AppModule {
         this.nativeResponseService.redirectView();
         break;
       }
+      case 'permissionresult': {
+        this.nativeResponseService.handleNoPermissionsGranted();
+        break;
+      }
       case 'unlock_all_timeline_locations':{
         this.nativeResponseService.unlockAllTimelineLocations();
         break;

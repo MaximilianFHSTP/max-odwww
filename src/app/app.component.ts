@@ -1,4 +1,4 @@
-import {Component, Inject, Injectable, OnInit, OnDestroy} from '@angular/core';
+import {Component, Inject, Injectable, NgZone, OnInit, OnDestroy} from '@angular/core';
 import {UserActions} from './store/actions/UserActions';
 import {LocationActions} from './store/actions/LocationActions';
 import {StatusActions} from './store/actions/StatusActions';
@@ -40,7 +40,9 @@ export class AppComponent implements OnInit, OnDestroy {
   public language: string;
   public guest: boolean;
   public isConnectedToGod: boolean;
+  public doesNotHavePermission = 'false';
   private subscriptionNativeBackbutton: Subscription;
+  private subscriptionPermission: Subscription;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -56,6 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private transmissionService: TransmissionService,
     public router: Router,
     private translate: TranslateService,
+    private ngZone: NgZone,
     private languageService: LanguageService
   )
   {
@@ -96,6 +99,10 @@ export class AppComponent implements OnInit, OnDestroy {
           if(elm){ elm.click(); }
       }
     });
+
+    this.subscriptionPermission = this.alertService.getHandleNoPermissionsGranted().subscribe(message=> {
+      this.handlePermission(message);
+    });
   }
 
   ngOnInit() {
@@ -107,7 +114,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -125,8 +131,13 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  openNativeSetting() {
+  handlePermission(message: any){
+    this.ngZone.run(() => {
+      if(this.doesNotHavePermission !== message) {this.doesNotHavePermission = message; }
+    });
+  }
 
+  openNativeSetting() {
     const dialogConfig = new MatDialogConfig();
 
     // console.log(this.nativeSettingType);

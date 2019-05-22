@@ -29,7 +29,8 @@ export class AlertService {
   private subjectUserCoaColors = new Subject<any>();
   private subjectQuizQuestion = new Subject<any>();
   private subjectUpdateUserData = new Subject<any>();
-  private subjectCorrectPoints = new Subject<any>();
+  private subjectCorrectPoints = new Subject<any>(); 
+  private subjectHandleNoPermissionsGranted = new Subject<any>();
   private subjectSwipeDirection = new Subject<any>();
 
   sendMessage(message: any) {
@@ -215,6 +216,14 @@ export class AlertService {
   getCorrectPoints(): Observable<any>{
     return this.subjectCorrectPoints.asObservable();
   }
+
+  sendHandleNoPermissionsGranted(message: any) {
+    this.subjectHandleNoPermissionsGranted.next(message);
+  }
+
+  getHandleNoPermissionsGranted(): Observable<any> {
+    return this.subjectHandleNoPermissionsGranted.asObservable();
+ }
 
   sendSwipeNavigation(message: any) {
     this.subjectSwipeDirection.next(message);
