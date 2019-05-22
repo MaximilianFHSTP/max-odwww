@@ -9,6 +9,8 @@
     "confirm": "bestätigen",
     "connectionLostHeader": "Verbindung verloren!",
     "connectionLostBody": "Warte bitte bis die Verbindung wieder hergestellt werden konnte!",
+    "noPermissionHeader": "Keine Berechtigungen!",
+    "noPermissionBody": "Starte bitte die App neu und erteile die benötigten Berechtigungen!",
     "unlock": "INHALT FREISCHALTEN"
   },
   "start": {

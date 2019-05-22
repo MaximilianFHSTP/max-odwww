@@ -150,6 +150,7 @@ export class NativeResponseService implements OnInit
   }
 
   public handleNoPermissionsGranted(){
-    console.log('Native Response permission was not granted');
+    this.alertService.sendHandleNoPermissionsGranted('true');
+    // console.log('Native Response permission was not granted');
   }
 }
