@@ -52,7 +52,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public sortedExhbits = [];
   public mergedDates = [];
   public cardPositions = [];
-  public triggeredQuestions = false;
 
   private stringDates = ['1450', '1530'];
   private parseDate = d3.timeParse('%Y');
@@ -60,6 +59,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private svgWidth = 320;
   private y;
   private whichY;
+  public enabledQuestions = false;
 
   constructor(
     private transmissionService: TransmissionService,
@@ -78,11 +78,24 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       this.closestExhibit = state.closestExhibit;
       if(this.prevClosestExhibit !== this.closestExhibit){
         if(this.prevClosestExhibit !== 0){
-          if(this.closestExhibit === 7000 && this.locationService.getEnableQuestions() && !state.user.answeredQuestionnaire){
-            this.triggeredQuestions = true;
-              setTimeout(() => this.displayQuestionnaireDialog());
+
+          if(!state.user.answeredQuestionnaire){
+            if(this.closestExhibit === 7000){
+              // When passing by beacon 7000, show questions if there is one exhibit unlocked
+              if(this.isThereUnlock()){
+                this.checkQuestionsUnlock();
+                setTimeout(() => this.displayQuestionnaireDialog());
+              }  
+            } else{
+              // When passing by any other beacon, show questions if all exhibits were unlocked
+              if(this.checkAllUnlock()){
+                this.checkQuestionsUnlock();
+              }
+            }
           }
-          this.buttonAnimationOn(); }
+
+          this.buttonAnimationOn(); 
+        }
         this.prevClosestExhibit = this.closestExhibit;
       }
       this.timelineLocations = this.locationService.getTimelineLocations();
@@ -138,9 +151,13 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.isWeb = this.nativeCommunicationService.isWeb;
     this.sortLocationData();
 
-    this.checkQuestionsUnlock();
     this.transmissionService.getCoaParts();
     this.transmissionService.getUserCoaParts();
+
+    
+    if(this.locationService.getEnableQuestions()){
+      this.enabledQuestions = this.locationService.getEnableQuestions();
+    }
   }
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
@@ -438,15 +455,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   checkQuestionsUnlock(){
-    // enable questions after unlocking all exhibits
-    /*if(this.checkAllUnlock()){
-      this.locationService.setEnableQuestions(true);
-    }*/
-
-    // enable questions after unlocking at least one exhibit
-    if(this.isThereUnlock()){
-      this.locationService.setEnableQuestions(true);
-    }
+    this.locationService.setEnableQuestions(true);
+    this.enabledQuestions = true;
   }
 
   /* -------- Location Button and Scroll Functions -------- */
@@ -521,13 +531,12 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     dialogRef.afterClosed().subscribe(result =>{
       if(result === 'confirm'){
         this.locationService.setEnableQuestions(false);
-        this.router.navigate(['questionnaire']).then( () => {
-          window.scrollTo(0, 0);
-          this.nativeCommunicationService.sendToNative('Questionnaire', 'print');
-        });
+        this.enabledQuestions = false;
+        this.displayQuestionnaire();
       }else if(result === 'done'){
         this.nativeResponseService.questionnaireAnswered();
         this.locationService.setEnableQuestions(false);
+        this.enabledQuestions = false;
       }
     });
   }

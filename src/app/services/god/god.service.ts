@@ -385,7 +385,7 @@ export class GodService {
     this.socket.on('questionnaireAnsweredResult', result =>
     {
       this.socket.removeAllListeners('questionnaireAnsweredResult');
-      console.log(result);
+      this.store.dispatch(this.userActions.changeUser(result.data));
       return result;
     });
   }
