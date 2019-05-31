@@ -119,6 +119,10 @@ export class NativeCommunicationService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.triggerAr();
             break;
 
+          case 'sendPermissionCheck':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.sendPermissionCheck();
+            break;
+
           default:
             break;
         }
