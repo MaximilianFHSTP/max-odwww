@@ -225,7 +225,11 @@ export class AppModule {
         break;
       }
       case 'permissionresult': {
-        this.nativeResponseService.handleNoPermissionsGranted();
+        this.nativeResponseService.handleNoPermissionsGranted('true');
+        break;
+      }
+      case 'permissions_granted': {
+        this.nativeResponseService.handleNoPermissionsGranted('false');
         break;
       }
       case 'unlock_all_timeline_locations':{

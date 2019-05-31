@@ -104,6 +104,10 @@
       window.angularComponentRef.componentFn("permissionresult",message);
     };
 
+    window.permissions_granted = function(message){
+      window.angularComponentRef.componentFn("permissions_granted",message);
+    };
+
     window.callfromnative = function(theParameter){
       $scope.$apply(function(){
         // Do whatever you want to do with data passed

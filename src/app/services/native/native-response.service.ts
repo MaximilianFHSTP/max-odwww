@@ -153,8 +153,11 @@ export class NativeResponseService implements OnInit
     this.transmissionService.arObjectFound();
   }
 
-  public handleNoPermissionsGranted(){
-    this.alertService.sendHandleNoPermissionsGranted('true');
+  public handleNoPermissionsGranted(value: any){
+    this.alertService.sendHandleNoPermissionsGranted(value);
+    if(value === 'false'){
+      this.nativeCommunicationService.sendToNative('sendPermissionCheck', 'sendPermissionCheck');
+    }
     // console.log('Native Response permission was not granted');
   }
 }
