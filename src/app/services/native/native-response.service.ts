@@ -123,6 +123,14 @@ export class NativeResponseService implements OnInit
     this.alertService.sendMessageCorrectWifi(message);
   }
 
+  public checkVersion(): void {
+    this.nativeCommunicationService.sendToNative('getAppVersion', 'getAppVersion');
+  }
+
+  public getAppVersionNative(message): void{
+    this.godService.checkVersion(message);
+  }  
+
   public updateAppLanguage(language): void
   {
     let langNumb;
@@ -158,6 +166,5 @@ export class NativeResponseService implements OnInit
     if(value === 'false'){
       this.nativeCommunicationService.sendToNative('sendPermissionCheck', 'sendPermissionCheck');
     }
-    // console.log('Native Response permission was not granted');
   }
 }

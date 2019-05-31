@@ -123,6 +123,14 @@ export class NativeCommunicationService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.sendPermissionCheck();
             break;
 
+          case 'getAppVersion':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.getAppVersion();
+            break;
+
+          case 'displayUpdateMessage':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.displayUpdateMessage();
+            break;
+
           default:
             break;
         }

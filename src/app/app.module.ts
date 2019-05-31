@@ -216,6 +216,10 @@ export class AppModule {
         this.nativeResponseService.getWifiDataFromNative(value);
         break;
       }
+      case 'send_app_version': {
+        this.nativeResponseService.getAppVersionNative(value);
+        break;
+      }
       case 'send_bluetooth_check': {
         this.nativeResponseService.checkBluetooth();
         break;

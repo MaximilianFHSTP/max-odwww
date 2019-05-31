@@ -32,6 +32,7 @@ export class AlertService {
   private subjectCorrectPoints = new Subject<any>(); 
   private subjectHandleNoPermissionsGranted = new Subject<any>();
   private subjectSwipeDirection = new Subject<any>();
+  private subjectVersionCheck = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -223,7 +224,7 @@ export class AlertService {
 
   getHandleNoPermissionsGranted(): Observable<any> {
     return this.subjectHandleNoPermissionsGranted.asObservable();
- }
+  }
 
   sendSwipeNavigation(message: any) {
     this.subjectSwipeDirection.next(message);
@@ -231,5 +232,13 @@ export class AlertService {
 
   getSwipeNavigation(): Observable<any> {
     return this.subjectSwipeDirection.asObservable();
- }
+  }
+
+  setVersionCheck(message: any) {
+    this.subjectVersionCheck.next(message);
+  }
+
+  getVersionCheck(): Observable<any>{
+    return this.subjectVersionCheck.asObservable();
+  }
 }

@@ -390,6 +390,19 @@ export class GodService {
     });
   }
 
+  public checkVersion(mversion: any){
+    const state = this.store.getState();
+    const user = state.user;
+    this.socket.emit('checkAppVersion', {user: user.id, version: mversion});
+
+    this.socket.on('checkAppVersionResult', result =>
+    {
+      this.socket.removeAllListeners('checkAppVersionResult');
+      this.alertService.setVersionCheck(result.data.versionIsCorrect);
+      return result;
+    });
+  }
+
   public autoLogin(token: String): void
   {
     this.socket.emit('autoLoginOD', token);

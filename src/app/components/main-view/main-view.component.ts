@@ -29,6 +29,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   private subscriptionCoaParts: Subscription;
   private subscriptionUserCoaParts: Subscription;
   private subscriptionSwipe: Subscription;
+  private subscriptionVersionCheck: Subscription;
 
   public user: any;
   public timelineLocations: any;
@@ -113,6 +114,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.subscriptionSwipe = this.alertService.getSwipeNavigation().subscribe(message=> {
       this.handleSwipe(message);
     });
+    this.subscriptionVersionCheck = this.alertService.getVersionCheck().subscribe(message=> {
+      if(!message) {
+        this.nativeCommunicationService.sendToNative('displayUpdateMessage', 'displayUpdateMessage');
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -131,6 +137,9 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
     if(this.subscriptionSwipe){
       this.subscriptionSwipe.unsubscribe();
+    }
+    if(this.subscriptionVersionCheck){
+      this.subscriptionVersionCheck.unsubscribe();
     }
   }
 
@@ -158,6 +167,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     if(this.locationService.getEnableQuestions()){
       this.enabledQuestions = this.locationService.getEnableQuestions();
     }
+
+    this.nativeResponseService.checkVersion();
   }
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
