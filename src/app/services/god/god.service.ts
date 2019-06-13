@@ -130,6 +130,7 @@ export class GodService {
 
       if (message.code > 299)
       {
+        this.registerODGuest(data);
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
         return;
       }
