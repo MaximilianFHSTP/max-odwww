@@ -273,6 +273,14 @@ p{
   float: right;
   margin: -55px 15px;
 }
+
+.helpbutton{ 
+  background: url("../../../assets/css/help.svg");
+  background-position: center;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  margin: 20px 20px 0px 0px;
+}
  
 .locationbutton{
   margin: 0;

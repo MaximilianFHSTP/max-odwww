@@ -10,6 +10,7 @@ import { ContentTableNotifyAtComponent } from './components/content-table-notify
 import { ContentTableNotifyOnComponent } from './components/content-table-notify-on/content-table-notify-on.component';
 import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
+import { HelpComponent } from './components/help/help.component';
 import { LanguageStartComponent } from './components/language-start/language-start.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'tableNotifyAt', component: ContentTableNotifyAtComponent},
   { path: 'tableNotifyOn', component: ContentTableNotifyOnComponent},
   { path: 'educationQuiz', component: EducationQuizComponent },
+  { path: 'help', component: HelpComponent },
   { path: 'changeLanguageStart', component: LanguageStartComponent},
   { path: 'login', component: LoginComponent},
   { path: 'mainview', component: MainViewComponent },

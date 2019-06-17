@@ -44,6 +44,7 @@ import { ContentTableNotifyOnComponent } from './components/content-table-notify
 import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
+import { HelpComponent } from './components/help/help.component';
 import { LanguageStartComponent } from './components/language-start/language-start.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
@@ -106,7 +107,8 @@ export const appStore = createStore(
     UnlockComponent,
     UnlockDialogComponent,
     WappenComponent,
-    WifiComponent
+    WifiComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

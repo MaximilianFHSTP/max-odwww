@@ -419,6 +419,13 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     });
   }
 
+  public helpScreen(){
+    this.router.navigate(['help']).then( () => {
+      window.scrollTo(0, 0);
+      this.nativeCommunicationService.sendToNative('Help Screen', 'print');
+    });
+  }
+
   /* ------ Enter Exhibit View (check CoA and Wifi) ------- */
 
   public requestRegisterLocation(id: number, parentId: number, locked: boolean, typeId: number){

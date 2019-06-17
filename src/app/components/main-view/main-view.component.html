@@ -2,6 +2,7 @@
 <div id="woodcuttop" class="Sec{{currentSection}}"></div>
 <div class="toolbar">
     <button class="wappenbutton" (click)="userCoA()"></button><div class="wappenbuttonnew" *ngIf="coaService.newItem"></div> 
+    <button class="helpbutton" (click)="helpScreen()"></button>
     <button *ngIf="this.enabledQuestions" id="questionsbutton" class="questionsbutton" (click)="displayQuestionnaireDialog()"></button>
     <button id="locationbutton" [className]="closestExhibit ? 'enabled locationbutton' : 'disabled locationbutton'" (click)="goToClosestExhibit()"></button>
 </div>
