@@ -5,13 +5,14 @@
 <div class="wrapper">
   <div *ngIf="showMenu" class="infoWrapper">
       <h1>Help</h1>
+      <br />
     
-      <button class="btnMenu" (click)="show('showWifiInfo')">Main Screen</button>
-      <button class="btnMenu" (click)="show('showWifiInfo')">Unlocking Content</button>
-      <button class="btnMenu" (click)="show('showWifiInfo')">Content Types</button>
-      <button class="btnMenu" (click)="show('showWifiInfo')">Coat of Arms</button>
-      <button class="btnMenu" (click)="show('showWifiInfo')">User and Guest Data</button>
-      <button class="btnMenu last" (click)="show('showWifiInfo')">Troubleshooting</button>
+      <button class="btnMenu" (click)="show('showWifiInfo')"><div class="ico icoScreen"></div>Main Screen</button>
+      <button class="btnMenu" (click)="show('showWifiInfo')"><div class="ico icoUnlock"></div>Unlocking Content</button>
+      <button class="btnMenu" (click)="show('showWifiInfo')"><div class="ico icoTypes"></div>Content Types</button>
+      <button class="btnMenu" (click)="show('showWifiInfo')"><div class="ico icoCOA"></div>Coat of Arms</button>
+      <button class="btnMenu" (click)="show('showWifiInfo')"><div class="ico icoUser"></div>User and Guest Data</button>
+      <button class="btnMenu last" (click)="show('showWifiInfo')"><div class="ico icoSettings"></div>Troubleshooting</button>
   </div>
 
   <div *ngIf="!showMenu" class="infoWrapper">  
