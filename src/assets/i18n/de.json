@@ -13,7 +13,7 @@
     "noPermissionHeader": "Keine Berechtigungen!",
     "noPermissionBody": "Starte bitte die App neu und erteile die benötigten Berechtigungen!",
     "unlock": "INHALT FREISCHALTEN",
-    "menuTroubleshooting": "APP EINSTELLUNGEN"
+    "menuTroubleshooting": "TROUBLESHOOT"
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",
@@ -194,6 +194,6 @@
     "coa": "Wappen",
     "userData": "Benutzer- und Gastdaten",
     "wifi": "Wifi-Settings",
-    "troubleshoot": "Problembehandlung"
+    "troubleshoot": "Troubleshoot"
   }
 }

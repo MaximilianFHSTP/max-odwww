@@ -52,6 +52,14 @@ export class HelpComponent implements OnInit {
     );
   }
 
+  public openTroubleshoot(){
+    this.router.navigate(['appSettings']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('App Settings', 'print');
+      }
+    );
+  }
+
   show(option: string){
     switch(option){
       case 'showMainScreenInfo':

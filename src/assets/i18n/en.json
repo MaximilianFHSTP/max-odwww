@@ -13,7 +13,7 @@
     "noPermissionHeader": "No permissions!",
     "noPermissionBody": "Please restart the app and allow the requested permissions!",
     "unlock": "UNLOCK CONTENT",
-    "menuTroubleshooting": "APP SETTINGS"
+    "menuTroubleshooting": "TROUBLESHOOT"
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",
