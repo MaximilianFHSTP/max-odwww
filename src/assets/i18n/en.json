@@ -165,5 +165,15 @@
     "description": "Do you want to go to exhibit:",
     "yesOption": "Yes",
     "noOption": "No"
+  },
+  "helpScreen": {
+    "title": "Help",
+    "mainScreen": "Main Screen",
+    "unlock": "Unlock Contents",
+    "contents": "Content Types",
+    "coa": "Coat of Arms",
+    "userData": "User and Guest Data",
+    "wifi": "Wifi Settings",
+    "troubleshoot": "Troubleshoot"
   }
 }

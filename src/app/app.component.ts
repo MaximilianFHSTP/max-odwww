@@ -293,6 +293,16 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
+  public openHelp(){
+    this.dismissMenu();
+    this.router.navigate(['help']).then( () =>
+      {
+        window.scrollTo(0, 0);
+        this.nativeCommunicationService.sendToNative('Help Screen', 'print');
+      }
+    );
+  }
+
   public openWifiView(){
     this.dismissMenu();
     this.router.navigate(['wifi']).then( () =>

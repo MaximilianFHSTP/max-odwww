@@ -166,5 +166,15 @@
     "description": "Willst Du zum Austellungsstück wechseln:",
     "yesOption": "Ja",
     "noOption": "Nein"
+  },
+  "helpScreen": {
+    "title": "Hilfe",
+    "mainScreen": "Hauptbildschirm",
+    "unlock": "Inhalt freischalten",
+    "contents": "Inhaltstypen",
+    "coa": "Wappen",
+    "userData": "Benutzer- und Gastdaten",
+    "wifi": "Wifi-Settings",
+    "troubleshoot": "Problembehandlung"
   }
 }

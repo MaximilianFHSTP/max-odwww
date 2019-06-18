@@ -20,11 +20,23 @@ h2{
     font-size: 1em;
 }
 
+h3{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 10px 0;
+    font-size: 1em;
+}
+
 p{
     font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
     margin: 10px 0;
     font-size: 1em;
     line-height: 1.5em;
+}
+
+figcaption{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    font-size: 0.8em;
+    text-align: center;
 }
 
 a{
@@ -37,12 +49,12 @@ a{
     margin: 20px 5%;
 }
 
-a:after {
+a.externalLink:after {
     background-image: url("../../../assets/css/externallink.svg");
     background-size: 16px 16px;
     display: inline-block;
-    width: 16px; 
-    height: 15px;
+    width: 14px; 
+    height: 14px;
     content:"";
  }
 
@@ -120,6 +132,12 @@ a:after {
     background-position: 2px 2px;
     background-repeat: no-repeat;
   }
+  .ico.icoWifi{
+    background-image: url("../../../assets/css/helpwifi.svg");
+    background-size: 20px;
+    background-position: 2px 2px;
+    background-repeat: no-repeat;
+  }
   .ico.icoUnlock{
     background-image: url("../../../assets/css/iconunlock.svg");
     background-size: 20px;
@@ -148,6 +166,66 @@ a:after {
     background-position: 2px 2px;
     background-repeat: no-repeat;
   }
+
+  .backtomenu{
+    position: absolute;
+    text-transform: uppercase;
+    top: -70px;
+    left: 20px;
+    border: none;
+    outline: none;
+    height: 50px;
+    background-color: #494949;
+    background-image: url("../../../assets/css/back.svg");
+    background-size: 50px;
+    width: 110px;
+    background-position: 10%;
+    background-repeat: no-repeat;
+
+    color: #fff;
+    text-align: right;
+    padding: 15px;
+    font-size: 1em;
+  }
+
+  .btnDelete{
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    display: block;
+    margin: 20px auto 10px auto;
+    background: #494949;
+    color: #ffffff;
+    min-width: 180px;
+    padding: 0.8em;
+  }
+  
+  .btnDelete{
+    border: 1px solid #93272c;
+    background: #ffffff;
+    color: #93272c;
+  }
+  
+  .warning{
+      border-radius: .25rem;
+      padding: .75rem 1.25rem;
+      color: #856404;
+      background-color: #fff3cd;
+      margin-top: 2em;
+  }
+  
+  .warning .warningbtn{
+      background-color: transparent;
+      border: none;
+      float: right;
+  }
+  
+  .warning img{
+      width: 20px;
+      margin: 10px 0px;
+  }
     
 
 ul li{
@@ -155,10 +233,40 @@ ul li{
     font-size: 1em;
 }
 
+.infoWrapper img.helpImage.en{
+    object-fit: cover;
+    object-position: 0 0;
+    width: 224px;
+    height: 135px;
+    display: block;
+    margin: 20px auto 5px auto;
+}
+
+.infoWrapper img.helpImage.de{
+    object-fit: cover;
+    object-position: 100% 0;
+    width: 224px;
+    height: 135px;
+    display: block;
+    margin: 20px auto 5px auto;
+}
+
+.infoWrapper img.helpImage.helpWappen{
+    height: 235px;
+}
+
+hr{
+    margin: 2em 0;
+}
+
 @media (min-height: 730px) {
     .toolbar button{
         margin: 35px 20px 0px 20px; 
     }
+
+    .backtomenu{
+        top: -55px;
+      }
 }
 
 @media (max-width: 370px) {
