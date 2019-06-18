@@ -24,6 +24,8 @@ export class AlertService {
   private subjectUserOrEmailRegisterCheck = new Subject<any>();
   private subjectCoaParts = new Subject<any>(); 
   private subjectCorrectWifi = new Subject<any>();
+  private subjectCorrectLocation = new Subject<any>();
+  private subjectCorrectBluetooth = new Subject<any>();
   private subjectUserCoaParts = new Subject<any>();
   private subjectCoaColors = new Subject<any>();
   private subjectUserCoaColors = new Subject<any>();
@@ -168,6 +170,22 @@ export class AlertService {
 
   getMessageCorrectWifi(): Observable<any>{
     return this.subjectCorrectWifi.asObservable();
+  }
+
+  sendMessageCorrectLocation(message: any) {
+    this.subjectCorrectLocation.next(message);
+  }
+
+  getMessageCorrectLocation(): Observable<any>{
+    return this.subjectCorrectLocation.asObservable();
+  }
+
+  sendMessageCorrectBluetooth(message: any) {
+    this.subjectCorrectBluetooth.next(message);
+  }
+
+  getMessageCorrectBluetooth(): Observable<any>{
+    return this.subjectCorrectBluetooth.asObservable();
   }
 
   sendMessageUserCoaParts(message: any) {

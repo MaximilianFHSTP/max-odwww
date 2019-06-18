@@ -35,6 +35,7 @@ import { WindowRef } from './WindowRef';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { AppSettingsComponent } from './components/app-settings/app-settings.component';
 import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
@@ -82,6 +83,7 @@ export const appStore = createStore(
     AboutComponent,
     AlertDialogComponent,
     AppComponent,
+    AppSettingsComponent,
     ChangeCredentialsComponent,
     ChangeCredentialsComponent,
     ContentInteractiveComponent,
@@ -220,6 +222,14 @@ export class AppModule {
       }
       case 'send_app_version': {
         this.nativeResponseService.getAppVersionNative(value);
+        break;
+      }
+      case 'send_correct_location': {
+        this.nativeResponseService.getLocationDataFromNative(value);
+        break;
+      }
+      case 'send_correct_bluetooth': {
+        this.nativeResponseService.getBluetoothDataFromNative(value);
         break;
       }
       case 'send_bluetooth_check': {

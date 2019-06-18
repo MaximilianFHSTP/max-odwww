@@ -143,6 +143,14 @@ export class NativeResponseService implements OnInit
     this.godService.checkVersion(message);
   }  
 
+  public getLocationDataFromNative(message): void{
+    this.alertService.sendMessageCorrectLocation(message);
+  }
+
+  public getBluetoothDataFromNative(message): void{
+    this.alertService.sendMessageCorrectBluetooth(message);
+  }
+
   public updateAppLanguage(language): void
   {
     let langNumb;

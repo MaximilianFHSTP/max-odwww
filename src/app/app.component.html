@@ -26,6 +26,7 @@
     <li (click)="openHelp()">{{ 'app.help' | translate }}</li>
     <!--<li (click)="openWifiView()">WIFI</li>
     <li (click)="openUnlockView()">{{ 'app.unlock' | translate }}</li>-->
+    <li (click)="openAppSettings()">{{ 'app.menuTroubleshooting' | translate }}</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">DEUTSCH</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">ENGLISH</li>
     <li (click)="logoutUser()">{{ 'app.menuLogout' | translate }}</li>
