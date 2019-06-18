@@ -35,7 +35,7 @@ export class HelpComponent implements OnInit {
   ) { 
     this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
       const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
-      if(elm){ elm.click(); }
+      if(elm){ elm.click(); } 
     });
   }
 

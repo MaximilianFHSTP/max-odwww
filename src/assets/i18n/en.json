@@ -6,6 +6,7 @@
     "menuAbout": "ABOUT",
     "menuLogout": "LOGOUT",
     "cancel": "cancel",
+    "help": "HELP",
     "confirm": "confirm",
     "connectionLostHeader": "Connection lost!",
     "connectionLostBody": "Please wait until the app reconnects to the server!",
