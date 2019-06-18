@@ -195,5 +195,12 @@
     "userData": "Benutzer- und Gastdaten",
     "wifi": "Wifi-Settings",
     "troubleshoot": "Troubleshoot"
+  },
+  "guide": {
+    "close": "CLOSE",
+    "s1": "Each exhibit is represented by one of these boxes. Walk through the museum to unlock them. Then, tap on it to get more information!",
+    "s2": "The exhibition consists of multiple chapters. You can switch between the chapters here.",
+    "s3": "You can tap on this symbol to jump to your current position.",
+    "s4": "Here you can have access to the app menu, your own coat of arms, and some extra help."
   }
 }

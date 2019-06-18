@@ -27,6 +27,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   menuOpen = false;
+  guideStatus = 1;
 
   public platform: String;
   private readonly _unsubscribe: Unsubscribe;
@@ -331,6 +332,22 @@ export class AppComponent implements OnInit, OnDestroy {
         this.nativeCommunicationService.sendToNative('unlock', 'print');
       }
     );
+  }
+
+  guideDismiss(){
+    this.guideStatus = 0;
+  }
+
+  guideNext(){
+    if (this.guideStatus < 4) {
+      this.guideStatus++;
+    }
+  }
+
+  guidePrev(){
+    if (this.guideStatus > 1) {
+      this.guideStatus--;
+    }
   }
 
   public dismissMenu(){
