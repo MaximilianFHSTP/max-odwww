@@ -208,6 +208,7 @@
       <h1>{{ 'helpScreen.troubleshoot' | translate }}</h1>
       <p>Diese App muss nicht nur mit dem richtigen <a (click)="show('showWifiInfo')">Wifi</a> verbunden sein, sondern auch auf Bluetooth und den Standort zugreifen, um zu erkennen, welches Exponat Ihrer Position am nächsten ist.</p> 
       <p>Sie können überprüfen, ob Sie die richtigen Einstellungen verwenden, indem Sie unsere Problembehandlung ausführen.</p> 
+      <button class="btnDelete" (click)="openTroubleshoot()">{{ 'helpScreen.troubleshoot' | translate }}</button> 
     </div>
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'en'" class="infoWrapper">
       <h1>{{ 'helpScreen.troubleshoot' | translate }}</h1>
