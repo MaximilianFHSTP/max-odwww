@@ -467,7 +467,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   isThereUnlock(): boolean{
     let someUnlocked = false;
     this.timelineLocations.forEach(loc => {
-      if(!loc.locked){ someUnlocked = true; }
+      if(loc.parentId !== 10 && !loc.locked){ someUnlocked = true; }
     });
 
     return someUnlocked;
