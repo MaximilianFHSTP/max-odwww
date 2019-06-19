@@ -183,7 +183,7 @@
   },
   "alertDialog": {
     "title": "Exhibit",
-    "description": "Do you want to go to exhibit:",
+    "description": "Do you want to go to the exhibit:",
     "yesOption": "Yes",
     "noOption": "No"
   },
