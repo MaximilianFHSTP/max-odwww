@@ -1,11 +1,11 @@
 <div class="wrapper wappen-wrapper">
   <div class="toolbar">
-      <button class="helpbutton" (click)="displayHelp()"><img src="assets/icons/help.svg"></button>
+      <button class="helpbutton" (click)="displayHelp()"><img alt="help" src="assets/icons/help.svg"></button>
       <button [className]="saveBtnActive ? 'savebutton active' : 'savebutton'" (click)="saveCoa()">
             <div><img src="assets/icons/save.svg"></div>
             <p>{{ 'coa.save' | translate }}</p>
         </button>
-      <button id="closebutton" class="closebutton" (click)="closeWindow()"><img src="assets/icons/closewhite.svg"></button>
+      <button id="closebutton" class="closebutton" (click)="closeWindow()"><img alt="exit" src="assets/icons/closewhite.svg"></button>
   </div> 
 
   <div class="wappenHelp" *ngIf="showHelp">
@@ -13,7 +13,7 @@
       <h2>{{ 'coa.helpTitle' | translate }}</h2>
       <p>{{ 'coa.helpText' | translate }}</p>
   </div> 
-  <div  *ngIf="showHelp" (click)="closeHelp()" class="wappenHelpOut"></div> 
+  <div *ngIf="showHelp" (click)="closeHelp()" class="wappenHelpOut"></div> 
       
   <h1>{{ 'coa.title' | translate }}<br/>{{user.name}}</h1>
 
@@ -108,12 +108,12 @@
   <div class="wappenSettings" *ngIf="showSettings">
 
       <div class="wappenSettings_shield" *ngIf="settingsContent == 'shield'">
-          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg" [attr.aria-label]="ariaCloseBtn">
           <h2>{{ 'coa.shield' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
                   <li *ngIf="item.coaTypeId === 1" [className]="selectedShield == item.image ? setShield == item.image ? 'selected used ' + item.image : 'selected ' + item.image : setShield == item.image ? 'used ' + item.image : item.image">
-                      <button [className]="isUnlocked(item.image) ? 'unlocked': 'locked'" (click)="selectShield(item.image)"></button><div class="locker"></div>
+                      <button [className]="isUnlocked(item.image) ? 'unlocked': 'locked'" (click)="selectShield(item.image)" title="{{item.name}}"></button><div class="locker"></div>
                   </li>
               </ng-container>
           </ul>
@@ -127,13 +127,13 @@
       </div>
 
       <div class="wappenSettings_emblem" *ngIf="settingsContent == 'emblem'">
-          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg" [attr.aria-label]="ariaCloseBtn">
           <h2>{{ 'coa.charge' | translate }}</h2>
           <div class="overflowWrapper">
               <ul class="options">
                   <ng-container *ngFor="let item of itemsList">
                       <li *ngIf="item.coaTypeId === 2" [className]="selectedEmblem == item.image ? setEmblem == item.image ? 'selected used ' + item.image : 'selected ' + item.image : setEmblem == item.image ? 'used ' + item.image : item.image">
-                          <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectEmblem(item.image)"></button><div class="locker"></div>
+                          <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectEmblem(item.image)"  title="{{item.name}}"></button><div class="locker"></div>
                       </li>
                   </ng-container> 
               </ul>
@@ -148,12 +148,12 @@
           </ul>
       </div>
       <div class="wappenSettings_helmet" *ngIf="settingsContent == 'helmet'">
-          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg" [attr.aria-label]="ariaCloseBtn">
           <h2>{{ 'coa.helmet' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
                   <li *ngIf="item.coaTypeId === 3" [className]="selectedHelmet == item.image ? setHelmet == item.image ? 'selected used ' + item.image : 'selected ' + item.image : setHelmet == item.image ? 'used ' + item.image : item.image">
-                      <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectHelmet(item.image)"></button>
+                      <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectHelmet(item.image)"  title="{{item.name}}"></button>
                       <div class="locker"></div>
                   </li>
               </ng-container> 
@@ -168,12 +168,12 @@
           </ul>
       </div>
       <div class="wappenSettings_weapon" *ngIf="settingsContent == 'weapon'">
-          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg" [attr.aria-label]="ariaCloseBtn">
           <h2>{{ 'coa.mantle' | translate }}</h2>
           <ul class="options">
               <ng-container *ngFor="let item of itemsList">
                   <li *ngIf="item.coaTypeId === 4" [className]="selectedWeapon == item.image ? setWeapon == item.image ? 'selected used ' + item.image : 'selected ' + item.image : setWeapon == item.image ? 'used ' + item.image : item.image">
-                      <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectWeapon(item.image)"></button>
+                      <button [className]="isUnlocked(item.image) ? 'unlocked' : 'locked'" (click)="selectWeapon(item.image)"  title="{{item.name}}"></button>
                       <div class="locker"></div>
                   </li>
               </ng-container> 
@@ -188,33 +188,33 @@
           </ul>
       </div>
       <div class="wappenSettings_color" *ngIf="settingsContent == 'color'">
-          <img (click)="closeWappenSettings()" src="assets/icons/close.svg">
+          <img (click)="closeWappenSettings()" src="assets/icons/close.svg" [attr.aria-label]="ariaCloseBtn">
           <h2>{{ 'coa.colors' | translate }}</h2>
           <p>{{ 'coa.primColor' | translate }}</p>
           <ul class="primary">
-              <li [className]="setColorPrimary == 'Color1' ? 'selected Color1' : 'Color1'"><button (click)="selectPrimaryColor('Color1')"></button></li>
-              <li [className]="setColorPrimary == 'Color2' ? 'selected Color2' : 'Color2'"><button (click)="selectPrimaryColor('Color2')"></button></li>
-              <li [className]="setColorPrimary == 'Color3' ? 'selected Color3' : 'Color3'"><button (click)="selectPrimaryColor('Color3')"></button></li>
-              <li [className]="setColorPrimary == 'Color4' ? 'selected Color4' : 'Color4'"><button (click)="selectPrimaryColor('Color4')"></button></li>
-              <li [className]="setColorPrimary == 'Color5' ? 'selected Color5' : 'Color5'"><button (click)="selectPrimaryColor('Color5')"></button></li>
+              <li [className]="setColorPrimary == 'Color1' ? 'selected Color1' : 'Color1'"><button (click)="selectPrimaryColor('Color1')" [attr.aria-label]="ariaClr1Btn"></button></li>
+              <li [className]="setColorPrimary == 'Color2' ? 'selected Color2' : 'Color2'"><button (click)="selectPrimaryColor('Color2')" [attr.aria-label]="ariaClr2Btn"></button></li>
+              <li [className]="setColorPrimary == 'Color3' ? 'selected Color3' : 'Color3'"><button (click)="selectPrimaryColor('Color3')" [attr.aria-label]="ariaClr3Btn"></button></li>
+              <li [className]="setColorPrimary == 'Color4' ? 'selected Color4' : 'Color4'"><button (click)="selectPrimaryColor('Color4')" [attr.aria-label]="ariaClr4Btn"></button></li>
+              <li [className]="setColorPrimary == 'Color5' ? 'selected Color5' : 'Color5'"><button (click)="selectPrimaryColor('Color5')" [attr.aria-label]="ariaClr5Btn"></button></li>
           </ul>
           <p>{{ 'coa.secColor' | translate }}</p>
           <ul class="secondary">
-              <li [className]="setColorSecondary == 'Color1' ? 'selected Color1' : 'Color1'"><button (click)="selectSecondaryColor('Color1')"></button></li>
-              <li [className]="setColorSecondary == 'Color2' ? 'selected Color2' : 'Color2'"><button (click)="selectSecondaryColor('Color2')"></button></li>
-              <li [className]="setColorSecondary == 'Color3' ? 'selected Color3' : 'Color3'"><button (click)="selectSecondaryColor('Color3')"></button></li>
-              <li [className]="setColorSecondary == 'Color4' ? 'selected Color4' : 'Color4'"><button (click)="selectSecondaryColor('Color4')"></button></li>
-              <li [className]="setColorSecondary == 'Color5' ? 'selected Color5' : 'Color5'"><button (click)="selectSecondaryColor('Color5')"></button></li>
+              <li [className]="setColorSecondary == 'Color1' ? 'selected Color1' : 'Color1'"><button (click)="selectSecondaryColor('Color1')" [attr.aria-label]="ariaClr1Btn"></button></li>
+              <li [className]="setColorSecondary == 'Color2' ? 'selected Color2' : 'Color2'"><button (click)="selectSecondaryColor('Color2')" [attr.aria-label]="ariaClr2Btn"></button></li>
+              <li [className]="setColorSecondary == 'Color3' ? 'selected Color3' : 'Color3'"><button (click)="selectSecondaryColor('Color3')" [attr.aria-label]="ariaClr3Btn"></button></li>
+              <li [className]="setColorSecondary == 'Color4' ? 'selected Color4' : 'Color4'"><button (click)="selectSecondaryColor('Color4')" [attr.aria-label]="ariaClr4Btn"></button></li>
+              <li [className]="setColorSecondary == 'Color5' ? 'selected Color5' : 'Color5'"><button (click)="selectSecondaryColor('Color5')" [attr.aria-label]="ariaClr5Btn"></button></li>
           </ul></div>
   </div>
 
   <div class="wappenSettingsNav">
       <ul>
-          <li [className]="showSettings && settingsContent == 'shield' ? 'selected wappenSettingsNav_shield' : 'wappenSettingsNav_shield'"><button (click)="displaySettings('shield')"></button></li>
-          <li [className]="showSettings && settingsContent == 'emblem' ? 'selected wappenSettingsNav_emblem' : 'wappenSettingsNav_emblem'"><button (click)="displaySettings('emblem')"></button><div class="wappenbuttonnew" *ngIf="coaService.newEmblem"></div></li>
-          <li [className]="showSettings && settingsContent == 'helmet' ? 'selected wappenSettingsNav_helmet' : 'wappenSettingsNav_helmet'"><button (click)="displaySettings('helmet')"></button><div class="wappenbuttonnew" *ngIf="coaService.newHelmet"></div></li>
-          <li [className]="showSettings && settingsContent == 'weapon' ? 'selected wappenSettingsNav_weapon' : 'wappenSettingsNav_weapon'"><button (click)="displaySettings('weapon')"></button><div class="wappenbuttonnew" *ngIf="coaService.newWeapon"></div></li>
-          <li [className]="showSettings && settingsContent == 'color' ? 'selected wappenSettingsNav_color' : 'wappenSettingsNav_color'"><button (click)="displaySettings('color')"></button></li>
+          <li [className]="showSettings && settingsContent == 'shield' ? 'selected wappenSettingsNav_shield' : 'wappenSettingsNav_shield'"><button (click)="displaySettings('shield')" [attr.aria-label]="ariaShieldBtn"></button></li>
+          <li [className]="showSettings && settingsContent == 'emblem' ? 'selected wappenSettingsNav_emblem' : 'wappenSettingsNav_emblem'"><button (click)="displaySettings('emblem')" [attr.aria-label]="ariaEmblemBtn"></button><div class="wappenbuttonnew" *ngIf="coaService.newEmblem"></div></li>
+          <li [className]="showSettings && settingsContent == 'helmet' ? 'selected wappenSettingsNav_helmet' : 'wappenSettingsNav_helmet'"><button (click)="displaySettings('helmet')" [attr.aria-label]="ariaHelmetBtn"></button><div class="wappenbuttonnew" *ngIf="coaService.newHelmet"></div></li>
+          <li [className]="showSettings && settingsContent == 'weapon' ? 'selected wappenSettingsNav_weapon' : 'wappenSettingsNav_weapon'"><button (click)="displaySettings('weapon')" [attr.aria-label]="ariaWeaponBtn"></button><div class="wappenbuttonnew" *ngIf="coaService.newWeapon"></div></li>
+          <li [className]="showSettings && settingsContent == 'color' ? 'selected wappenSettingsNav_color' : 'wappenSettingsNav_color'"><button (click)="displaySettings('color')" [attr.aria-label]="ariaColorBtn"></button></li>
       </ul>
   </div>
   <div  *ngIf="showSettings" (click)="closeWappenSettings()" class="wappenSettingsNavOut"></div> 

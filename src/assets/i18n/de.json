@@ -201,6 +201,33 @@
     "s1": "Each exhibit is represented by one of these boxes. Walk through the museum to unlock them. Then, tap on it to get more information!",
     "s2": "The exhibition consists of multiple chapters. You can switch between the chapters here.",
     "s3": "You can tap on this symbol to jump to your current position.",
-    "s4": "Here you can have access to the app menu, your own coat of arms, and some extra help."
+    "s4": "Here you can have access to the app menu and your own coat of arms."
+  },
+  "ariaLabels": {
+    "ariaSec1": "Abschnitt 1",
+    "ariaSec2": "Abschnitt 2",
+    "ariaSec3": "Abschnitt 3",
+    "ariaSec4": "Abschnitt 4",
+    "ariaSec5": "Abschnitt 5",
+    "ariaSec6": "Abschnitt 6",
+    "ariaCoaBtn": "wappen",
+    "ariaQstBtn": "Fragebogen",
+    "ariaLocBtn": "aktueller Standort",
+    "ariaGuidePrevBtn": "Bisherige",
+    "ariaGuideNextBtn": "Nächster",
+    "ariaBackBtn": "zurück",
+    "ariaHelpBtn": "Hilfe",
+    "ariaMenuBtn": "menu",
+    "ariaShieldBtn": "Schild",
+    "ariaEmblemBtn": "Wappenfigur",
+    "ariaHelmetBtn": "Helm",
+    "ariaWeaponBtn": "Helmdecke",
+    "ariaColorBtn": "Farben",
+    "ariaClr1Btn": "rot",
+    "ariaClr2Btn": "blau",
+    "ariaClr3Btn": "grün",
+    "ariaClr4Btn": "gelb",
+    "ariaClr5Btn": "grau",
+    "ariaCloseBtn": "schließen"
   }
 }

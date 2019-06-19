@@ -27,7 +27,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   menuOpen = false;
-  guideStatus = 1;
+  guideStatus = 0;
 
   public platform: String;
   private readonly _unsubscribe: Unsubscribe;
@@ -350,6 +350,11 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  helpScreen(){
+    console.log('askdjhasd');
+    this.guideStatus = 1;
+  }
+
   public dismissMenu(){
     this.menuOpen = false;
   }
@@ -358,4 +363,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.menuOpen ? this.menuOpen = false : this.menuOpen = true;
   }
 
+  get ariaGuidePrevBtn(): string { return this.translate.instant('ariaLabels.ariaGuidePrevBtn'); }
+  get ariaGuideNextBtn(): string { return this.translate.instant('ariaLabels.ariaGuideNextBtn'); }
+  get ariaBackBtn(): string { return this.translate.instant('ariaLabels.ariaBackBtn'); }
+  get ariaHelpBtn(): string { return this.translate.instant('ariaLabels.ariaHelpBtn'); }
+  get ariaMenuBtn(): string { return this.translate.instant('ariaLabels.ariaMenuBtn'); }
 }

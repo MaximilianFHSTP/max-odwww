@@ -61,6 +61,7 @@
   color:#ffffff;
 }
 
+button.helpbutton,
 .apptoolbar button{
   float:right;
   border: none;
@@ -68,11 +69,28 @@
   height: 50px;
   width: 50px;
   background-color: #494949;
-  background-image: url("assets/css/menu.svg");
   background-position: center;
   background-size: 35px;
   background-repeat: no-repeat;
   margin: 20px 20px 0px 0px;
+}
+
+.apptoolbar button.menubutton{
+  background-image: url("assets/css/menu.svg");
+}
+
+button.helpbutton{ 
+  position: fixed;
+  top: 160px;
+  right: 20px;
+  margin: 0;
+  border-radius: 25px;
+  background-position: center;
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-image: url("assets/css/help.svg");
+  background-color: #fff;
+  z-index: 9;
 }
 
 #redirectTimelineLong,
@@ -116,7 +134,8 @@
 }
 
 .menuDiv ul li{
-  margin: 20% 0;
+  margin: 0;
+  padding: 10% 0;
 }
 
 .dismissMenuDiv{
@@ -131,20 +150,20 @@
 }
 
 .guide{
-  position: absolute;
+  position: fixed;
   z-index: 11;
   box-shadow: 0 0 0 99999px rgba(0, 0, 0, .8);
 }
 
 .textGuide{
-  position: absolute;
+  position: fixed;
   z-index: 12;
   color: #ffffff;
   font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
 }
 
 .guideControl{
-  position: absolute;
+  position: fixed;
   width: 100%;
   top: 45%;
   z-index: 13;
@@ -223,7 +242,7 @@
 
 .textGuide.s3{
   left: 20px;
-  bottom: 70px;
+  bottom: 90px;
   margin-right: 80px; 
 }
 
@@ -231,7 +250,7 @@
   right: 15px;
   top: 15px;
   width: 60px;
-  height: 205px;
+  height: 130px;
 }
 
 .textGuide.s4{
@@ -241,6 +260,10 @@
 }
 
 @media (min-height: 730px) {
+  button.helpbutton{ 
+    top: 175px;
+  }
+  
   .guide.s1{
     top: 35px;
   }

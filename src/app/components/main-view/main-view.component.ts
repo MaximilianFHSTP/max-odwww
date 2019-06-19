@@ -8,6 +8,7 @@ import { AlertService } from '../../services/alert.service';
 import { CoaService } from '../../services/coa.service';
 import { LanguageService } from '../../services/language.service';
 import { TransmissionService } from '../../services/transmission.service';
+import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Unsubscribe } from 'redux';
 import { Subscription } from 'rxjs';
@@ -65,6 +66,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   constructor(
     private transmissionService: TransmissionService,
     public locationService: LocationService,
+    private translate: TranslateService,
     @Inject('AppStore') private appStore,
     private nativeCommunicationService: NativeCommunicationService,
     private nativeResponseService: NativeResponseService,
@@ -558,6 +560,16 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       }
     });
   }
+
+  get ariaSec1(): string { return this.translate.instant('ariaLabels.ariaSec1'); }
+  get ariaSec2(): string { return this.translate.instant('ariaLabels.ariaSec2'); }
+  get ariaSec3(): string { return this.translate.instant('ariaLabels.ariaSec3'); }
+  get ariaSec4(): string { return this.translate.instant('ariaLabels.ariaSec4'); }
+  get ariaSec5(): string { return this.translate.instant('ariaLabels.ariaSec5'); }
+  get ariaSec6(): string { return this.translate.instant('ariaLabels.ariaSec6'); }
+  get ariaCoaBtn(): string { return this.translate.instant('ariaLabels.ariaCoaBtn'); }
+  get ariaQstBtn(): string { return this.translate.instant('ariaLabels.ariaQstBtn'); }
+  get ariaLocBtn(): string { return this.translate.instant('ariaLabels.ariaLocBtn'); }
 
   /*
   ------------------------------------------------------------
