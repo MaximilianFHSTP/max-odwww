@@ -149,6 +149,17 @@ button.helpbutton{
   opacity: 0.5;
 }
 
+#onboardingGuide{
+  width: 100%;
+  position: fixed;
+  display: table;
+  top: 0;
+  left: 0;
+  background-color:transparent;
+  z-index: 11;
+  height: -webkit-fill-available;
+}
+
 .guide{
   position: fixed;
   z-index: 11;
