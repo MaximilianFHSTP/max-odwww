@@ -194,12 +194,12 @@
 		"contents": "Inhaltstypen",
 		"coa": "Wappen",
 		"userData": "Benutzer- und Gastdaten",
-		"wifi": "Netzwerkeinstellungen",
+		"wifi": "Netzwerk",
 		"troubleshoot": "Problembehebung"
 	},
 	"guide": {
 		"close": "SCHILIESSEN",
-		"s1": "Jedes Ausstellungsstück wird durch eine dieser Boxen dargestellt. Gehe durch die Ausstellung, um sie freizuschalten. Tippe danach darauf, um mehr Informationen zu erhalten!",
+		"s1": "Gehe durch die Ausstellung, um die Ausstellungsstücke freizuschalten. Tippe danach darauf, um mehr Informationen zu erhalten!",
 		"s2": "Die Ausstellung besteht aus mehreren Kapiteln. Hier kannst du zwischen den Kapiteln wechseln.",
 		"s3": "Tippe auf dieses Symbol, um zu deinem aktuellen Standort zu springen.",
 		"s4": "Hier findest du das App-Menü und dein eigenes Wappen."
