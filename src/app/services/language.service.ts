@@ -69,12 +69,16 @@ export class LanguageService {
 
   private updateTranslateService(lang: number)
   {
+    let langStr = '';
+
     if(Number(lang) === LanguageTypes.DE)
     {
-      this.translateService.use('de');
+      langStr = 'de';
     } else
     {
-      this.translateService.use('en');
+      langStr = 'en';
     }
+    this.translateService.use(langStr);
+    document.documentElement.setAttribute('lang', langStr);
   }
 }
