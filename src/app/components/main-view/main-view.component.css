@@ -297,6 +297,16 @@ p{
   background-repeat: no-repeat;
 }
 
+.ios .locationbutton{
+  background-image: url("../../../assets/css/locIOS.svg");
+  background-size: 30px;
+}
+
+.android .locationbutton{
+  background-image: url("../../../assets/css/locAndroid.svg");
+  background-size: 30px;
+}
+
 .questionsbutton{
   margin: 0;
   border-radius: 25px;

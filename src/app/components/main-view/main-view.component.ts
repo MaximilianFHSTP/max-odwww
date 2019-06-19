@@ -54,6 +54,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public sortedExhbits = [];
   public mergedDates = [];
   public cardPositions = [];
+  public mOs = '';
 
   private stringDates = ['1450', '1530'];
   private parseDate = d3.timeParse('%Y');
@@ -171,6 +172,10 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     }
 
     this.nativeResponseService.checkVersion();
+
+    if(this.nativeCommunicationService.isIOS) {this.mOs = 'ios'; }
+    else if(this.nativeCommunicationService.isAndroid) {this.mOs = 'android'; }
+    else if(this.nativeCommunicationService.isWeb) {this.mOs = ''; }
   }
 
   /* ----- Sort Data, Draw Timeline, Check for changes ---- */
