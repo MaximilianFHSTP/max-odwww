@@ -159,7 +159,9 @@
     "bluetooth": "Bluetooth",
     "bluetoothOn": "Bluetooth activated",
     "bluetoothOff": "Bluetooth is off",
-    "bluetoothBtn": "Activate Bluetooth"
+    "bluetoothBtn": "Activate Bluetooth",
+    "scanning": "Scanning...",
+    "checkagain": "Check again"
   },
   "deleteDialog": {
     "title": "Delete Account",

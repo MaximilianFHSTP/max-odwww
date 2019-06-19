@@ -23,24 +23,24 @@
   <div *ngIf="showInfo === 'showMainScreenInfo'">
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
       <h1>{{ 'helpScreen.mainScreen' | translate }}</h1>
-      <p>Jede Ausstellung wird durch eine Box dargestellt. Die Reihenfolge der Boxen richtet sich nach der Zeit, die das Exponat darstellt.</p> 
+      <p>Jedes Ausstellungsstück wird durch eine Box dargestellt. Die Boxen sind entlang einer Zeitleiste chronologisch geordnet.</p> 
       <figure>
         <img class="helpImage de" src="assets/img/helpImages/mainBox.png" />
-        <figcaption>Ausstellungen in der Timeline</figcaption>
+        <figcaption>Ausstellungsstücke entlang der Zeitleiste</figcaption>
       </figure>
-      <p>Wenn Sie an einem Exponat vorbeigehen, sollte die Box <a (click)="show('showUnlockInfo')">freigeschaltet</a> werden. Sobald es freigeschaltet ist, können Sie auf das Feld tippen , um weitere <a (click)="show('showContentInfo')">Informationen</a> zu erhalten. Gesperrte Exponate sind in der Zeitleiste transparent.</p> 
+      <p>Wenn du an einem Ausstellungsstück vorbeigehst, wird die Box <a (click)="show('showUnlockInfo')">freigeschaltet</a>. Sobald sie freigeschaltet ist, kannst du sie antippen, um weitere <a (click)="show('showContentInfo')">Informationen</a> zu erhalten. Noch nicht freigeschaltete Ausstellungsstücke sind transparent.</p> 
       <hr/>
-      <p>Die Ausstellung besteht aus mehreren Kapiteln. Sie können über die Navigationsleiste unten <b>zwischen den Kapiteln wechseln</b>.</p> 
-      <p>Um zu Ihrer aktuellen Position zurückzukehren, verwenden Sie die Standorttaste unten rechts.</p> 
+      <p>Die Ausstellung besteht aus mehreren Kapiteln. Du kannst über die Navigationsleiste unten <b>zwischen den Kapiteln wechseln</b>.</p> 
+      <p>Um zu deiner aktuellen Position zurückzukehren, verwende den Standort-Button unten rechts.</p> 
       <figure>
         <img class="helpImage de" src="assets/img/helpImages/mainBottom.png" />
-        <figcaption>Navigationsleiste und Standortschaltfläche</figcaption>
+        <figcaption>Navigationsleiste und Standort-Button</figcaption>
       </figure>
       <hr/>
-      <p>Oben links auf Ihrem Hauptbildschirm finden Sie außerdem ein Menü, Ihr <a (click)="show('showCOAInfo')">Wappen</a> und die Hilfeschaltfläche.</p> 
+      <p>Oben rechts auf dem Hauptbildschirm findest du außerdem das Menü, dein <a (click)="show('showCOAInfo')">Wappen</a> und den Hilfe-Button.</p> 
       <figure>
         <img class="helpImage de" src="assets/img/helpImages/mainMenu.png" />
-        <figcaption>Menü, Wappen und Hilfeknöpfe</figcaption>
+        <figcaption>Menü, Wappen und Hilfe-Button</figcaption>
       </figure>
     </div>
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'en'" class="infoWrapper">
@@ -73,8 +73,8 @@
   <div *ngIf="showInfo === 'showUnlockInfo'">
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
       <h1>{{ 'helpScreen.unlock' | translate }}</h1>
-      <p>Die Inhalte in dieser App können nur in der Ausstellung 'Des Kaisers neuer Heiliger' freigeschalten werden.</p> 
-      <p>Während du durch die Ausstellung gehst, erkennt die App deinen Standort und schaltete die entsprechenden Inahlte in der interaktiven Zeitleiste frei.</p>
+      <p>Die Inhalte in dieser App können nur in der Ausstellung 'Des Kaisers neuer Heiliger' freigeschaltet werden.</p> 
+      <p>Während du durch die Ausstellung gehst, erkennt die App deinen Standort und schaltet die entsprechenden Inahlte in der interaktiven Zeitleiste frei.</p>
 
       <div class="warning">
         <button *ngIf="!showMore" class="warningbtn" (click)="showWarningContent(true)"><img src="assets/icons/showMore.svg"></button>
@@ -83,7 +83,7 @@
 
         <div *ngIf="showMore">
           <p>Wenn du nicht in der Ausstellung bist oder Probleme hast Inhalte freizuschalten, 
-            <a *ngIf="guest == 0">geh zu den <b>Profileinstellungen</b> und</a> wähle '{{ 'changeCredentials.btnUnlock' | translate }}', 
+            <a *ngIf="guest == 0">gehe zu den <b>Profileinstellungen</b> und</a> wähle '{{ 'changeCredentials.btnUnlock' | translate }}', 
             um alle Ausstellungsstücke in der App freizuschalten.</p>    
           <button *ngIf="guest == 1" class="btnDelete" (click)="unlockAll()">{{ 'changeCredentials.btnUnlock' | translate }}</button>  
         </div> 
@@ -113,14 +113,14 @@
   <div *ngIf="showInfo === 'showContentInfo'">
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
       <h1>{{ 'helpScreen.contents' | translate }}</h1>
-      <p>Für jedes Exponat kann die App entweder einen passiven oder einen interaktiven Inhalt anzeigen.</p> 
-      <p><b>Passiven Inhalt:</b> zeigen Textinformationen über die App an. Drei geeignete Erzählungen geben Einblicke in verschiedene Aspekte derselben Geschichte.</p> 
+      <p>Zu jedem Ausstellungsstück kann die App entweder einen passiven oder einen interaktiven Inhalt anzeigen.</p> 
+      <p><b>Passive Ausstellungsstücke:</b> Zeigt Informationen als Text an. Drei verschiedene Erzählperspektiven geben Einblicke in unterschiedliche Aspekte derselben Geschichte.</p> 
       <figure>
         <img class="helpImage de" src="assets/img/helpImages/passive.png" />
-        <figcaption>In passiven Exponaten ist es möglich, Erzählungen zu wechseln</figcaption>
+        <figcaption>In passiven Ausstellungsstücken ist es möglich, die Erzählperspektive zu wechseln</figcaption>
       </figure>
       <hr/>
-      <p><b>Interaktiven Inhalt:</b> werden als Touch-Displays, Augmented Reality, Projektionen und Quiz rund um die Ausstellung implementiert. Benutzer können die App auch verwenden, um sich solchen Exponaten anzuschließen.</p> 
+      <p><b>Interaktive Ausstellungsstücke:</b> Dies sind zum Beispiel Touch-Displays, Projektionen, Augmented Reality Funktionen in der App oder Quizzes rund um die Ausstellung. Über die App können sich Besucher mit den digitalen Ausstellungsstücken verbinden.</p> 
       <figure>
         <img class="helpImage de" src="assets/img/helpImages/interactive.png" />
         <figcaption>In interaktiven Exponaten können Sie sich mit der App verbinden</figcaption>
@@ -148,10 +148,10 @@
   <div *ngIf="showInfo === 'showCOAInfo'">
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
         <h1>{{ 'helpScreen.coa' | translate }}</h1>
-        <p>Du kannst Dein persönliches Wappen erstellen, indem Du aus den folgenden Teilen und Farben auswählst. Du kannst weitere Teile freischalten, indem Du Aufgaben in der Ausstellung löst.</p> 
+        <p>Du kannst dein persönliches Wappen erstellen, indem du aus den folgenden Teilen und Farben auswählst. Du kannst weitere Teile freischalten, indem du Aufgaben in der Ausstellung löst.</p> 
         <figure>
           <img class="helpImage de helpWappen" src="assets/img/helpImages/wappen.png" />
-          <figcaption>Kreieren Sie Ihr eigenes Wappen</figcaption>
+          <figcaption>Gestalte dein eigenes Wappen</figcaption>
         </figure>
     </div>
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'en'" class="infoWrapper">
@@ -169,9 +169,9 @@
   <div *ngIf="showInfo === 'showDataInfo'">
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
         <h1>{{ 'helpScreen.userData' | translate }}</h1>
-        <p>Um angemessen zu arbeiten, sammelt diese App Daten von Ihrem Telefon.</p> 
-        <p>Die App kann ohne Registrierung eines Kontos verwendet werden. Wenn Sie sich <b>als Gast anmelden</b>, können Sie auf den App-Inhalt zugreifen, es werden jedoch keine persönlichen Daten gespeichert.</p>
-        <p>Um Informationen dauerhaft zu speichern (z. B. Ihre nicht gesperrten Inhalte und Ihr Wappen), müssen Sie sich mit einem Namen und/oder Benutzernamen, einer E-Mail-Adresse und einem Passwort <b>registrieren</b>.</p>
+        <p>Um richtig zu funktionieren, sammelt diese App Daten von deinem Gerät.</p> 
+        <p>Die App kann ohne Registrierung eines Kontos verwendet werden. Wenn du dich <b>als Gast anmeldest</b>, kannst du auf alle App-Inhalte zugreifen, es werden jedoch keine persönlichen Daten gespeichert.</p>
+        <p>Um Informationen dauerhaft zu speichern (z. B. welche Ausstellungsstücke schon freigeschaltet wurden und dein Wappen), musst du dich mit einem Benutzernamen, einer E-Mail-Adresse und einem Passwort <b>registrieren</b>.</p>
         <p><a class="externalLink" src="http://meeteux.fhstp.ac.at/app-data-privacy-policy/">App Data Privacy Policy</a></p>
     </div>
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'en'" class="infoWrapper">
@@ -188,9 +188,9 @@
   <div *ngIf="showInfo === 'showWifiInfo'">
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
       <h1>{{ 'helpScreen.wifi' | translate }}</h1>
-      <p>Die Inhalte in dieser App können nur in der Ausstellung 'Des Kaisers neuer Heiliger' freigeschalten werden.</p> 
-      <p>Sofern Du nicht schon im Stift Klosterneuburg bist, mach Dich auf den Weg täglich vom 9. März bis 17. November.</p>
-      <p>Um alle Funktionen dieser App nutzen zu können, wechsle bitte in das Wifi: <br/><br/><b>DesKaisersNeuerHeiliger</b> <br/>Passwort 'maximilian'.</p>
+      <p>Die Inhalte in dieser App können nur in der Ausstellung 'Des Kaisers neuer Heiliger' freigeschaltet werden.</p> 
+      <p>Sofern du nicht schon im Stift Klosterneuburg bist, schau zwischen dem 9. März und dem 17. November vorbei!</p>
+      <p>Um alle Funktionen dieser App nutzen zu können, wechsle bitte in das Netzwerk: <br/><br/><b>DesKaisersNeuerHeiliger</b> <br/>Passwort 'maximilian'.</p>
     </div>
 
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'en'" class="infoWrapper">
@@ -206,8 +206,8 @@
   <div *ngIf="showInfo === 'showTroubleshootInfo'">
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
       <h1>{{ 'helpScreen.troubleshoot' | translate }}</h1>
-      <p>Diese App muss nicht nur mit dem richtigen <a (click)="show('showWifiInfo')">Wifi</a> verbunden sein, sondern auch auf Bluetooth und den Standort zugreifen, um zu erkennen, welches Exponat Ihrer Position am nächsten ist.</p> 
-      <p>Sie können überprüfen, ob Sie die richtigen Einstellungen verwenden, indem Sie unsere Problembehandlung ausführen.</p> 
+      <p>Diese App muss nicht nur mit dem richtigen <a (click)="show('showWifiInfo')">Netzwerk</a> verbunden sein, sondern auch auf Bluetooth und den Standort zugreifen, um zu erkennen, welche Ausstellungsstücke in deiner Nähe sind.</p> 
+      <p>In der Problembehandlung kannst du überprüfen, ob du die richtigen Einstellungen verwendest.</p> 
       <button class="btnDelete" (click)="openTroubleshoot()">{{ 'helpScreen.troubleshoot' | translate }}</button> 
     </div>
     <div *ngIf="languageService.getCurrentLanguageAsString() === 'en'" class="infoWrapper">
