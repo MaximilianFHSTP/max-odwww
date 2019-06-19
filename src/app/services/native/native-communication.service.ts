@@ -90,6 +90,10 @@ export class NativeCommunicationService {
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateBluetoothCheck();
             break;
 
+          case 'activateLocationCheck':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateLocationCheck();
+            break;
+
           case 'activateBluetooth':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.activateBluetooth();
             break;
@@ -105,10 +109,22 @@ export class NativeCommunicationService {
           case 'openWifiDialogNative':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.openWifiDialogNative();
             break;
-
+            
           case 'receiveWifiData':
             const messageString = messageBody.ssid + ' ' + messageBody.password;
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.receiveWifiData(messageString);
+            break;
+
+          case 'statusWifi':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.statusWifi();
+            break;
+
+          case 'statusLocation':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.statusLocation();
+            break;
+
+          case 'statusBluetooth':
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.statusBluetooth();
             break;
 
           case 'getLanguage':

@@ -5,19 +5,21 @@ import { UnlockDialogComponent } from '../unlock-dialog/unlock-dialog.component'
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { NativeResponseService } from '../../services/native/native-response.service';
 import { LanguageService } from '../../services/language.service';
-import { AlertService } from '../../services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-unlock',
-  templateUrl: './unlock.component.html',
-  styleUrls: ['./unlock.component.css']
+  selector: 'app-help',
+  templateUrl: './help.component.html',
+  styleUrls: ['./help.component.css']
 })
 
 @Injectable()
-export class UnlockComponent implements OnInit {
+export class HelpComponent implements OnInit {
   private subscriptionNativeBackbutton: Subscription;
+  showMenu = true;
+  showInfo = '';
   public guest: boolean;
   public showMore = false;
 
@@ -33,13 +35,70 @@ export class UnlockComponent implements OnInit {
   ) { 
     this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
       const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
-      if(elm){ elm.click(); }
+      if(elm){ elm.click(); } 
     });
   }
 
   ngOnInit() {
     const state = this.appStore.getState();
     if(state.user !== undefined) { this.guest = state.user.isGuest; }
+  }
+
+  public closeWindow(){
+    this.router.navigate(['mainview']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('Main View', 'print');
+      }
+    );
+  }
+
+  public openTroubleshoot(){
+    this.router.navigate(['appSettings']).then( () =>
+      {
+        this.nativeCommunicationService.sendToNative('App Settings', 'print');
+      }
+    );
+  }
+
+  show(option: string){
+    switch(option){
+      case 'showMainScreenInfo':
+        this.showMenu = false;
+        this.showInfo = option;
+        break;
+      case 'showUnlockInfo':
+        this.showMenu = false;
+        this.showInfo = option;
+        break;
+      case 'showContentInfo':
+        this.showMenu = false;
+        this.showInfo = option;
+        break;
+      case 'showCOAInfo':
+        this.showMenu = false;
+        this.showInfo = option;
+        break;
+      case 'showDataInfo':
+        this.showMenu = false;
+        this.showInfo = option;
+        break;
+      case 'showWifiInfo':
+        this.showMenu = false;
+        this.showInfo = option;
+        break;
+      case 'showTroubleshootInfo':
+        this.showMenu = false;
+        this.showInfo = option;
+        break;
+      case 'showMenu':
+        this.showMenu = true;
+        this.showInfo = '';
+        break;
+      default:
+        this.showMenu = true;
+        this.showInfo = '';
+        break;
+    }
   }
 
   public unlockAll(){ 
@@ -59,13 +118,4 @@ export class UnlockComponent implements OnInit {
   public showWarningContent(show: boolean){
     this.showMore = show;
   }
-
-  public closeWindow(){
-    this.router.navigate(['mainview']).then( () =>
-      {
-        this.nativeCommunicationService.sendToNative('Main View', 'print');
-      }
-    );
-  }
-
 }

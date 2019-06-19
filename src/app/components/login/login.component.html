@@ -4,7 +4,7 @@
     <form name="loginForm" [formGroup]="loginForm">
       <div class="fix-mat-form-field">
         <mat-form-field class="full-with-field" appearance="outline">
-          <input matInput placeholder="{{ 'login.username' | translate }}" required [formControl]="nameFormControl">
+          <input matInput placeholder="{{ 'login.username' | translate }}" name="username" required [formControl]="nameFormControl">
           <mat-error *ngIf="nameFormControl.invalid">{{getRequiredErrorMessage('name')}}</mat-error>
         </mat-form-field>
       </div>

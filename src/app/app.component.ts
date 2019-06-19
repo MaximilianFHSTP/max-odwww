@@ -27,6 +27,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   menuOpen = false;
+  guideStatus = 0;
 
   public platform: String;
   private readonly _unsubscribe: Unsubscribe;
@@ -293,24 +294,45 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  public openWifiView(){
+  public openHelp(){
     this.dismissMenu();
-    this.router.navigate(['wifi']).then( () =>
+    this.router.navigate(['help']).then( () =>
       {
         window.scrollTo(0, 0);
-        this.nativeCommunicationService.sendToNative('Wifi', 'print');
+        this.nativeCommunicationService.sendToNative('Help Screen', 'print');
       }
     );
   }
 
-  public openUnlockView(){
+  public openAppSettings(){
     this.dismissMenu();
-    this.router.navigate(['unlock']).then( () =>
+    this.router.navigate(['appSettings']).then( () =>
       {
         window.scrollTo(0, 0);
-        this.nativeCommunicationService.sendToNative('unlock', 'print');
+        this.nativeCommunicationService.sendToNative('appSettings', 'print');
       }
     );
+  }  
+
+  guideDismiss(){
+    this.guideStatus = 0;
+  }
+
+  guideNext(){
+    if (this.guideStatus < 4) {
+      this.guideStatus++;
+    }
+  }
+
+  guidePrev(){
+    if (this.guideStatus > 1) {
+      this.guideStatus--;
+    }
+  }
+
+  helpScreen(){
+    console.log('askdjhasd');
+    this.guideStatus = 1;
   }
 
   public dismissMenu(){
@@ -321,4 +343,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.menuOpen ? this.menuOpen = false : this.menuOpen = true;
   }
 
+  get ariaGuidePrevBtn(): string { return this.translate.instant('ariaLabels.ariaGuidePrevBtn'); }
+  get ariaGuideNextBtn(): string { return this.translate.instant('ariaLabels.ariaGuideNextBtn'); }
+  get ariaBackBtn(): string { return this.translate.instant('ariaLabels.ariaBackBtn'); }
+  get ariaHelpBtn(): string { return this.translate.instant('ariaLabels.ariaHelpBtn'); }
+  get ariaMenuBtn(): string { return this.translate.instant('ariaLabels.ariaMenuBtn'); }
 }

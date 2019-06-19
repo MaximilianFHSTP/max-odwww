@@ -12,6 +12,7 @@ h1{
     font-family: 'Vollkorn', Times, serif;
     margin: 20px 0;
     font-size: 1.6em;
+    text-align: center;
 }
 
 h2{
@@ -31,6 +32,10 @@ p{
     margin: 10px 0;
     font-size: 1em;
     line-height: 1.5em;
+}
+
+p.issues{
+    text-align: center;
 }
 
 .infoWrapper img{
@@ -77,11 +82,11 @@ ul li{
     font-size: 1em;
 }
 
-.btnDelete{
+.btnFix, .btnGet{
   border: none;
   outline: none;
   text-transform: uppercase;
-  font-size: 1em;
+  font-size: 0.8em;
   font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
   display: block;
   margin: 20px auto 10px auto;
@@ -91,29 +96,64 @@ ul li{
   padding: 0.8em;
 }
 
-.btnDelete{
+.btnFix{
   border: 1px solid #93272c;
   background: #ffffff;
   color: #93272c;
 }
 
-.warning{
+.btnGet{
+    border: 1px solid #494949;
+    background: #ffffff;
+    color: #494949;
+  }
+
+.card{
     border-radius: .25rem;
     padding: .75rem 1.25rem;
     color: #856404;
     background-color: #fff3cd;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
-.warning .warningbtn{
-    background-color: transparent;
-    border: none;
+.card img{
     float: right;
-}
-
-.warning img{
     width: 20px;
     margin: 10px 0px;
+}
+
+.card .content img{
+    float: none;
+    width: 40px;
+    display: block;
+    margin: 10px auto;
+}
+
+.loading{
+    color: #383d41;
+    background-color: #e2e3e5;
+}
+
+.error{
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.success{
+    color: #155724;
+    background-color: #d4edda;
+}
+
+.loading .content{
+    border-top: 1px solid #383d41;
+}
+
+.success .content{
+    border-top: 1px solid #155724;
+}
+
+.error .content{
+    border-top: 1px solid #721c24;
 }
 
 @media (min-height: 730px) {

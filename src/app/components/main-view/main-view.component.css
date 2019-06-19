@@ -273,6 +273,16 @@ p{
   float: right;
   margin: -55px 15px;
 }
+
+.toolbar button.helpbutton{ 
+  border-radius: 25px;
+  margin: 20px 20px 0px 0px;
+  background-position: center;
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-image: url("../../../assets/css/help.svg");
+  background-color: #fff;
+}
  
 .locationbutton{
   margin: 0;
@@ -285,6 +295,16 @@ p{
   background-position: center;
   background-size: 40px;
   background-repeat: no-repeat;
+}
+
+.ios .locationbutton{
+  background-image: url("../../../assets/css/locIOS.svg");
+  background-size: 30px;
+}
+
+.android .locationbutton{
+  background-image: url("../../../assets/css/locAndroid.svg");
+  background-size: 30px;
 }
 
 .questionsbutton{

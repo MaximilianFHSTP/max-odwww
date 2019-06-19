@@ -403,13 +403,12 @@ export class GodService {
     });
   }
 
-  public autoLogin(token: String): void
+  public autoLogin(token: String, device: any): void
   {
-    this.socket.emit('autoLoginOD', token);
+    this.socket.emit('autoLoginOD', {token: token, device: device});
 
     this.socket.on('autoLoginODResult', result =>
     {
-
       const data = result.data;
       const message = result.message;
 

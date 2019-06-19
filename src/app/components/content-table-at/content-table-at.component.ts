@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
+import { Component, Inject, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { GodService } from '../../services/god/god.service';
 import {LocationService} from '../../services/location.service';
 import { Router, NavigationEnd } from '@angular/router';
@@ -60,7 +60,8 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private alertService: AlertService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
-    private nativeCommunicationService: NativeCommunicationService
+    private nativeCommunicationService: NativeCommunicationService,
+    private ngZone: NgZone
   ) {
     this._unsubscribe = this.appStore.subscribe(() => {
       const state = this.appStore.getState();
@@ -72,13 +73,14 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
       this.locationSocketStatus = state.locationSocketStatus;
     });
 
+    this.correctWifiSubscribe = this.alertService.getMessageCorrectWifi().subscribe(value => {
+      this.setValue(value, 'wifi');
+    });
+
     this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
     {
       this.location = value;
     });
-    this.correctWifiSubscribe = this.alertService.getMessageCorrectWifi().subscribe(value => {
-        this.correctWifi = value.toString();
-      });
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       // If it is a NavigationEnd event re-initalise the component
       if (e instanceof NavigationEnd) {
@@ -89,6 +91,20 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initialiseInvites();
+    this.nativeCommunicationService.sendToNative('statusWifi', 'statusWifi');
+  }
+
+  setValue(value: any, func: string){
+    let status = '';
+    (value.toString() === 'true') ? status = 'true' : status = 'false';
+
+    switch(func){
+      case 'wifi':
+        this.ngZone.run(() => {
+          if(this.correctWifi !== status) {this.correctWifi = status; }
+        });
+        break;
+    }
   }
 
   initialiseInvites() {

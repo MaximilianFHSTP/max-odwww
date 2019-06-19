@@ -6,12 +6,14 @@
     "menuAbout": "ÜBER",
     "menuLogout": "AUSLOGGEN",
     "cancel": "abbrechen",
+    "help": "HILFE",
     "confirm": "bestätigen",
     "connectionLostHeader": "Verbindung verloren!",
     "connectionLostBody": "Warte bitte bis die Verbindung wieder hergestellt werden konnte!",
     "noPermissionHeader": "Keine Berechtigungen!",
     "noPermissionBody": "Starte bitte die App neu und erteile die benötigten Berechtigungen!",
-    "unlock": "INHALT FREISCHALTEN"
+    "unlock": "INHALT FREISCHALTEN",
+    "menuTroubleshooting": "PROBLEMBEHEBUNG"
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",
@@ -69,7 +71,6 @@
     "bourgeoisie": "Bürgertum",
     "noble": "Adel",
     "yourAnswer": "Deine Antwort: "
-
   },
   "tableOn": {
     "connecting" : "Verbindung zum Display wird aufgebaut.",
@@ -143,6 +144,25 @@
     "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben.",
     "btnUnlock": "INHALT FREISCHALTEN"
   },
+  "appSettings":{
+    "title": "Problembehebung",
+    "issues": "Gefundene Probleme:",
+    "noIssues": "Keine Probleme gefunden:",
+    "wifi": "Netzwerk",
+    "wifiOn": "WLAN eingeschaltet",
+    "wifiOff": "Falsches Netzwerk",
+    "wifiBtn": "Netzwerk wechseln",
+    "location": "Standort",
+    "locationOn": "Standortdienste eingeschaltet",
+    "locationOff": "Standortdienste sind nicht eingeschaltet",
+    "locationBtn": "Standortdienste einschalten",
+    "bluetooth": "Bluetooth",
+    "bluetoothOn": "Bluetooth eingeschaltet",
+    "bluetoothOff": "Bluetooth ist nicht eingeschaltet",
+    "bluetoothBtn": "Bluetooth einschalten",
+    "scanning": "Scannen...",
+    "checkagain": "Erneut überprüfen"
+  },
   "deleteDialog": {
     "title": "Konto löschen",
     "text": "Wenn Du das Konto löscht, kannst Du es nicht erneut aktivieren, alle Daten gehen verloren. Möchtest Du wirklich fortfahren?",
@@ -166,5 +186,49 @@
     "description": "Willst Du zum Austellungsstück wechseln:",
     "yesOption": "Ja",
     "noOption": "Nein"
+  },
+  "helpScreen": {
+		"title": "Hilfe",
+		"mainScreen": "Hauptbildschirm",
+		"unlock": "Inhalt freischalten",
+		"contents": "Inhaltstypen",
+		"coa": "Wappen",
+		"userData": "Benutzer- und Gastdaten",
+		"wifi": "Netzwerkeinstellungen",
+		"troubleshoot": "Problembehebung"
+	},
+	"guide": {
+		"close": "SCHILIESSEN",
+		"s1": "Jedes Ausstellungsstück wird durch eine dieser Boxen dargestellt. Gehe durch die Ausstellung, um sie freizuschalten. Tippe danach darauf, um mehr Informationen zu erhalten!",
+		"s2": "Die Ausstellung besteht aus mehreren Kapiteln. Hier kannst du zwischen den Kapiteln wechseln.",
+		"s3": "Tippe auf dieses Symbol, um zu deinem aktuellen Standort zu springen.",
+		"s4": "Hier findest du das App-Menü und dein eigenes Wappen."
+	},
+	"ariaLabels": {
+		"ariaSec1": "Abschnitt 1",
+		"ariaSec2": "Abschnitt 2",
+		"ariaSec3": "Abschnitt 3",
+		"ariaSec4": "Abschnitt 4",
+		"ariaSec5": "Abschnitt 5",
+		"ariaSec6": "Abschnitt 6",
+		"ariaCoaBtn": "Wappen",
+		"ariaQstBtn": "Fragebogen",
+		"ariaLocBtn": "Aktueller Standort",
+		"ariaGuidePrevBtn": "Vorige Seite",
+		"ariaGuideNextBtn": "Nächste Seite",
+		"ariaBackBtn": "Zurück",
+		"ariaHelpBtn": "Hilfe",
+		"ariaMenuBtn": "Menü",
+		"ariaShieldBtn": "Schild",
+		"ariaEmblemBtn": "Wappenfigur",
+		"ariaHelmetBtn": "Helm",
+		"ariaWeaponBtn": "Helmdecke",
+		"ariaColorBtn": "Farbe",
+		"ariaClr1Btn": "Rot",
+		"ariaClr2Btn": "Blau",
+		"ariaClr3Btn": "Grün",
+		"ariaClr4Btn": "Gelb",
+		"ariaClr5Btn": "Grau",
+	  "ariaCloseBtn": "Schließen"
   }
 }

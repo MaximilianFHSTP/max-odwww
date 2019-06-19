@@ -35,6 +35,7 @@ import { WindowRef } from './WindowRef';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
+import { AppSettingsComponent } from './components/app-settings/app-settings.component';
 import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
@@ -44,6 +45,7 @@ import { ContentTableNotifyOnComponent } from './components/content-table-notify
 import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
+import { HelpComponent } from './components/help/help.component';
 import { LanguageStartComponent } from './components/language-start/language-start.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
@@ -55,10 +57,8 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { StartViewComponent } from './components/start-view/start-view.component';
-import { UnlockComponent } from './components/unlock/unlock.component';
 import { UnlockDialogComponent } from './components/unlock-dialog/unlock-dialog.component';
 import { WappenComponent } from './components/wappen/wappen.component';
-import { WifiComponent } from './components/wifi/wifi.component';
 
 // Redux
 import { applyMiddleware, createStore } from 'redux';
@@ -81,6 +81,7 @@ export const appStore = createStore(
     AboutComponent,
     AlertDialogComponent,
     AppComponent,
+    AppSettingsComponent,
     ChangeCredentialsComponent,
     ChangeCredentialsComponent,
     ContentInteractiveComponent,
@@ -103,10 +104,9 @@ export const appStore = createStore(
     RegisterComponent,
     RegisterRealuserComponent,
     StartViewComponent,
-    UnlockComponent,
     UnlockDialogComponent,
     WappenComponent,
-    WifiComponent
+    HelpComponent
   ],
   imports: [
     BrowserModule,
@@ -218,6 +218,14 @@ export class AppModule {
       }
       case 'send_app_version': {
         this.nativeResponseService.getAppVersionNative(value);
+        break;
+      }
+      case 'send_correct_location': {
+        this.nativeResponseService.getLocationDataFromNative(value);
+        break;
+      }
+      case 'send_correct_bluetooth': {
+        this.nativeResponseService.getBluetoothDataFromNative(value);
         break;
       }
       case 'send_bluetooth_check': {

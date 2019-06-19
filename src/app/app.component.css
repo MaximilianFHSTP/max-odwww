@@ -61,6 +61,7 @@
   color:#ffffff;
 }
 
+button.helpbutton,
 .apptoolbar button{
   float:right;
   border: none;
@@ -68,11 +69,28 @@
   height: 50px;
   width: 50px;
   background-color: #494949;
-  background-image: url("assets/css/menu.svg");
   background-position: center;
   background-size: 35px;
   background-repeat: no-repeat;
   margin: 20px 20px 0px 0px;
+}
+
+.apptoolbar button.menubutton{
+  background-image: url("assets/css/menu.svg");
+}
+
+button.helpbutton{ 
+  position: fixed;
+  top: 160px;
+  right: 20px;
+  margin: 0;
+  border-radius: 25px;
+  background-position: center;
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-image: url("assets/css/help.svg");
+  background-color: #fff;
+  z-index: 9;
 }
 
 #redirectTimelineLong,
@@ -100,7 +118,7 @@
 .menuDiv{
   position: fixed;
   height: 100%;
-  width: 65%;
+  width: 75%;
   top: 0;
   right: 0;
   z-index: 9;
@@ -116,7 +134,8 @@
 }
 
 .menuDiv ul li{
-  margin: 20% 0;
+  margin: 0;
+  padding: 8% 0;
 }
 
 .dismissMenuDiv{
@@ -130,7 +149,144 @@
   opacity: 0.5;
 }
 
+#onboardingGuide{
+  width: 100%;
+  position: fixed;
+  display: table;
+  top: 0;
+  left: 0;
+  background-color:transparent;
+  z-index: 11;
+  height: -webkit-fill-available;
+}
+
+.guide{
+  position: fixed;
+  z-index: 11;
+  box-shadow: 0 0 0 99999px rgba(0, 0, 0, .8);
+}
+
+.textGuide{
+  position: fixed;
+  z-index: 12;
+  color: #ffffff;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+}
+
+.guideControl{
+  position: fixed;
+  width: 100%;
+  top: 45%;
+  z-index: 13;
+  color: #ffffff;
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+}
+
+.guideBtn.next,
+.guideBtn.prev{
+  float:left;
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 20%;
+  background-color: transparent;
+  background-image: url("assets/css/back.svg");
+  background-position: center;
+  background-size: 50px;
+  background-repeat: no-repeat;
+}
+
+.guideBtn.next{
+  float:right;
+  background-image: url("assets/css/next.svg");
+}
+
+.guideBtn.next.s4,
+.guideBtn.prev.s1{
+  background-image: none;
+}
+
+.guideBtn.dismiss{
+  border: 1px solid #fff;
+  outline: none;
+  height: 50px;
+  width: 40%;
+  background-color: transparent;
+  margin: 0px 10%;
+  background-position: center;
+  background-size: 50px;
+  color:#ffffff;
+}
+
+.guide.s1{
+  left: 30px;
+  top: 20px;
+  width: 70%;
+  height: 105px;
+}
+
+.textGuide.s1{
+  left: 30px;
+  top: 120px;
+  margin-right: 50px; 
+}
+
+.guide.s2{
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 95px;
+}
+
+.textGuide.s2{
+  left: 30px;
+  bottom: 100px;
+  margin-right: 50px; 
+}
+
+.guide.s3{
+  right: 15px;
+  bottom: 105px;
+  width: 60px;
+  height: 60px;
+}
+
+.textGuide.s3{
+  left: 20px;
+  bottom: 90px;
+  margin-right: 80px; 
+}
+
+.guide.s4{
+  right: 15px;
+  top: 15px;
+  width: 60px;
+  height: 130px;
+}
+
+.textGuide.s4{
+  left: 20px;
+  top: 30px;
+  margin-right: 80px; 
+}
+
 @media (min-height: 730px) {
+  button.helpbutton{ 
+    top: 175px;
+  }
+  
+  .guide.s1{
+    top: 35px;
+  }
+
+  .textGuide.s1{
+    top: 135px;
+  }
+
+  .guide.s4{
+    top: 30px;
+  }
+
   .apptoolbar button{
     margin: 35px 20px 0px 0px;
   }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WifiComponent } from './wifi.component';
+import { AppSettingsComponent } from './app-settings.component';
 
-describe('WifiComponent', () => {
-  let component: WifiComponent;
-  let fixture: ComponentFixture<WifiComponent>;
+describe('AppSettingsComponent', () => {
+  let component: AppSettingsComponent;
+  let fixture: ComponentFixture<AppSettingsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WifiComponent ]
+      declarations: [ AppSettingsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WifiComponent);
+    fixture = TestBed.createComponent(AppSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

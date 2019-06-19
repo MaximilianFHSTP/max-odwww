@@ -92,10 +92,22 @@ export class NativeResponseService implements OnInit
 
   public autoLogin(data): void {
     const token: String = data.token;
+    let deviceAddress = 'deviceAddress';
+    let deviceOS = 'deviceOS';
+    let deviceVersion = 'deviceVersion';
+    let deviceModel = 'deviceModel';
+
+    if(data.deviceAddress){ deviceAddress = data.deviceAddress.toString(); } 
+    if(data.deviceOS){ deviceOS = data.deviceOS.toString(); } 
+    if(data.deviceVersion){ deviceVersion = data.deviceVersion.toString(); } 
+    if(data.deviceModel){ deviceModel = data.deviceModel.toString(); } 
+
+    const device = {deviceAddress: deviceAddress, deviceOS: deviceOS, deviceVersion: deviceVersion, deviceModel: deviceModel};
+
     this.nativeCommunicationService.sendToNative('Autologin', 'print');
 
     if (token !== undefined && token !== null && token !== '') {
-      this.godService.autoLogin(token);
+      this.godService.autoLogin(token, device);
     }
     else {
       this.nativeCommunicationService.sendToNative('getLanguage', 'getLanguage');
@@ -130,6 +142,14 @@ export class NativeResponseService implements OnInit
   public getAppVersionNative(message): void{
     this.godService.checkVersion(message);
   }  
+
+  public getLocationDataFromNative(message): void{
+    this.alertService.sendMessageCorrectLocation(message);
+  }
+
+  public getBluetoothDataFromNative(message): void{
+    this.alertService.sendMessageCorrectBluetooth(message);
+  }
 
   public updateAppLanguage(language): void
   {

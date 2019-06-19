@@ -9,6 +9,7 @@ import { LanguageService } from '../../services/language.service';
 import * as coaTypes from '../../config/COATypes';
 import { CoaService } from '../../services/coa.service';
 import * as d3 from 'd3';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wappen',
@@ -55,6 +56,7 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
     public router: Router,
     private languageService: LanguageService,
     private alertService: AlertService,
+    private translate: TranslateService,
     public coaService: CoaService
   ){
     this._unsubscribe = this.appStore.subscribe(() =>{
@@ -272,4 +274,15 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
     );
   }
 
+  get ariaShieldBtn(): string { return this.translate.instant('ariaLabels.ariaShieldBtn');}
+  get ariaEmblemBtn(): string { return this.translate.instant('ariaLabels.ariaEmblemBtn');}
+  get ariaHelmetBtn(): string { return this.translate.instant('ariaLabels.ariaHelmetBtn');}
+  get ariaWeaponBtn(): string { return this.translate.instant('ariaLabels.ariaWeaponBtn');}
+  get ariaColorBtn(): string { return this.translate.instant('ariaLabels.ariaColorBtn');}
+  get ariaClr1Btn(): string { return this.translate.instant('ariaLabels.ariaClr1Btn');}
+  get ariaClr2Btn(): string { return this.translate.instant('ariaLabels.ariaClr2Btn');}
+  get ariaClr3Btn(): string { return this.translate.instant('ariaLabels.ariaClr3Btn');}
+  get ariaClr4Btn(): string { return this.translate.instant('ariaLabels.ariaClr4Btn');}
+  get ariaClr5Btn(): string { return this.translate.instant('ariaLabels.ariaClr5Btn');}
+  get ariaCloseBtn(): string { return this.translate.instant('ariaLabels.ariaCloseBtn');}
 }

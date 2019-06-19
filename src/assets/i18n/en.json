@@ -6,12 +6,14 @@
     "menuAbout": "ABOUT",
     "menuLogout": "LOGOUT",
     "cancel": "cancel",
+    "help": "HELP",
     "confirm": "confirm",
     "connectionLostHeader": "Connection lost!",
     "connectionLostBody": "Please wait until the app reconnects to the server!",
     "noPermissionHeader": "No permissions!",
     "noPermissionBody": "Please restart the app and allow the requested permissions!",
-    "unlock": "UNLOCK CONTENT"
+    "unlock": "UNLOCK CONTENT",
+    "menuTroubleshooting": "TROUBLESHOOT"
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",
@@ -142,6 +144,25 @@
     "credentialsTaken": "These credentials are already taken.",
     "btnUnlock": "UNLOCK CONTENT"
   },
+  "appSettings":{
+    "title": "App Settings",
+    "issues": "Problems found:",
+    "noIssues": "No problems found:",
+    "wifi": "Wifi",
+    "wifiOn": "Wifi activated",
+    "wifiOff": "Wrong Wifi Settings",
+    "wifiBtn": "Change Wifi",
+    "location": "Location",
+    "locationOn": "Location activated",
+    "locationOff": "Location is off",
+    "locationBtn": "Activate Location",
+    "bluetooth": "Bluetooth",
+    "bluetoothOn": "Bluetooth activated",
+    "bluetoothOff": "Bluetooth is off",
+    "bluetoothBtn": "Activate Bluetooth",
+    "scanning": "Scanning...",
+    "checkagain": "Check again"
+  },
   "deleteDialog": {
     "title": "Delete Account",
     "text": "If you delete your account, you will not be able to reactivate it, and all your data will be lost. Do you really want to proceed?",
@@ -165,5 +186,49 @@
     "description": "Do you want to go to exhibit:",
     "yesOption": "Yes",
     "noOption": "No"
+  },
+  "helpScreen": {
+    "title": "Help",
+    "mainScreen": "Main Screen",
+    "unlock": "Unlock Contents",
+    "contents": "Content Types",
+    "coa": "Coat of Arms",
+    "userData": "User and Guest Data",
+    "wifi": "Wifi Settings",
+    "troubleshoot": "Troubleshoot"
+  },
+  "guide": {
+    "close": "CLOSE",
+    "s1": "Each exhibit is represented by one of these boxes. Walk through the museum to unlock them. Then, tap on it to get more information!",
+    "s2": "The exhibition consists of multiple chapters. You can switch between the chapters here.",
+    "s3": "You can tap on this symbol to jump to your current position.",
+    "s4": "Here you can have access to the app menu and your own coat of arms."
+  },
+  "ariaLabels": {
+    "ariaSec1": "Section 1",
+    "ariaSec2": "Section 2",
+    "ariaSec3": "Section 3",
+    "ariaSec4": "Section 4",
+    "ariaSec5": "Section 5",
+    "ariaSec6": "Section 6",
+    "ariaCoaBtn": "coat of arms",
+    "ariaQstBtn": "questionnaire",
+    "ariaLocBtn": "current location",
+    "ariaGuidePrevBtn": "previous",
+    "ariaGuideNextBtn": "next",
+    "ariaBackBtn": "back",
+    "ariaHelpBtn": "help",
+    "ariaMenuBtn": "menu",
+    "ariaShieldBtn": "shield",
+    "ariaEmblemBtn": "charge",
+    "ariaHelmetBtn": "helmet",
+    "ariaWeaponBtn": "mantling",
+    "ariaColorBtn": "color",
+    "ariaClr1Btn": "red",
+    "ariaClr2Btn": "blue",
+    "ariaClr3Btn": "green",
+    "ariaClr4Btn": "yellow",
+    "ariaClr5Btn": "gray",
+    "ariaCloseBtn": "close"
   }
 }

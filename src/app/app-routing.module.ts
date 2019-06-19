@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './components/about/about.component';
+import { AppSettingsComponent } from './components/app-settings/app-settings.component';
 import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
@@ -10,6 +11,7 @@ import { ContentTableNotifyAtComponent } from './components/content-table-notify
 import { ContentTableNotifyOnComponent } from './components/content-table-notify-on/content-table-notify-on.component';
 import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
+import { HelpComponent } from './components/help/help.component';
 import { LanguageStartComponent } from './components/language-start/language-start.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
@@ -19,13 +21,12 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { StartViewComponent } from './components/start-view/start-view.component';
-import { UnlockComponent } from './components/unlock/unlock.component';
 import { WappenComponent } from './components/wappen/wappen.component';
-import { WifiComponent } from './components/wifi/wifi.component';
 
 const routes: Routes = [
   { path: '', component: StartViewComponent},
   { path: 'about', component: AboutComponent },
+  { path: 'appSettings', component: AppSettingsComponent },
   { path: 'changecred', component: ChangeCredentialsComponent },
   { path: 'interactive', component: ContentInteractiveComponent },
   { path: 'passive', component: ContentPassiveComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'tableNotifyAt', component: ContentTableNotifyAtComponent},
   { path: 'tableNotifyOn', component: ContentTableNotifyOnComponent},
   { path: 'educationQuiz', component: EducationQuizComponent },
+  { path: 'help', component: HelpComponent },
   { path: 'changeLanguageStart', component: LanguageStartComponent},
   { path: 'login', component: LoginComponent},
   { path: 'mainview', component: MainViewComponent },
@@ -41,9 +43,7 @@ const routes: Routes = [
   { path: 'quiz', component: QuizComponent},
   { path: 'register', component: RegisterComponent },
   { path: 'registerRealUser', component: RegisterRealuserComponent},
-  { path: 'unlock', component: UnlockComponent},
   { path: 'wappen', component: WappenComponent },
-  { path: 'wifi', component: WifiComponent },
   // additional routes here
   { path: '**', component: PageNotFoundComponent }
   // don't touch this
