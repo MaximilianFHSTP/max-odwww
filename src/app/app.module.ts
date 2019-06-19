@@ -57,10 +57,8 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { StartViewComponent } from './components/start-view/start-view.component';
-import { UnlockComponent } from './components/unlock/unlock.component';
 import { UnlockDialogComponent } from './components/unlock-dialog/unlock-dialog.component';
 import { WappenComponent } from './components/wappen/wappen.component';
-import { WifiComponent } from './components/wifi/wifi.component';
 
 // Redux
 import { applyMiddleware, createStore } from 'redux';
@@ -106,10 +104,8 @@ export const appStore = createStore(
     RegisterComponent,
     RegisterRealuserComponent,
     StartViewComponent,
-    UnlockComponent,
     UnlockDialogComponent,
     WappenComponent,
-    WifiComponent,
     HelpComponent
   ],
   imports: [

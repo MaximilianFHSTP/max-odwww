@@ -21,9 +21,7 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { StartViewComponent } from './components/start-view/start-view.component';
-import { UnlockComponent } from './components/unlock/unlock.component';
 import { WappenComponent } from './components/wappen/wappen.component';
-import { WifiComponent } from './components/wifi/wifi.component';
 
 const routes: Routes = [
   { path: '', component: StartViewComponent},
@@ -45,9 +43,7 @@ const routes: Routes = [
   { path: 'quiz', component: QuizComponent},
   { path: 'register', component: RegisterComponent },
   { path: 'registerRealUser', component: RegisterRealuserComponent},
-  { path: 'unlock', component: UnlockComponent},
   { path: 'wappen', component: WappenComponent },
-  { path: 'wifi', component: WifiComponent },
   // additional routes here
   { path: '**', component: PageNotFoundComponent }
   // don't touch this

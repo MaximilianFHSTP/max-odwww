@@ -304,16 +304,6 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  public openWifiView(){
-    this.dismissMenu();
-    this.router.navigate(['wifi']).then( () =>
-      {
-        window.scrollTo(0, 0);
-        this.nativeCommunicationService.sendToNative('Wifi', 'print');
-      }
-    );
-  }
-
   public openAppSettings(){
     this.dismissMenu();
     this.router.navigate(['appSettings']).then( () =>
@@ -323,16 +313,6 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
   }  
-
-  public openUnlockView(){
-    this.dismissMenu();
-    this.router.navigate(['unlock']).then( () =>
-      {
-        window.scrollTo(0, 0);
-        this.nativeCommunicationService.sendToNative('unlock', 'print');
-      }
-    );
-  }
 
   guideDismiss(){
     this.guideStatus = 0;
