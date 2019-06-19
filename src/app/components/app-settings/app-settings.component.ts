@@ -26,6 +26,8 @@ export class AppSettingsComponent implements OnInit, OnDestroy {
   public wifiCheck = false;
   public bluetoothCheck = false;
   public locationCheck = false;
+  public isIOS = false;
+  public isAndroid = false;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -69,6 +71,8 @@ export class AppSettingsComponent implements OnInit, OnDestroy {
     this.nativeCommunicationService.sendToNative('statusLocation', 'statusLocation');
     this.nativeCommunicationService.sendToNative('statusBluetooth', 'statusBluetooth');
     this.nativeCommunicationService.sendToNative('statusWifi', 'statusWifi');
+    this.isAndroid = this.nativeCommunicationService.isAndroid;
+    this.isIOS = this.nativeCommunicationService.isIOS;
 
     const state = this.appStore.getState();
     if(state.user !== undefined) { this.guest = state.user.isGuest; }

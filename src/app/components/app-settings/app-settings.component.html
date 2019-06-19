@@ -17,7 +17,8 @@
       <div class="content">        
         <p *ngIf="wifiStatus == 'success'">{{ 'appSettings.wifiOn' | translate }}</p>    
         <p *ngIf="wifiStatus == 'error'">{{ 'appSettings.wifiOff' | translate }}</p>    
-        <button *ngIf="wifiStatus == 'error'" (click)="fix('wifi')" class="btnFix">{{ 'appSettings.wifiBtn' | translate }}</button> 
+        <button *ngIf="wifiStatus == 'error' && isAndroid" (click)="fix('wifi')" class="btnFix">{{ 'appSettings.wifiBtn' | translate }}</button> 
+        <button *ngIf="wifiStatus == 'error' && isIOS" (click)="fix('wifi')" class="btnFix">Check again</button> 
         <button *ngIf="wifiStatus == 'loading' && wifiCheck" (click)="get('wifi')" class="btnGet">Check again</button>
         <img *ngIf="wifiStatus == 'loading' && !wifiCheck" src="assets/icons/000-loading.gif">
       </div>    
@@ -43,8 +44,9 @@
       <div class="content">
         <p *ngIf="bluetoothStatus == 'success'">{{ 'appSettings.bluetoothOn' | translate }}</p>    
         <p *ngIf="bluetoothStatus == 'error'">{{ 'appSettings.bluetoothOff' | translate }}</p>    
-        <button *ngIf="bluetoothStatus == 'error'" (click)="fix('bluetooth')" class="btnFix">{{ 'appSettings.bluetoothBtn' | translate }}</button> 
+        <button *ngIf="bluetoothStatus == 'error' && isAndroid" (click)="fix('bluetooth')" class="btnFix">{{ 'appSettings.bluetoothBtn' | translate }}</button> 
         <button *ngIf="bluetoothStatus == 'loading' && bluetoothCheck" (click)="get('bluetooth')" class="btnGet">Check again</button>
+        <button *ngIf="bluetoothStatus == 'error' && isIOS" (click)="get('bluetooth')" class="btnFix">Check again</button>
         <img *ngIf="bluetoothStatus == 'loading' && !bluetoothCheck" src="assets/icons/000-loading.gif"> 
       </div>    
     </div> 
