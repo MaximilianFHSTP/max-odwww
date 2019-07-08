@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit
     const state = this.appStore.getState();
     const platform = state.platform;
 
-    this.nativeCommunicationService.sendToNative('getDeviceInfos', 'getDeviceInfos');
+    this.nativeCommunicationService.sendToNative('register', 'getDeviceInfos');
 
     if (platform !== 'IOS' && platform !== 'Android')
     {

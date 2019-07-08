@@ -89,6 +89,22 @@ export class ChangeCredentialsComponent implements OnInit
         }
       }
     });
+    this.subscriptionChangeCred = this.alertService.getMessageCheckUserDevicedata().subscribe(message =>{
+
+      if(message){
+        this.transmissionService.transmitUserCredentialChange();
+
+        this.changeUsernameEnable = false;
+        this.changeEmailEnable = false;
+        this.changePasswordEnable = false;
+        this.changeLanguageEnable = false;
+      }else{
+        const config = new MatSnackBarConfig();
+        config.duration = 3000;
+        config.panelClass = ['error-snackbar'];
+        this.snackBar.open(this.translate.instant('changeCredentials.alreadyLoggedIn'), 'OK', config);
+      }
+    });
 
     this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
       const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
@@ -118,13 +134,17 @@ export class ChangeCredentialsComponent implements OnInit
     }else{
       this.transmissionService.changeNewPassword = this.newPasswordFormControl.value;
     }
+    this.nativeCommunicationService.sendToNative('credentialChange', 'getDeviceInfos');
 
-    this.transmissionService.transmitUserCredentialChange();
 
-    this.changeUsernameEnable = false;
-    this.changeEmailEnable = false;
-    this.changePasswordEnable = false;
-    this.changeLanguageEnable = false;
+    const state = this.appStore.getState();
+    const platform = state.platform;
+
+    if (platform !== 'IOS' && platform !== 'Android'){
+      const user = this.appStore.getState().user;
+      const data = {userId: user.id, deviceAddress: 'deviceAddress', deviceOS: 'deviceOS',
+       deviceVersion: 'deviceVersion', deviceModel: 'deviceModel', shouldBeUpdated: false};
+    }
   }
 
   ngOnInit()
@@ -272,7 +292,7 @@ export class ChangeCredentialsComponent implements OnInit
     this.changePasswordEnable = false;
   }
 
-  public unlockAll(){ 
+  public unlockAll(){
     window.scrollTo(0, 0);
     const dialogRef = this.dialog.open(UnlockDialogComponent,
       {data: { username: this.appStore.getState().user.name},

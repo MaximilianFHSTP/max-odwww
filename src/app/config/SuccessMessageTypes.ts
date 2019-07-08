@@ -2,6 +2,7 @@
 export let SUCCESS_OK = 200;
 export let SUCCESS_CREATED = 201;
 export let SUCCESS_LOGGED_IN = 202;
+export let SUCCESS_UPDATED = 203;
 
 export let SUCCESS_RECONNECTED_TO_GOD = 299;
 export let SUCCESS_RECONNECTED_TO_EXHIBIT = 298;

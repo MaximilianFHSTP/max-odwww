@@ -250,7 +250,7 @@ export class GodService {
         const elm: HTMLElement = document.getElementById('ghostScrollbutton') as HTMLElement;
         if(elm) { elm.click(); }
       }
-      
+
       this.socket.removeAllListeners('registerTimelineUpdateResult');
     });
   }
@@ -437,9 +437,51 @@ export class GodService {
     });
   }
 
+  public checkUserDeviceData(device: any){
+    const state = this.store.getState();
+    const user = state.user;
+    const data = {userId: user.id, deviceAddress: device.deviceAddress, deviceOS: device.deviceOS, deviceVersion: device.deviceVersion,
+      deviceModel: device.deviceModel, shouldBeUpdated: device.shouldBeUpdated};
+    this.socket.emit('checkUserDeviceData', data);
+
+    this.socket.on('checkUserDeviceDataResult', result =>
+    {
+      const data = result.data;
+      const message = result.message;
+
+      if (message.code === 203)
+      {
+        this.store.dispatch(this.statusActions.changeSuccessMessage(message));
+        if(!device.shouldBeUpdated){
+          this.alertService.setMessageCheckUserDevicedata(true);
+        }
+        return;
+      }
+      if (message.code === 404)
+      {
+        this.store.dispatch(this.statusActions.changeErrorMessage(message));
+        if(!device.shouldBeUpdated){
+          this.alertService.setMessageCheckUserDevicedata(false);
+        }
+        return;
+      }
+      if (message.code === 200)
+      {
+        this.store.dispatch(this.statusActions.changeSuccessMessage(message));
+        if(!device.shouldBeUpdated){
+          this.alertService.setMessageCheckUserDevicedata(true);
+        }
+        return;
+      }
+    });
+  }
+
   public loginOD(data: any): void
   {
-    this.socket.emit('loginOD', data);
+    const device = data.device;
+    const shouldBeUpdated = data.shouldBeUpdated;
+    const login = {user: data.user, email: data.email, password: data.password};
+    this.socket.emit('loginOD', login);
 
     this.socket.on('loginODResult', result =>
     {
@@ -460,6 +502,12 @@ export class GodService {
       this.store.dispatch(this.statusActions.changeLanguage(data.user.contentLanguageId));
 
       this.locationService.setToStartPoint();
+
+      const user = this.store.getState().user;
+      const deviceData = {userId: user.id, deviceAddress: device.deviceAddress, deviceOS: device.deviceOS,
+      deviceVersion: device.deviceVersion, deviceModel: device.deviceModel, shouldBeUpdated: shouldBeUpdated};
+      console.log(deviceData);
+      this.checkUserDeviceData(deviceData);
 
       this.router.navigate(['/mainview']).then( () =>
       {

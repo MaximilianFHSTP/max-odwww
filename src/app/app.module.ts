@@ -191,15 +191,27 @@ export class AppModule {
         this.nativeResponseService.updateAppLanguage(value.language);
         break;
       }
-       case 'update_location': {
-         this.nativeCommunicationService.sendToNative('Received Location Register ' + value.minor, 'print');
-          this.nativeResponseService.timelineUpdate(value);
-          break;
-       }
-       case 'send_device_infos': {
-          this.nativeResponseService.odRegister(value);
-          break;
-       }
+      case 'update_location': {
+        this.nativeCommunicationService.sendToNative('Received Location Register ' + value.minor, 'print');
+        this.nativeResponseService.timelineUpdate(value);
+        break;
+      }
+      case 'send_device_infos_register': {
+        this.nativeResponseService.odRegister(value);
+        break;
+      }
+      case 'send_device_infos_login': {
+        this.nativeResponseService.odLogin(value);
+        break;
+      }
+      case 'send_device_infos_login_guest': {
+        this.nativeResponseService.odLoginGuest(value);
+        break;
+      }
+      case 'send_device_infos_credential_change': {
+        this.nativeResponseService.credentialChange(value);
+        break;
+      }
       case 'logout_success': {
         this.nativeResponseService.logoutSuccess();
         break;

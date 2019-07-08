@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit
     const platform = state.platform;
 
     // this.checkEmailValue(this.nameFormControl.value);
-    this.transmissionService.transmitODLogin();
+    // this.transmissionService.transmitODLogin();
+    this.nativeCommunicationService.sendToNative('login', 'getDeviceInfos');
   }
 
   ngOnInit()
@@ -84,7 +85,7 @@ export class LoginComponent implements OnInit
     const state = this.appStore.getState();
     const platform = state.platform;
 
-    this.nativeCommunicationService.sendToNative('getDeviceInfos', 'getDeviceInfos');
+    this.nativeCommunicationService.sendToNative('loginGuest', 'getDeviceInfos');
 
     if (platform !== 'IOS' && platform !== 'Android')
     {

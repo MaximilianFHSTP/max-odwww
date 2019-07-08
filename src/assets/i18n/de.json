@@ -142,7 +142,8 @@
     "notSamePassword": "Das Passwort ist nicht dasselbe.",
     "credentialsNotChanged": "Die Anmeldeinformationen wurden nicht korrekt geändert.",
     "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben.",
-    "btnUnlock": "INHALT FREISCHALTEN"
+    "btnUnlock": "INHALT FREISCHALTEN",
+    "alreadyLoggedIn": "Sie sind schon auf einem anderen Gerät angemeldet!"
   },
   "appSettings":{
     "title": "Problembehebung",

@@ -182,14 +182,25 @@ export class TransmissionService
     }
   }
 
-  public transmitODLogin(): void {
+  public credentialChangeDataUpdate(result: any): void
+  {
+    this.deviceAddress = result.deviceAddress;
+    this.deviceOS = result.deviceOS;
+    this.deviceVersion = result.deviceVersion;
+    this.deviceModel = result.deviceModel;
+    const data = {deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,
+      deviceModel: this.deviceModel, shouldBeUpdated: false};
+    this.godService.checkUserDeviceData(data);
+  }
+
+  public transmitODLogin(result: any): void {
     const isEmail = this.utilityService.checkIfEmail(this.loginName);
     // console.log('login ' + isEmail);
     if (isEmail) {
-      const data = {user: undefined, email: this.loginName, password: this.loginPassword};
+      const data = {user: undefined, email: this.loginName, password: this.loginPassword, device: result, shouldBeUpdated: true};
       this.godService.loginOD(data);
     } else {
-      const data = {user: this.loginName, email: undefined, password: this.loginPassword};
+      const data = {user: this.loginName, email: undefined, password: this.loginPassword, device: result, shouldBeUpdated: true};
       this.godService.loginOD(data);
     }
   }
@@ -237,6 +248,9 @@ export class TransmissionService
     this.appStore.dispatch(this.locationActions.changeClosestExhibit(undefined));
   }
 
+  /*public checkUserDeviceData(data: any){
+  }*/
+
   /***************************************************************************
    ****                        Location Methods                           ****
    ***************************************************************************/
@@ -259,7 +273,7 @@ export class TransmissionService
       location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON;
 
     // console.log('exhibitParentId: ' + exhibitParentId + ' onExhibit: ' + onExhibit + ' isExhibitOnType: ' + isExhibitOnType);
-    
+
     if (isExhibitOnType)
     {
       if(!onExhibit && exhibitParentId === location.parentId)

@@ -22,7 +22,7 @@ export class AlertService {
   private subjectChangedCred = new Subject<any>();
   private subjectExistingCredentialsOnChange = new Subject<any>();
   private subjectUserOrEmailRegisterCheck = new Subject<any>();
-  private subjectCoaParts = new Subject<any>(); 
+  private subjectCoaParts = new Subject<any>();
   private subjectCorrectWifi = new Subject<any>();
   private subjectCorrectLocation = new Subject<any>();
   private subjectCorrectBluetooth = new Subject<any>();
@@ -31,10 +31,11 @@ export class AlertService {
   private subjectUserCoaColors = new Subject<any>();
   private subjectQuizQuestion = new Subject<any>();
   private subjectUpdateUserData = new Subject<any>();
-  private subjectCorrectPoints = new Subject<any>(); 
+  private subjectCorrectPoints = new Subject<any>();
   private subjectHandleNoPermissionsGranted = new Subject<any>();
   private subjectSwipeDirection = new Subject<any>();
   private subjectVersionCheck = new Subject<any>();
+  private subjectMessageCheckUserDevicedata = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -258,5 +259,13 @@ export class AlertService {
 
   getVersionCheck(): Observable<any>{
     return this.subjectVersionCheck.asObservable();
+  }
+
+  setMessageCheckUserDevicedata(message: any) {
+    this.subjectMessageCheckUserDevicedata.next(message);
+  }
+
+  getMessageCheckUserDevicedata(): Observable<any>{
+    return this.subjectMessageCheckUserDevicedata.asObservable();
   }
 }

@@ -90,6 +90,26 @@ export class NativeResponseService implements OnInit
     this.transmissionService.transmitODRegister(result);
   }
 
+  public odLogin(result: any): void
+  {
+    this.transmissionService.transmitODLogin(result);
+  }
+
+  public odLoginGuest(result: any): void
+  {
+    this.transmissionService.transmitODRegister(result);
+  }
+
+  public credentialChange(result: any): void
+  {
+    this.transmissionService.credentialChangeDataUpdate(result);
+  }
+
+  /*public updateDeviceInfos(result: any): void
+  {
+    this.transmissionService.updateDeviceInfos(result);
+  }*/
+
   public autoLogin(data): void {
     const token: String = data.token;
     let deviceAddress = 'deviceAddress';
@@ -97,10 +117,10 @@ export class NativeResponseService implements OnInit
     let deviceVersion = 'deviceVersion';
     let deviceModel = 'deviceModel';
 
-    if(data.deviceAddress){ deviceAddress = data.deviceAddress.toString(); } 
-    if(data.deviceOS){ deviceOS = data.deviceOS.toString(); } 
-    if(data.deviceVersion){ deviceVersion = data.deviceVersion.toString(); } 
-    if(data.deviceModel){ deviceModel = data.deviceModel.toString(); } 
+    if(data.deviceAddress){ deviceAddress = data.deviceAddress.toString(); }
+    if(data.deviceOS){ deviceOS = data.deviceOS.toString(); }
+    if(data.deviceVersion){ deviceVersion = data.deviceVersion.toString(); }
+    if(data.deviceModel){ deviceModel = data.deviceModel.toString(); }
 
     const device = {deviceAddress: deviceAddress, deviceOS: deviceOS, deviceVersion: deviceVersion, deviceModel: deviceModel};
 
@@ -141,7 +161,7 @@ export class NativeResponseService implements OnInit
 
   public getAppVersionNative(message): void{
     this.godService.checkVersion(message);
-  }  
+  }
 
   public getLocationDataFromNative(message): void{
     this.alertService.sendMessageCorrectLocation(message);

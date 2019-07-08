@@ -9,6 +9,8 @@ export let LOCATION_NOT_UPDATED = 302;
 export let OD_NOT_FOUND = 400;
 export let OD_NOT_CREATED = 401;
 export let OD_NOT_UPDATED = 402;
+export let LOG_NOT_CREATED = 403;
+export let OD_CREDENTIALS_NOT_MATCHING = 404;
 
 export let INVALID_TOKEN = 500;
 export let LOGIN_FAILED = 501;

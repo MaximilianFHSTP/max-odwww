@@ -42,8 +42,20 @@
 
      // call from native
      // gets deviceInfos, calls registerOD
-     window.send_device_infos = function(deviceinfos){
-       window.angularComponentRef.componentFn("send_device_infos",deviceinfos);
+     window.send_device_infos_register = function(deviceinfos){
+       window.angularComponentRef.componentFn("send_device_infos_register",deviceinfos);
+     };
+
+     window.send_device_infos_login = function(deviceinfos){
+       window.angularComponentRef.componentFn("send_device_infos_login",deviceinfos);
+     };
+
+     window.send_device_infos_login_guest = function(deviceinfos){
+       window.angularComponentRef.componentFn("send_device_infos_login_guest",deviceinfos);
+     };
+
+     window.send_device_infos_credential_change = function(deviceinfos){
+       window.angularComponentRef.componentFn("send_device_infos_credential_change",deviceinfos);
      };
 
      // call from native
