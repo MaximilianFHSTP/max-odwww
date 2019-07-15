@@ -66,7 +66,10 @@
     "beggars": "Beggars",
     "bourgeoisie": "Bourgeoisie",
     "noble": "Noble",
-    "yourAnswer": "Your Answer: "
+    "yourAnswer": "Your Answer: ",
+    "error": "Fail to Connect",
+    "tryagain": "TRY AGAIN"
+    
   },
   "tableOn": {
     "connecting" : "Connecting to the display.",

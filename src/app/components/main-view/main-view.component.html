@@ -1,0 +1,7 @@
+<div class="wrapper Sec_30">
+    <div class="wrapperContent">
+      <div><p>{{ 'quiz.error' | translate }}</p></div>
+    </div> 
+    <button class="btnJoin" *ngIf="!changeUsernameEnable" (click)="tryAgain()">{{ 'quiz.tryagain' | translate }}</button>
+    <div class="btnBottom"><button class="btnLang"></button></div>
+  </div>

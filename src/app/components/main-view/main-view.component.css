@@ -1,0 +1,200 @@
+@font-face {
+    font-family: 'OpenSans';
+    src: url("../../../assets/fonts/Open_Sans/OpenSans-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: 'Vollkorn';
+    src: url("../../../assets/fonts/Vollkorn/Vollkorn-Bold.ttf");
+  }
+  
+  h1{
+    font-family: 'Vollkorn', Times, serif;
+    margin: 20px 0;
+    font-size: 2em;
+    text-align: center;
+  }
+  
+  h1 div{
+    background-size: 500px;
+  }
+  
+  .puzzleIco{
+    display: inline-block;
+    margin: 0 0.5em 0 0;
+    width: 30px; 
+    height: 30px;
+    border: none;
+    outline: none;
+    background: url("../../../assets/css/WappenIcons.png") -19px -12px;
+  }
+  
+  p{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 50px 0 50px 0;
+    font-size: 1.7em;
+    text-align: center;
+  }
+  
+  .wrapperContent p{
+    line-height: 1.5em;
+  }
+  
+  .wrapper {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    top: 20%;
+  }
+  
+  .wrapperContent{
+    width: 70%;
+    margin: 20px auto;
+  }
+  
+  input{
+    font-family: 'Vollkorn', Times, serif;
+    margin-bottom: 6px;
+    font-size: 2em;
+    text-align: center; 
+  }
+  
+  .error{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    height: 2em;
+    font-size: 0.9em;
+  }
+  
+  .btnBottom{
+    position: fixed;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    border-top: 15px solid #494949;
+    color: #ffffff;
+  }
+  
+  .btnLang{
+    margin: 0;
+    width: 100%;
+    height: 80px;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .btnLang img{
+    height: 50px;
+  }
+  
+  .btnCancel,
+  .btnSave,
+  .btnJoin{
+    border: none;
+    outline: none;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    display: block;
+    margin: 0px auto 10px auto;
+    background: #494949;
+    color: #ffffff;
+    min-width: 280px;
+    padding: 0.8em;
+  }
+  
+  .btnCancel{
+    border: 1px solid #494949;
+    background: #ffffff;
+    color: #494949;
+  }
+  
+  .toolbar button{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 50px;
+    margin: 20px 20px 0px 20px; 
+    background: #ffffff;
+  }
+  
+  .toolbar .closebutton{
+    float: right; 
+    background: #494949;
+    color:#ffffff;
+    padding: 0;
+  }
+  
+  .toolbar .closebutton img{
+    margin: 4px 0 0 -1px;
+    height: 40px;
+  }
+  
+  .username{
+    font-family: 'Vollkorn', Times, serif;
+    margin: 30px 5px;
+    font-size: 1.5em;
+    text-align: center; 
+    float: right; 
+  }
+  
+  .btnJoin{ background-color: #755300; }
+  
+  .btnBottom{ background-color: #cccccc; }
+  
+  .wrapperLang{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: -webkit-fill-available;
+    background-color: #ffffff;
+  }
+  
+  .wrapperLang h2{
+    font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+    margin: 150px 20px 90px 20px;
+    text-align: center;
+    font-size: 2em;
+  }
+  
+  .btnDe, .btnEn {
+  padding: 0;
+  height: 220px;
+  border: none;
+  outline: none;
+  display: block;
+  margin: 50px auto 0 auto;
+  }
+  
+  .btnEn img,
+  .btnDe img{
+  height: 220px;
+  }
+  
+  .selected{
+  box-shadow: 0px 0px 18px #888888;
+  }
+  
+  .notSelected{
+  opacity: 0.5;
+  }
+  
+  #redirectStart{
+    float:left;
+    border: none;
+    outline: none;
+    height: 70px;
+    width: 70px;
+    background-color: #494949;
+    margin: 40px;
+    background-image: url("../../../assets/css/back.svg");
+    background-position: center;
+    background-size: 70px;
+  }
+  

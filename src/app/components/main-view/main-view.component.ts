@@ -12,6 +12,10 @@ export class MainViewComponent implements OnInit {
   constructor(private transmissionService: TransmissionService){}
 
   ngOnInit() {
-    this.transmissionService.transmitLocationRegister({minor: 301, major: 40});
+    this.transmissionService.transmitLocationRegister({minor: 301, major: 30});
+  }
+
+  tryAgain(){
+    this.transmissionService.transmitLocationRegister({minor: 301, major: 30});
   }
 }
