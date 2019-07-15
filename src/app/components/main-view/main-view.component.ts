@@ -435,8 +435,8 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   /* ------ Enter Exhibit View (check CoA and Wifi) ------- */
 
-  public requestRegisterLocation(id: number, parentId: number, locked: boolean, typeId: number){
-    if(!locked && id && parentId){
+  public requestRegisterLocation(id: number, parentId: number, typeId: number){
+    if(id && parentId){
       if(id === 5001){  this.checkCoaUnlock();  }
       if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT ||
          typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT ||
