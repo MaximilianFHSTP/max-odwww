@@ -12,7 +12,6 @@
     "connectionLostBody": "Please wait until the app reconnects to the server!",
     "noPermissionHeader": "No permissions!",
     "noPermissionBody": "Please restart the app and allow the requested permissions!",
-    "unlock": "UNLOCK CONTENT",
     "menuTroubleshooting": "TROUBLESHOOT"
   },
   "start": {
@@ -141,8 +140,7 @@
     "infoPassword2": "1 number.",
     "notSamePassword": "The password is not the same.",
     "credentialsNotChanged": "The credentials were not changed correctly.",
-    "credentialsTaken": "These credentials are already taken.",
-    "btnUnlock": "UNLOCK CONTENT"
+    "credentialsTaken": "These credentials are already taken."
   },
   "appSettings":{
     "title": "App Settings",
@@ -168,11 +166,6 @@
     "text": "If you delete your account, you will not be able to reactivate it, and all your data will be lost. Do you really want to proceed?",
     "yesOption": "Delete Account"
   },
-  "unlockDialog": {
-    "title": "Unlock Content",
-    "text": "Choose 'Unlock' to unlock all exhibits within the app without being there. Thus, you can read the contents. However, you can not connect to interactive exhibits.",
-    "yesOption": "Unlock"
-  },
   "questionnaireDialog": {
     "title": "Questionnaire",
     "text": "You have reached the end of the exhibition, could you please answer some questions.",
@@ -190,7 +183,6 @@
   "helpScreen": {
     "title": "Help",
     "mainScreen": "Main Screen",
-    "unlock": "Unlock Contents",
     "contents": "Content Types",
     "coa": "Coat of Arms",
     "userData": "User and Guest Data",
@@ -199,7 +191,7 @@
   },
   "guide": {
     "close": "CLOSE",
-    "s1": "Each exhibit is represented by one of these boxes. Walk through the museum to unlock them. Then, tap on it to get more information!",
+    "s1": "Each exhibit is represented by one of these boxes. Tap on it to get more information!",
     "s2": "The exhibition consists of multiple chapters. You can switch between the chapters here.",
     "s3": "You can tap on this symbol to jump to your current position.",
     "s4": "Here you can have access to the app menu and your own coat of arms."

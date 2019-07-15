@@ -57,7 +57,6 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { StartViewComponent } from './components/start-view/start-view.component';
-import { UnlockDialogComponent } from './components/unlock-dialog/unlock-dialog.component';
 import { WappenComponent } from './components/wappen/wappen.component';
 
 // Redux
@@ -104,7 +103,6 @@ export const appStore = createStore(
     RegisterComponent,
     RegisterRealuserComponent,
     StartViewComponent,
-    UnlockDialogComponent,
     WappenComponent,
     HelpComponent
   ],
@@ -161,7 +159,6 @@ export const appStore = createStore(
     AlertDialogComponent,
     NativeSettingDialogComponent,
     DeleteDialogComponent,
-    UnlockDialogComponent,
     QuestionnaireDialogComponent
   ]
 })

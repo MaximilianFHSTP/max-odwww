@@ -1,7 +1,6 @@
 import { Component, Inject, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { UnlockDialogComponent } from '../unlock-dialog/unlock-dialog.component';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { NativeResponseService } from '../../services/native/native-response.service';
 import { LanguageService } from '../../services/language.service';
@@ -76,20 +75,6 @@ export class AppSettingsComponent implements OnInit, OnDestroy {
 
     const state = this.appStore.getState();
     if(state.user !== undefined) { this.guest = state.user.isGuest; }
-  }
-
-  public unlockAll(){ 
-    window.scrollTo(0, 0);
-    const dialogRef = this.dialog.open(UnlockDialogComponent,
-      {data: { username: this.appStore.getState().user.name},
-        disableClose: true,
-        autoFocus: false
-      });
-    dialogRef.afterClosed().subscribe(result =>{
-      if(result === this.translate.instant('app.confirm')){
-        this.nativeResponseService.unlockAllTimelineLocations();
-      }
-    });
   }
 
   setValue(value: any, func: string){

@@ -12,7 +12,6 @@
     "connectionLostBody": "Warte bitte bis die Verbindung wieder hergestellt werden konnte!",
     "noPermissionHeader": "Keine Berechtigungen!",
     "noPermissionBody": "Starte bitte die App neu und erteile die benötigten Berechtigungen!",
-    "unlock": "INHALT FREISCHALTEN",
     "menuTroubleshooting": "PROBLEMBEHEBUNG"
   },
   "start": {
@@ -141,8 +140,7 @@
     "infoPassword2": "1 Ziffer.",
     "notSamePassword": "Das Passwort ist nicht dasselbe.",
     "credentialsNotChanged": "Die Anmeldeinformationen wurden nicht korrekt geändert.",
-    "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben.",
-    "btnUnlock": "INHALT FREISCHALTEN"
+    "credentialsTaken": "Diese Anmeldeinformationen sind bereits vergeben."
   },
   "appSettings":{
     "title": "Problembehebung",
@@ -168,11 +166,6 @@
     "text": "Wenn Du das Konto löscht, kannst Du es nicht erneut aktivieren, alle Daten gehen verloren. Möchtest Du wirklich fortfahren?",
     "yesOption": "Konto löschen"
   },
-  "unlockDialog": {
-    "title": "Inhalt freischalten",
-    "text": "Wähle 'Freischalten', um alle Ausstellungsstücke in der App freizuschalten, ohne dass Du bei diesen gewesen sein musst. Du kannst so die Inhalte konsumieren, Dich jedoch nicht mit den interaktiven Ausstellungsstücken verbinden.",
-    "yesOption": "Freischalten"
-  },
   "questionnaireDialog": {
     "title": "Fragebogen",
     "text": "Du hast das Ende der Ausstellung erreicht, würdest Du bitte diese Fragen beantworten.",
@@ -190,7 +183,6 @@
   "helpScreen": {
 		"title": "Hilfe",
 		"mainScreen": "Hauptbildschirm",
-		"unlock": "Inhalt freischalten",
 		"contents": "Inhaltstypen",
 		"coa": "Wappen",
 		"userData": "Benutzer- und Gastdaten",
@@ -199,7 +191,7 @@
 	},
 	"guide": {
 		"close": "SCHILIESSEN",
-		"s1": "Gehe durch die Ausstellung, um die Ausstellungsstücke freizuschalten. Tippe danach darauf, um mehr Informationen zu erhalten!",
+		"s1": "Das ist ein Ausstellungsstück. Tippe darauf um mehr Informationen zu bekommen!",
 		"s2": "Die Ausstellung besteht aus mehreren Kapiteln. Hier kannst du zwischen den Kapiteln wechseln.",
 		"s3": "Tippe auf dieses Symbol, um zu deinem aktuellen Standort zu springen.",
 		"s4": "Hier findest du das App-Menü und dein eigenes Wappen."

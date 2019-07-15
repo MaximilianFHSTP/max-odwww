@@ -9,6 +9,10 @@
   margin: 20px;
 }
 
+.guideBtn{
+  font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
+}
+
 #notConnectedToGod{
   width: 100%;
   text-align:center;
@@ -207,7 +211,7 @@ button.helpbutton{
 }
 
 .guideBtn.dismiss{
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   outline: none;
   height: 50px;
   width: 40%;
@@ -216,6 +220,11 @@ button.helpbutton{
   background-position: center;
   background-size: 50px;
   color:#ffffff;
+}
+
+.guideBtn.dismiss:active{
+  background-color: #ffffff;
+  color:#000000;
 }
 
 .guide.s1{

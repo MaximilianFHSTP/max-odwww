@@ -1,7 +1,6 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { UnlockDialogComponent } from '../unlock-dialog/unlock-dialog.component';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { NativeResponseService } from '../../services/native/native-response.service';
 import { LanguageService } from '../../services/language.service';
@@ -63,29 +62,10 @@ export class HelpComponent implements OnInit {
   show(option: string){
     switch(option){
       case 'showMainScreenInfo':
-        this.showMenu = false;
-        this.showInfo = option;
-        break;
-      case 'showUnlockInfo':
-        this.showMenu = false;
-        this.showInfo = option;
-        break;
       case 'showContentInfo':
-        this.showMenu = false;
-        this.showInfo = option;
-        break;
       case 'showCOAInfo':
-        this.showMenu = false;
-        this.showInfo = option;
-        break;
       case 'showDataInfo':
-        this.showMenu = false;
-        this.showInfo = option;
-        break;
       case 'showWifiInfo':
-        this.showMenu = false;
-        this.showInfo = option;
-        break;
       case 'showTroubleshootInfo':
         this.showMenu = false;
         this.showInfo = option;
@@ -99,20 +79,6 @@ export class HelpComponent implements OnInit {
         this.showInfo = '';
         break;
     }
-  }
-
-  public unlockAll(){ 
-    window.scrollTo(0, 0);
-    const dialogRef = this.dialog.open(UnlockDialogComponent,
-      {data: { username: this.appStore.getState().user.name},
-        disableClose: true,
-        autoFocus: false
-      });
-    dialogRef.afterClosed().subscribe(result =>{
-      if(result === this.translate.instant('app.confirm')){
-        this.nativeResponseService.unlockAllTimelineLocations();
-      }
-    });
   }
 
   public showWarningContent(show: boolean){
