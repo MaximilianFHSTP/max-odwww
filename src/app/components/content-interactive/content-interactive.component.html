@@ -15,14 +15,11 @@
   <div class="btnJoin">
     <div class="ico"></div>
     <div class="msg">
-      <div *ngIf="!locationStatusNotAtLocation">
-        <button *ngIf="location.id == 101" (click)="playARBooks()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-        <button *ngIf="location.id == 102" (click)="playEducationQuiz()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-        <button *ngIf="location.id == 402" (click)="playARPanels()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-        <button *ngIf="location.id == 501" (click)="playARShrine()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-      </div>
-      <div *ngIf="locationStatusNotAtLocation"><p>{{ 'interactiveExhibit.notAtLocation' | translate }}</p></div>
+      <button *ngIf="location.id == 101" (click)="playARBooks()">{{ 'interactiveExhibit.startButton' | translate }}</button>
+      <button *ngIf="location.id == 102" (click)="playEducationQuiz()">{{ 'interactiveExhibit.startButton' | translate }}</button>
+      <button *ngIf="location.id == 402" (click)="playARPanels()">{{ 'interactiveExhibit.startButton' | translate }}</button>
+      <button *ngIf="location.id == 501" (click)="playARShrine()">{{ 'interactiveExhibit.startButton' | translate }}</button>
     </div>
   </div>
-  <div class="btnJoinDisabled" *ngIf="locationStatusNotAtLocation"></div>
+  
 </div>
