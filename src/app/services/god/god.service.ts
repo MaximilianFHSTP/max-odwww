@@ -519,6 +519,13 @@ export class GodService {
     });
   }
 
+  public logoutODLog(): void
+  {
+    const userid = this.store.getState().user.id;
+    const logdata = {user: userid, logType: 6, comment: 'User logged out'};
+    this.socket.emit('addUserLogEntry', logdata);
+  }
+
   public checkUsernameExists(username: String): void
   {
     // console.log('checkUsername');

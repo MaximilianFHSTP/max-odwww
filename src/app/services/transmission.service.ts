@@ -226,6 +226,7 @@ export class TransmissionService
 
   public logout(): void {
     this.nativeCommunicationService.sendToNative('clearToken', 'clearToken');
+    this.godService.logoutODLog();
 
     if (this.nativeCommunicationService.isWeb === true) {
       this.transmitLogoutCleanup();
