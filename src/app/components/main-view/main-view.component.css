@@ -371,20 +371,27 @@ p{
   border: none;
   outline: none;
   background: transparent;
+  display: table;
 }
 
 .timelineSectionNav ul li button svg{
-  width: 30px; 
-  height: 30px;
+  width: 25px; 
+  height: 25px;
+  display: table-cell;
+  margin: 0 auto;
+  padding-top: 5px;
 }
 
 .timelineSectionNav ul li button p{
-  line-height: 1.1em;
-  font-size: 0.75em;
+  line-height: 1.2em;
+  font-size: 0.7em;
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
   margin-top: 0.3em;
+  display: table-cell;
+  height: 45px;
+  vertical-align: middle;
 }
 
 .timelineSectionNav.selected_Section10 ul li.Sec10,
@@ -425,8 +432,8 @@ p{
 
 @media (max-width: 350px) {
   .timelineSectionNav ul li button svg{
-    width: 35px; 
-    height: 35px;
+    width: 25px; 
+    height: 25px;
   }
 
   .card h1{
