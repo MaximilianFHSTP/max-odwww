@@ -50,7 +50,7 @@
   },
   "tableAt": {
     "welcomeText": "Willkommen bei",
-    "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche unten, um zu beginnen!",
+    "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche:",
     "tableOfflineText": "Das Display steht zur Zeit nicht zur Verfügung.",
     "tableFreeText": "Das Display ist frei.",
     "tableOccupiedText": "Das Display ist gerade nicht frei, probiere es später erneut!",
@@ -81,7 +81,7 @@
     "emperor": "Kaiser"
   },
   "interactiveExhibit": {
-    "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche unten, um zu beginnen!",
+    "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche:",
     "startButton": "Starten",
     "notAtLocation": "Gehe zum Ausstellungsstück, um die interaktiven Inhalt zu starten!",
     "quizQuestion": "Wie heißt der hier aufscheinende Student mit Vornamen?",
@@ -90,7 +90,7 @@
     "exhibitNotAvailable": "Der interaktive Inhalt ist noch nicht verfügbar."
   },
   "notifiyExhibit": {
-    "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche unten, um zu beginnen!",
+    "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche:",
     "tableOfflineText": "Das interaktive Ausstellungsstück steht zur Zeit nicht zur Verfügung!",
     "tableOccupiedText": "Das interaktive Ausstellungsstück ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",

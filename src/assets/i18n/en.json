@@ -50,7 +50,7 @@
   },
   "tableAt": {
     "welcomeText": "Welcome at",
-    "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
+    "interactiveExhibitMsg": "This is an interactive exhibit. To start, click the button:",
     "tableOfflineText": "The display is currently not available.",
     "tableFreeText": "The display is free.",
     "tableOccupiedText": "Sorry, the display is occupied. Please try again later!",
@@ -81,7 +81,7 @@
     "emperor": "Emperor"
   },
   "interactiveExhibit": {
-    "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
+    "interactiveExhibitMsg": "This is an interactive exhibit. To start, click the button:",
     "startButton": "Start interactive exhibit",
     "notAtLocation": "Walk to the exhibit to start the interactive content!",
     "quizQuestion": "What is the name of the student appearing here?",
@@ -90,7 +90,7 @@
     "exhibitNotAvailable": "Interactive content is not available yet."
   },
   "notifiyExhibit": {
-    "interactiveExhibitMsg": "This is an interactive exhibit. Click the button below to start!",
+    "interactiveExhibitMsg": "This is an interactive exhibit. To start, click the button:",
     "tableOfflineText": "Sorry, an error occurred. Therefore, the display is currently not available!",
     "tableOccupiedText": "Sorry, the display is occupied. Please try again later!",
     "tableJoinButton": "Join interactive exhibit",
