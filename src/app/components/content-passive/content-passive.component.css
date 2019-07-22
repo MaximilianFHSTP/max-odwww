@@ -14,6 +14,14 @@ h1{
     font-size: 1.6em;
 }
 
+.contentFig{
+    margin: 0;
+}
+
+.contentFig img{
+    width: 100%;
+}
+
 .wrapperContent p{
     line-height: 1.5em;
   }

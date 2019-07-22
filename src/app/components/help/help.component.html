@@ -6,7 +6,6 @@
   <div *ngIf="showMenu" class="infoWrapper">
       <h1>{{ 'helpScreen.title' | translate }}</h1>
       <button class="btnMenu" (click)="show('showMainScreenInfo')"><div class="ico icoScreen"></div>{{ 'helpScreen.mainScreen' | translate }}</button>
-      <button class="btnMenu" (click)="show('showUnlockInfo')"><div class="ico icoUnlock"></div>{{ 'helpScreen.unlock' | translate }}</button>
       <button class="btnMenu" (click)="show('showContentInfo')"><div class="ico icoTypes"></div>{{ 'helpScreen.contents' | translate }}</button>
       <button class="btnMenu" (click)="show('showCOAInfo')"><div class="ico icoCOA"></div>{{ 'helpScreen.coa' | translate }}</button>
       <button class="btnMenu" (click)="show('showDataInfo')"><div class="ico icoUser"></div>{{ 'helpScreen.userData' | translate }}</button>
@@ -65,46 +64,6 @@
         <img class="helpImage en" src="assets/img/helpImages/mainMenu.png" />
         <figcaption>Menu, coat of arms, and help buttons</figcaption>
       </figure>
-    </div>
-  </div>
-
-  <!-- ##################################################################################################### -->
-
-  <div *ngIf="showInfo === 'showUnlockInfo'">
-    <div *ngIf="languageService.getCurrentLanguageAsString() === 'de'" class="infoWrapper">
-      <h1>{{ 'helpScreen.unlock' | translate }}</h1>
-      <p>Die Inhalte in dieser App können nur in der Ausstellung 'Des Kaisers neuer Heiliger' freigeschaltet werden.</p> 
-      <p>Während du durch die Ausstellung gehst, erkennt die App deinen Standort und schaltet die entsprechenden Inahlte in der interaktiven Zeitleiste frei.</p>
-
-      <div class="warning">
-        <button *ngIf="!showMore" class="warningbtn" (click)="showWarningContent(true)"><img src="assets/icons/showMore.svg"></button>
-        <button *ngIf="showMore" class="warningbtn" (click)="showWarningContent(false)"><img src="assets/icons/showLess.svg"></button>
-        <h3>Manuell freischalten</h3>
-
-        <div *ngIf="showMore">
-          <p>Wenn du nicht in der Ausstellung bist oder Probleme hast Inhalte freizuschalten, 
-            <a *ngIf="guest == 0">gehe zu den <b>Profileinstellungen</b> und</a> wähle '{{ 'changeCredentials.btnUnlock' | translate }}', 
-            um alle Ausstellungsstücke in der App freizuschalten.</p>    
-          <button *ngIf="guest == 1" class="btnDelete" (click)="unlockAll()">{{ 'changeCredentials.btnUnlock' | translate }}</button>  
-        </div> 
-      </div> 
-    </div>
-    <div *ngIf="languageService.getCurrentLanguageAsString() === 'en'" class="infoWrapper">
-      <h1>{{ 'helpScreen.unlock' | translate }}</h1>
-      <p>The contents in this app can only be unlocked in the exhibition 'The Emperor's New Saint'.</p> 
-      <p>As you walk through the exhibition, the app senses your location and unlock the corresponding contents in the interactive timeline.</p> 
-
-      <div class="warning">
-        <button *ngIf="!showMore" class="warningbtn" (click)="showWarningContent(true)"><img src="assets/icons/showMore.svg"></button>
-        <button *ngIf="showMore" class="warningbtn" (click)="showWarningContent(false)"><img src="assets/icons/showLess.svg"></button>
-        <h3>Manual unlock</h3>
-        <div *ngIf="showMore">
-          <p>If you are not in the exhibition or facing problems to unlock contents, 
-            <a *ngIf="guest == 0">go to <b>Profile Settings</b> and</a> choose '{{ 'changeCredentials.btnUnlock' | translate }}' 
-            to unlock all exhibits within the app. </p>    
-          <button *ngIf="guest == 1" class="btnDelete" (click)="unlockAll()">{{ 'changeCredentials.btnUnlock' | translate }}</button> 
-        </div>    
-      </div> 
     </div>
   </div>
 

@@ -58,6 +58,14 @@ a{
     color: #ffffff;
 }
 
+.contentFig{
+    margin: 0;
+}
+
+.contentFig img{
+    width: 100%;
+}
+
 .btnJoin .ico{
     height: 50px;
     width: 50px;

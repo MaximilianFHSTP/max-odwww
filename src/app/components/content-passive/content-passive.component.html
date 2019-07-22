@@ -7,9 +7,14 @@
     <div *ngFor="let cont of location.contents">
       <p *ngIf="cont.contentTypeId == 1" class="cont{{cont.storyTellerId}}">{{cont.content}}</p>
       <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
-    </div>
+    </div>    
 
     <div id="timeline"></div>
+
+    <figure class="contentFig" *ngIf="location.id == 1000 || location.id == 2000 || location.id == 2001 || location.id == 2004 || location.id == 3000 || location.id == 4000 || location.id == 4004 || location.id == 5000 || location.id == 5001">
+      <img *ngIf="languageService.getCurrentLanguageAsString() === 'de'" alt="{{location.titleGER}}" src="assets/img/content/pic{{location.id}}.png" />
+      <img *ngIf="languageService.getCurrentLanguageAsString() === 'en'" alt="{{location.titleENG}}" src="assets/img/content/pic{{location.id}}.png" />
+    </figure>
   </div>
 
   <div *ngIf="location.id != 6000 && location.id != 5001" class="timelineSectionNav selected_Section{{currentSection}}">

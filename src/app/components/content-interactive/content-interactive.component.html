@@ -9,20 +9,22 @@
       <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
     </div>
 
-    <p class="note">{{ 'interactiveExhibit.interactiveExhibitMsg' | translate }}</p>
+    <figure class="contentFig" *ngIf="location.id == 101 || location.id == 102 || location.id == 402 || location.id == 501">
+      <img *ngIf="languageService.getCurrentLanguageAsString() === 'de'" alt="{{location.titleGER}}" src="assets/img/content/pic{{location.id}}.png" />
+      <img *ngIf="languageService.getCurrentLanguageAsString() === 'en'" alt="{{location.titleENG}}" src="assets/img/content/pic{{location.id}}.png" />
+    </figure>
+
+    <p class="note">{{ 'interactiveExhibit.interactiveExhibitMsg' | translate }} "{{ 'interactiveExhibit.startButton' | translate }}"</p>
   </div> 
 
   <div class="btnJoin">
     <div class="ico"></div>
     <div class="msg">
-      <div *ngIf="!locationStatusNotAtLocation">
-        <button *ngIf="location.id == 101" (click)="playARBooks()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-        <button *ngIf="location.id == 102" (click)="playEducationQuiz()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-        <button *ngIf="location.id == 402" (click)="playARPanels()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-        <button *ngIf="location.id == 501" (click)="playARShrine()">{{ 'interactiveExhibit.startButton' | translate }}</button>
-      </div>
-      <div *ngIf="locationStatusNotAtLocation"><p>{{ 'interactiveExhibit.notAtLocation' | translate }}</p></div>
+      <button *ngIf="location.id == 101" (click)="playARBooks()">{{ 'interactiveExhibit.startButton' | translate }}</button>
+      <button *ngIf="location.id == 102" (click)="playEducationQuiz()">{{ 'interactiveExhibit.startButton' | translate }}</button>
+      <button *ngIf="location.id == 402" (click)="playARPanels()">{{ 'interactiveExhibit.startButton' | translate }}</button>
+      <button *ngIf="location.id == 501" (click)="playARShrine()">{{ 'interactiveExhibit.startButton' | translate }}</button>
     </div>
   </div>
-  <div class="btnJoinDisabled" *ngIf="locationStatusNotAtLocation"></div>
+  
 </div>

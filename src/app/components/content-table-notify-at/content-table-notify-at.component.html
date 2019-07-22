@@ -9,7 +9,12 @@
       <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
     </div>
 
-    <p class="note">{{ 'notifiyExhibit.interactiveExhibitMsg' | translate }}</p>
+    <figure class="contentFig" *ngIf="location.id == 403 || location.id == 502">
+      <img *ngIf="languageService.getCurrentLanguageAsString() === 'de'" alt="{{location.titleGER}}" src="assets/img/content/pic{{location.id}}.png" />
+      <img *ngIf="languageService.getCurrentLanguageAsString() === 'en'" alt="{{location.titleENG}}" src="assets/img/content/pic{{location.id}}.png" />
+    </figure>
+
+    <p class="note">{{ 'notifiyExhibit.interactiveExhibitMsg' | translate }} "{{ 'notifiyExhibit.tableJoinButton' | translate }}"</p>
   </div>
 
   <div class="webdevtools" *ngIf="isWeb" style="margin-top:20px">

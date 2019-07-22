@@ -7,7 +7,6 @@ import { NativeResponseService } from '../../services/native/native-response.ser
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { UnlockDialogComponent } from '../unlock-dialog/unlock-dialog.component';
 import { TransmissionService } from '../../services/transmission.service';
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
@@ -270,19 +269,5 @@ export class ChangeCredentialsComponent implements OnInit
     this.changeUsernameEnable = false;
     this.changeEmailEnable = false;
     this.changePasswordEnable = false;
-  }
-
-  public unlockAll(){ 
-    window.scrollTo(0, 0);
-    const dialogRef = this.dialog.open(UnlockDialogComponent,
-      {data: { username: this.appStore.getState().user.name},
-        disableClose: true,
-        autoFocus: false
-      });
-    dialogRef.afterClosed().subscribe(result =>{
-      if(result === this.translate.instant('app.confirm')){
-        this.nativeResponseService.unlockAllTimelineLocations();
-      }
-    });
   }
 }

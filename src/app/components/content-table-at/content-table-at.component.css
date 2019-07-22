@@ -14,6 +14,14 @@
     font-size: 1.6em;
 }
 
+.contentFig{
+    margin: 0;
+}
+
+.contentFig img{
+    width: 100%;
+}
+
 .btnJoin button,
 p{
     font-family: 'OpenSans', Helvetica, Arial, Sans-Serif;
