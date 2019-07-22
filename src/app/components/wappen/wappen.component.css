@@ -134,35 +134,43 @@ h1{
 .wappenSettingsNav ul li button{
     display: block;
     margin: 5px auto;
-    width: 70px; 
-    height: 70px;
     border: none;
     outline: none;
-    background-size: 620px 136px;
+    background-size: 465px 102px;
 }
 
 .wappenSettingsNav_shield button{ 
-    background: url("../../../assets/css/WappenIcons.png") -92px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -77px 0px;
 }
 
 .wappenSettingsNav_emblem button{ 
-    background: url("../../../assets/css/WappenIcons.png") -185px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -143px 0px;
 }
 
 .wappenSettingsNav_helmet button{ 
-    background: url("../../../assets/css/WappenIcons.png") -275px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -213px 0px;
 }
 
 .wappenSettingsNav_weapon button{ 
-    background: url("../../../assets/css/WappenIcons.png") -365px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -278px 0px;
 }
 
 .wappenSettingsNav_color button{ 
-    background: url("../../../assets/css/WappenIcons.png") -460px 0px;
+    background: url("../../../assets/css/WappenIcons.png") -353px 0px;
 }
 
 .wappenSettingsNav ul li.selected button{ 
-    background-position-y: -70px;
+    background-position-y: -51px;
+}
+
+.wappenSettingsNav ul li p{ 
+    padding-top: 6em;
+    line-height: 1.2em;
+    font-size: 0.7em;
+}
+
+.wappenSettingsNav ul li.selected p{ 
+    color: #fff;
 }
 
 .wappenHelpOut,

@@ -98,7 +98,6 @@ a{
 
       .timelineSectionNav ul li button{
         display: block;
-        margin: 5px;
         width: 100%; 
         height: 70px;
         border: none;
@@ -107,14 +106,21 @@ a{
       }
       
       .timelineSectionNav ul li button img{
-        width: 45px; 
-        height: 45px;
+        width: 30px; 
+        height: 30px;
         border-radius: 25px;
-        float: left;
       }
 
       .timelineSectionNav ul li button p{
         font-size: 0.85em;
+        width: 100%;
+        display: block;
+        margin-top: 5px;
+      }
+
+      .timelineSectionNav ul li button div.navimg{
+          width: 100%;
+          padding-top: 5px;
       }
 
       .wrapperContent.maximilian p.cont2, .wrapperContent.maximilian p.cont3,

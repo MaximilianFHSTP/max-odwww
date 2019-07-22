@@ -210,11 +210,34 @@
 
   <div class="wappenSettingsNav">
       <ul>
-          <li [className]="showSettings && settingsContent == 'shield' ? 'selected wappenSettingsNav_shield' : 'wappenSettingsNav_shield'"><button (click)="displaySettings('shield')" [attr.aria-label]="ariaShieldBtn"></button></li>
-          <li [className]="showSettings && settingsContent == 'emblem' ? 'selected wappenSettingsNav_emblem' : 'wappenSettingsNav_emblem'"><button (click)="displaySettings('emblem')" [attr.aria-label]="ariaEmblemBtn"></button><div class="wappenbuttonnew" *ngIf="coaService.newEmblem"></div></li>
-          <li [className]="showSettings && settingsContent == 'helmet' ? 'selected wappenSettingsNav_helmet' : 'wappenSettingsNav_helmet'"><button (click)="displaySettings('helmet')" [attr.aria-label]="ariaHelmetBtn"></button><div class="wappenbuttonnew" *ngIf="coaService.newHelmet"></div></li>
-          <li [className]="showSettings && settingsContent == 'weapon' ? 'selected wappenSettingsNav_weapon' : 'wappenSettingsNav_weapon'"><button (click)="displaySettings('weapon')" [attr.aria-label]="ariaWeaponBtn"></button><div class="wappenbuttonnew" *ngIf="coaService.newWeapon"></div></li>
-          <li [className]="showSettings && settingsContent == 'color' ? 'selected wappenSettingsNav_color' : 'wappenSettingsNav_color'"><button (click)="displaySettings('color')" [attr.aria-label]="ariaColorBtn"></button></li>
+          <li [className]="showSettings && settingsContent == 'shield' ? 'selected wappenSettingsNav_shield' : 'wappenSettingsNav_shield'">
+              <button (click)="displaySettings('shield')" [attr.aria-label]="ariaShieldBtn">
+                  <p>{{ 'coa.shield' | translate }}</p>
+              </button>
+            </li>
+          <li [className]="showSettings && settingsContent == 'emblem' ? 'selected wappenSettingsNav_emblem' : 'wappenSettingsNav_emblem'">
+              <button (click)="displaySettings('emblem')" [attr.aria-label]="ariaEmblemBtn">
+                  <p>{{ 'coa.charge' | translate }}</p>
+              </button>
+              <div class="wappenbuttonnew" *ngIf="coaService.newEmblem"></div>
+            </li>
+          <li [className]="showSettings && settingsContent == 'helmet' ? 'selected wappenSettingsNav_helmet' : 'wappenSettingsNav_helmet'">
+              <button (click)="displaySettings('helmet')" [attr.aria-label]="ariaHelmetBtn">
+                  <p>{{ 'coa.helmet' | translate }}</p>
+              </button>
+              <div class="wappenbuttonnew" *ngIf="coaService.newHelmet"></div>
+            </li>
+          <li [className]="showSettings && settingsContent == 'weapon' ? 'selected wappenSettingsNav_weapon' : 'wappenSettingsNav_weapon'">
+              <button (click)="displaySettings('weapon')" [attr.aria-label]="ariaWeaponBtn">
+                  <p>{{ 'coa.mantle' | translate }}</p>
+              </button>
+              <div class="wappenbuttonnew" *ngIf="coaService.newWeapon"></div>
+            </li>
+          <li [className]="showSettings && settingsContent == 'color' ? 'selected wappenSettingsNav_color' : 'wappenSettingsNav_color'">
+              <button (click)="displaySettings('color')" [attr.aria-label]="ariaColorBtn">
+                  <p>{{ 'coa.colors' | translate }}</p>
+              </button>
+            </li>
       </ul>
   </div>
   <div  *ngIf="showSettings" (click)="closeWappenSettings()" class="wappenSettingsNavOut"></div> 
