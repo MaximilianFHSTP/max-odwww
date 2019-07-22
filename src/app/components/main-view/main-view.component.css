@@ -379,12 +379,11 @@ p{
   height: 25px;
   display: table-cell;
   margin: 0 auto;
-  padding-top: 5px;
 }
 
 .timelineSectionNav ul li button p{
   line-height: 1.2em;
-  font-size: 0.7em;
+  font-size: 0.6em;
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
@@ -449,7 +448,7 @@ p{
     width: 65%;
   }
   .timelineSectionNav ul li button p{
-    font-size: 0.65em;
+    font-size: 0.5em;
   }
 }
 
