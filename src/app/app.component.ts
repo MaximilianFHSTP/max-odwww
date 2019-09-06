@@ -35,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   private subscriptionBack: Subscription;
   private subscriptionLocationid: Subscription;
+  private subscriptionAppSettings: Subscription;
   private subscriptionNativeSettingCheckResult: Subscription;
   private registerLocationmessage: any;
   public nativeSettingType: any;
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public doesNotHavePermission = 'false';
   private subscriptionNativeBackbutton: Subscription;
   private subscriptionPermission: Subscription;
+  public settingsStatus = 'true';
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -85,6 +87,10 @@ export class AppComponent implements OnInit, OnDestroy {
       this.registerLocationmessage = message;
     });
 
+    this.subscriptionAppSettings = this.alertService.getMessageCorrectAppSettings().subscribe(message => {
+      this.setValue(message);
+    });
+
     this.subscriptionNativeSettingCheckResult = this.alertService.getMessageNativeSettingCheck().subscribe(message => {
       this.nativeSettingType = message.nativeSettingType;
     });
@@ -103,6 +109,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.subscriptionPermission = this.alertService.getHandleNoPermissionsGranted().subscribe(message=> {
       this.handlePermission(message);
+    });
+  }
+
+  setValue(value: any){
+    this.ngZone.run(() => {
+      if(this.settingsStatus !== value.toString()) {this.settingsStatus = value.toString(); }
     });
   }
 
@@ -306,6 +318,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public openAppSettings(){
     this.dismissMenu();
+    this.settingsStatus = 'true';
     this.router.navigate(['appSettings']).then( () =>
       {
         window.scrollTo(0, 0);
@@ -331,7 +344,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   helpScreen(){
-    console.log('askdjhasd');
     this.guideStatus = 1;
   }
 

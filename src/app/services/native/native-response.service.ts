@@ -114,8 +114,8 @@ export class NativeResponseService implements OnInit
     }
   }
 
-  public getWifiDataFromGoD(): void {
-      this.godService.getWifi();
+  public getWifiDataFromGoD(mode): void {
+      this.godService.getWifi(mode);
   }
 
   public checkBluetooth(): void {
@@ -129,6 +129,10 @@ export class NativeResponseService implements OnInit
 
   public logoutSuccess(): void {
     this.transmissionService.transmitLogoutCleanup();
+  }
+  
+  public getAppSettingsDataFromNative(message): void{
+    this.alertService.sendMessageCorrectAppSettings(message);
   }
 
   public getWifiDataFromNative(message): void{

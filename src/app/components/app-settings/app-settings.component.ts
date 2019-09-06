@@ -103,7 +103,7 @@ export class AppSettingsComponent implements OnInit, OnDestroy {
   fix(op: string){
     switch(op){
       case 'wifi':
-        this.nativeResponseService.getWifiDataFromGoD(); 
+        this.nativeResponseService.getWifiDataFromGoD(''); 
         this.wifiCheck = true;
         this.wifiStatus = 'loading'; 
         break;
@@ -138,6 +138,7 @@ export class AppSettingsComponent implements OnInit, OnDestroy {
   }
 
   public closeWindow(){
+    this.nativeResponseService.getWifiDataFromGoD('checkAllSettings'); 
     this.router.navigate(['mainview']).then( () =>
       {
         this.nativeCommunicationService.sendToNative('Main View', 'print');

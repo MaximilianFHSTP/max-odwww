@@ -23,6 +23,7 @@ export class AlertService {
   private subjectExistingCredentialsOnChange = new Subject<any>();
   private subjectUserOrEmailRegisterCheck = new Subject<any>();
   private subjectCoaParts = new Subject<any>(); 
+  private subjectCorrectAppSettings = new Subject<any>();
   private subjectCorrectWifi = new Subject<any>();
   private subjectCorrectLocation = new Subject<any>();
   private subjectCorrectBluetooth = new Subject<any>();
@@ -162,6 +163,14 @@ export class AlertService {
 
   getMessageCoaParts(): Observable<any>{
     return this.subjectCoaParts.asObservable();
+  }
+
+  sendMessageCorrectAppSettings(message: any) {
+    this.subjectCorrectAppSettings.next(message);
+  }
+
+  getMessageCorrectAppSettings(): Observable<any>{
+    return this.subjectCorrectAppSettings.asObservable();
   }
 
   sendMessageCorrectWifi(message: any) {

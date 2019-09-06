@@ -54,6 +54,7 @@ export class HelpComponent implements OnInit {
   public openTroubleshoot(){
     this.router.navigate(['appSettings']).then( () =>
       {
+        window.scrollTo(0, 0);
         this.nativeCommunicationService.sendToNative('App Settings', 'print');
       }
     );

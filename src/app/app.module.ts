@@ -206,10 +206,15 @@ export class AppModule {
         break;
       }
       case 'send_wifi_ssid': {
-        this.nativeResponseService.getWifiDataFromGoD();
+        this.nativeResponseService.getWifiDataFromGoD('checkAllSettings');
+        break;
+      }
+      case 'send_correct_appSettings': {
+        this.nativeResponseService.getAppSettingsDataFromNative(value);
         break;
       }
       case 'send_correct_wifi': {
+        console.log(value.toString());
         this.nativeResponseService.getWifiDataFromNative(value);
         break;
       }

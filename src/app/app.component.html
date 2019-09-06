@@ -1,6 +1,8 @@
+
 <button id="redirectTimelineLong" [attr.aria-label]="ariaBackBtn" (click)="redirectToTimeline()" *ngIf="router.url === '/passive' || router.url === '/interactive' || router.url === '/tableat' || router.url === '/tableNotifyAt'"></button>
 <button id="redirectStart" [attr.aria-label]="ariaBackBtn" (click)="redirectToStart()" *ngIf="router.url === '/register' || router.url === '/login' || router.url === '/testscroll' || router.url === '/changeLanguageStart'"></button>
 
+<!-- Onboarding -->
 <div *ngIf="guideStatus != 0" id="onboardingGuide">
   <div class="guideControl">
     <button (click)="guidePrev()" class="guideBtn prev s{{guideStatus}}" [attr.aria-label]="ariaGuidePrevBtn"></button>
@@ -13,6 +15,7 @@
   <div *ngIf="guideStatus == 4" class="guide s4"></div><p *ngIf="guideStatus == 4" class="textGuide s4">{{ 'guide.s4' | translate }}</p>
 </div>
 
+<!-- Warnings -->
 <div id="notConnectedToGod" *ngIf="doesNotHavePermission == 'false' && !isConnectedToGod">
   <section>
     <h1>{{ 'app.connectionLostHeader' | translate }}</h1>
@@ -25,6 +28,11 @@
     <h3>{{ 'app.noPermissionBody' | translate }}</h3>
   </section>
 </div>
+<div *ngIf="settingsStatus == 'false' && (router.url === '/mainview' || router.url === '/passive' || router.url === '/interactive' || router.url === '/tableat' || router.url === '/tableNotifyAt')" class="warning" (click)="openAppSettings()">
+  <p>{{ 'app.checkSettings' | translate }}</p>
+</div>
+
+<!-- UI -->
 <div class="apptoolbar"><button class="menubutton" (click)="openMenu()"  *ngIf="router.url === '/mainview'" [attr.aria-label]="ariaMenuBtn"></button></div>
 <button class="helpbutton" *ngIf="router.url === '/mainview'" (click)="helpScreen()" [attr.aria-label]="ariaHelpBtn"></button>
 
@@ -35,8 +43,6 @@
     <li *ngIf="guest == 1" (click)="registerRealuserRouting()">{{ 'app.menuSignup' | translate }}</li>
     <li (click)="openAboutView()">{{ 'app.menuAbout' | translate }}</li>
     <li (click)="openHelp()">{{ 'app.help' | translate }}</li>
-    <!--<li (click)="openWifiView()">WIFI</li>
-    <li (click)="openUnlockView()">{{ 'app.unlock' | translate }}</li>-->
     <li (click)="openAppSettings()">{{ 'app.menuTroubleshooting' | translate }}</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">DEUTSCH</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">ENGLISH</li>

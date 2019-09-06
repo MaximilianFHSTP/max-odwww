@@ -12,7 +12,8 @@
     "connectionLostBody": "Warte bitte bis die Verbindung wieder hergestellt werden konnte!",
     "noPermissionHeader": "Keine Berechtigungen!",
     "noPermissionBody": "Starte bitte die App neu und erteile die benötigten Berechtigungen!",
-    "menuTroubleshooting": "PROBLEMBEHEBUNG"
+    "menuTroubleshooting": "PROBLEMBEHEBUNG",
+    "checkSettings": "Überprüf die App-Einstellungen"
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",

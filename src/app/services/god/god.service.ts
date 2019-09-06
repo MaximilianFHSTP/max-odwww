@@ -510,7 +510,7 @@ export class GodService {
     });
   }
 
-  public getWifi(): void
+  public getWifi(mode): void
   {
     this.socket.emit('getWifiSSID');
 
@@ -519,7 +519,11 @@ export class GodService {
       const ssid = result.data.ssid;
       const password = result.data.password;
 
-      this.nativeCommunicationService.sendToNative({ssid, password},'receiveWifiData');
+      if(mode === 'checkAllSettings'){
+        this.nativeCommunicationService.sendToNative({ssid, password},'receiveAppSettingsData');
+      } else {
+        this.nativeCommunicationService.sendToNative({ssid, password},'receiveWifiData');
+      }
 
       this.socket.removeAllListeners('getWifiSSIDResult');
     });

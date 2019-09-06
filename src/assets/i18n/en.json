@@ -12,7 +12,8 @@
     "connectionLostBody": "Please wait until the app reconnects to the server!",
     "noPermissionHeader": "No permissions!",
     "noPermissionBody": "Please restart the app and allow the requested permissions!",
-    "menuTroubleshooting": "TROUBLESHOOT"
+    "menuTroubleshooting": "TROUBLESHOOT",
+    "checkSettings": "Check App Settings"
   },
   "start": {
     "welcomeMessage": "Welcome to the exhibition",

@@ -450,7 +450,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   public checkWifi(){
-    this.nativeResponseService.getWifiDataFromGoD();
+    this.nativeResponseService.getWifiDataFromGoD('');
   }
 
   checkAllUnlock(): boolean{
@@ -587,6 +587,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   public checkWifiForWeb(){
-    this.nativeResponseService.getWifiDataFromGoD();
+    this.nativeResponseService.getWifiDataFromGoD('');
   }
 }

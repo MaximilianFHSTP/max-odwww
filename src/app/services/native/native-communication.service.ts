@@ -109,7 +109,12 @@ export class NativeCommunicationService {
           case 'openWifiDialogNative':
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.openWifiDialogNative();
             break;
-            
+          
+          case 'receiveAppSettingsData':
+            const messageStr = messageBody.ssid + ' ' + messageBody.password;
+            this.winRef.nativeWindow.MEETeUXAndroidAppRoot.receiveAppSettingsData(messageStr);
+            break;
+          
           case 'receiveWifiData':
             const messageString = messageBody.ssid + ' ' + messageBody.password;
             this.winRef.nativeWindow.MEETeUXAndroidAppRoot.receiveWifiData(messageString);
