@@ -13,7 +13,7 @@
     "noPermissionHeader": "Keine Berechtigungen!",
     "noPermissionBody": "Starte bitte die App neu und erteile die benötigten Berechtigungen!",
     "menuTroubleshooting": "PROBLEMBEHEBUNG",
-    "checkSettings": "Überprüf die App-Einstellungen"
+    "checkSettings": "Überprüfe die App-Einstellungen"
   },
   "start": {
     "welcomeMessage": "Willkommen in der Ausstellung",
@@ -164,7 +164,7 @@
   },
   "deleteDialog": {
     "title": "Konto löschen",
-    "text": "Wenn Du das Konto löscht, kannst Du es nicht erneut aktivieren, alle Daten gehen verloren. Möchtest Du wirklich fortfahren?",
+    "text": "Wenn Du das Konto löschst, kannst Du es nicht erneut aktivieren, alle Daten gehen verloren. Möchtest Du wirklich fortfahren?",
     "yesOption": "Konto löschen"
   },
   "questionnaireDialog": {
@@ -191,7 +191,7 @@
 		"troubleshoot": "Problembehebung"
 	},
 	"guide": {
-		"close": "SCHILIESSEN",
+		"close": "SCHLIESSEN",
 		"s1": "Das ist ein Ausstellungsstück. Tippe darauf um mehr Informationen zu bekommen!",
 		"s2": "Die Ausstellung besteht aus mehreren Kapiteln. Hier kannst du zwischen den Kapiteln wechseln.",
 		"s3": "Tippe auf dieses Symbol, um zu deinem aktuellen Standort zu springen.",
