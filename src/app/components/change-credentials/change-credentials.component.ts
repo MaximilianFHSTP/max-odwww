@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Injectable } from '@angular/core';
+import { Component, OnInit, Inject, Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { WindowRef } from '../../WindowRef';
 import { UserActions } from '../../store/actions/UserActions';
@@ -46,6 +46,8 @@ export class ChangeCredentialsComponent implements OnInit
   changePasswordEnable = false;
   changeLanguageEnable = false;
   lastUpdated = '';
+  private subscriptionDelete: Subscription;
+  private subscriptionCheckUserDeviceData: Subscription;
 
   constructor(
     private router: Router,
@@ -89,10 +91,25 @@ export class ChangeCredentialsComponent implements OnInit
         }
       }
     });
-    this.subscriptionChangeCred = this.alertService.getMessageCheckUserDevicedata().subscribe(message =>{
-
+    this.subscriptionCheckUserDeviceData = this.alertService.getMessageCheckUserDevicedata().subscribe(message =>{
       if(message){
         this.transmissionService.transmitUserCredentialChange();
+
+        this.changeUsernameEnable = false;
+        this.changeEmailEnable = false;
+        this.changePasswordEnable = false;
+        this.changeLanguageEnable = false;
+      }else{
+        const config = new MatSnackBarConfig();
+        config.duration = 3000;
+        config.panelClass = ['error-snackbar'];
+        this.snackBar.open(this.translate.instant('changeCredentials.alreadyLoggedIn'), 'OK', config);
+      }
+    });
+
+    this.subscriptionDelete = this.alertService.getMessageCheckUserDelete().subscribe(message =>{
+      if(message){
+        this.transmissionService.deleteUserAccount();
 
         this.changeUsernameEnable = false;
         this.changeEmailEnable = false;
@@ -175,6 +192,13 @@ export class ChangeCredentialsComponent implements OnInit
     this.language = this.languageService.getCurrentLanguageAsString();
   }
 
+  /*ngOnDestroy()
+  {
+    this.subscriptionChangeCred.unsubscribe();
+    this.subscriptionCheckUserDeviceData.unsubscribe();
+    this.subscriptionDelete.unsubscribe();
+  }*/
+
   getPasswordErrorMessage() {
     return this.newPasswordFormControl.hasError('required') ? 'You must enter a value' :
     this.newPasswordFormControl.hasError('pattern') ?
@@ -214,7 +238,8 @@ export class ChangeCredentialsComponent implements OnInit
       });
     dialogRef.afterClosed().subscribe(result =>{
       if(result === this.translate.instant('app.confirm')){
-        this.transmissionService.deleteUserAccount();
+        this.nativeCommunicationService.sendToNative('delete', 'getDeviceInfos');
+        // this.transmissionService.deleteUserAccount();
       }else{
         // console.log('Account NOT deleted!');
       }

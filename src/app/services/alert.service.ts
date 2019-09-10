@@ -36,6 +36,7 @@ export class AlertService {
   private subjectSwipeDirection = new Subject<any>();
   private subjectVersionCheck = new Subject<any>();
   private subjectMessageCheckUserDevicedata = new Subject<any>();
+  private subjectMessageCheckUserDelete = new Subject<any>();
 
   sendMessage(message: any) {
       this.subjectAlert.next(message);
@@ -267,5 +268,13 @@ export class AlertService {
 
   getMessageCheckUserDevicedata(): Observable<any>{
     return this.subjectMessageCheckUserDevicedata.asObservable();
+  }
+
+  setMessageCheckUserDelete(message: any) {
+    this.subjectMessageCheckUserDelete.next(message);
+  }
+
+  getMessageCheckUserDelete(): Observable<any>{
+    return this.subjectMessageCheckUserDelete.asObservable();
   }
 }

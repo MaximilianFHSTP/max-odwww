@@ -209,7 +209,13 @@ export class AppModule {
         break;
       }
       case 'send_device_infos_credential_change': {
+        console.log('send_device_infos_credential_change');
         this.nativeResponseService.credentialChange(value);
+        break;
+      }
+      case 'send_device_infos_delete':{
+        console.log('send_device_infos_delete');
+        this.nativeResponseService.delete(value);
         break;
       }
       case 'logout_success': {

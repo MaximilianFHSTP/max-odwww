@@ -189,7 +189,18 @@ export class TransmissionService
     this.deviceVersion = result.deviceVersion;
     this.deviceModel = result.deviceModel;
     const data = {deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,
-      deviceModel: this.deviceModel, shouldBeUpdated: false};
+      deviceModel: this.deviceModel, shouldBeUpdated: false, action: 'credChange'};
+    this.godService.checkUserDeviceData(data);
+  }
+
+
+  public transmitDelete(result: any): void{
+    this.deviceAddress = result.deviceAddress;
+    this.deviceOS = result.deviceOS;
+    this.deviceVersion = result.deviceVersion;
+    this.deviceModel = result.deviceModel;
+    const data = {deviceAddress: this.deviceAddress, deviceOS: this.deviceOS, deviceVersion: this.deviceVersion,
+      deviceModel: this.deviceModel, shouldBeUpdated: false, action: 'delete'};
     this.godService.checkUserDeviceData(data);
   }
 

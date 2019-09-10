@@ -105,6 +105,11 @@ export class NativeResponseService implements OnInit
     this.transmissionService.credentialChangeDataUpdate(result);
   }
 
+  public delete(result: any): void
+  {
+    console.log('delete');
+    this.transmissionService.transmitDelete(result);
+  }
   /*public updateDeviceInfos(result: any): void
   {
     this.transmissionService.updateDeviceInfos(result);

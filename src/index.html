@@ -58,6 +58,10 @@
        window.angularComponentRef.componentFn("send_device_infos_credential_change",deviceinfos);
      };
 
+     window.send_device_infos_delete = function(deviceinfos){
+       window.angularComponentRef.componentFn("send_device_infos_delete",deviceinfos);
+     };
+
      // call from native
      // gets info about unlocking all items, calls unlockAllTimelineLocations
      window.unlock_all_timeline_locations = function(deviceinfos){

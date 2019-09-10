@@ -440,6 +440,7 @@ export class GodService {
   public checkUserDeviceData(device: any){
     const state = this.store.getState();
     const user = state.user;
+    const action = device.action;
     const data = {userId: user.id, deviceAddress: device.deviceAddress, deviceOS: device.deviceOS, deviceVersion: device.deviceVersion,
       deviceModel: device.deviceModel, shouldBeUpdated: device.shouldBeUpdated};
     this.socket.emit('checkUserDeviceData', data);
@@ -448,31 +449,52 @@ export class GodService {
     {
       const data = result.data;
       const message = result.message;
+      console.log(message.code);
 
       if (message.code === 203)
       {
         this.store.dispatch(this.statusActions.changeSuccessMessage(message));
         if(!device.shouldBeUpdated){
-          this.alertService.setMessageCheckUserDevicedata(true);
+          switch(action){
+            case 'credChange':{
+              this.alertService.setMessageCheckUserDevicedata(true);
+              break;
+            }
+            case 'delete':{
+              this.alertService.setMessageCheckUserDelete(true);
+              break;
+            }
+          }
         }
-        return;
       }
       if (message.code === 404)
       {
         this.store.dispatch(this.statusActions.changeErrorMessage(message));
         if(!device.shouldBeUpdated){
-          this.alertService.setMessageCheckUserDevicedata(false);
+          switch(action){
+            case 'credChange':{
+              this.alertService.setMessageCheckUserDevicedata(false);
+              break;
+            }
+            case 'delete':{
+              this.alertService.setMessageCheckUserDelete(false);
+              break;
+            }
+          }
         }
-        return;
       }
       if (message.code === 200)
       {
         this.store.dispatch(this.statusActions.changeSuccessMessage(message));
         if(!device.shouldBeUpdated){
-          this.alertService.setMessageCheckUserDevicedata(true);
+          if (action === 'credchange') {
+            this.alertService.setMessageCheckUserDevicedata(true);
+          }else if (action === 'delete') {
+            this.alertService.setMessageCheckUserDelete(true);
+          }
         }
-        return;
       }
+      this.socket.removeAllListeners('checkUserDeviceDataResult');
     });
   }
 
