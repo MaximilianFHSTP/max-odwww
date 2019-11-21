@@ -434,12 +434,22 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   public requestRegisterLocation(id: number, parentId: number, typeId: number){
     if(id && parentId){
-      if(id === 5001){  this.checkCoaUnlock();  }
+      console.log(typeId);
+
+      if(typeId === LocationTypes.PASSIVE_EXHIBIT ||
+        typeId === LocationTypes.DOOR){
+          this.locationService.saveCurrentLocation(this.getLocation(id));
+          this.router.navigate(['/passive']).then( () => {
+            window.scrollTo(0, 0);
+          });
+     }
+
+      /*if(id === 5001){  this.checkCoaUnlock();  }
       if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT ||
          typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT ||
          typeId === LocationTypes.NOTIFY_EXHIBIT_AT){
         this.checkWifi();
-      }
+      }*/
 
       this.locationService.setPreviousState(this.currentSection, window.pageYOffset || document.documentElement.scrollTop);
 
@@ -447,7 +457,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   public checkWifi(){
-    this.nativeResponseService.getWifiDataFromGoD('');
+    // this.nativeResponseService.getWifiDataFromGoD('');
   }
 
   checkAllUnlock(): boolean{

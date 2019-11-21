@@ -13,6 +13,7 @@ export class LocationService
   private _lastWindowOffset: number;
   private _saveLastLocation: boolean;
   private _displayQuestions: boolean;
+  private _currentLocationN: any;
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -55,6 +56,14 @@ export class LocationService
 
   public cleanLastLocation(){
     this._saveLastLocation = false;
+  }
+
+  public saveCurrentLocation(loc: any){
+    this._currentLocationN = loc;
+  }
+
+  public getCurrentLocation(){
+    return this._currentLocationN;
   }
 
   public isActiveLocationInRange(locationId: number): boolean
