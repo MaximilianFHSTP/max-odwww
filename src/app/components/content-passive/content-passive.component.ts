@@ -168,6 +168,7 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   }
 
   displayVersion(sectionId: string){
+    console.log(this.location.contents);
     this.currentSection = sectionId;
     this.changeVersion = true;
 

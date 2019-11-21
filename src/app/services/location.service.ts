@@ -73,6 +73,8 @@ export class LocationService
         timelineLocations.push(location);
       }
     }
+
+    console.log(timelineLocations);
     return timelineLocations;
   }
 
