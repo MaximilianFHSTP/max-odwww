@@ -39,14 +39,10 @@
 <div class="dismissMenuDiv" *ngIf="menuOpen" (click)="dismissMenu()"></div>
 <div class="menuDiv" *ngIf="menuOpen">
   <ul>
-    <li *ngIf="guest == 0" (click)="userCredentials()">{{ 'app.menuSettings' | translate }}</li>
-    <li *ngIf="guest == 1" (click)="registerRealuserRouting()">{{ 'app.menuSignup' | translate }}</li>
     <li (click)="openAboutView()">{{ 'app.menuAbout' | translate }}</li>
     <li (click)="openHelp()">{{ 'app.help' | translate }}</li>
-    <li (click)="openAppSettings()">{{ 'app.menuTroubleshooting' | translate }}</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">DEUTSCH</li>
     <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">ENGLISH</li>
-    <li (click)="logoutUser()">{{ 'app.menuLogout' | translate }}</li>
   </ul>
 </div>
 

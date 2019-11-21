@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {LocationActions} from '../store/actions/LocationActions';
 import * as locationTypes from '../config/LocationTypes';
+import * as timelineLocationsConfig from '../config/TimelineLocations';
 
 @Injectable()
 export class LocationService
@@ -73,7 +74,9 @@ export class LocationService
         timelineLocations.push(location);
       }
     }
-    return timelineLocations;
+
+    return timelineLocationsConfig.DATA;
+    // return timelineLocations;
   }
 
   public findLocation(id: Number): any
