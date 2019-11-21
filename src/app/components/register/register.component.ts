@@ -4,7 +4,6 @@ import { WindowRef } from '../../WindowRef';
 import {UserActions} from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
-import {TransmissionService} from '../../services/transmission.service';
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
@@ -43,7 +42,6 @@ export class RegisterComponent implements OnInit
 
   constructor(
     private router: Router,
-    private transmissionService: TransmissionService,
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
@@ -73,10 +71,7 @@ export class RegisterComponent implements OnInit
 
   public requestDeviceInfos(isGuest: boolean)
   {
-    this.transmissionService.registerName = this.nameFormControl.value;
-    this.transmissionService.registerEmail = this.emailFormControl.value;
-    this.transmissionService.registerPassword = this.passwordFormControl.value;
-    this.transmissionService.registerIsGuest = isGuest;
+
     // console.log(this.registerEmail + ' ' + this.registerName + ' ' + this.registerPassword);
 
     const state = this.appStore.getState();
@@ -87,7 +82,6 @@ export class RegisterComponent implements OnInit
     if (platform !== 'IOS' && platform !== 'Android')
     {
       const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
-      this.transmissionService.transmitODRegister(data);
     }
   }
 

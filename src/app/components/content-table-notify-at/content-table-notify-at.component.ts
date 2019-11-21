@@ -1,12 +1,10 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {LocationService} from '../../services/location.service';
 import {NavigationEnd, Router} from '@angular/router';
-import {TransmissionService} from '../../services/transmission.service';
 import {NativeCommunicationService} from '../../services/native/native-communication.service';
 import { AlertService } from '../../services/alert.service';
 import {Unsubscribe} from 'redux';
 import {Subscription} from 'rxjs';
-import {GodService} from '../../services/god/god.service';
 import {NativeResponseService} from '../../services/native/native-response.service';
 import {LocationActions} from '../../store/actions/LocationActions';
 import {TimerObservable} from 'rxjs-compat/observable/TimerObservable';
@@ -50,10 +48,8 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private godService: GodService,
     private router: Router,
     private locationService: LocationService,
-    private transmissionService: TransmissionService,
     public languageService: LanguageService,
     private alertService: AlertService,
     private responseService: NativeResponseService,
@@ -102,7 +98,6 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
     // Timer starts after 1sec, repeats every 5sec
     this.checkStatusTimer = TimerObservable.create(100, 5000);
     this._statusTimerSubscription = this.checkStatusTimer.subscribe(() => {
-      this.godService.checkLocationStatus(this.locationId);
     });
   }
 

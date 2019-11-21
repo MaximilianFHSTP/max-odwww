@@ -4,7 +4,6 @@ import { Unsubscribe} from 'redux';
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { TransmissionService } from '../../services/transmission.service';
 import { LanguageService } from '../../services/language.service';
 import * as coaTypes from '../../config/COATypes';
 import { CoaService } from '../../services/coa.service';
@@ -50,7 +49,6 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
   saveBtnActive = false;
 
   constructor(
-    private transmissionService: TransmissionService,
     @Inject('AppStore') private appStore,
     private nativeCommunicationService: NativeCommunicationService,
     public router: Router,
@@ -89,7 +87,6 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
 
     this.itemsList = this.coaService.allCoaParts;  
     // console.log(this.itemsList); 
-    this.transmissionService.getUserCoaParts();
     this.setShield = this.coaService.getActive(coaTypes.SHIELD);
     this.selectedShield = this.setShield;
     this.setEmblem = this.coaService.getActive(coaTypes.SYMBOL);

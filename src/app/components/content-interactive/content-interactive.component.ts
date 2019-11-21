@@ -4,7 +4,6 @@ import { Unsubscribe } from 'redux';
 import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { Subscription } from 'rxjs';
-import { TransmissionService } from '../../services/transmission.service';
 import { LanguageService } from '../../services/language.service';
 import { CoaService } from '../../services/coa.service';
 
@@ -33,7 +32,6 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
     private locationService: LocationService,
     private router: Router,
     private coaService: CoaService,
-    private transmissionService: TransmissionService,
     public languageService: LanguageService,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore)

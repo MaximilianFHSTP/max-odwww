@@ -13,7 +13,6 @@ import {NativeSettingDialogComponent} from './components/native-setting-dialog/n
 import {AlertService} from './services/alert.service';
 import {Router} from '@angular/router';
 import {LocationService} from './services/location.service';
-import {TransmissionService} from './services/transmission.service';
 import {LanguageService} from './services/language.service';
 import * as languageTypes from './config/LanguageTypes';
 import {TranslateService} from '@ngx-translate/core';
@@ -45,7 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
   public doesNotHavePermission = 'false';
   private subscriptionNativeBackbutton: Subscription;
   private subscriptionPermission: Subscription;
-  public settingsStatus = 'true';
 
   constructor(
     @Inject('AppStore') private appStore,
@@ -58,7 +56,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private winRef: WindowRef,
     private dialog: MatDialog,
     private alertService: AlertService,
-    private transmissionService: TransmissionService,
     public router: Router,
     private translate: TranslateService,
     private ngZone: NgZone,
@@ -87,10 +84,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.registerLocationmessage = message;
     });
 
-    this.subscriptionAppSettings = this.alertService.getMessageCorrectAppSettings().subscribe(message => {
-      this.setValue(message);
-    });
-
     this.subscriptionNativeSettingCheckResult = this.alertService.getMessageNativeSettingCheck().subscribe(message => {
       this.nativeSettingType = message.nativeSettingType;
     });
@@ -109,12 +102,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.subscriptionPermission = this.alertService.getHandleNoPermissionsGranted().subscribe(message=> {
       this.handlePermission(message);
-    });
-  }
-
-  setValue(value: any){
-    this.ngZone.run(() => {
-      if(this.settingsStatus !== value.toString()) {this.settingsStatus = value.toString(); }
     });
   }
 
@@ -219,12 +206,6 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  public logoutUser()
-  {
-    this.dismissMenu();
-    this.transmissionService.logout();
-  }
-
   public redirectToTimeline()
   {
     this.locationService.setToStartPoint();
@@ -315,17 +296,6 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  public openAppSettings(){
-    this.dismissMenu();
-    this.settingsStatus = 'true';
-    this.router.navigate(['appSettings']).then( () =>
-      {
-        window.scrollTo(0, 0);
-        this.nativeCommunicationService.sendToNative('appSettings', 'print');
-      }
-    );
-  }  
 
   guideDismiss(){
     this.guideStatus = 0;

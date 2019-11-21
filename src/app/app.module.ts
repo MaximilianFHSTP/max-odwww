@@ -8,17 +8,12 @@ import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatMenuModule, Mat
   MatListModule, MatDialogModule} from '@angular/material';
 
 // Services
-import { SocketIoModule} from 'ngx-socket-io';
-import {GodSocketService} from './services/god/god-socket.service';
-import {ExhibitSocketService} from './services/exhibit/exhibit-socket.service';
 import {UtilityService} from './services/utility.service';
 import {NativeResponseService} from './services/native/native-response.service';
-import {GodService} from './services/god/god.service';
 import {ExhibitService} from './services/exhibit/exhibit.service';
 import { NativeCommunicationService } from './services/native/native-communication.service';
 import {AlertService} from './services/alert.service';
 import {LocationService} from './services/location.service';
-import {TransmissionService} from './services/transmission.service';
 import {CoaService} from './services/coa.service';
 
 // Routing
@@ -108,7 +103,6 @@ export const appStore = createStore(
   ],
   imports: [
     BrowserModule,
-    SocketIoModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatSnackBarModule,
@@ -136,11 +130,8 @@ export const appStore = createStore(
     })
   ],
   providers: [
-    GodSocketService,
-    ExhibitSocketService,
     NativeResponseService,
     WindowRef,
-    GodService,
     ExhibitService,
     LocationService,
     { provide: 'AppStore', useValue: appStore },
@@ -151,7 +142,6 @@ export const appStore = createStore(
     AlertService,
     FormBuilder,
     UtilityService,
-    TransmissionService,
     CoaService
   ],
   bootstrap: [AppComponent],

@@ -6,7 +6,6 @@ import { NativeCommunicationService } from '../../services/native/native-communi
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
-import {TransmissionService} from '../../services/transmission.service';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -33,7 +32,6 @@ export class LoginComponent implements OnInit
 
   constructor(
     private router: Router,
-    private transmissionService: TransmissionService,
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
@@ -50,15 +48,7 @@ export class LoginComponent implements OnInit
 
   public loginDevice()
   {
-    // console.log('LoginComponentButton');
-    this.transmissionService.loginName = this.nameFormControl.value;
-    this.transmissionService.loginPassword = this.passwordFormControl.value;
 
-    const state = this.appStore.getState();
-    const platform = state.platform;
-
-    // this.checkEmailValue(this.nameFormControl.value);
-    this.transmissionService.transmitODLogin();
   }
 
   ngOnInit()
@@ -80,17 +70,8 @@ export class LoginComponent implements OnInit
   }
 
   loginAsGuest(){
-    this.transmissionService.registerIsGuest = true;
-    const state = this.appStore.getState();
-    const platform = state.platform;
-
-    this.nativeCommunicationService.sendToNative('getDeviceInfos', 'getDeviceInfos');
-
-    if (platform !== 'IOS' && platform !== 'Android')
-    {
-      const data = {deviceAddress: 'deviceAddress', deviceOS: 'deviceOS', deviceVersion: 'deviceVersion', deviceModel: 'deviceModel'};
-      this.transmissionService.transmitODRegister(data);
-    }
+    console.log('click');
+    this.router.navigate(['mainview']);
   }
 
 }

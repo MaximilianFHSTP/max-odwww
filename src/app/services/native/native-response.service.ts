@@ -1,5 +1,4 @@
 import {Inject, Injectable, OnInit} from '@angular/core';
-import {GodService} from '../god/god.service';
 import {LocationService} from '../location.service';
 import {LocationActions} from '../../store/actions/LocationActions';
 import {NativeCommunicationService} from './native-communication.service';
@@ -8,7 +7,6 @@ import {UserActions} from '../../store/actions/UserActions';
 import {StatusActions} from '../../store/actions/StatusActions';
 import {MatDialog} from '@angular/material';
 import {AlertService} from '../alert.service';
-import {TransmissionService} from '../transmission.service';
 import * as LocationTypes from '../../config/LocationTypes';
 import {LanguageService} from '../language.service';
 import * as LanguageTypes from '../../config/LanguageTypes';
@@ -19,7 +17,6 @@ export class NativeResponseService implements OnInit
 
   constructor(
     private router: Router,
-    private godService: GodService,
     private locationService: LocationService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
@@ -28,7 +25,6 @@ export class NativeResponseService implements OnInit
     private statusActions: StatusActions,
     private dialog: MatDialog,
     private alertService: AlertService,
-    private transmissionService: TransmissionService,
     private languageService: LanguageService
   ) {
   }
@@ -64,30 +60,30 @@ export class NativeResponseService implements OnInit
       // If the new location is a tableOn beacon and the user is currently tableat transmit location register directly
       if (currLoc && currLoc.locationTypeId === LocationTypes.ACTIVE_EXHIBBIT_AT &&
         location.locationTypeId === LocationTypes.ACTIVE_EXHIBIT_ON && location.parentId === currLoc.id) {
-        this.transmissionService.transmitLocationRegister({minor: location.id, major: location.parentId});
+        // this.transmissionService.transmitLocationRegister({minor: location.id, major: location.parentId});
       }
 
       // If the new location is a tableOn beacon and the user is currently tableat transmit location register directly
       if (currLoc && currLoc.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_AT &&
         location.locationTypeId === LocationTypes.NOTIFY_EXHIBIT_ON && location.parentId === currLoc.id) {
-        this.transmissionService.transmitLocationRegister({minor: location.id, major: location.parentId});
+        // this.transmissionService.transmitLocationRegister({minor: location.id, major: location.parentId});
       }
 
       // check if the location is still locked. If so unlock it
       if (location.locked && state.locationScanning === true) {
-        this.transmissionService.transmitTimelineUpdate(location.id);
+        // this.transmissionService.transmitTimelineUpdate(location.id);
         this.nativeCommunicationService.sendToNative(location.id, 'showBackgroundNotification');
       }
     }
   }
 
   public questionnaireAnswered(){
-    this.godService.questionnaireAnswered();
+
   }
 
   public odRegister(result: any): void
   {
-    this.transmissionService.transmitODRegister(result);
+
   }
 
   public autoLogin(data): void {
@@ -105,17 +101,10 @@ export class NativeResponseService implements OnInit
     const device = {deviceAddress: deviceAddress, deviceOS: deviceOS, deviceVersion: deviceVersion, deviceModel: deviceModel};
 
     this.nativeCommunicationService.sendToNative('Autologin', 'print');
-
-    if (token !== undefined && token !== null && token !== '') {
-      this.godService.autoLogin(token, device);
-    }
-    else {
-      this.nativeCommunicationService.sendToNative('getLanguage', 'getLanguage');
-    }
   }
 
   public getWifiDataFromGoD(mode): void {
-      this.godService.getWifi(mode);
+
   }
 
   public checkBluetooth(): void {
@@ -128,7 +117,7 @@ export class NativeResponseService implements OnInit
   }
 
   public logoutSuccess(): void {
-    this.transmissionService.transmitLogoutCleanup();
+
   }
   
   public getAppSettingsDataFromNative(message): void{
@@ -144,7 +133,7 @@ export class NativeResponseService implements OnInit
   }
 
   public getAppVersionNative(message): void{
-    this.godService.checkVersion(message);
+
   }  
 
   public getLocationDataFromNative(message): void{
@@ -174,7 +163,7 @@ export class NativeResponseService implements OnInit
   }
 
   public unlockAllTimelineLocations(){
-    this.godService.unlockAllTimelineLocations();
+
   }
 
   public swipeNavigation(swipe): void {
@@ -182,7 +171,7 @@ export class NativeResponseService implements OnInit
   }
 
   public arObjectFound(){
-    this.transmissionService.arObjectFound();
+
   }
 
   public handleNoPermissionsGranted(value: any){

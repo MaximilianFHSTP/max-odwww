@@ -1,5 +1,4 @@
 import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
-import { GodService } from '../../services/god/god.service';
 import {LocationService} from '../../services/location.service';
 import {ExhibitService} from '../../services/exhibit/exhibit.service';
 import {Unsubscribe} from 'redux';
@@ -41,7 +40,6 @@ export class ContentTableOnComponent implements OnInit, OnDestroy {
   private subscriptionPoints: Subscription;
 
   constructor(
-    private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
     private nativeCommunicationService: NativeCommunicationService,

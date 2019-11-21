@@ -1,5 +1,4 @@
 import {Inject, Injectable} from '@angular/core';
-import {GodService} from './god/god.service';
 import {TranslateService} from '@ngx-translate/core';
 import * as LanguageTypes from '../config/LanguageTypes';
 import {Unsubscribe} from 'redux';
@@ -13,7 +12,6 @@ export class LanguageService {
   private readonly _unsubscribe: Unsubscribe;
 
   constructor(
-    private godService: GodService,
     private translateService: TranslateService,
     @Inject('AppStore') private appStore,
   )
@@ -36,7 +34,6 @@ export class LanguageService {
   public transmitChangeUserLanguage(lang: number)
   {
     this.updateTranslateService(lang);
-    this.godService.updateUserLanguage(lang);
   }
 
   /**

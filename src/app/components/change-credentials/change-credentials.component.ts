@@ -7,7 +7,6 @@ import { NativeResponseService } from '../../services/native/native-response.ser
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { TransmissionService } from '../../services/transmission.service';
 import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
@@ -48,7 +47,6 @@ export class ChangeCredentialsComponent implements OnInit
 
   constructor(
     private router: Router,
-    private transmissionService: TransmissionService,
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
@@ -93,37 +91,6 @@ export class ChangeCredentialsComponent implements OnInit
       const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
       if(elm){ elm.click(); }
     });
-  }
-
-  public submitCredentialsChange()
-  {
-    if(this.nameFormControl.value === undefined || this.nameFormControl.value === ''){
-      this.transmissionService.changeName = undefined;
-    }else{
-      this.transmissionService.changeName = this.nameFormControl.value;
-    }
-    if(this.emailFormControl.value === undefined || this.emailFormControl.value === ''){
-      this.transmissionService.changeEmail = undefined;
-    }else{
-      this.transmissionService.changeEmail = this.emailFormControl.value;
-    }
-    if(this.passwordFormControl.value === undefined || this.passwordFormControl.value === ''){
-      this.transmissionService.changeOldPassword = undefined;
-    }else{
-      this.transmissionService.changeOldPassword = this.passwordFormControl.value;
-    }
-    if(this.newPasswordFormControl.value === undefined || this.newPasswordFormControl.value === ''){
-      this.transmissionService.changeNewPassword = undefined;
-    }else{
-      this.transmissionService.changeNewPassword = this.newPasswordFormControl.value;
-    }
-
-    this.transmissionService.transmitUserCredentialChange();
-
-    this.changeUsernameEnable = false;
-    this.changeEmailEnable = false;
-    this.changePasswordEnable = false;
-    this.changeLanguageEnable = false;
   }
 
   ngOnInit()
@@ -185,19 +152,6 @@ export class ChangeCredentialsComponent implements OnInit
   }
 
   deleteAccountOfUser(){
-    window.scrollTo(0, 0);
-    const dialogRef = this.dialog.open(DeleteDialogComponent,
-      {data: { username: this.appStore.getState().user.name},
-        disableClose: true,
-        autoFocus: false
-      });
-    dialogRef.afterClosed().subscribe(result =>{
-      if(result === this.translate.instant('app.confirm')){
-        this.transmissionService.deleteUserAccount();
-      }else{
-        // console.log('Account NOT deleted!');
-      }
-    });
   }
 
   getCredChangeErrorMessage(field) {

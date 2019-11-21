@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AlertService } from './alert.service';
-import { TransmissionService } from './transmission.service';
 import * as coaTypes from '../config/COATypes';
 
 @Injectable({
@@ -25,7 +24,7 @@ export class CoaService {
   newHelmet = false;
   newWeapon = false;
 
-  constructor(private alertService: AlertService, private transmissionService: TransmissionService) { 
+  constructor(private alertService: AlertService) { 
   }
 
   getActiveId(coaTypeId: any){
@@ -102,17 +101,7 @@ export class CoaService {
   }
 
   tryUnlock(coaPartId: any){
-    if(!this.have(coaPartId)){
-      this.transmissionService.unlockCoaPart(coaPartId); 
-      this.unlockedItemsId.push(coaPartId);
-      this.newItem = true;
 
-      switch(this.getPartType(coaPartId)){
-        case coaTypes.SYMBOL: this.newEmblem = true; break;
-        case coaTypes.HELMET: this.newHelmet = true; break;
-        case coaTypes.MANTLING: this.newWeapon = true; break;
-      }
-    }  
   }
 
   dismissNewItem(){
@@ -175,10 +164,6 @@ export class CoaService {
   }
 
   saveMyCoa(shield: string, symbol: string, helmet: string, mantling: string, primColor: string, secColor: string){
-    this.transmissionService.changeUserCoaColors(this.getColorId(primColor), this.getColorId(secColor));
-    if(this.getPartId(shield) !== 0){ this.transmissionService.changeUserCoaPart(coaTypes.SHIELD, this.getPartId(shield));}
-    if(this.getPartId(symbol) !== 0){ this.transmissionService.changeUserCoaPart(coaTypes.SYMBOL, this.getPartId(symbol));}
-    if(this.getPartId(helmet) !== 0){ this.transmissionService.changeUserCoaPart(coaTypes.HELMET, this.getPartId(helmet));}
-    if(this.getPartId(mantling) !== 0){ this.transmissionService.changeUserCoaPart(coaTypes.MANTLING, this.getPartId(mantling));}
+
   }
 }

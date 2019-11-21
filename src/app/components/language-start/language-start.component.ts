@@ -1,9 +1,6 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { WindowRef } from '../../WindowRef';
-import {UserActions} from '../../store/actions/UserActions';
-import { NativeCommunicationService } from '../../services/native/native-communication.service';
-import {TransmissionService} from '../../services/transmission.service';
 import { LanguageService } from '../../services/language.service';
 import {TranslateService} from '@ngx-translate/core';
 import * as languageTypes from '../../config/LanguageTypes';

@@ -1,6 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {Unsubscribe} from 'redux';
-import {GodService} from '../../services/god/god.service';
 import {ExhibitService} from '../../services/exhibit/exhibit.service';
 import {LocationService} from '../../services/location.service';
 import {NativeCommunicationService} from '../../services/native/native-communication.service';
@@ -19,7 +18,6 @@ export class ContentTableNotifyOnComponent implements OnInit, OnDestroy
   private readonly _unsubscribe: Unsubscribe;
 
   constructor(
-    private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
     private coaService: CoaService,
@@ -46,7 +44,7 @@ export class ContentTableNotifyOnComponent implements OnInit, OnDestroy
 
   public disconnectFromExhibit()
   {
-    this.exhibitService.transmitGodDisconnect(this.location);
+
   }
 
   ngOnDestroy()

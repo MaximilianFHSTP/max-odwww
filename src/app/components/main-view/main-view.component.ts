@@ -7,7 +7,6 @@ import { NativeCommunicationService } from '../../services/native/native-communi
 import { AlertService } from '../../services/alert.service';
 import { CoaService } from '../../services/coa.service';
 import { LanguageService } from '../../services/language.service';
-import { TransmissionService } from '../../services/transmission.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Unsubscribe } from 'redux';
@@ -65,7 +64,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public enabledQuestions = false;
 
   constructor(
-    private transmissionService: TransmissionService,
     public locationService: LocationService,
     private translate: TranslateService,
     @Inject('AppStore') private appStore,
@@ -163,8 +161,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.isWeb = this.nativeCommunicationService.isWeb;
     this.sortLocationData();
 
-    this.transmissionService.getCoaParts();
-    this.transmissionService.getUserCoaParts();
+
 
     
     if(this.locationService.getEnableQuestions()){
@@ -445,7 +442,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
       }
 
       this.locationService.setPreviousState(this.currentSection, window.pageYOffset || document.documentElement.scrollTop);
-      this.transmissionService.transmitLocationRegister({minor: id, major: parentId});
+
     }
   }
 

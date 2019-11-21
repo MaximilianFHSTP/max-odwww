@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { WindowRef } from '../../WindowRef';
 import {LocationService} from '../location.service';
 import {ExhibitSocketService} from './exhibit-socket.service';
-import {GodService} from '../god/god.service';
 import {LocationActions} from '../../store/actions/LocationActions';
 import {UserActions} from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../native/native-communication.service';
@@ -20,7 +19,6 @@ export class ExhibitService {
     private winRef: WindowRef,
     private locationService: LocationService,
     private socket: ExhibitSocketService,
-    private socketGod: GodService,
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private userActions: UserActions,
@@ -68,21 +66,7 @@ export class ExhibitService {
         const errorMessage = {message:'You were disconnected from the Exhibit', code: ErrorTypes.LOST_CONNECTION_TO_EXHIBIT};
         this.appStore.dispatch(this.statusActions.changeErrorMessage(errorMessage));
       }
-
-      if(currLoc)
-      {
-        this.transmitGodDisconnect(currLoc);
-      }
     });
-  }
-
-  public transmitGodDisconnect(location)
-  {
-    this.socketGod.disconnectedFromExhibit(location.parentId, location.id);
-    this.appStore.dispatch(this.locationActions.changeConnectedExhibit(false));
-    this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(0));
-    this.appStore.dispatch(this.locationActions.changeOnExhibit(false));
-    this.appStore.dispatch(this.locationActions.changeClosestExhibit(location.parentId));
   }
 
   public connectOD(): any

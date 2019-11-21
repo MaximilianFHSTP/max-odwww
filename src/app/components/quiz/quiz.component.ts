@@ -1,5 +1,4 @@
 import {Component, OnInit, OnDestroy, Inject} from '@angular/core';
-import { GodService } from '../../services/god/god.service';
 import {LocationService} from '../../services/location.service';
 import {ExhibitService} from '../../services/exhibit/exhibit.service';
 import {Unsubscribe} from 'redux';
@@ -9,7 +8,6 @@ import { AlertService } from '../../services/alert.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {TransmissionService} from '../../services/transmission.service';
 import * as languageTypes from '../../config/LanguageTypes';
 import {CoaService} from '../../services/coa.service';
 import { LanguageService } from '../../services/language.service';
@@ -59,8 +57,6 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private transmissionService: TransmissionService,
-    private godService: GodService,
     private exhibitService: ExhibitService,
     private locationService: LocationService,
     private nativeCommunicationService: NativeCommunicationService,

@@ -1,5 +1,4 @@
 import { Component, Inject, NgZone, OnInit, OnDestroy } from '@angular/core';
-import { GodService } from '../../services/god/god.service';
 import {LocationService} from '../../services/location.service';
 import { Router, NavigationEnd } from '@angular/router';
 import {NativeResponseService} from '../../services/native/native-response.service';
@@ -9,7 +8,6 @@ import {TimerObservable} from 'rxjs/observable/TimerObservable';
 import {LocationActions} from '../../store/actions/LocationActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import {Subscription} from 'rxjs';
-import {TransmissionService} from '../../services/transmission.service';
 import {LanguageService} from '../../services/language.service';
 import * as locationTypes from '../../config/LocationTypes';
 
@@ -51,10 +49,8 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private godService: GodService,
     private router: Router,
     private locationService: LocationService,
-    private transmissionService: TransmissionService,
     public languageService: LanguageService,
     private responseService: NativeResponseService,
     private alertService: AlertService,
@@ -127,7 +123,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     // Timer starts after 1sec, repeats every 5sec
     this.checkStatusTimer = TimerObservable.create(100, 50000);
     this._statusTimerSubscription = this.checkStatusTimer.subscribe(() => {
-      this.godService.checkLocationStatus(this.locationId);
     });
   }
 
@@ -140,7 +135,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
       if(this.location.locationTypeId === locationTypes.ACTIVE_EXHIBIT_BEHAVIOR_ON){
         const mMinor = this.location.parentId;
         const mMajor = +(this.location.parentId.toString().substr(0,2));
-        this.transmissionService.transmitLocationRegister({minor: mMinor, major: mMajor});
       }
     }
   }
@@ -211,6 +205,5 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   {
     this.nativeCommunicationService.sendToNative('REDIRECT-TO-TABLE-ON-Behavior', 'print');
     this.appStore.dispatch(this.locationActions.changeAtExhibitParentId(this.locationId));
-    this.transmissionService.transmitLocationRegisterTableBehavior();
   }
 }

@@ -2,7 +2,6 @@ import {Component, OnInit, AfterViewInit, AfterViewChecked, OnDestroy, Inject} f
 import { LocationService } from '../../services/location.service';
 import {Unsubscribe} from 'redux';
 import {Subscription} from 'rxjs';
-import {TransmissionService} from '../../services/transmission.service';
 import {CoaService} from '../../services/coa.service';
 import {Router} from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
@@ -40,7 +39,6 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
 
   constructor(
     private locationService: LocationService,
-    private transmissionService: TransmissionService,
     public languageService: LanguageService,
     private coaService: CoaService,
     public router: Router,
@@ -160,11 +158,11 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   }
 
   registerLocationLike() {
-    this.transmissionService.transmitLocationLike(true);
+
   }
 
   registerLocationUnlike() {
-    this.transmissionService.transmitLocationLike(false);
+
   }
 
   displayVersion(sectionId: string){

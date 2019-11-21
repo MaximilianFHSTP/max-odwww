@@ -4,7 +4,6 @@ import { WindowRef } from '../../WindowRef';
 import {UserActions} from '../../store/actions/UserActions';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn } from '@angular/forms';
-import {TransmissionService} from '../../services/transmission.service';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
 import {TranslateService} from '@ngx-translate/core';
@@ -43,7 +42,6 @@ export class RegisterRealuserComponent implements OnInit
 
   constructor(
     private router: Router,
-    private transmissionService: TransmissionService,
     private winRef: WindowRef,
     @Inject('AppStore') private appStore,
     private userActions: UserActions,
@@ -78,14 +76,7 @@ export class RegisterRealuserComponent implements OnInit
 
   public registerAsRealuser()
   {
-    this.transmissionService.registerName = this.nameFormControl.value;
-    this.transmissionService.registerEmail = this.emailFormControl.value;
-    this.transmissionService.registerPassword = this.passwordFormControl.value;
 
-    const state = this.appStore.getState();
-    const platform = state.platform;
-
-    this.transmissionService.transmitODGuestToRealRegister();
   }
 
   ngOnInit()

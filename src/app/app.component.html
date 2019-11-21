@@ -15,21 +15,18 @@
   <div *ngIf="guideStatus == 4" class="guide s4"></div><p *ngIf="guideStatus == 4" class="textGuide s4">{{ 'guide.s4' | translate }}</p>
 </div>
 
-<!-- Warnings -->
+<!-- Warnings 
 <div id="notConnectedToGod" *ngIf="doesNotHavePermission == 'false' && !isConnectedToGod">
   <section>
     <h1>{{ 'app.connectionLostHeader' | translate }}</h1>
     <h3>{{ 'app.connectionLostBody' | translate }}</h3>
   </section>
-</div>
+</div>-->
 <div id="notConnectedToGod" *ngIf="doesNotHavePermission == 'true'">
   <section>
     <h1>{{ 'app.noPermissionHeader' | translate }}</h1>
     <h3>{{ 'app.noPermissionBody' | translate }}</h3>
   </section>
-</div>
-<div *ngIf="settingsStatus == 'false' && (router.url === '/mainview' || router.url === '/passive' || router.url === '/interactive' || router.url === '/tableat' || router.url === '/tableNotifyAt')" class="warning" (click)="openAppSettings()">
-  <p>{{ 'app.checkSettings' | translate }}</p>
 </div>
 
 <!-- UI -->
