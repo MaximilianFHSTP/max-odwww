@@ -92,7 +92,7 @@
   },
   "notifiyExhibit": {
     "interactiveExhibitMsg": "This is an interactive exhibit. To start, click the button:",
-    "tableOfflineText": "Sorry, an error occurred. Therefore, the display is currently not available!",
+    "tableOfflineText": "The display is currently not available.",
     "tableOccupiedText": "Sorry, the display is occupied. Please try again later!",
     "tableJoinButton": "Join interactive exhibit",
     "beaconPutText": "Please, put your phone at the beacon near the display.",

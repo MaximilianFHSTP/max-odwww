@@ -92,7 +92,7 @@
   },
   "notifiyExhibit": {
     "interactiveExhibitMsg": "Dies ist ein interaktives Ausstellungsstück. Klicke auf die Schaltfläche:",
-    "tableOfflineText": "Das interaktive Ausstellungsstück steht zur Zeit nicht zur Verfügung!",
+    "tableOfflineText": "Das Display steht zur Zeit nicht zur Verfügung.",
     "tableOccupiedText": "Das interaktive Ausstellungsstück ist gerade nicht frei, probiere es später erneut!",
     "tableJoinButton": "Mitspielen",
     "beaconPutText": "Lege bitte Dein Handy auf ein Beacon am Display!",

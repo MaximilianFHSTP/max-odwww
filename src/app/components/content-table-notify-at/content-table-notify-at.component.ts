@@ -16,7 +16,7 @@ import {LanguageService} from '../../services/language.service';
   templateUrl: './content-table-notify-at.component.html',
   styleUrls: ['./content-table-notify-at.component.css']
 })
-export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
+export class ContentTableNotifyAtComponent implements OnInit {
 
   // location data
   public location: any;
@@ -56,80 +56,10 @@ export class ContentTableNotifyAtComponent implements OnInit, OnDestroy {
     @Inject('AppStore') private appStore,
     private locationActions: LocationActions,
     private nativeCommunicationService: NativeCommunicationService
-  ) {
-    this._unsubscribe = this.appStore.subscribe(() => {
-      const state = this.appStore.getState();
-      this.updateLocationStatus(state.locationStatus);
-      if(state.closestExhibit)
-      {
-        this.updateJoinButtonStatus(state.closestExhibit);
-      }
-      this.locationSocketStatus = state.locationSocketStatus;
-    });
-
-    this.correctWifiSubscribe = this.alertService.getMessageCorrectWifi().subscribe(value => {
-      this.correctWifi = value.toString();
-    });
-
-    this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
-    {
-      this.location = value;
-    });
-  }
+  ) {}
 
   ngOnInit() {
-    this.initialiseInvites();
-  }
-
-  initialiseInvites() {
-
-    this.location = this.locationService.currentLocation.value;
-    this.locationName = this.location.description;
-    this.locationId = this.location.id;
-    this.locationStatusFree = false;
-    this.locationStatusOccupied = false;
-    this.locationStatusOffline = false;
-    this.locationType = this.location.locationTypeId;
-
-    this.joinGame = true;
-    this.correctWifi = 'true';
-    this.isWeb = this.nativeCommunicationService.isWeb;
-
-    // Timer starts after 1sec, repeats every 5sec
-    this.checkStatusTimer = TimerObservable.create(100, 5000);
-    this._statusTimerSubscription = this.checkStatusTimer.subscribe(() => {
-    });
-  }
-
-  ngOnDestroy() {
-    // Stop the timer
-    this._statusTimerSubscription.unsubscribe();
-    this._unsubscribe();
-    this._curLocSubscribe.unsubscribe();
-  }
-
-  updateJoinButtonStatus(locationId: number)
-  {
-    // Checking if the closest exhibit is the current active exhibit or one of the tableOn beacons
-    this.isJoinButtonUnlocked = this.locationService.isActiveLocationInRange(locationId);
-  }
-
-  updateLocationStatus(status: string){
-    if (status === 'FREE'){
-      this.locationStatusFree = true;
-      this.locationStatusOccupied = false;
-      this.locationStatusOffline = false;
-    }
-    else if (status === 'OCCUPIED'){
-      this.locationStatusFree = false;
-      this.locationStatusOccupied = true;
-      this.locationStatusOffline = false;
-    }
-    else if (status === 'OFFLINE') {
-      this.locationStatusOffline = true;
-      this.locationStatusFree = false;
-      this.locationStatusOccupied = false;
-    }
+    this.location = this.locationService.getCurrentLocation();
   }
 
   getSectionIcon(sectionId: number){

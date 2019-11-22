@@ -49,6 +49,7 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const state = this.appStore.getState();
     this.updateLocationInformation(state.currentLocation);
+    this.location = this.locationService.getCurrentLocation();
 
     if (state.closestExhibit !== this.location.id){
       this.locationStatusNotAtLocation = true;

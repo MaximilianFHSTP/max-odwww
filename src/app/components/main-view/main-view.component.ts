@@ -21,7 +21,7 @@ import * as LocationTypes from '../../config/LocationTypes';
   styleUrls: ['./main-view.component.css']
 })
 @Injectable()
-export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecked {
   private readonly _unsubscribe: Unsubscribe;
   private registerLocationmessage: any;
   private subscriptionBack: Subscription;
@@ -74,101 +74,15 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     public router: Router,
     public coaService: CoaService,
     public languageService: LanguageService
-  ){
-    this._unsubscribe = this.appStore.subscribe(() => {
-      const state = this.appStore.getState();
-      this.closestExhibit = state.closestExhibit;
-      if(this.prevClosestExhibit !== this.closestExhibit){
-        if(this.prevClosestExhibit !== 0){
-
-          if(!state.user.answeredQuestionnaire){
-            if(this.closestExhibit === 7000){
-              // When passing by beacon 7000, show questions if there is one exhibit unlocked
-              if(this.isThereUnlock()){
-                this.checkQuestionsUnlock();
-                setTimeout(() => this.displayQuestionnaireDialog());
-              }  
-            } else{
-              // When passing by any other beacon, show questions if all exhibits were unlocked
-              if(this.checkAllUnlock()){
-                this.checkQuestionsUnlock();
-              }
-            }
-          }
-
-          this.buttonAnimationOn(); 
-        }
-        this.prevClosestExhibit = this.closestExhibit;
-      }
-      this.timelineLocations = this.locationService.getTimelineLocations();
-      this.sortLocationData();
-    });
-    this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
-      this.registerLocationmessage = message;
-    });
-    this.subscriptionCoaParts = this.alertService.getMessageCoaParts().subscribe(message => {
-      this.coaService.setCoaParts(message.data);
-    });
-    this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
-      this.coaService.setUserCoaParts(message.data);
-    });
-    this.subscriptionSwipe = this.alertService.getSwipeNavigation().subscribe(message=> {
-      this.handleSwipe(message);
-    });
-    this.subscriptionVersionCheck = this.alertService.getVersionCheck().subscribe(message=> {
-      if(!message) {
-        this.nativeCommunicationService.sendToNative('displayUpdateMessage', 'displayUpdateMessage');
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this._unsubscribe();
-    if (this.subscriptionBack){
-      this.subscriptionBack.unsubscribe();
-    }
-    if (this.subscriptionLocationid){
-      this.subscriptionLocationid.unsubscribe();
-    }
-    if (this.subscriptionCoaParts){
-      this.subscriptionCoaParts.unsubscribe();
-    }
-    if (this.subscriptionUserCoaParts){
-      this.subscriptionUserCoaParts.unsubscribe();
-    }
-    if(this.subscriptionSwipe){
-      this.subscriptionSwipe.unsubscribe();
-    }
-    if(this.subscriptionVersionCheck){
-      this.subscriptionVersionCheck.unsubscribe();
-    }
-  }
+  ){}
 
   ngOnInit() {
-    const state = this.appStore.getState();
-    this.user = state.user;
-
-    if(state.language !== this.languageService.getCurrentLanguage){
-      this.languageService.transmitChangeUserLanguage(state.language);
-    }
-
-    this.locationService.lookuptable = state.lookupTable;
     this.timelineLocations = this.locationService.getTimelineLocations();
-    this.closestExhibit = state.closestExhibit;
     this.currentSection = this.locationService.getLastSection();
     if(!this.currentSection) {this.currentSection = 10;}
 
     this.isWeb = this.nativeCommunicationService.isWeb;
     this.sortLocationData();
-
-
-
-    
-    if(this.locationService.getEnableQuestions()){
-      this.enabledQuestions = this.locationService.getEnableQuestions();
-    }
-
-    this.nativeResponseService.checkVersion();
 
     if(this.nativeCommunicationService.isIOS) {this.mOs = 'ios'; }
     else if(this.nativeCommunicationService.isAndroid) {this.mOs = 'android'; }
@@ -317,6 +231,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   sortLocationData( ){
     // Ad hoc reordering and adjustments
     const mtimelineLocations = this.timelineLocations;
+    console.log(mtimelineLocations);
     let exhX;
 
     this.timelineLocations.forEach((exh, index) => {
@@ -434,61 +349,34 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   public requestRegisterLocation(id: number, parentId: number, typeId: number){
     if(id && parentId){
-      console.log(typeId);
-
       if(typeId === LocationTypes.PASSIVE_EXHIBIT ||
         typeId === LocationTypes.DOOR){
           this.locationService.saveCurrentLocation(this.getLocation(id));
           this.router.navigate(['/passive']).then( () => {
             window.scrollTo(0, 0);
           });
-     }
-
-      /*if(id === 5001){  this.checkCoaUnlock();  }
-      if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT ||
-         typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT ||
-         typeId === LocationTypes.NOTIFY_EXHIBIT_AT){
-        this.checkWifi();
-      }*/
+      }
+      else if(typeId === LocationTypes.INTERACTIVE_EXHIBIT){
+          this.locationService.saveCurrentLocation(this.getLocation(id));
+          this.router.navigate(['/interactive']).then( () => {
+            window.scrollTo(0, 0);
+          });
+      }
+      else if(typeId === LocationTypes.NOTIFY_EXHIBIT_AT){
+        this.locationService.saveCurrentLocation(this.getLocation(id));
+        this.router.navigate(['/tableNotifyAt']).then( () => {
+          window.scrollTo(0, 0);
+        });
+      }
+      else if(typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT){
+        this.locationService.saveCurrentLocation(this.getLocation(id));
+        this.router.navigate(['/tableat']).then( () => {
+          window.scrollTo(0, 0);
+        });
+      }
 
       this.locationService.setPreviousState(this.currentSection, window.pageYOffset || document.documentElement.scrollTop);
-
     }
-  }
-
-  public checkWifi(){
-    // this.nativeResponseService.getWifiDataFromGoD('');
-  }
-
-  checkAllUnlock(): boolean{
-    let allUnlocked = true;
-    this.timelineLocations.forEach(loc => {
-      if(loc.id !== 502 && loc.id !== 6000 && loc.locked){
-        allUnlocked = false;
-      }
-    });
-
-    return allUnlocked;
-  }
-
-  isThereUnlock(): boolean{
-    let someUnlocked = false;
-    this.timelineLocations.forEach(loc => {
-      if(loc.parentId !== 10 && !loc.locked){ someUnlocked = true; }
-    });
-
-    return someUnlocked;
-  }
-
-  checkCoaUnlock(){
-    if(this.checkAllUnlock()){
-      this.coaService.tryUnlock(24);
-    }
-  }
-
-  checkQuestionsUnlock(){
-    this.locationService.setEnableQuestions(true);
-    this.enabledQuestions = true;
   }
 
   /* -------- Location Button and Scroll Functions -------- */

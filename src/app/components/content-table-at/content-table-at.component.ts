@@ -16,7 +16,7 @@ import * as locationTypes from '../../config/LocationTypes';
   templateUrl: './content-table-at.component.html',
   styleUrls: ['./content-table-at.component.css']
 })
-export class ContentTableAtComponent implements OnInit, OnDestroy {
+export class ContentTableAtComponent implements OnInit {
 
   // location data
   public location: any;
@@ -28,17 +28,10 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   public locationType: number;
   public isJoinButtonUnlocked: boolean;
 
-  private checkStatusTimer: any;
   public isWeb: boolean;
   public joinGame: boolean;
   public locationSocketStatus: undefined;
   public correctWifi: string;
-
-  private readonly _unsubscribe: Unsubscribe;
-  private _statusTimerSubscription;
-  private _curLocSubscribe: Subscription;
-  private correctWifiSubscribe: Subscription;
-  private navigationSubscription: Subscription;
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
     {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},
@@ -58,36 +51,10 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
     private locationActions: LocationActions,
     private nativeCommunicationService: NativeCommunicationService,
     private ngZone: NgZone
-  ) {
-    this._unsubscribe = this.appStore.subscribe(() => {
-      const state = this.appStore.getState();
-      this.updateLocationStatus(state.locationStatus);
-      if(state.closestExhibit)
-      {
-        this.updateJoinButtonStatus(state.closestExhibit);
-      }
-      this.locationSocketStatus = state.locationSocketStatus;
-    });
-
-    this.correctWifiSubscribe = this.alertService.getMessageCorrectWifi().subscribe(value => {
-      this.setValue(value, 'wifi');
-    });
-
-    this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
-    {
-      this.location = value;
-    });
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      // If it is a NavigationEnd event re-initalise the component
-      if (e instanceof NavigationEnd) {
-        this.initialiseInvites();
-      }
-    });
-  }
+  ) {}
 
   ngOnInit() {
-    this.initialiseInvites();
-    this.nativeCommunicationService.sendToNative('statusWifi', 'statusWifi');
+    this.location = this.locationService.getCurrentLocation();
   }
 
   setValue(value: any, func: string){
@@ -100,73 +67,6 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
           if(this.correctWifi !== status) {this.correctWifi = status; }
         });
         break;
-    }
-  }
-
-  initialiseInvites() {
-    this.nativeCommunicationService.sendToNative('TABLE-AT', 'print');
-
-    this.location = this.locationService.currentLocation.value;
-    // console.log(this.location);
-    // this.checkIfRedirected();
-    this.locationName = this.location.description;
-    this.locationId = this.location.id;
-    this.locationStatusFree = false;
-    this.locationStatusOccupied = false;
-    this.locationStatusOffline = false;
-    this.locationType = this.location.locationTypeId;
-
-    this.joinGame = true;
-    this.correctWifi = 'true';
-    this.isWeb = this.nativeCommunicationService.isWeb;
-
-    // Timer starts after 1sec, repeats every 5sec
-    this.checkStatusTimer = TimerObservable.create(100, 50000);
-    this._statusTimerSubscription = this.checkStatusTimer.subscribe(() => {
-    });
-  }
-
-  checkIfRedirected(){
-    // If not on Table at...
-    if(this.location.locationTypeId !== locationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT){
-      this.locationStatusOffline = true;
-
-      // If coming from Table on, send to parent
-      if(this.location.locationTypeId === locationTypes.ACTIVE_EXHIBIT_BEHAVIOR_ON){
-        const mMinor = this.location.parentId;
-        const mMajor = +(this.location.parentId.toString().substr(0,2));
-      }
-    }
-  }
-
-  ngOnDestroy() {
-    // Stop the timer
-    this._statusTimerSubscription.unsubscribe();
-    this._unsubscribe();
-    this._curLocSubscribe.unsubscribe();
-  }
-
-  updateJoinButtonStatus(locationId: number)
-  {
-    // Checking if the closest exhibit is the current active exhibit or one of the tableOn beacons
-    this.isJoinButtonUnlocked = this.locationService.isActiveLocationInRange(locationId);
-  }
-
-  updateLocationStatus(status: string){
-    if (status === 'FREE'){
-      this.locationStatusFree = true;
-      this.locationStatusOccupied = false;
-      this.locationStatusOffline = false;
-    }
-    else if (status === 'OCCUPIED'){
-      this.locationStatusFree = false;
-      this.locationStatusOccupied = true;
-      this.locationStatusOffline = false;
-    }
-    else if (status === 'OFFLINE') {
-      this.locationStatusOffline = true;
-      this.locationStatusFree = false;
-      this.locationStatusOccupied = false;
     }
   }
 

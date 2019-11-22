@@ -442,7 +442,40 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Subject! Perceive with your own eyes how exciting and thrilling the 15th century was. A centennial that had everything in the mix: a good portion of political conflict, a dash of economic crises, a swirl of technical innovation, a good go of new intellectual movements and standards as well as a new saint for our archduchy of Austria, to the taste – what a time! But see for yourself! On the left you shall have all political turnpoints that made an impact on Klosterneuburg. To your right, you will follow the canonization of our estimated ancestor Leopold III',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 79,
+      locationId: 2000,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Oh, there is a very great deal to say about the 15th century, but as I always point out: information is best served in small portions. That is why I present you some of the most important political events concerning the archduchy of Austria to your left while you can follow the canonization of the Babenberg margrave Leopold III in 1485 to your right',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 80,
+      locationId: 2000,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+     content: 'Oh my, all this fuzz about politics and fighting and fancy emperors bores me to death! Go on, continue to be lulled to sleep by some dull facts on the left. Far more interesting is the story of Leopold III. Have you already heard about the legend of the veil, the origin myth of this very monastery or about the miracles that are attributed to Leopold? If you care for anecdotes about breathtaking love and miraculous wonders than stick to the right side of the hallway… so exciting!',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 81,
+      locationId: 2000,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'Intro to section 2:',
@@ -467,7 +500,73 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Long before we, Maximilian, were born into this world, our family engaged in a feud. Brother stood against brother and the lordship was split. It took a great effort to end this bitter hostility for even our father Frederick III and his brother, our uncle Albert VI of Austria were bound to this vendetta. Their contention escalated in 1461 and took its toll on the territories below the river Enns. The rivalry finally ended with our uncle’s sudden death in 1463 and the installment of our father in his rightful place as sovereign of our beloved duchy of Austria.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 82,
+      locationId: 2001,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'In 1451 after the last direct heir of the Leopoldian bloodline died, political affairs became uncertain. The brothers Frederick III and duke Albert VI of Austria both claimed their right to the heritage and their already tense demenour culminated in an armed conflict in 1461. Klosterneuburg was in support of Albert VI, who in return tried to counteract the monastery’s economic strain by granting it privileges regarding trade and salt. The feud finally ended with the duke’s sudden death and Frederick III`s installment as sovereign in 1463.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 83,
+      locationId: 2001,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Schinderlings! What an infamous crime! As our sovereigns spent all the money fighting useless wars they started minting bad coins. All they were interested in was the expansion of their power and influence. Nobody cared about us, the suffering people. The silver in our shiny little pfennigs was replaced by a cheaper copper and lead, the worth of those coins was next to nothing. The result of this strike of genius was an unseen economic crisis. Thanks for nothing, my lords! But make no mistake I will get into your pockets, one way or another!',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 84,
+      locationId: 2001,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Death of Ladislaus Postumus',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 85,
+      locationId: 2001,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1457
+     },{
+      content: 'Death of Albert VI of Austria',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 86,
+      locationId: 2001,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1463
+     },{
+      content: 'Outbreak of war between Frederick III and Matthias Corvinus',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 87,
+      locationId: 2001,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1477
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'passive exhibit',
@@ -492,7 +591,73 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Margrave Leopold III was already worshipped shortly after his death. It was our father Frederick III, who once more initiated the canonization process in 1465 after our noble ancestor Rufolf IV had failed to do so before him. Pope Paul II instated a comission to investigate Leopold\'s miracle doings and to evaluate his candidacy. During the first papal investigation in Klosterneuburg in 1468, 191 loyal subjects were questioned. A number we are very proud of.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 95,
+      locationId: 2002,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'The worship of Babenberg margrave Leopold III began immediately after his death. Soon his tomb was sought by an increasing number of pilgrims and the now reigning house of Habsburg gained interest in this iconified monarch. Duke Rudolf IV, (called “the Founder”) initiated Leopold’s canonization but it was not until the reign of Frederick III that the papal commission started their investigation in 1468 and questioned over 240 individuals for the next two years. Their statements were put down in writing, authenticated by a notary public and sent to Rome for further inspections',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 96,
+      locationId: 2002,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'I must share with you the story of my most favorite miracle: there was a woman once that could barely make a living and one day she was forced to pawn her coat. Very soon afterwards the shylock demanded his money back but she was not able to pay him. In her time of need she turned to Leopold, who in her dream told her about a treasure. As she couldn’t find it while being awake Leopold came to her in her dreams once more. After her vision, she retrieved the promised treasure and could not only pay her debt but also make a living of it. Isn’t this wonderful? Hmmm… I think I should get some rest now… .',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 97,
+      locationId: 2002,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Inquiry of the Witnesses in Klosterneuburg',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 98,
+      locationId: 2002,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1468
+     },{
+      content: 'Inquiry of the Witnesses in Klosterneuburg',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 99,
+      locationId: 2002,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1469
+     },{
+      content: 'Inquiry of the Witnesses at the Klosterneuburger Hof in Vienna',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 100,
+      locationId: 2002,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1470
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'passive exhibit',
@@ -517,7 +682,84 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'After our father gained power King Matthias Corvinus of Hungary had the audacity to declare war on him in 1477. Corvinus united Hungary, secured the borders against the Ottoman Empire and invaded our territory below the Enns river! It was not until after Corvinus’ death in 1490 that formerly conquered areas were reunited with the rest of our archduchy. Despite all the unpleasantness he caused, he did support the canonization of Leopold III, we have to give him that.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 88,
+      locationId: 2003,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Matthias Corvinus was elected King of Hungary in 1458. Driven by his ambition he not only united the Hungarian Empire but conquered parts of the Duchy of Austria including Klosterneuburg in 1483 and Vienna in 1485. I have to admit that I am euqally impressed by his strategic thinking and his classical education as well as his love for arts. One of the erudites he counted amongst his entourage was the italian historiograph Antonio Bofini, who compiled a magnificent work on Hungary\'s History.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 89,
+      locationId: 2003,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Oh these sovereigns! All they do is fight all day and try to outsmart each other! Who gathered the wiser erudites? Who\'s ancestors are the noblest? Who is the sharpest war-lord? As if I cared! The people were suffering. Klosterneuburg lost Wolfgang Wiesinger, may he rest in peace. His poor soul was swiped off this earth in the conflict between the Habsburgian sleepyhead Frederick III and the hungarian shooting star Matthias Corvinius.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 90,
+      locationId: 2003,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: ' Matthias Corvinus visits Vienna',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 91,
+      locationId: 2003,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1470
+     },{
+      content: 'Klosterneuburg ist conquered by the Hungarians',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 92,
+      locationId: 2003,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1483
+     },{
+      content: 'Vienna is conquered by the Hungarians',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 93,
+      locationId: 2003,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1485
+     },{
+      content: 'Death of Matthias Corvinus in Vienna',
+      contentLanguageId: 1,
+      contentTypeId: 3,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 94,
+      locationId: 2003,
+      order: 2,
+      storyTellerId: null,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: 1490
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'passive exhibit',
@@ -542,7 +784,40 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Subject, patience is a virtue if not a principle and even a monarch has to live by it. Leopold’s canonization took forever. After the authenticated statements arrived in Rome, Pope Sixtus IV aborted the canonization process because of formalities and had it redone. It took another 15 years and an enormous financial effort until his successor Pope Innocent VIII finally recognized Leopold’s sanctity and included him in the Litany of the Saints.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 101,
+      locationId: 2004,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'The canonization process was a complex one. The requirements for recognizing sanctity did not end with a person’s declared worthiness but had to fulfill formal standards. Latter being one of the reasons for Leopold’s declaration to take almost 20 years: bureaucratic errors, enormous costs and involved people dying slowed down the whole process. In the end, the defense speech held by Franciscus de Pavinis gave the final push. On January 6th, 1485 Leopold was recognized as a saint during a ceremonial act in St. Peter’s Basilica.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 102,
+      locationId: 2004,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Oh, look at him! This elegance! This grandeur! In full regalia of a margrave and wearing the hat of an archduke he looks just stunning. Between you and me: what you see is historically incorrect, because Leopold III was not an archduke but the painting would certainly miss something if the hat had been left out, don’t you think? And look there in his hand, the tiny model of the monastery, it always catches my attention. I am sure it is a symbol for his patronage of Klosterneuburg! Ah yes and the halo, very impressive indeed. I would fancy one too. Would fit me just right! Miracles do happen, you know!',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 103,
+      locationId: 2004,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'passive exhibit',
@@ -567,7 +842,40 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Now let us introduce our noble selves: born on the 22nd March 1459 in Wiener Neustadt to our father Frederick III, who had already been crowned Emperor of the Holy Roman Empire and our mother Eleonore of Portugal, a Portugese infanta. In 1486, we were crowned King of the Romans and seven years later in 1493 the Habsburg Hereditary Lands were put under our rule. At the Age of 49 in 1508 we had ourselves crowned Emperor of the Romans in Trient. Tu felix Austria nube! The unparalleled matrimonial policy we implied during our reign gained us the territories of Bohemia and Hungary.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 104,
+      locationId: 3000,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Let me introduce Maximilian’s branch of the family tree, I had produced for him. He was the son of Emperor Frederick III and Eleonora of Portugal. In 1477, he was married to Mary of Burgundy, whose father had just died. Maximilian, now also duke of Burgundy and his wife had two children: Philipp I, later King of Castile and Margeret, later Governor of the Habsburg Netherlands. Mary died in 1482 after only five years of marriage and Maximilian was remarried in 1494 to Bianca Maria Sforza. They had no children.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 105,
+      locationId: 3000,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Rumor has it, that a bright shining star appeared in the sky just as Maximilian was born in 1459. I know of another child, whose birth was accompanied by such an astronomic event – you sure know which: yes, of course Jesus. Well, I would call this a nice try to play the gallery, Maximilian. Chronicles and reports, that were not written by your erudites have no mention of such an event at all. But still such an announcement is odd, for medieval superstition read a comet as a bad omen.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 106,
+      locationId: 3000,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'Intro to section 3:',
@@ -592,7 +900,40 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'The monastery of Klosterneuburg had a new saint to promote and the provost took good care of it. The first to be Jakob Paperl elected on the 1st July 1485. He inspired us with his conscientious work of keeping Leopold’s memory alive. Since his canonisation, the missals note the 15th November as Saint Leopold’s celebration day. Paintings, manuscripts and prints were made in his honor. Our committed erudite and genealogist Ladislaus Sunthaym produced a family tree. Listen to what he has to say!',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 111,
+      locationId: 4000,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'After Leopold’s canonisation, I received the order to conduct a genealogical research on him. To do so I had to travel from one monastery to the next to consult and evaluate the available historical records. Scientific credibility is an unshakeable premise, but I just could not solve all of the puzzles. It was very challenging to find records regarding spouses and daughters and some relatives of the margrave have to remain without a name. Of course, I dedicated my hard work and findings to someone special. Who that is, I will tell you shortly.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 112,
+      locationId: 4000,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Good old Sunthaym worked himself to the bone to dust off the Babenberg’s genealogy. Way over the top, if you ask me. Nobody is ever going to read that, even more so if it is written on parchment and the letters are minuscule. The tablets that were made to illustrate the findings of Sunthaym were said to be kept behind bars – to read that you had to have eagle eyes. Talking of eagles: did you notice the funny animals around the tendrils? They are entertaining! Look there is an elephant, but what is it wearing? By the way: all the “Sunthaym tablets” can be seen in the upper parts of the exhibition.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 113,
+      locationId: 4000,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'Intro to section 4:',
@@ -617,7 +958,40 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Sunthayms work is very much to our satisfaction. Not only are these panels appealing in terms of content but also in terms of appearance. Perceive their beauty, subject! The origins and roots of our ancestors are adorned with decorations in gold and precious colors. A royal pedigree is always of uttermost importance. That is the reason why we asked Sunthaym to conduct the research on our family in the first place. He was not the only one working on this task.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 114,
+      locationId: 4001,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Ah yes, the dedication! Of course, I dedicated all my work to the Holy Lord, the Virgin Mary and Saint Leopold himself. I am a clergyman for what it’s worth! But of course, I had to name Emperor Frederick and his son Maximilian and all their titles too as well as the Provost Jakob Paperl, they are my patrons. The manner in which I formulated this dedication can be seen a few steps farther. It’s all there in pure accuracy and extreme precision. It is as I always say: “Do it and do it right!”.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 115,
+      locationId: 4001,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'What a bootlicker, this Sunthaym person! Everything is so neat and tidy! Look at it, of course he named God and the Sovereign and the Provost in his dedication, Mr. Perfect. This way he sure gained the Emperor’s goodwill. Me on the other hand, I prefer less effort and higher rewards. You doubt that I could pull that off? Go upstairs and see for yourself.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 116,
+      locationId: 4001,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'passive exhibit',
@@ -642,7 +1016,40 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Subject! Can you appreciate the splendor of these panels made by Rueland Frueauf the Younger? They show the legend regarding the foundation of the monastery by our ancestor Leopold III. He was a powerful ruler and a skilled hunter, just like us! It was during a hunt that he retrieved Agnes’ long before lost veil in an elderberry bush. The veil was undamaged and to complete this miraculous event, the Virgin Mother Mary appeared before him. In eternal thankfulness, he had Klosterneuburg built on the exact same spot.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 122,
+      locationId: 4004,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'These panels are the first to show us the legend regarding the foundation of the Monastery by our holy margrave in successive images, Rueland Frueauf the younger, signed it “RF”. The painter portrayed Leopold various times including the one with the margrave holding a model of the Monestary in his hands. The artist’s wife Dorothea is mentioned in the obituary.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 123,
+      locationId: 4004,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'What a noble man on a noble steed and he is doing what noble men always do in their spare time, he hunts. I know nothing about hunting but I have a good feeling about those fierce men that are accompanying him and about the dogs. Look, they are there as Leopold retrieves Agnes’ veil. Rumor has it, that all the dogs, that were held in cages in Klosterneuburg are direct descendants of the canine companions that shared this holy moment.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 124,
+      locationId: 4004,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'passive exhibit',
@@ -667,7 +1074,40 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'What a fabulous day! On February 15, 1506, more than twenty years after his canonization Leopold’s remains were transferred during a relic translation ceremony. We amongst other members of our court and many of our subjects were present to be part of this exceptional occasion. We put a lot of thought into our wardrobe and decided to deliberately step away from waring our regalia and chose the robe of the archduke in respect to our holy ancestor and our beloved archduchy of Austria.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 125,
+      locationId: 5000,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'The canonization process is officially brought to an end by a socalled relic translation ceremony during which the mortal remains of the recognized saint are transferred. In Leopold’s case this happened very late. First It was the Hungarians, who with their reign over Klosterneuburg made it impossible for the Habsburg family to take part in a ceremony and then it was King Maximilian I, who was wound up in his state’s affairs that he could not personally take part. That is why it head to be postponed until February 1505 but it sure was worth the wait!',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 126,
+      locationId: 5000,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'Boy, what a day! It was spectacular! All these people, the food, the atmosphere! Even the archduke showed himself even though he had a lot on his back lately! But hey I could make it so he should better make it too. After the canonization, they revealed the gigantic Babenberg family tree. I wonder where they left my invitation… ',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 127,
+      locationId: 5000,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'Intro to section 5:',
@@ -692,7 +1132,18 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'tableNotifyAt',
-    contents: [],
+    contents: [{
+      content: 'There they are, the noble ancestors of the magnificent House of Habsburg. You can find Saint Leopold up there as well as some of his 18 children. His son Henry II of Austria, called Jasomirgott, was the first duke of Austria. All the other Babenbergs have interesting biographies too. Some were fighting wars, some set sail for the Holy Land, some mediated in terms of affairs regarding the Empire and others were married in order to broaden power and influence. Find out, when and where the Babenbergs lived, who they were married too and how they named their sons and daughters.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 130,
+      locationId: 502,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: 0,
     description: 'Genvis atLocation',
@@ -717,7 +1168,18 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Subject, you have now laid eyes on the upper part of the exhibition. Tell me, are you impressed by all the ends and means we used to keep the memoria alive? By visiting this exhibition, you too guarantee the ongoing tradition of our memory, which we are very grateful for. As a final reward, we compensate you with the upgrade of your coat of arms. Wear it with pride and vigor. Make sure you are remembered!',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 131,
+      locationId: 6000,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'Intro to section',
@@ -742,7 +1204,40 @@ export let DATA = [{
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
     contentURL: 'passive',
-    contents: [],
+    contents: [{
+      content: 'Subject, it is time for us to leave this mortal world. You are going to mourn your emperor – this is our command! Messengers are going to spread the word of our death to the world and minstrels are going to sing songs about our greatness! Our funeral shall be modest: no splendour should touch our dead body, only ashes, lime and dirt. Break our teeth and crop our hair! Our death shall set an example of Christianity. We are not anymore afraid to be forgotten with the last chime: we made proper provisions to leave our own memory to posterity.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 132,
+      locationId: 6001,
+      order: 1,
+      storyTellerId: 1,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'In the Middle Ages, the awareness of dying was characterized by Christian philosophy. How people spent their lives determined whether they went to heaven or hell. Before going to heaven, most people had to spend some time in purgatory to atone for their sins. During their lifetimes, people gave money or other gifts to clerical and monastic institutions. In return, the clergymen prayed for the salvation of these people. Prayers and commemoration shortened the time someone had to spend in purgatory. A “good death” had to be well prepared whereas a sudden death was regarded as a “bad death”.',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 133,
+      locationId: 6001,
+      order: 1,
+      storyTellerId: 2,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     },{
+      content: 'I’ve recently heard a story about Maximilian: rumor has it that in the last years, he’s always travelled with a large wooden box or coffin. They say that this coffin contained books – for example the book “Theuerdank”, which tells the story of the emperor’s life. Once he had died, his entourage took the books out of the coffin and placed his corpse inside. They distributed the books that tell the emperor’s story. So, the life of the emperor’s body had ended, but his deeds came to life in the books and stories about him. Peculiar, isn’t it?',
+      contentLanguageId: 1,
+      contentTypeId: 1,
+      createdAt: '2019-09-10T21:34:02.000Z',
+      id: 134,
+      locationId: 6001,
+      order: 1,
+      storyTellerId: 3,
+      updatedAt: '2019-09-10T21:34:02.000Z',
+      year: null
+     }],
     createdAt: '2019-09-10T21:34:01.000Z',
     currentSeat: null,
     description: 'passive exhibit',

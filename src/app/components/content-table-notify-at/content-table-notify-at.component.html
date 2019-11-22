@@ -24,15 +24,8 @@
   <div class="btnJoin">
     <div class="ico"></div>
     <div class="msg">
-      <div *ngIf="locationStatusFree">
-        <button *ngIf="joinGame && locationSocketStatus !== 'OCCUPIED' && correctWifi == 'true'" (click)="startOnTableSearch()">{{ 'notifiyExhibit.tableJoinButton' | translate }}</button>
-        <p *ngIf="!joinGame && locationSocketStatus !== 'OCCUPIED' && correctWifi == 'true'">{{ 'notifiyExhibit.beaconPutText' | translate }}</p>
-        <p *ngIf="locationSocketStatus === 'OCCUPIED'">{{ 'notifiyExhibit.beaconOccupiedText' | translate }}</p>
-        <p *ngIf="locationSocketStatus !== 'OCCUPIED' && correctWifi == 'false'">{{ 'tableAt.notAtWifi' | translate }}</p>
-      </div>
-      <div *ngIf="locationStatusOccupied"><p>{{ 'notifiyExhibit.tableOccupiedText' | translate }}</p></div>
-      <div *ngIf="locationStatusOffline"><p>{{ 'notifiyExhibit.tableOfflineText' | translate }}</p></div>
+      <div><p>{{ 'notifiyExhibit.tableOfflineText' | translate }}</p></div>
     </div>
   </div>
-  <div class="btnJoinDisabled" *ngIf="locationStatusOffline || locationStatusOccupied || !joinGame || locationSocketStatus === 'OCCUPIED'"></div>
+  <div class="btnJoinDisabled"></div>
 </div>
