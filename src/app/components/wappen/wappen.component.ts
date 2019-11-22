@@ -6,22 +6,16 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import * as coaTypes from '../../config/COATypes';
-import { CoaService } from '../../services/coa.service';
 import * as d3 from 'd3';
 import {TranslateService} from '@ngx-translate/core';
+import * as COAConfig from '../../config/COAItems';
 
 @Component({
   selector: 'app-wappen',
   templateUrl: './wappen.component.html',
   styleUrls: ['./wappen.component.css']
 })
-export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
-  private readonly _unsubscribe: Unsubscribe;
-  private registerLocationmessage: any;
-  private subscriptionBack: Subscription;
-  private subscriptionLocationid: Subscription;
-  private subscriptionNativeBackbutton: Subscription;
-
+export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked {
   public user: any;
   subscriptionCoaParts: Subscription;
   userCoaParts: any;
@@ -54,52 +48,23 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
     public router: Router,
     private languageService: LanguageService,
     private alertService: AlertService,
-    private translate: TranslateService,
-    public coaService: CoaService
-  ){
-    this._unsubscribe = this.appStore.subscribe(() =>{
-      const state = this.appStore.getState();
-      // console.log(state.user);
-    });
-
-    this.subscriptionUserCoaParts = this.alertService.getMessageUserCoaParts().subscribe(message => {
-      coaService.setUserCoaParts(message.data);
-      this.unlockedItems = coaService.unlockedItems;
-    });
-
-    this.subscriptionCoaColors = this.alertService.getMessageCoaColors().subscribe(message => {
-      this.allCoaColors = message;
-    });
-
-    this.subscriptionLocationid = this.alertService.getMessageLocationid().subscribe(message => {
-      this.registerLocationmessage = message;
-    });
-
-    this.subscriptionNativeBackbutton = this.alertService.getMessageNativeBackbutton().subscribe(() => {
-      const elm: HTMLElement = document.getElementById('closebutton') as HTMLElement;
-      if(elm){ elm.click(); }
-    });
-  }
+    private translate: TranslateService
+  ){}
 
   ngOnInit() {
-    const state = this.appStore.getState();
-    this.user = state.user;
-
-    this.itemsList = this.coaService.allCoaParts;  
+    this.itemsList = COAConfig.COA;
+    this.unlockedItems = this.itemsList;
     // console.log(this.itemsList); 
-    this.setShield = this.coaService.getActive(coaTypes.SHIELD);
+    this.setShield = 'Shield1';
     this.selectedShield = this.setShield;
-    this.setEmblem = this.coaService.getActive(coaTypes.SYMBOL);
+    this.setEmblem = 'Emblem2';
     this.selectedEmblem = this.setEmblem;
-    this.setHelmet = this.coaService.getActive(coaTypes.HELMET);
+    this.setHelmet = 'Helmet4';
     this.selectedHelmet = this.setHelmet;
-    this.setWeapon = this.coaService.getActive(coaTypes.MANTLING);
+    this.setWeapon = 'Mantle1';
     this.selectedWeapon = this.setWeapon;
-    this.setColorPrimary = 'Color' + this.user.primaryColor;
-    this.setColorSecondary = 'Color' + this.user.secondaryColor;
-    this.coaService.setColorPrimary = this.user.primaryColor;
-    this.coaService.setColorSecondary = this.user.secondaryColor;
-    this.coaService.dismissNewItem();
+    this.setColorPrimary = 'Color2';
+    this.setColorSecondary = 'Color4';
   }
 
   ngAfterViewInit(){
@@ -112,22 +77,6 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
       this.setSVGColors();
       this.updatePart = false;
     } 
-  }
-
-  ngOnDestroy() {
-    this._unsubscribe();
-    if (this.subscriptionBack){
-      this.subscriptionBack.unsubscribe();
-    }
-    if (this.subscriptionCoaParts){
-      this.subscriptionCoaParts.unsubscribe();
-    }
-    if (this.subscriptionUserCoaParts){
-      this.subscriptionUserCoaParts.unsubscribe();
-    }
-    if (this.subscriptionCoaColors){
-      this.subscriptionCoaColors.unsubscribe();
-    }
   }
 
   // Check if item is unlocked
@@ -235,12 +184,6 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
       this.settingsContent = id.toString();
       this.showSettings = true;
     }
-
-    switch(id){
-      case 'emblem': this.coaService.dismissNewEmblem(); break;
-      case 'helmet': this.coaService.dismissNewHelmet(); break;
-      case 'weapon': this.coaService.dismissNewWeapon(); break;
-    }
   }
 
   closeWappenSettings(){
@@ -253,14 +196,6 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked,
 
   closeHelp(){
     this.showHelp = false;
-  }
-
-  public saveCoa(){
-    if(this.saveBtnActive)
-    {
-    this.coaService.saveMyCoa(this.setShield, this.setEmblem, this.setHelmet, this.setWeapon, this.setColorPrimary, this.setColorSecondary);
-    this.saveBtnActive = false;
-    } 
   }
 
   public closeWindow(){

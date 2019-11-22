@@ -4,7 +4,6 @@ import { NativeResponseService } from '../../services/native/native-response.ser
 import { LocationService } from '../../services/location.service';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { AlertService } from '../../services/alert.service';
-import { CoaService } from '../../services/coa.service';
 import { LanguageService } from '../../services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -21,15 +20,6 @@ import * as LocationTypes from '../../config/LocationTypes';
 })
 @Injectable()
 export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecked {
-  private readonly _unsubscribe: Unsubscribe;
-  private registerLocationmessage: any;
-  private subscriptionBack: Subscription;
-  private subscriptionLocationid: Subscription;
-  private subscriptionCoaParts: Subscription;
-  private subscriptionUserCoaParts: Subscription;
-  private subscriptionSwipe: Subscription;
-  private subscriptionVersionCheck: Subscription;
-
   public user: any;
   public timelineLocations: any;
   public isWeb: boolean;
@@ -71,7 +61,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     private alertService: AlertService,
     private dialog: MatDialog,
     public router: Router,
-    public coaService: CoaService,
     public languageService: LanguageService
   ){}
 
@@ -399,13 +388,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   scroll() {
-    const loc = this.getLocation(this.registerLocationmessage.location);
-    if(loc){
-      if(loc.parentId !== this.currentSection){
-        this.displaySection(loc.parentId, true);
-      }
-      this.scrollTo(loc.id);
-    }
   }
 
   scrollTo(id: number) {

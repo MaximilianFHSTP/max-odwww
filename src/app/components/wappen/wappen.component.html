@@ -15,7 +15,7 @@
   </div> 
   <div *ngIf="showHelp" (click)="closeHelp()" class="wappenHelpOut"></div> 
       
-  <h1>{{ 'coa.title' | translate }}<br/>Demo User</h1>
+  <h1>{{ 'coa.title' | translate }}<br/>Visitor</h1>
 
   <div class="wappen">
       <!-- Weapon / Mantle / Mantling -->
@@ -221,21 +221,18 @@
                   
               </button>
               <p>{{ 'coa.charge' | translate }}</p>
-              <div class="wappenbuttonnew" *ngIf="coaService.newEmblem"></div>
             </li>
           <li [className]="showSettings && settingsContent == 'helmet' ? 'selected wappenSettingsNav_helmet' : 'wappenSettingsNav_helmet'">
               <button (click)="displaySettings('helmet')" [attr.aria-label]="ariaHelmetBtn">
                   
               </button>
               <p>{{ 'coa.helmet' | translate }}</p>
-              <div class="wappenbuttonnew" *ngIf="coaService.newHelmet"></div>
             </li>
           <li [className]="showSettings && settingsContent == 'weapon' ? 'selected wappenSettingsNav_weapon' : 'wappenSettingsNav_weapon'">
               <button (click)="displaySettings('weapon')" [attr.aria-label]="ariaWeaponBtn">
                   
               </button>
               <p>{{ 'coa.mantle' | translate }}</p>
-              <div class="wappenbuttonnew" *ngIf="coaService.newWeapon"></div>
             </li>
           <li [className]="showSettings && settingsContent == 'color' ? 'selected wappenSettingsNav_color' : 'wappenSettingsNav_color'">
               <button (click)="displaySettings('color')" [attr.aria-label]="ariaColorBtn">

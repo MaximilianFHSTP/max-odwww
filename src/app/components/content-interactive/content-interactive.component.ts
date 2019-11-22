@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import { Subscription } from 'rxjs';
 import { LanguageService } from '../../services/language.service';
-import { CoaService } from '../../services/coa.service';
 
 @Component({
   selector: 'app-content-interactive',
@@ -29,7 +28,6 @@ export class ContentInteractiveComponent implements OnInit {
   constructor(
     private locationService: LocationService,
     private router: Router,
-    private coaService: CoaService,
     public languageService: LanguageService,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore)
@@ -63,13 +61,11 @@ export class ContentInteractiveComponent implements OnInit {
   }
 
   playARPanels(){
-    this.coaService.tryUnlock(30);
     // Call AR for sunthaym panels
     this.nativeCommunicationService.sendToNative('triggerAR', 'triggerAR');
   }
 
   playARShrine(){
-    this.coaService.tryUnlock(40);
     // Call AR for shrine
     this.nativeCommunicationService.sendToNative('triggerAR', 'triggerAR');
   }

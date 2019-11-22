@@ -2,7 +2,6 @@ import {Component, OnInit, AfterViewInit, AfterViewChecked, OnDestroy, Inject} f
 import { LocationService } from '../../services/location.service';
 import {Unsubscribe} from 'redux';
 import {Subscription} from 'rxjs';
-import {CoaService} from '../../services/coa.service';
 import {Router} from '@angular/router';
 import { NativeCommunicationService } from '../../services/native/native-communication.service';
 import * as ContentTypes from '../../config/ContentTypes';
@@ -38,7 +37,6 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   constructor(
     private locationService: LocationService,
     public languageService: LanguageService,
-    private coaService: CoaService,
     public router: Router,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore
@@ -50,10 +48,6 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     this.updateLocationInformation(state.currentLocation);
     // console.log(this.location);
     this.location = this.locationService.getCurrentLocation();
-
-    if(this.location.id === 6000 || this.location.id === 6001){
-      this.coaService.tryUnlock(33);
-    }
   }
 
   ngAfterViewInit(){
@@ -151,13 +145,6 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   displayVersion(sectionId: string){
     this.currentSection = sectionId;
     this.changeVersion = true;
-
-    if(sectionId === 'sunthaym'){
-      this.coaService.tryUnlock(20);
-    } else if(sectionId === 'till'){
-      this.coaService.tryUnlock(41);
-    }
-    
   }
 
   getSectionIcon(sectionId: number){
