@@ -38,8 +38,8 @@
   <ul>
     <li (click)="openAboutView()">{{ 'app.menuAbout' | translate }}</li>
     <li (click)="openHelp()">{{ 'app.help' | translate }}</li>
-    <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">DEUTSCH</li>
-    <li *ngIf="guest == 1 && languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">ENGLISH</li>
+    <li *ngIf="languageService.getCurrentLanguageAsString() === 'en'" (click)="useLanguage('de')">DEUTSCH</li>
+    <li *ngIf="languageService.getCurrentLanguageAsString() === 'de'" (click)="useLanguage('en')">ENGLISH</li>
   </ul>
 </div>
 

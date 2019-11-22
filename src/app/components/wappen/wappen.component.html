@@ -1,10 +1,6 @@
 <div class="wrapper wappen-wrapper">
   <div class="toolbar">
       <button class="helpbutton" (click)="displayHelp()"><img alt="help" src="assets/icons/help.svg"></button>
-      <button [className]="saveBtnActive ? 'savebutton active' : 'savebutton'" (click)="saveCoa()">
-            <div><img src="assets/icons/save.svg"></div>
-            <p>{{ 'coa.save' | translate }}</p>
-        </button>
       <button id="closebutton" class="closebutton" (click)="closeWindow()"><img alt="exit" src="assets/icons/closewhite.svg"></button>
   </div> 
 

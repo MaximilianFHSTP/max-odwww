@@ -53,7 +53,8 @@ export class WappenComponent implements OnInit, AfterViewInit, AfterViewChecked 
 
   ngOnInit() {
     this.itemsList = COAConfig.COA;
-    this.unlockedItems = this.itemsList;
+    this.unlockedItems = ['Shield1','Shield2','Shield3','Shield4','Emblem2','Emblem5','Emblem1',
+    'Emblem6','Emblem3','Emblem4','Helmet1','Helmet2','Helmet3','Helmet4','Mantle1','Mantle2','Mantle3','Mantle4'];
     // console.log(this.itemsList); 
     this.setShield = 'Shield1';
     this.selectedShield = this.setShield;

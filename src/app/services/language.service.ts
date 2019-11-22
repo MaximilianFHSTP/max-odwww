@@ -16,14 +16,6 @@ export class LanguageService {
     @Inject('AppStore') private appStore,
   )
   {
-    this._unsubscribe = this.appStore.subscribe(() => {
-      const state = this.appStore.getState();
-      if(state.isLoggedIn && state.language !== this._currentLanguage)
-      {
-        this.updateTranslateService(state.language);
-        this._currentLanguage = state.language;
-      }
-    });
   }
 
   /**
@@ -34,6 +26,7 @@ export class LanguageService {
   public transmitChangeUserLanguage(lang: number)
   {
     this.updateTranslateService(lang);
+    this._currentLanguage = lang;
   }
 
   /**
