@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './components/about/about.component';
-import { AppSettingsComponent } from './components/app-settings/app-settings.component';
-import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
 import { ContentTableAtComponent } from './components/content-table-at/content-table-at.component';
@@ -13,21 +11,15 @@ import { ContentTableOnComponent } from './components/content-table-on/content-t
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
 import { HelpComponent } from './components/help/help.component';
 import { LanguageStartComponent } from './components/language-start/language-start.component';
-import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { QuestionnaireComponent } from './components/questionnaire/questionnaire.component';
 import { QuizComponent } from './components/quiz/quiz.component';
-import { RegisterComponent } from './components/register/register.component';
-import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { StartViewComponent } from './components/start-view/start-view.component';
 import { WappenComponent } from './components/wappen/wappen.component';
 
 const routes: Routes = [
   { path: '', component: StartViewComponent},
   { path: 'about', component: AboutComponent },
-  { path: 'appSettings', component: AppSettingsComponent },
-  { path: 'changecred', component: ChangeCredentialsComponent },
   { path: 'interactive', component: ContentInteractiveComponent },
   { path: 'passive', component: ContentPassiveComponent },
   { path: 'tableat', component: ContentTableAtComponent, runGuardsAndResolvers: 'always'},
@@ -37,12 +29,8 @@ const routes: Routes = [
   { path: 'educationQuiz', component: EducationQuizComponent },
   { path: 'help', component: HelpComponent },
   { path: 'changeLanguageStart', component: LanguageStartComponent},
-  { path: 'login', component: LoginComponent},
   { path: 'mainview', component: MainViewComponent },
-  { path: 'questionnaire', component: QuestionnaireComponent },
   { path: 'quiz', component: QuizComponent},
-  { path: 'register', component: RegisterComponent },
-  { path: 'registerRealUser', component: RegisterRealuserComponent},
   { path: 'wappen', component: WappenComponent },
   // additional routes here
   { path: '**', component: PageNotFoundComponent }

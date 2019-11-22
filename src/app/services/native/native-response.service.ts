@@ -125,7 +125,7 @@ export class NativeResponseService implements OnInit
   }
 
   public getWifiDataFromNative(message): void{
-    this.alertService.sendMessageCorrectWifi(message);
+
   }
 
   public checkVersion(): void {

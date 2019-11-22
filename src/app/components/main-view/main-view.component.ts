@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, Inject, AfterViewChecked, Injectable, OnDestroy} from '@angular/core';
-import { QuestionnaireDialogComponent } from '../questionnaire-dialog/questionnaire-dialog.component';
 import { MatDialog } from '@angular/material';
 import { NativeResponseService } from '../../services/native/native-response.service';
 import { LocationService } from '../../services/location.service';
@@ -231,7 +230,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   sortLocationData( ){
     // Ad hoc reordering and adjustments
     const mtimelineLocations = this.timelineLocations;
-    console.log(mtimelineLocations);
     let exhX;
 
     this.timelineLocations.forEach((exh, index) => {
@@ -345,7 +343,7 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
     });
   }
 
-  /* ------ Enter Exhibit View (check CoA and Wifi) ------- */
+  /* ------ Enter Exhibit View ------- */
 
   public requestRegisterLocation(id: number, parentId: number, typeId: number){
     if(id && parentId){
@@ -434,33 +432,6 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   /* ---------------- Questionnaire Dialog ---------------- */
 
-  displayQuestionnaire(){
-    this.router.navigate(['questionnaire']).then( () => {
-      window.scrollTo(0, 0);
-      this.nativeCommunicationService.sendToNative('Questionnaire', 'print');
-    });
-  }
-
-  displayQuestionnaireDialog(){
-    window.scrollTo(0, 0);
-    const dialogRef = this.dialog.open(QuestionnaireDialogComponent,
-      {data: { username: ''},
-        disableClose: true,
-        autoFocus: false
-      });
-    dialogRef.afterClosed().subscribe(result =>{
-      if(result === 'confirm'){
-        this.locationService.setEnableQuestions(false);
-        this.enabledQuestions = false;
-        this.displayQuestionnaire();
-      }else if(result === 'done'){
-        this.nativeResponseService.questionnaireAnswered();
-        this.locationService.setEnableQuestions(false);
-        this.enabledQuestions = false;
-      }
-    });
-  }
-
   get ariaSec1(): string { return this.translate.instant('ariaLabels.ariaSec1'); }
   get ariaSec2(): string { return this.translate.instant('ariaLabels.ariaSec2'); }
   get ariaSec3(): string { return this.translate.instant('ariaLabels.ariaSec3'); }
@@ -479,9 +450,5 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   public requestRegisterLocationTest(id: number, parentId: number){
     this.nativeResponseService.timelineUpdate({minor: id, major: parentId});
-  }
-
-  public checkWifiForWeb(){
-    this.nativeResponseService.getWifiDataFromGoD('');
   }
 }

@@ -12,12 +12,10 @@ import { CoaService } from '../../services/coa.service';
   templateUrl: './content-interactive.component.html',
   styleUrls: ['./content-interactive.component.css']
 })
-export class ContentInteractiveComponent implements OnInit, OnDestroy {
+export class ContentInteractiveComponent implements OnInit {
 
   public location: any;
   public locationStatusNotAtLocation = false;
-  private readonly _unsubscribe: Unsubscribe;
-  private _curLocSubscribe: Subscription;
   currentSection = 'maximilian';
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
@@ -35,16 +33,7 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
     public languageService: LanguageService,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore)
-  {
-    this._unsubscribe = this.appStore.subscribe(() => {
-      const state = this.appStore.getState();
-      this.updateLocationInformation(state.currentLocation);
-    });
-
-    this._curLocSubscribe = this.locationService.currentLocation.subscribe(value => {
-      this.location = value;
-    });
-  }
+  { }
 
   ngOnInit() {
     const state = this.appStore.getState();
@@ -83,11 +72,6 @@ export class ContentInteractiveComponent implements OnInit, OnDestroy {
     this.coaService.tryUnlock(40);
     // Call AR for shrine
     this.nativeCommunicationService.sendToNative('triggerAR', 'triggerAR');
-  }
-
-  ngOnDestroy() {
-    this._unsubscribe();
-    this._curLocSubscribe.unsubscribe();
   }
 
   displayVersion(sectionId: string) {

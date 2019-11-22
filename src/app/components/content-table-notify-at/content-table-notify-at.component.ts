@@ -27,17 +27,11 @@ export class ContentTableNotifyAtComponent implements OnInit {
   public locationStatusOffline: boolean;
   public locationType: number;
   public isJoinButtonUnlocked: boolean;
-  public correctWifi: string;
 
   private checkStatusTimer: any;
   public isWeb: boolean;
   public joinGame: boolean;
   public locationSocketStatus: undefined;
-
-  private readonly _unsubscribe: Unsubscribe;
-  private _statusTimerSubscription;
-  private _curLocSubscribe: Subscription;
-  private correctWifiSubscribe: Subscription;
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
     {code: 20, icon: 'DocumentSword', primaryColor: '#305978', secondaryColor: '#4b799c'},

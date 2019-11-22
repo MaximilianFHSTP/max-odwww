@@ -16,11 +16,9 @@ import * as d3 from 'd3';
   styleUrls: ['./content-passive.component.css']
   }
 )
-export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy
+export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterViewChecked
 {
   public location: any;
-  private readonly _unsubscribe: Unsubscribe;
-  private _curLocSubscribe: Subscription;
   currentSection = 'maximilian';
   sectionList = [
     {code: 10, icon: 'Trumpet', primaryColor: '#823a3a', secondaryColor: '#a85757'},
@@ -44,18 +42,7 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     public router: Router,
     private nativeCommunicationService: NativeCommunicationService,
     @Inject('AppStore') private appStore
-  ) {
-    this._unsubscribe = this.appStore.subscribe(() => {
-      const state = this.appStore.getState();
-      this.updateLocationInformation(state.currentLocation);
-    });
-
-    this._curLocSubscribe = this.locationService.currentLocation.subscribe(value =>
-    {
-      this.location = value;
-      // console.log(this.location);
-    });
-  }
+  ) { }
 
   ngOnInit()
   {
@@ -151,11 +138,6 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
   updateLocationInformation(value)
   {
     this.location = value;
-  }
-
-  ngOnDestroy() {
-    this._unsubscribe();
-    this._curLocSubscribe.unsubscribe();
   }
 
   registerLocationLike() {

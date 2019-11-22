@@ -89,8 +89,6 @@
   <ng-container  *ngFor="let loc of timelineLocations" >
     <button mat-raised-button class="control-button" color="primary" (click)="requestRegisterLocationTest(loc.id, loc.parentId)">{{loc.id}}/{{loc.parentId}}</button>
   </ng-container>
-
-  <button mat-raised-button class="control-button" color="secondary" (click)="checkWifiForWeb()">Check Wifi SSID</button>
 </div>
 
 <button id="ghostScrollbutton" class="hiddenbutton" (click)="scroll()">Ghost</button>

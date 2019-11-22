@@ -30,27 +30,19 @@ import { WindowRef } from './WindowRef';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
 import { AlertDialogComponent } from './components/alert-dialog/alert-dialog.component';
-import { AppSettingsComponent } from './components/app-settings/app-settings.component';
-import { ChangeCredentialsComponent } from './components/change-credentials/change-credentials.component';
 import { ContentInteractiveComponent } from './components/content-interactive/content-interactive.component';
 import { ContentPassiveComponent } from './components/content-passive/content-passive.component';
 import { ContentTableAtComponent } from './components/content-table-at/content-table-at.component';
 import { ContentTableNotifyAtComponent } from './components/content-table-notify-at/content-table-notify-at.component';
 import { ContentTableNotifyOnComponent } from './components/content-table-notify-on/content-table-notify-on.component';
 import { ContentTableOnComponent } from './components/content-table-on/content-table-on.component';
-import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { EducationQuizComponent } from './components/education-quiz/education-quiz.component';
 import { HelpComponent } from './components/help/help.component';
 import { LanguageStartComponent } from './components/language-start/language-start.component';
-import { LoginComponent } from './components/login/login.component';
 import { MainViewComponent } from './components/main-view/main-view.component';
 import { NativeSettingDialogComponent } from './components/native-setting-dialog/native-setting-dialog.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { QuestionnaireComponent } from './components/questionnaire/questionnaire.component';
-import { QuestionnaireDialogComponent } from './components/questionnaire-dialog/questionnaire-dialog.component';
 import { QuizComponent } from './components/quiz/quiz.component';
-import { RegisterComponent } from './components/register/register.component';
-import { RegisterRealuserComponent } from './components/register-realuser/register-realuser.component';
 import { StartViewComponent } from './components/start-view/start-view.component';
 import { WappenComponent } from './components/wappen/wappen.component';
 
@@ -75,28 +67,19 @@ export const appStore = createStore(
     AboutComponent,
     AlertDialogComponent,
     AppComponent,
-    AppSettingsComponent,
-    ChangeCredentialsComponent,
-    ChangeCredentialsComponent,
     ContentInteractiveComponent,
     ContentPassiveComponent,
     ContentTableAtComponent,
     ContentTableNotifyAtComponent,
     ContentTableNotifyOnComponent,
     ContentTableOnComponent,
-    DeleteDialogComponent,
     EducationQuizComponent,
     EducationQuizComponent,
     LanguageStartComponent,
-    LoginComponent,
     MainViewComponent,
     NativeSettingDialogComponent,
     PageNotFoundComponent,
-    QuestionnaireComponent,
-    QuestionnaireDialogComponent,
     QuizComponent,
-    RegisterComponent,
-    RegisterRealuserComponent,
     StartViewComponent,
     WappenComponent,
     HelpComponent
@@ -147,9 +130,7 @@ export const appStore = createStore(
   bootstrap: [AppComponent],
   entryComponents: [
     AlertDialogComponent,
-    NativeSettingDialogComponent,
-    DeleteDialogComponent,
-    QuestionnaireDialogComponent
+    NativeSettingDialogComponent
   ]
 })
 export class AppModule {
@@ -196,7 +177,7 @@ export class AppModule {
         break;
       }
       case 'send_wifi_ssid': {
-        this.nativeResponseService.getWifiDataFromGoD('checkAllSettings');
+
         break;
       }
       case 'send_correct_appSettings': {
@@ -204,8 +185,7 @@ export class AppModule {
         break;
       }
       case 'send_correct_wifi': {
-        console.log(value.toString());
-        this.nativeResponseService.getWifiDataFromNative(value);
+
         break;
       }
       case 'send_app_version': {
