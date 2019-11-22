@@ -55,7 +55,8 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     this.mContent = [];
     this.location.contents.forEach(content => {
       if(content.contentTypeId === ContentTypes.EVENT){
-        this.mContent.push({id: content.id, content: content.content, type: content.contentTypeId, year: content.year, top: 0});
+        this.mContent.push({id: content.id, content: content.content, contentGer: content.contentGer, 
+          type: content.contentTypeId, year: content.year, top: 0});
 
         // set timespan according to events
         if(this.eventStartDate === 0){
@@ -122,7 +123,9 @@ export class ContentPassiveComponent implements OnInit, AfterViewInit, AfterView
     d3.select('#timeline').selectAll('p').remove();
 
     this.mContent.forEach((content, index) => {
-      const text = d3.select('#timeline').append('p').text(content.content).style('position', 'absolute')
+      let contentText = '';
+      (this.languageService.getCurrentLanguageAsString() === 'de') ? contentText = content.contentGer : contentText = content.content;
+      const text = d3.select('#timeline').append('p').text(contentText).style('position', 'absolute')
       .style('left', '50px').style('top', (content.top + progressbar.offsetTop) +'px').style('font-family', 'sans-serif')
       .style('margin', this.pMargin + 'px 20px 0px 75px')
       .style('font-size', '0.8em').style('color', this.getSectionPrimaryColor(this.location.parentId));

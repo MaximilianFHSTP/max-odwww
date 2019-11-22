@@ -5,7 +5,8 @@
     <h1 *ngIf="languageService.getCurrentLanguageAsString() === 'de'">{{location.titleGER}}</h1>
 
     <div *ngFor="let cont of location.contents">
-      <p *ngIf="cont.contentTypeId == 1" class="cont{{cont.storyTellerId}}">{{cont.content}}</p>
+      <p *ngIf="cont.contentTypeId == 1 && languageService.getCurrentLanguageAsString() === 'en'" class="cont{{cont.storyTellerId}}">{{cont.content}}</p>
+      <p *ngIf="cont.contentTypeId == 1 && languageService.getCurrentLanguageAsString() === 'de'" class="cont{{cont.storyTellerId}}">{{cont.contentGer}}</p>
       <img *ngIf="cont.contentTypeId == 2" src="{{cont.content}}" />
     </div>    
 
