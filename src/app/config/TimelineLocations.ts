@@ -218,7 +218,7 @@ export let DATA = [{
     unlockCoa: true,
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
-    contentURL: 'interactive',
+    contentURL: 'certo eh 2nd', /*interactive*/
     contents: [{
        content: 'Look at this! One of the eight splendid Sunthaym Panels. These sheets of parchment tell the story of 75 members of the Babenberg Family, men and women that are introduced by an initial, a marvelous decorated first letter. The capital G is the first letter of the colophon, which is a brief dedication statement. Position your mobile phone above the big initials to read the text.',
        contentGer: '',
@@ -255,7 +255,7 @@ export let DATA = [{
     unlockCoa: true,
     updatedAt: '2019-09-10T21:34:01.000Z'
    },{
-    contentURL: 'tableNotifyAt',
+    contentURL: 'certo eh 1st', /* tableNotifyAt*/
     contents: [{
        content: 'Loyal subject, we love to be amused by miraculous storys. They keep us entertained while we are not out on a hunt. Go on, continue to please us with a good story. You shall be rewarded. As you know the Legend of the Veil is connected to the foundation of the Monastery of Klosterneuburg. Try to reenact it on this interaktive stage.',
        contentGer: 'Werter Untertan, wir hören gerne wundersame Geschichten. Dies vertreibt uns neben der Jagd unsere Zeit. Unterhalte uns mit einer spannenden Erzählung und du wirst belohnt! Um die Gründung des Stifts Klosterneuburg rankt sich die sogenannte "Schleierlegende". Versuche in diesem Spiel, diese Legende auf einer interaktiven Bühne nachzubauen!',

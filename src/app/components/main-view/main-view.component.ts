@@ -240,6 +240,14 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
         mtimelineLocations[exhX] =  exh;
       }
 
+      // Fix positioning of specific exhibits (403-402)
+      if(exh.id === 402){
+        exhX = index;
+      }else if(exhX && exh.id === 403){
+        mtimelineLocations[index] =  this.timelineLocations[exhX];
+        mtimelineLocations[exhX] =  exh;
+      }
+
       // Adjust Maximilian's death (6001)
       if(exh.id === 6001){
         mtimelineLocations[index].endDate = mtimelineLocations[index].startDate + 0.5;
