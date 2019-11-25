@@ -438,11 +438,11 @@ export class MainViewComponent implements OnInit, AfterViewInit, AfterViewChecke
   public requestRegisterLocation(id: number, parentId: number, typeId: number){
     if(id && parentId){
       if(id === 5001){  this.checkCoaUnlock();  }
-      if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT ||
+      /*if(typeId === LocationTypes.ACTIVE_EXHIBBIT_AT ||
          typeId === LocationTypes.ACTIVE_EXHIBIT_BEHAVIOR_AT ||
          typeId === LocationTypes.NOTIFY_EXHIBIT_AT){
         this.checkWifi();
-      }
+      }*/
 
       this.locationService.setPreviousState(this.currentSection, window.pageYOffset || document.documentElement.scrollTop);
       this.transmissionService.transmitLocationRegister({minor: id, major: parentId});

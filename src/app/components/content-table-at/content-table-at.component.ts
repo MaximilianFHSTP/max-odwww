@@ -34,7 +34,7 @@ export class ContentTableAtComponent implements OnInit, OnDestroy {
   public isWeb: boolean;
   public joinGame: boolean;
   public locationSocketStatus: undefined;
-  public correctWifi: string;
+  public correctWifi = 'true';
 
   private readonly _unsubscribe: Unsubscribe;
   private _statusTimerSubscription;

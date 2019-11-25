@@ -23,8 +23,8 @@
       <div *ngIf="locationStatusFree">
         <div *ngIf="locationType === 3">
           <p>{{ 'tableAt.tableFreeText' | translate }}</p>
-          <button *ngIf="joinGame && correctWifi == 'true'" (click)="startOnTableSearch()">A{{ 'tableAt.tableJoinButton' | translate }}</button>
-          <p *ngIf="joinGame && correctWifi == 'false'">{{ 'tableAt.notAtWifi' | translate }}</p>
+          <button *ngIf="joinGame" (click)="startOnTableSearch()">A{{ 'tableAt.tableJoinButton' | translate }}</button>
+
           <p *ngIf="!joinGame">{{ 'tableAt.beaconPutText' | translate }}</p>
           <p *ngIf="locationSocketStatus === 'OCCUPIED'">{{ 'tableAt.beaconOccupiedText' | translate }}</p>
           <div class="webdevtools" *ngIf="isWeb && !joinGame" style="margin-top:20px">
@@ -32,8 +32,8 @@
           </div>
         </div>
         <div *ngIf="locationType == 6">
-          <button *ngIf="joinGame && correctWifi == 'true'" ng-disabled="isJoinButtonUnlocked" (click)="redirectToOnTableBehavior()">{{ 'tableAt.tableJoinButton' | translate }}</button>
-          <p *ngIf="joinGame && correctWifi == 'false'">{{ 'tableAt.notAtWifi' | translate }}</p>
+          <button *ngIf="joinGame" ng-disabled="isJoinButtonUnlocked" (click)="redirectToOnTableBehavior()">{{ 'tableAt.tableJoinButton' | translate }}</button>
+
         </div>
       </div>
       <div *ngIf="locationStatusOccupied"><p>{{ 'tableAt.tableOccupiedText' | translate }}</p></div>
