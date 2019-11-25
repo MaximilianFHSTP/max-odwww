@@ -74,7 +74,6 @@ export class LocationService
       }
     }
 
-    console.log(timelineLocations);
     return timelineLocations;
   }
 
